@@ -9,6 +9,8 @@
 //the test code
 // Heesu Babo
 // 네
+// We don't speak no Americano
+
 
 // 전역 변수:
 HINSTANCE hInst;								// 현재 인스턴스입니다.
