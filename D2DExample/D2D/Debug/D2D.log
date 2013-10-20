@@ -1,0 +1,56 @@
+﻿빌드 시작: 2013-10-20 오후 3:59:13
+     1>2 노드의 "C:\Users\yanghyunchan\Desktop\D2DExample\D2D\D2D.vcxproj" 프로젝트(Build 대상)입니다.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt CustomObject.cpp CustomObjectExample.cpp InputExamle.cpp LabelExample.cpp Main.cpp NNApplication.cpp NNAudioSystem.cpp NND2DRenderer.cpp NNInputSystem.cpp NNLabel.cpp NNObject.cpp NNPoint.cpp NNResourceManager.cpp NNSceneDirector.cpp NNSize.cpp NNSound.cpp NNSprite.cpp NNTexture.cpp SoundExample.cpp SpriteExample.cpp TestScene.cpp
+         NNSprite.cpp
+         NNInputSystem.cpp
+         NNApplication.cpp
+         Main.cpp
+         코드를 생성하고 있습니다...
+         건너뛰고 있습니다... (관련된 변경 내용 없음)
+         TestScene.cpp
+         SpriteExample.cpp
+         SoundExample.cpp
+         NNTexture.cpp
+         NNSound.cpp
+         NNSize.cpp
+         NNSceneDirector.cpp
+         NNResourceManager.cpp
+         NNPoint.cpp
+         NNObject.cpp
+         NNLabel.cpp
+         NND2DRenderer.cpp
+         NNAudioSystem.cpp
+         LabelExample.cpp
+         InputExamle.cpp
+         CustomObjectExample.cpp
+         CustomObject.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\yanghyunchan\Desktop\D2DExample\Debug\D2D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\yanghyunchan\Desktop\D2DExample\Debug\D2D.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\yanghyunchan\Desktop\D2DExample\Debug\D2D.lib" /MACHINE:X86 Debug\CustomObject.obj
+         Debug\CustomObjectExample.obj
+         Debug\InputExamle.obj
+         Debug\LabelExample.obj
+         Debug\NNAudioSystem.obj
+         Debug\NND2DRenderer.obj
+         Debug\NNApplication.obj
+         Debug\NNInputSystem.obj
+         Debug\NNLabel.obj
+         Debug\NNObject.obj
+         Debug\NNPoint.obj
+         Debug\NNScene.obj
+         Debug\Main.obj
+         Debug\NNSize.obj
+         Debug\NNSound.obj
+         Debug\NNSprite.obj
+         Debug\NNSceneDirector.obj
+         Debug\NNTexture.obj
+         Debug\NNResourceManager.obj
+         Debug\SoundExample.obj
+         Debug\SpriteExample.obj
+         Debug\TestScene.obj
+         D2D.vcxproj -> C:\Users\yanghyunchan\Desktop\D2DExample\Debug\D2D.exe
+     1>"C:\Users\yanghyunchan\Desktop\D2DExample\D2D\D2D.vcxproj" 프로젝트를 빌드했습니다(Build 대상).
+
+빌드했습니다.
+
+경과 시간: 00:00:12.17
