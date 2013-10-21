@@ -29,7 +29,15 @@ NNCircle*  NNCircle::Create()
 NND2DCircle::NND2DCircle()
 	: m_pD2DRenderer(nullptr)
 {
-	m_ellipse.point;
+}
+
+NND2DCircle::NND2DCircle( float radius)
+{
+	m_radius = radius;
+	m_pD2DRenderer = static_cast<NND2DRenderer*>(NNApplication::GetInstance()->GetRenderer());
+
+	m_ellipse.point.x;
+	m_ellipse.point.y;
 	m_ellipse.radiusX;
 	m_ellipse.radiusY;
 }
@@ -46,8 +54,11 @@ void NND2DCircle::Destroy()
 
 void NND2DCircle::Render()
 {
+	//임시브러쉬
+	ID2D1SolidColorBrush * brush = NULL;
+
 	NNObject::Render();
 
 	m_pD2DRenderer->GetHwndRenderTarget()->SetTransform( m_Matrix );
-	m_pD2DRenderer->GetHwndRenderTarget()->DrawEllipse();
+	m_pD2DRenderer->GetHwndRenderTarget()->DrawEllipse(m_ellipse, brush);
 }
