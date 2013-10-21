@@ -28,6 +28,7 @@ public:
 
 public:
 	//static NNSprite* Create();
+	//왜 static으로 선언했을까?
 	static NNSprite* Create( std::wstring path );
 	virtual void Destroy() {}
 	virtual void Render() {}
