@@ -65,6 +65,9 @@
     <ClCompile Include="TestScene.cpp">
       <Filter>Example\Test</Filter>
     </ClCompile>
+    <ClCompile Include="NNCircle.cpp">
+      <Filter>Core\Node\Circle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -148,6 +151,9 @@
     <Filter Include="Example\Test">
       <UniqueIdentifier>{052638b5-06ac-43da-82c6-c679185bdbb9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Node\Circle">
+      <UniqueIdentifier>{a694774a-ea53-4bd1-86aa-4c4d4789dc7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NNObject.h">
@@ -227,6 +233,9 @@
     </ClInclude>
     <ClInclude Include="TestScene.h">
       <Filter>Example\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="NNCircle.h">
+      <Filter>Core\Node\Circle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
