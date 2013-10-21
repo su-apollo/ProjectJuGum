@@ -9,11 +9,12 @@ class NNCircle :
 {
 protected:
 	float m_ColorR, m_ColorG, m_ColorB;
+	float m_radius;
 	float m_Opacity;
 
 public:
 	NNCircle(void)
-		:m_ColorR(0.f), m_ColorG(0.f), m_ColorB(0.f), m_Opacity(1.f) {}
+		:m_radius(0.f), m_ColorR(0.f), m_ColorG(0.f), m_ColorB(0.f), m_Opacity(1.f) {}
 	virtual ~NNCircle(void) {}
 
 	static NNCircle* Create();
@@ -35,6 +36,7 @@ private:
 
 public:
 	NND2DCircle(void);
+	NND2DCircle( float radius );
 	virtual ~NND2DCircle(void);
 
 	void Destroy();
