@@ -38,8 +38,8 @@ NND2DCircle::NND2DCircle( float radius)
 
 	m_ellipse.point.x;
 	m_ellipse.point.y;
-	m_ellipse.radiusX;
-	m_ellipse.radiusY;
+	m_ellipse.radiusX = radius;
+	m_ellipse.radiusY = radius;
 }
 
 NND2DCircle::~NND2DCircle()
