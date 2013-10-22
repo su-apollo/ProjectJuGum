@@ -165,13 +165,12 @@ bool NNApplication::_CreateRenderer( RendererStatus renderStatus )
 	return true;
 }
 
-LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK NNApplication::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 {
 	//메세지 처리
 	switch( message )
 	{
 	case WM_DESTROY:
-		//DestroyWindow(hWnd);
 		ExitProcess(0);
 		PostQuitMessage(0);
 		return 0;
