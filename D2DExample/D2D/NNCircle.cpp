@@ -27,7 +27,7 @@ NNCircle*  NNCircle::Create( float radius )
 /*					NND2DCircle											*/
 //////////////////////////////////////////////////////////////////////////
 NND2DCircle::NND2DCircle()
-	: m_pD2DRenderer(nullptr)
+	: m_pD2DRenderer(nullptr), m_Brush(nullptr)
 {
 }
 
@@ -35,11 +35,12 @@ NND2DCircle::NND2DCircle( float radius)
 {
 	m_radius = radius;
 	m_pD2DRenderer = static_cast<NND2DRenderer*>(NNApplication::GetInstance()->GetRenderer());
+	m_pD2DRenderer->GetHwndRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(m_ColorR, m_ColorG, m_ColorB), &m_Brush);
 
-	m_ellipse.point.x = 0.f;
-	m_ellipse.point.y = 0.f;
-	m_ellipse.radiusX = radius;
-	m_ellipse.radiusY = radius;
+	m_Ellipse.point.x = 0.f;
+	m_Ellipse.point.y = 0.f;
+	m_Ellipse.radiusX = radius;
+	m_Ellipse.radiusY = radius;
 }
 
 NND2DCircle::~NND2DCircle()
@@ -54,12 +55,8 @@ void NND2DCircle::Destroy()
 
 void NND2DCircle::Render()
 {
-	//임시브러쉬
-	ID2D1SolidColorBrush * brush = NULL;
-	m_pD2DRenderer->GetHwndRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(0, 0, 0), &brush);
-
 	NNObject::Render();
 
 	m_pD2DRenderer->GetHwndRenderTarget()->SetTransform( m_Matrix );
-	m_pD2DRenderer->GetHwndRenderTarget()->DrawEllipse(m_ellipse, brush);
+	m_pD2DRenderer->GetHwndRenderTarget()->DrawEllipse(m_Ellipse, m_Brush);
 }
