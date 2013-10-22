@@ -17,7 +17,7 @@ public:
 		:m_radius(0.f), m_ColorR(0.f), m_ColorG(0.f), m_ColorB(0.f), m_Opacity(1.f) {}
 	virtual ~NNCircle(void) {}
 
-	static NNCircle* Create();
+	static NNCircle* Create( float radius );
 	virtual void Destroy() {}
 	virtual void Render() {}
 
