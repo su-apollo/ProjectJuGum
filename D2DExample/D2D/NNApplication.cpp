@@ -141,9 +141,8 @@ bool NNApplication::_CreateWindow( wchar_t* title, int width, int height )
 
 	RegisterClassEx( &wcex );
 
-	//DWORD style = WS_OVERLAPPED;
-	DWORD style = WS_BORDER;
-
+	DWORD style = WS_OVERLAPPED;
+	
 	m_Hwnd = CreateWindow( L"NNApplication", title, style, CW_USEDEFAULT, CW_USEDEFAULT,
 		width, height, NULL, NULL, m_hInstance, NULL);
 
