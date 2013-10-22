@@ -19,5 +19,6 @@ public:
 private:
 	NNObject m_testobject;
 
+	NNLabel* m_DifferentFontLabel;
 };
 
