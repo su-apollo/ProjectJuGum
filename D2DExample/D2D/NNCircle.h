@@ -25,6 +25,10 @@ public:
 	inline float GetOpacity() const { return m_Opacity; }
 
 	void SetOpacity( float opacity ) { m_Opacity = opacity; }
+	virtual void SetRed( float r ) { m_ColorR = r; }
+	virtual void SetGreen( float g ) { m_ColorG = g; }
+	virtual void SetBlue( float b ) { m_ColorB = b; }
+	virtual void SetColor( float r, float g, float b ) { m_ColorR = r; m_ColorG = g; m_ColorB = b; }
 };
 
 class NND2DCircle:
@@ -32,8 +36,8 @@ class NND2DCircle:
 {
 private:
 	NND2DRenderer * m_pD2DRenderer;
-	D2D1_ELLIPSE	m_ellipse;
-	ID2D1SolidColorBrush * m_brush;
+	D2D1_ELLIPSE	m_Ellipse;
+	ID2D1SolidColorBrush * m_Brush;
 
 public:
 	NND2DCircle(void);
@@ -42,4 +46,14 @@ public:
 
 	void Destroy();
 	void Render();
+
+public:
+	void SetRed( float r) { m_ColorR = r; m_Brush->SetColor(D2D1::ColorF(r/255.f,m_ColorG/255.f,m_ColorB/255.f)); }
+	void SetGreen( float g ) { m_ColorG = g; m_Brush->SetColor(D2D1::ColorF(m_ColorR/255.f,g/255.f,m_ColorB/255.f)); }
+	void SetBlue( float b ) { m_ColorB = b; m_Brush->SetColor(D2D1::ColorF(m_ColorR/255.f,m_ColorG/255.f,b/255.f)); }
+	void SetColor( float r, float g, float b )
+	{
+		m_ColorR = r; m_ColorG = g; m_ColorB = b;
+		m_Brush->SetColor(D2D1::ColorF(r/255.f,g/255.f,b/255.f));
+	}
 };
