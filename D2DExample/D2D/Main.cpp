@@ -7,6 +7,7 @@
 #include "SoundExample.h"
 #include "InputExample.h"
 #include "CustomObjectExample.h"
+#include "TestScene.h"
 
 int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nShowCmd )
 {
@@ -17,7 +18,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 
 	NNApplication* Application = NNApplication::GetInstance();
 
-	Application->Init( L"D2D Test", 1200, 700, D2D );
+	Application->Init( L"JuGums", 400, 600, D2D );
 
 	// Sprite Example
 	// NNSceneDirector::GetInstance()->ChangeScene( SpriteExample::Create() );
@@ -32,7 +33,10 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 	// NNSceneDirector::GetInstance()->ChangeScene( SoundExample::Create() );
 
 	// CustomObject Example
-	NNSceneDirector::GetInstance()->ChangeScene( CustomObjectExample::Create() );
+	// NNSceneDirector::GetInstance()->ChangeScene( CustomObjectExample::Create() );
+
+	// TestScene
+	NNSceneDirector::GetInstance()->ChangeScene( CTestScene::Create() );
 
 	Application->Run();
 	Application->Release();
