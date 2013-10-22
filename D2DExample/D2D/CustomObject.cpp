@@ -9,6 +9,10 @@ CustomObject::CustomObject()
 
 	m_Label = NNLabel::Create( L"¿ì¸®´Â ÇÑ ¸ö!", L"±Ã¼­Ã¼", 40.f );
 	AddChild( m_Label );
+
+	m_Circle = NNCircle::Create(40.f);
+	m_Circle->SetPosition(0.f, 100.f);
+	AddChild( m_Circle );
 }
 CustomObject::~CustomObject()
 {
