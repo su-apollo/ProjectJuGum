@@ -33,6 +33,7 @@ class NND2DCircle:
 private:
 	NND2DRenderer * m_pD2DRenderer;
 	D2D1_ELLIPSE	m_ellipse;
+	ID2D1SolidColorBrush * m_brush;
 
 public:
 	NND2DCircle(void);
