@@ -28,6 +28,7 @@ public:
 
 public:
 	bool Init( wchar_t* const title, int width, int height, RendererStatus renderStatus );
+	static LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam );
 	/* 파라메터에 따라 윈도우 프레임, 렌더러 생성 */
 	bool Release();
 
@@ -73,5 +74,5 @@ public:
 	inline float GetDeltaTime() const { return m_DeltaTime; }
 };
 
-static LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam );
+
 
