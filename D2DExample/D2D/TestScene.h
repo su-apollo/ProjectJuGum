@@ -19,6 +19,8 @@ public:
 private:
 	NNObject m_testobject;
 
-	NNLabel* m_DifferentFontLabel;
+	NNLabel* m_LogoLabel;
+	NNLabel* m_PlayMenuLabel;
+	NNLabel* m_QuitMenuLabel;
 };
 

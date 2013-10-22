@@ -3,21 +3,22 @@
 
 CTestScene::CTestScene(void)
 {
-	m_DifferentFontLabel = NNLabel::Create( L"JuGums", L"±Ã¼­Ã¼", 75.f );
-	m_DifferentFontLabel->SetPosition( 90.f, 30.f );
-	AddChild( m_DifferentFontLabel );
 
-	m_DifferentFontLabel = NNLabel::Create( L"ÁÖ°Ëµé", L"±Ã¼­Ã¼", 50.f );
-	m_DifferentFontLabel->SetPosition( 170.f, 105.f );
-	AddChild( m_DifferentFontLabel );
+	m_LogoLabel = NNLabel::Create( L"JuGums", L"±Ã¼­Ã¼", 75.f );
+	m_LogoLabel->SetPosition( 90.f, 30.f );
+	AddChild( m_LogoLabel );
 
-	m_DifferentFontLabel = NNLabel::Create( L"Play", L"±Ã¼­Ã¼", 40.f );
-	m_DifferentFontLabel->SetPosition( 160.f, 320.f );
-	AddChild( m_DifferentFontLabel );
+	m_LogoLabel = NNLabel::Create( L"ÁÖ°Ëµé", L"±Ã¼­Ã¼", 50.f );
+	m_LogoLabel->SetPosition( 170.f, 105.f );
+	AddChild( m_LogoLabel );
 
-	m_DifferentFontLabel = NNLabel::Create( L"Quit", L"±Ã¼­Ã¼", 40.f );
-	m_DifferentFontLabel->SetPosition( 160.f, 420.f );
-	AddChild( m_DifferentFontLabel );
+	m_PlayMenuLabel = NNLabel::Create( L"Play", L"±Ã¼­Ã¼", 40.f );
+	m_PlayMenuLabel->SetPosition( 160.f, 320.f );
+	AddChild( m_PlayMenuLabel );
+
+	m_QuitMenuLabel = NNLabel::Create( L"Quit", L"±Ã¼­Ã¼", 40.f );
+	m_QuitMenuLabel->SetPosition( 160.f, 420.f );
+	AddChild( m_QuitMenuLabel );
 }
 
 
@@ -32,4 +33,14 @@ void CTestScene::Render()
 
 void CTestScene::Update( float dTime )
 {
+	if ( NNInputSystem::GetInstance()->GetKeyState( VK_UP ) == KEY_DOWN )
+	{
+		m_PlayMenuLabel->SetColor( 255, 0, 0 );
+		m_QuitMenuLabel->SetColor( 0, 0, 0);
+	}
+	if ( NNInputSystem::GetInstance()->GetKeyState( VK_DOWN ) == KEY_DOWN )
+	{
+		m_PlayMenuLabel->SetColor( 0, 0, 0 );
+		m_QuitMenuLabel->SetColor( 255, 0, 0);
+	}
 }
