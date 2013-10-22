@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////////
 /*					NNCircle											*/
 //////////////////////////////////////////////////////////////////////////
-NNCircle*  NNCircle::Create()
+NNCircle*  NNCircle::Create( float radius )
 {
 	//뭘로 랜더하는지 값을 받아옴
 	static RendererStatus rendererStatus = NNApplication::GetInstance()->GetRendererStatus();
@@ -14,7 +14,7 @@ NNCircle*  NNCircle::Create()
 	switch ( rendererStatus )
 	{
 	case D2D:
-		pInstance = new NND2DCircle();
+		pInstance = new NND2DCircle( radius );
 		break;
 	default:
 		break;
@@ -36,8 +36,8 @@ NND2DCircle::NND2DCircle( float radius)
 	m_radius = radius;
 	m_pD2DRenderer = static_cast<NND2DRenderer*>(NNApplication::GetInstance()->GetRenderer());
 
-	m_ellipse.point.x;
-	m_ellipse.point.y;
+	m_ellipse.point.x = 0.f;
+	m_ellipse.point.y = 0.f;
 	m_ellipse.radiusX = radius;
 	m_ellipse.radiusY = radius;
 }
@@ -56,6 +56,7 @@ void NND2DCircle::Render()
 {
 	//임시브러쉬
 	ID2D1SolidColorBrush * brush = NULL;
+	m_pD2DRenderer->GetHwndRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(0, 0, 0), &brush);
 
 	NNObject::Render();
 
