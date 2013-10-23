@@ -77,6 +77,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CustomObject.cpp" />
     <ClCompile Include="CustomObjectExample.cpp" />
     <ClCompile Include="InputExamle.cpp" />
@@ -97,11 +98,14 @@
     <ClCompile Include="NNSceneDirector.cpp" />
     <ClCompile Include="NNTexture.cpp" />
     <ClCompile Include="NNResourceManager.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Playtest.cpp" />
     <ClCompile Include="SoundExample.cpp" />
     <ClCompile Include="SpriteExample.cpp" />
     <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="CustomObject.h" />
     <ClInclude Include="CustomObjectExample.h" />
     <ClInclude Include="InputExample.h" />
@@ -126,9 +130,14 @@
     <ClInclude Include="NNSceneDirector.h" />
     <ClInclude Include="NNResourceManager.h" />
     <ClInclude Include="NNTexture.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Playtest.h" />
     <ClInclude Include="SoundExample.h" />
     <ClInclude Include="SpriteExample.h" />
     <ClInclude Include="TestScene.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

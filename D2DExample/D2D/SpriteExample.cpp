@@ -14,7 +14,7 @@ SpriteExample::~SpriteExample()
 
 void SpriteExample::Render()
 {
-	NNObject::Render();
+	NNScene::Render();
 }
 void SpriteExample::Update( float dTime )
 {

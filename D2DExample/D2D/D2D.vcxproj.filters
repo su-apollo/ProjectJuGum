@@ -63,10 +63,19 @@
       <Filter>Example\CustomObject</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
-      <Filter>Example\Test</Filter>
+      <Filter>Example\MenuTest</Filter>
     </ClCompile>
     <ClCompile Include="NNCircle.cpp">
       <Filter>Core\Node\Circle</Filter>
+    </ClCompile>
+    <ClCompile Include="Playtest.cpp">
+      <Filter>Example\Playtest</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Example\Playtest</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Example\Playtest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,11 +157,14 @@
     <Filter Include="Example\CustomObject\Input">
       <UniqueIdentifier>{62623a13-cd0c-4e38-b21f-c405dc3243f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Example\Test">
-      <UniqueIdentifier>{052638b5-06ac-43da-82c6-c679185bdbb9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Node\Circle">
       <UniqueIdentifier>{a694774a-ea53-4bd1-86aa-4c4d4789dc7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Example\Playtest">
+      <UniqueIdentifier>{64c4b51b-4a2f-4919-a78d-1fa970669ae5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Example\MenuTest">
+      <UniqueIdentifier>{052638b5-06ac-43da-82c6-c679185bdbb9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -232,10 +244,22 @@
       <Filter>Example\CustomObject</Filter>
     </ClInclude>
     <ClInclude Include="TestScene.h">
-      <Filter>Example\Test</Filter>
+      <Filter>Example\MenuTest</Filter>
     </ClInclude>
     <ClInclude Include="NNCircle.h">
       <Filter>Core\Node\Circle</Filter>
     </ClInclude>
+    <ClInclude Include="Playtest.h">
+      <Filter>Example\Playtest</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Example\Playtest</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Example\Playtest</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
