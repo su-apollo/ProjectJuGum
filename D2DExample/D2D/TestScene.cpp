@@ -54,5 +54,7 @@ void CTestScene::Update( float dTime )
 	{
 		m_KeyOn = ++m_KeyOn % 3;
 	}
+
+	printf_s("point : %d\n", m_KeyOn);				// 콘솔 창 출력 예시.
 	m_MenuLabel[m_KeyOn]->SetColor( 255, 0, 0 );
 }
