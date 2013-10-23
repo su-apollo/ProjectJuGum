@@ -23,5 +23,8 @@ private:
 	NNLabel* m_LogoLabelKorean;
 	NNLabel* m_PlayMenuLabel;
 	NNLabel* m_QuitMenuLabel;
+	NNLabel* m_MenuLabel[2];
+
+	int m_KeyOn;
 };
 

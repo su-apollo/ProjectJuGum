@@ -19,6 +19,10 @@ CTestScene::CTestScene(void)
 	m_QuitMenuLabel = NNLabel::Create( L"Quit", L"±Ã¼­Ã¼", 40.f );
 	m_QuitMenuLabel->SetPosition( 160.f, 420.f );
 	AddChild( m_QuitMenuLabel );
+
+	m_KeyOn = 0;
+	m_MenuLabel[0] = m_PlayMenuLabel;
+	m_MenuLabel[1] = m_QuitMenuLabel;
 }
 
 
@@ -33,14 +37,20 @@ void CTestScene::Render()
 
 void CTestScene::Update( float dTime )
 {
+	m_MenuLabel[m_KeyOn]->SetColor( 0, 0, 0 );
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_UP ) == KEY_DOWN )
 	{
-		m_PlayMenuLabel->SetColor( 255, 0, 0 );
-		m_QuitMenuLabel->SetColor( 0, 0, 0);
+		if ( m_KeyOn > 0 )
+		{
+			--m_KeyOn;
+		}
 	}
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_DOWN ) == KEY_DOWN )
 	{
-		m_PlayMenuLabel->SetColor( 0, 0, 0 );
-		m_QuitMenuLabel->SetColor( 255, 0, 0);
+		if ( m_KeyOn < 1 )
+		{
+			++m_KeyOn;
+		}
 	}
+	m_MenuLabel[m_KeyOn]->SetColor( 255, 0, 0 );
 }
