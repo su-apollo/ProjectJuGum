@@ -1,7 +1,6 @@
 #pragma once
 #include "NNScene.h"
 #include "NNLabel.h"
-#include "NNObject.h"
 #include "NNInputSystem.h"
 #include "NNAudioSystem.h"
 
