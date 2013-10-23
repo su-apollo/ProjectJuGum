@@ -8,6 +8,7 @@
 #include "InputExample.h"
 #include "CustomObjectExample.h"
 #include "TestScene.h"
+#include "Playtest.h"
 
 int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nShowCmd )
 {
@@ -23,7 +24,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 
 	NNApplication* Application = NNApplication::GetInstance();
 
-	Application->Init( L"JuGums", 400, 600, D2D );
+	Application->Init( L"JuGums", 1000, 700, D2D );
 
 	// Sprite Example
 	// NNSceneDirector::GetInstance()->ChangeScene( SpriteExample::Create() );
@@ -40,8 +41,11 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 	// CustomObject Example
 	// NNSceneDirector::GetInstance()->ChangeScene( CustomObjectExample::Create() );
 
-	// TestScene
-	NNSceneDirector::GetInstance()->ChangeScene( CTestScene::Create() );
+	// TestMenuScene
+	// NNSceneDirector::GetInstance()->ChangeScene( CTestScene::Create() );
+
+	// Playtest
+	NNSceneDirector::GetInstance()->ChangeScene( CPlaytest::Create() );
 
 	Application->Run();
 	Application->Release();
