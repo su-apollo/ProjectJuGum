@@ -16,6 +16,11 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 	//_CrtSetBreakAlloc( );
 #endif
 
+	// for debugging
+	AllocConsole();
+	FILE* pStream;
+	freopen_s( &pStream, "CONOUT$", "wt", stdout );
+
 	NNApplication* Application = NNApplication::GetInstance();
 
 	Application->Init( L"JuGums", 400, 600, D2D );
@@ -40,6 +45,9 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 
 	Application->Run();
 	Application->Release();
+
+	// for debugging
+	FreeConsole();
 
 	return 0;
 }
