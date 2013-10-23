@@ -20,18 +20,18 @@ void CustomObjectExample::Update( float dTime )
 {
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_LEFT ) == KEY_PRESSED )
 	{
-		m_CustomObject->SetPosition( m_CustomObject->GetPosition() + NNPoint(-100.f,0.f) * dTime );
+		m_CustomObject->SetPosition( m_CustomObject->GetPosition() + NNPoint(-50.f,0.f) * dTime );
 	}
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_RIGHT ) == KEY_PRESSED )
 	{
-		m_CustomObject->SetPosition( m_CustomObject->GetPosition() + NNPoint(100.f,0.f) * dTime );
+		m_CustomObject->SetPosition( m_CustomObject->GetPosition() + NNPoint(50.f,0.f) * dTime );
 	}
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_UP ) == KEY_PRESSED )
 	{
-		m_CustomObject->SetPosition( m_CustomObject->GetPosition() + NNPoint(0.f,-100.f) * dTime );
+		m_CustomObject->SetPosition( m_CustomObject->GetPosition() + NNPoint(0.f,-50.f) * dTime );
 	}
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_DOWN ) == KEY_PRESSED )
 	{
-		m_CustomObject->SetPosition( m_CustomObject->GetPosition() + NNPoint(0.f,100.f) * dTime );
+		m_CustomObject->SetPosition( m_CustomObject->GetPosition() + NNPoint(0.f,50.f) * dTime );
 	}
 }
