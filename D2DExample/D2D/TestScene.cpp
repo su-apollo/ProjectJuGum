@@ -4,7 +4,8 @@
 CTestScene::CTestScene(void)
 {
 
-	m_LogoLabelEnglish = NNLabel::Create( L"JuGums", L"±Ã¼­Ã¼", 75.f );
+	m_LogoLabelEnglish = NNLabel::Create( L"JuGums", L"Something Strange", 75.f );
+	m_LogoLabelEnglish->SetColor( 255, 0, 0 );
 	m_LogoLabelEnglish->SetPosition( 90.f, 30.f );
 	AddChild( m_LogoLabelEnglish );
 
@@ -32,7 +33,7 @@ CTestScene::~CTestScene(void)
 
 void CTestScene::Render()
 {
-	NNObject::Render();
+	NNScene::Render();
 }
 
 void CTestScene::Update( float dTime )

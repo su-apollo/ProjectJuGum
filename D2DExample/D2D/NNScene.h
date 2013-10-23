@@ -20,6 +20,6 @@ public:
 		return pInstance;
 	}
 
-	void Render(){}
+	void Render(){ NNObject::Render(); }
 	void Update( float dTime ){}
 };
