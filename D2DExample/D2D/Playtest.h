@@ -15,7 +15,8 @@ public:
 	NNCREATE_FUNC(CPlaytest);
 
 private:
-	CPlayer * m_Player;
-	CBullet * m_Bullet;
+	CPlayer *	m_Player;
+	CBullet *	m_Bullet[5];
+	int			m_BulletIndex;
 };
 

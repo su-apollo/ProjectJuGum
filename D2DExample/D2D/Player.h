@@ -9,11 +9,12 @@ public:
 
 	void Render();
 	void Update( float dTime );
+	float GetSpeed(){ return m_speed; };
 
 	NNCREATE_FUNC(CPlayer);
 
 private:
 	NNCircle* m_Circle;
-
+	float m_speed;
 };
 

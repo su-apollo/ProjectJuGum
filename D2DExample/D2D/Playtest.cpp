@@ -1,7 +1,8 @@
 #include "Playtest.h"
 #include "NNInputSystem.h"
 
-CPlaytest::CPlaytest(void)
+CPlaytest::CPlaytest(void) : 
+	m_BulletIndex(0)
 {
 	m_Player = CPlayer::Create();
 	AddChild( m_Player );
@@ -19,28 +20,19 @@ void CPlaytest::Render()
 }
 void CPlaytest::Update( float dTime )
 {
-	if ( NNInputSystem::GetInstance()->GetKeyState( VK_SHIFT ) == KEY_DOWN )
+	if ( NNInputSystem::GetInstance()->GetKeyState( VK_SHIFT ) == KEY_DOWN && m_BulletIndex < 5 )
 	{
-		m_Bullet = CBullet::Create();
-		AddChild( m_Bullet );
+		m_Bullet[m_BulletIndex] = CBullet::Create();
+		AddChild( m_Bullet[m_BulletIndex] );
 
-		m_Bullet->SetPosition( m_Player->GetPosition() );
+		m_Bullet[m_BulletIndex]->SetPosition( m_Player->GetPosition() );
+		++m_BulletIndex;
 	}
 
-	if ( NNInputSystem::GetInstance()->GetKeyState( VK_LEFT ) == KEY_PRESSED )
+	for (int i = 0; i < m_BulletIndex; ++i)
 	{
-		m_Player->SetPosition( m_Player->GetPosition() + NNPoint(-50.f,0.f) * dTime );
+		m_Bullet[i]->Update(dTime);
 	}
-	if ( NNInputSystem::GetInstance()->GetKeyState( VK_RIGHT ) == KEY_PRESSED )
-	{
-		m_Player->SetPosition( m_Player->GetPosition() + NNPoint(50.f,0.f) * dTime );
-	}
-	if ( NNInputSystem::GetInstance()->GetKeyState( VK_UP ) == KEY_PRESSED )
-	{
-		m_Player->SetPosition( m_Player->GetPosition() + NNPoint(0.f,-50.f) * dTime );
-	}
-	if ( NNInputSystem::GetInstance()->GetKeyState( VK_DOWN ) == KEY_PRESSED )
-	{
-		m_Player->SetPosition( m_Player->GetPosition() + NNPoint(0.f,50.f) * dTime );
-	}
+	
+	m_Player->Update(dTime);
 }

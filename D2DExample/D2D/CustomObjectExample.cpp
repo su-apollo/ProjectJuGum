@@ -14,7 +14,7 @@ CustomObjectExample::~CustomObjectExample()
 
 void CustomObjectExample::Render()
 {
-	NNObject::Render();
+	NNScene::Render();
 }
 void CustomObjectExample::Update( float dTime )
 {
