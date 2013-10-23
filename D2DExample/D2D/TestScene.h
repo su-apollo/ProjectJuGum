@@ -19,7 +19,8 @@ public:
 private:
 	NNObject m_testobject;
 
-	NNLabel* m_LogoLabel;
+	NNLabel* m_LogoLabelEnglish;
+	NNLabel* m_LogoLabelKorean;
 	NNLabel* m_PlayMenuLabel;
 	NNLabel* m_QuitMenuLabel;
 };

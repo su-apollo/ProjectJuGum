@@ -4,13 +4,13 @@
 CTestScene::CTestScene(void)
 {
 
-	m_LogoLabel = NNLabel::Create( L"JuGums", L"±Ã¼­Ã¼", 75.f );
-	m_LogoLabel->SetPosition( 90.f, 30.f );
-	AddChild( m_LogoLabel );
+	m_LogoLabelEnglish = NNLabel::Create( L"JuGums", L"±Ã¼­Ã¼", 75.f );
+	m_LogoLabelEnglish->SetPosition( 90.f, 30.f );
+	AddChild( m_LogoLabelEnglish );
 
-	m_LogoLabel = NNLabel::Create( L"ÁÖ°Ëµé", L"±Ã¼­Ã¼", 50.f );
-	m_LogoLabel->SetPosition( 170.f, 105.f );
-	AddChild( m_LogoLabel );
+	m_LogoLabelKorean = NNLabel::Create( L"ÁÖ°Ëµé", L"±Ã¼­Ã¼", 50.f );
+	m_LogoLabelKorean->SetPosition( 170.f, 105.f );
+	AddChild( m_LogoLabelKorean );
 
 	m_PlayMenuLabel = NNLabel::Create( L"Play", L"±Ã¼­Ã¼", 40.f );
 	m_PlayMenuLabel->SetPosition( 160.f, 320.f );
