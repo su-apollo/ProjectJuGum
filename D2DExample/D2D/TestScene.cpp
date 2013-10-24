@@ -1,5 +1,7 @@
 #include "TestScene.h"
 #include "NNApplication.h"
+#include "Playtest.h"
+#include "CustomObjectExample.h"
 
 
 CTestScene::CTestScene(void)
@@ -47,20 +49,38 @@ void CTestScene::Render()
 
 void CTestScene::Update( float dTime )
 {
-	NNApplication* Application = NNApplication::GetInstance();
-	swprintf_s( m_FPS, _countof(m_FPS), L"FPS : %0.3f\n", Application->GetFPS() );
+	swprintf_s( m_FPS, _countof(m_FPS), L"FPS : %0.3f\n", NNApplication::GetInstance()->GetFPS() );
 	m_FPSLabel->SetString(m_FPS);
-	// printf_s("%f\n", Application->GetFPS());
+	
 	m_MenuLabel[m_KeyOn]->SetColor( 0, 0, 0 );
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_UP ) == KEY_DOWN
 		|| NNInputSystem::GetInstance()->GetKeyState( VK_LEFT ) == KEY_DOWN )
 	{
-		m_KeyOn = --m_KeyOn % 3;
+		--m_KeyOn;
 	}
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_DOWN ) == KEY_DOWN
 		|| NNInputSystem::GetInstance()->GetKeyState( VK_RIGHT ) == KEY_DOWN )
 	{
-		m_KeyOn = ++m_KeyOn % 3;
+		++m_KeyOn;
 	}
+	m_KeyOn = (m_KeyOn + MENU_LAST) % MENU_LAST;
 	m_MenuLabel[m_KeyOn]->SetColor( 255, 0, 0 );
+
+	if ( NNInputSystem::GetInstance()->GetKeyState( VK_RETURN ) == KEY_DOWN )
+	{
+		switch (m_KeyOn)
+		{
+		case PLAY:
+			NNSceneDirector::GetInstance()->ChangeScene( CPlaytest::Create() );
+			break;
+		case TEST:
+			NNSceneDirector::GetInstance()->ChangeScene( CustomObjectExample::Create() );
+			break;
+		case QUIT:
+			PostQuitMessage(0);
+			break;
+		default:
+			break;
+		}
+	}
 }

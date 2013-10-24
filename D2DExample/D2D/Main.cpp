@@ -39,10 +39,10 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 	// NNSceneDirector::GetInstance()->ChangeScene( SoundExample::Create() );
 
 	// CustomObject Example
-	 NNSceneDirector::GetInstance()->ChangeScene( CustomObjectExample::Create() );
+	// NNSceneDirector::GetInstance()->ChangeScene( CustomObjectExample::Create() );
 
 	// TestMenuScene
-	// NNSceneDirector::GetInstance()->ChangeScene( CTestScene::Create() );
+	 NNSceneDirector::GetInstance()->ChangeScene( CTestScene::Create() );
 
 	// Playtest
 	// NNSceneDirector::GetInstance()->ChangeScene( CPlaytest::Create() );

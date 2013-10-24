@@ -4,6 +4,14 @@
 #include "NNInputSystem.h"
 #include "NNAudioSystem.h"
 
+enum MENU_LIST
+{
+	PLAY,
+	TEST,
+	QUIT,
+	MENU_LAST,
+};
+
 class CTestScene : public NNScene
 {
 public:
@@ -28,6 +36,6 @@ private:
 	
 	wchar_t m_FPS[20];
 
-	int m_KeyOn;
+	unsigned int m_KeyOn;
 };
 
