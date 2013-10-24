@@ -24,6 +24,9 @@ private:
 	NNLabel* m_TestMenuLabel;
 	NNLabel* m_QuitMenuLabel;
 	NNLabel* m_MenuLabel[3];
+	NNLabel* m_FPSLabel;
+	
+	wchar_t m_FPS[20];
 
 	int m_KeyOn;
 };
