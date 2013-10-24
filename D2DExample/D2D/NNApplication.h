@@ -5,6 +5,10 @@
 #include "NND2DRenderer.h"
 #include "NNSceneDirector.h"
 #include "NNConfig.h"
+#include "NNInputSystem.h"
+#include "NNAudioSystem.h"
+#include "NNResourceManager.h"
+#include "ReturnScene.h"
 
 /* */
 /* NNApplication

@@ -6,7 +6,7 @@
 NNSceneDirector* NNSceneDirector::m_pInstance = nullptr;
 
 NNSceneDirector::NNSceneDirector()
-	: m_NowScene(nullptr)
+	: m_NowScene(nullptr), m_PrevScene(nullptr)
 {
 }
 NNSceneDirector::~NNSceneDirector()
@@ -35,26 +35,36 @@ void NNSceneDirector::ReleaseInstance()
 bool NNSceneDirector::Init()
 {
 	m_NowScene = nullptr;
+	m_PrevScene = nullptr;
 	return true;
 }
 
 bool NNSceneDirector::Release()
 {
 	SafeDelete( m_NowScene );
+	SafeDelete( m_PrevScene );
 	return true;
 }
 
 bool NNSceneDirector::ChangeScene( NNScene* scene )
 {
-	if ( m_NowScene == nullptr )
+	SafeDelete( m_PrevScene );
+	m_PrevScene = m_NowScene;
+	m_NowScene = scene;
+
+	return true;
+}
+bool NNSceneDirector::BackToPrevScene()
+{
+	if ( m_PrevScene == nullptr )
 	{
-		m_NowScene = scene;
+		return false;
 	}
-	else
-	{
-		SafeDelete( m_NowScene );
-		m_NowScene = scene;
-	}
+
+	NNScene* temp;
+	temp = m_NowScene;
+	m_NowScene = m_PrevScene;
+	m_PrevScene = temp;
 
 	return true;
 }

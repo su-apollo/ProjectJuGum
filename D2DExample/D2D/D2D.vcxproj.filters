@@ -77,6 +77,7 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Example\Playtest</Filter>
     </ClCompile>
+    <ClCompile Include="ReturnScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -258,6 +259,7 @@
     <ClInclude Include="Bullet.h">
       <Filter>Example\Playtest</Filter>
     </ClInclude>
+    <ClInclude Include="ReturnScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -9,6 +9,7 @@
 #include "CustomObjectExample.h"
 #include "TestScene.h"
 #include "Playtest.h"
+#include "ReturnScene.h"
 
 int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nShowCmd )
 {
@@ -46,6 +47,9 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 
 	// Playtest
 	// NNSceneDirector::GetInstance()->ChangeScene( CPlaytest::Create() );
+
+	// ReturnScene
+	// NNSceneDirector::GetInstance()->ChangeScene( CReturnScene::Create() );
 
 	Application->Run();
 	Application->Release();

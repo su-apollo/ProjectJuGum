@@ -25,6 +25,7 @@ public:
 	bool ChangeScene( NNScene* scene );
 	bool RenderScene();
 	bool UpdateScene( float dTime );
+	bool BackToPrevScene();
 
 
 private:
@@ -37,7 +38,7 @@ private:
 
 private:
 	NNScene* m_NowScene;
-
+	NNScene* m_PrevScene;
 };
 
 

@@ -52,6 +52,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -100,6 +101,7 @@
     <ClCompile Include="NNResourceManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Playtest.cpp" />
+    <ClCompile Include="ReturnScene.cpp" />
     <ClCompile Include="SoundExample.cpp" />
     <ClCompile Include="SpriteExample.cpp" />
     <ClCompile Include="TestScene.cpp" />
@@ -132,6 +134,7 @@
     <ClInclude Include="NNTexture.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Playtest.h" />
+    <ClInclude Include="ReturnScene.h" />
     <ClInclude Include="SoundExample.h" />
     <ClInclude Include="SpriteExample.h" />
     <ClInclude Include="TestScene.h" />

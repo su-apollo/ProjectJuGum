@@ -1,8 +1,6 @@
 
 #include "NNApplication.h"
-#include "NNInputSystem.h"
-#include "NNAudioSystem.h"
-#include "NNResourceManager.h"
+
 
 NNApplication* NNApplication::m_pInstance = nullptr;
 
@@ -114,7 +112,7 @@ bool NNApplication::Run()
 
 			if ( NNInputSystem::GetInstance()->GetKeyState( VK_ESCAPE ) == KEY_DOWN )
 			{
-				PostQuitMessage(0);
+				NNSceneDirector::GetInstance()->ChangeScene( CReturnScene::Create() );
 			}
 		}
 	}
