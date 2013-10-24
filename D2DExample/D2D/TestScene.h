@@ -33,9 +33,6 @@ private:
 
 	NNLabel* m_LogoLabelEnglish;
 	NNLabel* m_LogoLabelKorean;
-	NNLabel* m_PlayMenuLabel;
-	NNLabel* m_TestMenuLabel;
-	NNLabel* m_QuitMenuLabel;
 	NNLabel* m_MenuLabel[3];
 	NNLabel* m_FPSLabel;
 	

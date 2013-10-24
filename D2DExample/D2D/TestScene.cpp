@@ -11,26 +11,23 @@ CTestScene::CTestScene(void)
 	m_LogoLabelKorean->SetPosition( 170.f, 105.f );
 	AddChild( m_LogoLabelKorean );
 
-	m_PlayMenuLabel = NNLabel::Create( L"Play", L"±Ã¼­Ã¼", 40.f );
-	m_PlayMenuLabel->SetPosition( 160.f, 300.f );
-	AddChild( m_PlayMenuLabel );
+	m_MenuLabel[MENU_PLAY] = NNLabel::Create( L"Play", L"±Ã¼­Ã¼", 40.f );
+	m_MenuLabel[MENU_PLAY]->SetPosition( 160.f, 300.f );
+	AddChild( m_MenuLabel[MENU_PLAY] );
 
-	m_TestMenuLabel = NNLabel::Create( L"test", L"±Ã¼­Ã¼", 40.f );
-	m_TestMenuLabel->SetPosition( 160.f, 360.f );
-	AddChild( m_TestMenuLabel );
+	m_MenuLabel[MENU_TEST] = NNLabel::Create( L"Test", L"±Ã¼­Ã¼", 40.f );
+	m_MenuLabel[MENU_TEST]->SetPosition( 160.f, 362.f );
+	AddChild( m_MenuLabel[MENU_TEST] );
 
-	m_QuitMenuLabel = NNLabel::Create( L"Quit", L"±Ã¼­Ã¼", 40.f );
-	m_QuitMenuLabel->SetPosition( 160.f, 420.f );
-	AddChild( m_QuitMenuLabel );
+	m_MenuLabel[MENU_QUIT] = NNLabel::Create( L"Quit", L"±Ã¼­Ã¼", 40.f );
+	m_MenuLabel[MENU_QUIT]->SetPosition( 160.f, 420.f );
+	AddChild( m_MenuLabel[MENU_QUIT] );
 
 	m_FPSLabel = NNLabel::Create( L"FPS : ", L"¸¼Àº °íµñ", 20.f );
 	m_FPSLabel->SetPosition( 0.f, 0.f );
 	AddChild( m_FPSLabel );
 
 	m_KeyOn = 0;
-	m_MenuLabel[MENU_PLAY] = m_PlayMenuLabel;
-	m_MenuLabel[MENU_TEST] = m_TestMenuLabel;
-	m_MenuLabel[MENU_QUIT] = m_QuitMenuLabel;
 }
 
 
