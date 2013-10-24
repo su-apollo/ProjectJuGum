@@ -4,11 +4,16 @@
 #include "NNInputSystem.h"
 #include "NNAudioSystem.h"
 
+#include "NNApplication.h"
+#include "Playtest.h"
+#include "CustomObjectExample.h"
+
+
 enum MENU_LIST
 {
-	PLAY,
-	TEST,
-	QUIT,
+	MENU_PLAY,
+	MENU_TEST,
+	MENU_QUIT,
 	MENU_LAST,
 };
 

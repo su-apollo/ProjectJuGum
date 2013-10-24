@@ -1,13 +1,9 @@
 #include "TestScene.h"
-#include "NNApplication.h"
-#include "Playtest.h"
-#include "CustomObjectExample.h"
 
 
 CTestScene::CTestScene(void)
 {
 	m_LogoLabelEnglish = NNLabel::Create( L"JuGums", L"Something Strange", 75.f );
-	m_LogoLabelEnglish->SetColor( 255, 0, 0 );
 	m_LogoLabelEnglish->SetPosition( 90.f, 30.f );
 	AddChild( m_LogoLabelEnglish );
 	
@@ -32,9 +28,9 @@ CTestScene::CTestScene(void)
 	AddChild( m_FPSLabel );
 
 	m_KeyOn = 0;
-	m_MenuLabel[0] = m_PlayMenuLabel;
-	m_MenuLabel[1] = m_TestMenuLabel;
-	m_MenuLabel[2] = m_QuitMenuLabel;
+	m_MenuLabel[MENU_PLAY] = m_PlayMenuLabel;
+	m_MenuLabel[MENU_TEST] = m_TestMenuLabel;
+	m_MenuLabel[MENU_QUIT] = m_QuitMenuLabel;
 }
 
 
@@ -70,13 +66,13 @@ void CTestScene::Update( float dTime )
 	{
 		switch (m_KeyOn)
 		{
-		case PLAY:
+		case MENU_PLAY:
 			NNSceneDirector::GetInstance()->ChangeScene( CPlaytest::Create() );
 			break;
-		case TEST:
+		case MENU_TEST:
 			NNSceneDirector::GetInstance()->ChangeScene( CustomObjectExample::Create() );
 			break;
-		case QUIT:
+		case MENU_QUIT:
 			PostQuitMessage(0);
 			break;
 		default:
