@@ -20,4 +20,6 @@ public:
 	void Update( float dTime );
 
 	NNCREATE_FUNC(CustomObject);
+private:
+	float m_Speed;
 };
