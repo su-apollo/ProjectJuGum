@@ -1,6 +1,7 @@
 
 #include "CustomObject.h"
 #include "NNInputSystem.h"
+#include "NNApplication.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -32,13 +33,15 @@ void CustomObject::Update( float dTime )
 	// 원래 하려고 했던 방법
 	// 창 범위 벗어나지 않게 하는 것도 한꺼번에 가능........... 여기서 처리 할 필요없나? 필요없으면 if 지워주면 됨.
 	double x=0, y=0;
+	NNApplication* Application = NNApplication::GetInstance();
+
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_LEFT ) == KEY_PRESSED )
 	{
 		if (GetPositionX() > 0) x -= 50;
 	}
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_RIGHT ) == KEY_PRESSED )
 	{
-		if (GetPositionX() < 730) x += 50;
+		if (GetPositionX() < Application->GetScreenWidth()) x += 50;
 	}
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_UP ) == KEY_PRESSED )
 	{
@@ -46,7 +49,7 @@ void CustomObject::Update( float dTime )
 	}
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_DOWN ) == KEY_PRESSED )
 	{
-		if (GetPositionY() < 350) y += 50;
+		if (GetPositionY() < Application->GetScreenHeight()) y += 50;
 	}
 
 	if ( x * y != 0 )
