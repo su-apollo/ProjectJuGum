@@ -57,7 +57,7 @@
       <Filter>Example\CustomObject</Filter>
     </ClCompile>
     <ClCompile Include="InputExamle.cpp">
-      <Filter>Example\CustomObject\Input</Filter>
+      <Filter>Example\Input</Filter>
     </ClCompile>
     <ClCompile Include="CustomObject.cpp">
       <Filter>Example\CustomObject</Filter>
@@ -77,7 +77,9 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Example\Playtest</Filter>
     </ClCompile>
-    <ClCompile Include="ReturnScene.cpp" />
+    <ClCompile Include="ReturnScene.cpp">
+      <Filter>Example\ReturnScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -155,9 +157,6 @@
     <Filter Include="Example\Sprite">
       <UniqueIdentifier>{37bc7267-9cc8-4db2-9539-e6dc9e57f538}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Example\CustomObject\Input">
-      <UniqueIdentifier>{62623a13-cd0c-4e38-b21f-c405dc3243f1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Node\Circle">
       <UniqueIdentifier>{a694774a-ea53-4bd1-86aa-4c4d4789dc7e}</UniqueIdentifier>
     </Filter>
@@ -166,6 +165,12 @@
     </Filter>
     <Filter Include="Example\MenuTest">
       <UniqueIdentifier>{052638b5-06ac-43da-82c6-c679185bdbb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Example\ReturnScene">
+      <UniqueIdentifier>{626355f2-a0af-4a84-9066-62d9684626ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Example\Input">
+      <UniqueIdentifier>{62623a13-cd0c-4e38-b21f-c405dc3243f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -230,7 +235,7 @@
       <Filter>Example\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="InputExample.h">
-      <Filter>Example\CustomObject\Input</Filter>
+      <Filter>Example\Input</Filter>
     </ClInclude>
     <ClInclude Include="LabelExample.h">
       <Filter>Example\Label</Filter>
@@ -259,7 +264,9 @@
     <ClInclude Include="Bullet.h">
       <Filter>Example\Playtest</Filter>
     </ClInclude>
-    <ClInclude Include="ReturnScene.h" />
+    <ClInclude Include="ReturnScene.h">
+      <Filter>Example\ReturnScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
