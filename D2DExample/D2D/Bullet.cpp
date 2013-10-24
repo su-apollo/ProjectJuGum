@@ -7,7 +7,7 @@ CBullet::CBullet(void)
 	m_Circle->SetPosition(0.f, 100.f);
 	AddChild( m_Circle );
 
-	m_speed = 50.f;
+	m_speed = 500.f;
 }
 
 CBullet::~CBullet(void)
