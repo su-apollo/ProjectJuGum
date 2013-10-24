@@ -12,6 +12,15 @@
 
 class NNResourceManager
 {
+
+public:
+	static NNResourceManager* GetInstance();
+	static void ReleaseInstance();
+
+	//NNTexture* LoadTexture( std::string key );
+	NNTexture* LoadTextureFromFile( std::wstring path );
+
+
 private:
 	static NNResourceManager* m_pInstance;
 
@@ -21,13 +30,6 @@ private:
 private:
 	NNResourceManager();
 	~NNResourceManager();
-
-public:
-	static NNResourceManager* GetInstance();
-	static void ReleaseInstance();
-
-	//NNTexture* LoadTexture( std::string key );
-	NNTexture* LoadTextureFromFile( std::wstring path );
 };
 
 

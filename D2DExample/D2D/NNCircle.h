@@ -7,10 +7,6 @@
 class NNCircle :
 	public NNObject
 {
-protected:
-	float m_ColorR, m_ColorG, m_ColorB;
-	float m_radius;
-	float m_Opacity;
 
 public:
 	NNCircle(void)
@@ -29,16 +25,17 @@ public:
 	virtual void SetGreen( float g ) { m_ColorG = g; }
 	virtual void SetBlue( float b ) { m_ColorB = b; }
 	virtual void SetColor( float r, float g, float b ) { m_ColorR = r; m_ColorG = g; m_ColorB = b; }
+
+
+protected:
+	float m_ColorR, m_ColorG, m_ColorB;
+	float m_radius;
+	float m_Opacity;
 };
 
 class NND2DCircle:
 	public NNCircle
 {
-private:
-	NND2DRenderer * m_pD2DRenderer;
-	D2D1_ELLIPSE	m_Ellipse;
-	ID2D1SolidColorBrush * m_Brush;
-
 public:
 	NND2DCircle(void);
 	NND2DCircle( float radius );
@@ -56,4 +53,11 @@ public:
 		m_ColorR = r; m_ColorG = g; m_ColorB = b;
 		m_Brush->SetColor(D2D1::ColorF(r/255.f,g/255.f,b/255.f));
 	}
+
+
+private:
+	NND2DRenderer * m_pD2DRenderer;
+	D2D1_ELLIPSE	m_Ellipse;
+	ID2D1SolidColorBrush * m_Brush;
+
 };

@@ -18,6 +18,16 @@ enum KeyState
 
 class NNInputSystem
 {
+
+public:
+	static NNInputSystem* GetInstance();
+	static void ReleaseInstance();
+
+public:
+	void UpdateKeyState();
+	KeyState GetKeyState( int key );
+
+
 private:
 	static NNInputSystem* m_pInstance;
 
@@ -28,14 +38,6 @@ private:
 private:
 	bool m_PrevKeyState[256];
 	bool m_NowKeyState[256];
-
-public:
-	static NNInputSystem* GetInstance();
-	static void ReleaseInstance();
-
-public:
-	void UpdateKeyState();
-	KeyState GetKeyState( int key );
 };
 
 

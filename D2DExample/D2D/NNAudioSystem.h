@@ -16,20 +16,10 @@
 
 class NNAudioSystem
 {
-private:
-	static NNAudioSystem* m_pInstance;
-
-private:
-	NNAudioSystem();
-	~NNAudioSystem();
-
 public:
 	static NNAudioSystem* GetInstance();
 	static void ReleaseInstance();
 
-private:
-	NNSound* m_BackgroundSound;
-	std::map<std::string, NNSound*> m_EffectSoundTable;
 
 public:
 	/*		Background	*/
@@ -53,6 +43,19 @@ public:
 public:
 	inline NNSound* GetBackgroundSound() const { return m_BackgroundSound; }
 	inline NNSound* GetEffectSound( std::string key ) /*const*/ { return m_EffectSoundTable[key]; }
+
+
+private:
+	static NNAudioSystem* m_pInstance;
+
+private:
+	NNAudioSystem();
+	~NNAudioSystem();
+
+private:
+	NNSound* m_BackgroundSound;
+	std::map<std::string, NNSound*> m_EffectSoundTable;
+
 };
 
 

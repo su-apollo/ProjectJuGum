@@ -8,10 +8,6 @@
 
 class NNPoint
 {
-private:
-	float m_X;
-	float m_Y;
-
 public:
 	NNPoint() 
 		: m_X(0.f), m_Y(0.f) {}
@@ -48,6 +44,12 @@ public:
 	void SetPoint( NNPoint& point ) { *this = point; }
 	void SetX( float x ) { m_X = x; }
 	void SetY( float y ) { m_Y = y; }
+
+
+private:
+	float m_X;
+	float m_Y;
+
 };
 
 

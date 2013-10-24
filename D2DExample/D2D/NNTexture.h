@@ -12,8 +12,6 @@
 
 class NNTexture
 {
-protected:
-	std::wstring m_Path;
 
 public:
 	NNTexture(){}
@@ -22,14 +20,14 @@ public:
 	//virtual NNTexture* Create() = 0;
 	static NNTexture* Create( std::wstring path );
 	virtual void Destroy() = 0;
+
+
+protected:
+	std::wstring m_Path;
 };
 
 class NND2DTexture : public NNTexture
 {
-private:
-	static IWICImagingFactory* g_pWICFactory;
-	ID2D1Bitmap* m_D2DBitmap;
-	IWICFormatConverter* m_FmtConverter;
 
 public:
 	NND2DTexture();
@@ -42,6 +40,12 @@ public:
 
 public:
 	inline ID2D1Bitmap* GetD2DBitmap() const { return m_D2DBitmap; }
+
+
+private:
+	static IWICImagingFactory* g_pWICFactory;
+	ID2D1Bitmap* m_D2DBitmap;
+	IWICFormatConverter* m_FmtConverter;
 };
 
 

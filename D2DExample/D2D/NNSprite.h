@@ -14,11 +14,6 @@
 
 class NNSprite : public NNObject
 {
-protected:
-	float m_ImageWidth;
-	float m_ImageHeight;
-	float m_ColorR, m_ColorG, m_ColorB;
-	float m_Opacity;
 public:
 	NNSprite()
 		: m_ImageWidth(0.f), m_ImageHeight(0.f),
@@ -40,13 +35,17 @@ public:
 	void SetImageWidth( float width ) { m_ImageWidth = width; }
 	void SetImageHeight( float height ) { m_ImageHeight = height; }
 	void SetOpacity( float opacity ) { m_Opacity = opacity; }
+
+
+protected:
+	float m_ImageWidth;
+	float m_ImageHeight;
+	float m_ColorR, m_ColorG, m_ColorB;
+	float m_Opacity;
 };
 
 class NND2DSprite : public NNSprite
 {
-private:
-	NND2DRenderer* m_pD2DRenderer;
-	NND2DTexture* m_pD2DTexture;
 
 public:
 	NND2DSprite();
@@ -55,4 +54,9 @@ public:
 
 	void Destroy();
 	void Render();
+
+
+private:
+	NND2DRenderer* m_pD2DRenderer;
+	NND2DTexture* m_pD2DTexture;
 };

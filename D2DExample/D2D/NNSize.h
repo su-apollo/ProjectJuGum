@@ -5,10 +5,6 @@
 
 class NNSize
 {
-private:
-	float m_Width;
-	float m_Height;
-
 public:
 	NNSize() 
 		: m_Width(0.f), m_Height(0.f) {}
@@ -36,6 +32,12 @@ public:
 		m_Height = height;
 	}
 	void SetSize( NNSize& size ) { *this = size; }
+
+
+private:
+	float m_Width;
+	float m_Height;
+
 };
 
 

@@ -25,22 +25,6 @@ public:
 	virtual void Render();
 	virtual void Update( float dTime );
 
-private:
-	void SortingChildByZindex();
-	
-protected:
-	NNObject* m_pParent;
-	std::list<NNObject*> m_ChildList;
-
-protected:
-	D2D1::Matrix3x2F m_Matrix;
-	NNPoint m_Position;
-	NNPoint m_Center;
-	float m_ScaleX;
-	float m_ScaleY;
-	float m_Rotation; // Degree
-	int m_Zindex;
-	bool m_Visible;
 
 public:
 	NNObject* GetParent() { return m_pParent; }
@@ -78,6 +62,26 @@ public:
 	void SetRotation( float rotation ) { m_Rotation = rotation; }
 	void SetZindex( int zindex ) { m_Zindex = zindex; }
 	void SetVisible( bool visible ) { m_Visible = visible; }
+
+
+
+protected:
+	NNObject* m_pParent;
+	std::list<NNObject*> m_ChildList;
+
+protected:
+	D2D1::Matrix3x2F m_Matrix;
+	NNPoint m_Position;
+	NNPoint m_Center;
+	float m_ScaleX;
+	float m_ScaleY;
+	float m_Rotation; // Degree
+	int m_Zindex;
+	bool m_Visible;
+
+
+private:
+	void SortingChildByZindex();
 };
 
 

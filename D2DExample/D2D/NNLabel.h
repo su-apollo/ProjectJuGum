@@ -11,15 +11,6 @@
 
 class NNLabel : public NNObject
 {
-protected:
-	wchar_t* m_FontFace;
-	wchar_t* m_String;
-	float m_FontSize;
-	float m_ColorR, m_ColorG, m_ColorB;
-	float m_Opacity;
-	bool m_Bold;
-	bool m_Italic;
-
 public:
 	NNLabel()
 		: m_FontFace(nullptr), m_String(nullptr), m_FontSize(0.f),
@@ -53,16 +44,21 @@ public:
 	virtual void SetColor( float r, float g, float b ) { m_ColorR = r; m_ColorG = g; m_ColorB = b; }
 	virtual void SetOpacity( float opacity ) { m_Opacity = opacity; }
 	virtual void SetRGBA( float r, float g, float b, float a ) { m_ColorR = r; m_ColorG = g; m_ColorB = b; m_Opacity = a; }
+
+
+protected:
+	wchar_t* m_FontFace;
+	wchar_t* m_String;
+	float m_FontSize;
+	float m_ColorR, m_ColorG, m_ColorB;
+	float m_Opacity;
+	bool m_Bold;
+	bool m_Italic;
+
 };
 
 class NND2DLabel : public NNLabel
 {
-private:
-	NND2DRenderer* m_pD2DRenderer;
-
-	IDWriteFactory* m_DWriteFactory;
-	IDWriteTextFormat* m_TextFormat;
-	ID2D1SolidColorBrush* m_Brush;
 
 public:
 	NND2DLabel();
@@ -71,8 +67,6 @@ public:
 
 	void Destroy();
 	void Render();
-private:
-	void SetTextFormat();
 
 public:
 	void SetFontSize( float fontsize ) { m_FontSize = fontsize; SetTextFormat(); }
@@ -95,6 +89,17 @@ public:
 		m_Brush->SetColor(D2D1::ColorF(r/255.f,g/255.f,b/255.f));
 		m_Brush->SetOpacity(a);
 	}
+
+
+private:
+	NND2DRenderer* m_pD2DRenderer;
+
+	IDWriteFactory* m_DWriteFactory;
+	IDWriteTextFormat* m_TextFormat;
+	ID2D1SolidColorBrush* m_Brush;
+
+private:
+	void SetTextFormat();
 };
 
 

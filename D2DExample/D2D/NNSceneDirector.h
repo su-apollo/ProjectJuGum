@@ -12,19 +12,10 @@
 
 class NNSceneDirector
 {
-private:
-	static NNSceneDirector* m_pInstance;
-
-private:
-	NNSceneDirector();
-	~NNSceneDirector();
 
 public:
 	static NNSceneDirector* GetInstance();
 	static void ReleaseInstance();
-
-private:
-	NNScene* m_NowScene;
 
 public:
 	bool Init();
@@ -34,6 +25,19 @@ public:
 	bool ChangeScene( NNScene* scene );
 	bool RenderScene();
 	bool UpdateScene( float dTime );
+
+
+private:
+	static NNSceneDirector* m_pInstance;
+
+private:
+	NNSceneDirector();
+	~NNSceneDirector();
+
+
+private:
+	NNScene* m_NowScene;
+
 };
 
 
