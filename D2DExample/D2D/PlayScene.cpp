@@ -1,5 +1,4 @@
 #include "PlayScene.h"
-#include "NNInputSystem.h"
 
 CPlayScene::CPlayScene(void) : 
 	m_BulletIndex(0)
@@ -8,6 +7,12 @@ CPlayScene::CPlayScene(void) :
 	AddChild( m_Player );
 
 	m_Player->SetPosition(NNPoint(500.f, 500.f));
+
+	// FPS
+	m_FPSLabel = NNLabel::Create( L"FPS : ", L"¸¼Àº °íµñ", 20.f );
+	m_FPSLabel->SetPosition( 0.f, 0.f );
+	AddChild( m_FPSLabel );
+
 }
 
 CPlayScene::~CPlayScene(void)
@@ -20,6 +25,10 @@ void CPlayScene::Render()
 }
 void CPlayScene::Update( float dTime )
 {
+	// FPS
+	swprintf_s( m_FPS, _countof(m_FPS), L"FPS : %0.3f\n", NNApplication::GetInstance()->GetFPS() );
+	m_FPSLabel->SetString(m_FPS);
+
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_SHIFT ) == KEY_DOWN && m_BulletIndex < 5 )
 	{
 		m_Bullet[m_BulletIndex] = CBullet::Create();

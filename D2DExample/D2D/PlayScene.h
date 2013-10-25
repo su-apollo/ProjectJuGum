@@ -2,6 +2,8 @@
 #include "NNScene.h"
 #include "Bullet.h"
 #include "Maincharacter.h"
+#include "NNInputSystem.h"
+#include "NNApplication.h"
 
 class CPlayScene : public NNScene
 {
@@ -18,5 +20,9 @@ private:
 	CMaincharacter * m_Player;
 	CBullet *	m_Bullet[5];
 	int			m_BulletIndex;
+
+	// FPS
+	NNLabel* m_FPSLabel;
+	wchar_t m_FPS[20];
 };
 

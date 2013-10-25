@@ -29,15 +29,14 @@ public:
 	NNCREATE_FUNC(CMainMenuScene);
 
 private:
-	NNObject m_testobject;
-
 	NNLabel* m_LogoLabelEnglish;
 	NNLabel* m_LogoLabelKorean;
 	NNLabel* m_MenuLabel[3];
-	NNLabel* m_FPSLabel;
-	
-	wchar_t m_FPS[20];
 
 	unsigned int m_KeyOn;
+
+	// FPS
+	NNLabel* m_FPSLabel;
+	wchar_t m_FPS[20];
 };
 

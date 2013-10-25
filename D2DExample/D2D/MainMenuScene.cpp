@@ -23,6 +23,7 @@ CMainMenuScene::CMainMenuScene(void)
 	m_MenuLabel[MENU_QUIT]->SetPosition( 160.f, 420.f );
 	AddChild( m_MenuLabel[MENU_QUIT] );
 
+	// FPS
 	m_FPSLabel = NNLabel::Create( L"FPS : ", L"¸¼Àº °íµñ", 20.f );
 	m_FPSLabel->SetPosition( 0.f, 0.f );
 	AddChild( m_FPSLabel );
@@ -42,6 +43,7 @@ void CMainMenuScene::Render()
 
 void CMainMenuScene::Update( float dTime )
 {
+	// FPS
 	swprintf_s( m_FPS, _countof(m_FPS), L"FPS : %0.3f\n", NNApplication::GetInstance()->GetFPS() );
 	m_FPSLabel->SetString(m_FPS);
 	
