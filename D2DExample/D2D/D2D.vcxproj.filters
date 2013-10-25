@@ -175,11 +175,11 @@
     <Filter Include="ProjectJG\Map">
       <UniqueIdentifier>{fa4b1b85-c03b-4bb2-a1d5-f6bd25adba4e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ProjectJG\etcObjact">
-      <UniqueIdentifier>{82e26d28-1799-485f-8875-d01b1f261c68}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ProjectJG\Scene">
       <UniqueIdentifier>{88010d07-81f6-4a33-ab1a-3839994caedf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProjectJG\etcObject">
+      <UniqueIdentifier>{82e26d28-1799-485f-8875-d01b1f261c68}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
