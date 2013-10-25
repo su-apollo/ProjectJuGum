@@ -28,6 +28,8 @@ void CPlayScene::Update( float dTime )
 	// FPS
 	swprintf_s( m_FPS, _countof(m_FPS), L"FPS : %0.3f\n", NNApplication::GetInstance()->GetFPS() );
 	m_FPSLabel->SetString(m_FPS);
+	// 이걸로 콘솔창에서도 볼 수 있어요 팀장님
+	printf_s("FPS : %0.3f\n", NNApplication::GetInstance()->GetFPS() );
 
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_SHIFT ) == KEY_DOWN && m_BulletIndex < 5 )
 	{
