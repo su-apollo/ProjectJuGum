@@ -8,6 +8,7 @@ CBullet::CBullet(void)
 	AddChild( m_Circle );
 
 	m_speed = 500.f;
+	m_direction = 270;
 }
 
 CBullet::~CBullet(void)
@@ -21,5 +22,5 @@ void CBullet::Render()
 
 void CBullet::Update( float dTime )
 {
-	SetPosition( GetPosition() + NNPoint(0.f,-m_speed) * dTime );
+	SetPosition( GetPosition() + NNPoint(m_speed*NNAngleToX(m_direction), m_speed*NNAngleToY(m_direction))*dTime);
 }

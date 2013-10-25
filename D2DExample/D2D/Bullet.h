@@ -17,5 +17,6 @@ private:
 	NNCircle* m_Circle;
 
 	float m_speed;
+	int m_direction;
 };
 
