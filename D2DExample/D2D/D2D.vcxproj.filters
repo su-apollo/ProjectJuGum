@@ -62,23 +62,23 @@
     <ClCompile Include="CustomObject.cpp">
       <Filter>Example\CustomObject</Filter>
     </ClCompile>
-    <ClCompile Include="TestScene.cpp">
-      <Filter>Example\MenuTest</Filter>
-    </ClCompile>
     <ClCompile Include="NNCircle.cpp">
       <Filter>Core\Node\Circle</Filter>
     </ClCompile>
-    <ClCompile Include="Playtest.cpp">
-      <Filter>Example\Playtest</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Example\Playtest</Filter>
+    <ClCompile Include="ReturnScene.cpp">
+      <Filter>ProjectJG\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>Example\Playtest</Filter>
+      <Filter>ProjectJG\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="ReturnScene.cpp">
-      <Filter>Example\ReturnScene</Filter>
+    <ClCompile Include="MainCharacter.cpp">
+      <Filter>ProjectJG\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>ProjectJG\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>ProjectJG\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -160,17 +160,26 @@
     <Filter Include="Core\Node\Circle">
       <UniqueIdentifier>{a694774a-ea53-4bd1-86aa-4c4d4789dc7e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Example\Playtest">
-      <UniqueIdentifier>{64c4b51b-4a2f-4919-a78d-1fa970669ae5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Example\MenuTest">
-      <UniqueIdentifier>{052638b5-06ac-43da-82c6-c679185bdbb9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Example\ReturnScene">
-      <UniqueIdentifier>{626355f2-a0af-4a84-9066-62d9684626ee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Example\Input">
       <UniqueIdentifier>{62623a13-cd0c-4e38-b21f-c405dc3243f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProjectJG">
+      <UniqueIdentifier>{01f6edb0-bd8c-4edd-bd64-43ddb6cfcf04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProjectJG\Character">
+      <UniqueIdentifier>{4a379c98-1c65-431c-9a76-ac62f73dee08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProjectJG\Bullet">
+      <UniqueIdentifier>{69b58ff3-b5e5-45ef-835e-c98f9105b4cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProjectJG\Map">
+      <UniqueIdentifier>{fa4b1b85-c03b-4bb2-a1d5-f6bd25adba4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProjectJG\etcObjact">
+      <UniqueIdentifier>{82e26d28-1799-485f-8875-d01b1f261c68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProjectJG\Scene">
+      <UniqueIdentifier>{88010d07-81f6-4a33-ab1a-3839994caedf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -249,23 +258,23 @@
     <ClInclude Include="CustomObject.h">
       <Filter>Example\CustomObject</Filter>
     </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>Example\MenuTest</Filter>
-    </ClInclude>
     <ClInclude Include="NNCircle.h">
       <Filter>Core\Node\Circle</Filter>
     </ClInclude>
-    <ClInclude Include="Playtest.h">
-      <Filter>Example\Playtest</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Example\Playtest</Filter>
+    <ClInclude Include="ReturnScene.h">
+      <Filter>ProjectJG\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
-      <Filter>Example\Playtest</Filter>
+      <Filter>ProjectJG\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="ReturnScene.h">
-      <Filter>Example\ReturnScene</Filter>
+    <ClInclude Include="Maincharacter.h">
+      <Filter>ProjectJG\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>ProjectJG\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScene.h">
+      <Filter>ProjectJG\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

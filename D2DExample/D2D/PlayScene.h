@@ -1,21 +1,21 @@
 #pragma once
 #include "NNScene.h"
 #include "Bullet.h"
-#include "Player.h"
+#include "Maincharacter.h"
 
-class CPlaytest : public NNScene
+class CPlayScene : public NNScene
 {
 public:
-	CPlaytest(void);
-	virtual ~CPlaytest(void);
+	CPlayScene(void);
+	virtual ~CPlayScene(void);
 
 	void Render();
 	void Update( float dTime );
 
-	NNCREATE_FUNC(CPlaytest);
+	NNCREATE_FUNC(CPlayScene);
 
 private:
-	CPlayer *	m_Player;
+	CMaincharacter * m_Player;
 	CBullet *	m_Bullet[5];
 	int			m_BulletIndex;
 };

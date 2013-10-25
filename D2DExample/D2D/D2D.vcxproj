@@ -99,12 +99,12 @@
     <ClCompile Include="NNSceneDirector.cpp" />
     <ClCompile Include="NNTexture.cpp" />
     <ClCompile Include="NNResourceManager.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Playtest.cpp" />
+    <ClCompile Include="MainCharacter.cpp" />
+    <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="ReturnScene.cpp" />
     <ClCompile Include="SoundExample.cpp" />
     <ClCompile Include="SpriteExample.cpp" />
-    <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="MainMenuScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
@@ -132,12 +132,12 @@
     <ClInclude Include="NNSceneDirector.h" />
     <ClInclude Include="NNResourceManager.h" />
     <ClInclude Include="NNTexture.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Playtest.h" />
+    <ClInclude Include="Maincharacter.h" />
+    <ClInclude Include="PlayScene.h" />
     <ClInclude Include="ReturnScene.h" />
     <ClInclude Include="SoundExample.h" />
     <ClInclude Include="SpriteExample.h" />
-    <ClInclude Include="TestScene.h" />
+    <ClInclude Include="MainMenuScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

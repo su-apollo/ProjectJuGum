@@ -1,7 +1,7 @@
-#include "TestScene.h"
+#include "MainMenuScene.h"
 
 
-CTestScene::CTestScene(void)
+CMainMenuScene::CMainMenuScene(void)
 {
 	m_LogoLabelEnglish = NNLabel::Create( L"JuGums", L"Something Strange", 75.f );
 	m_LogoLabelEnglish->SetPosition( 90.f, 30.f );
@@ -31,16 +31,16 @@ CTestScene::CTestScene(void)
 }
 
 
-CTestScene::~CTestScene(void)
+CMainMenuScene::~CMainMenuScene(void)
 {
 }
 
-void CTestScene::Render()
+void CMainMenuScene::Render()
 {
 	NNScene::Render();
 }
 
-void CTestScene::Update( float dTime )
+void CMainMenuScene::Update( float dTime )
 {
 	swprintf_s( m_FPS, _countof(m_FPS), L"FPS : %0.3f\n", NNApplication::GetInstance()->GetFPS() );
 	m_FPSLabel->SetString(m_FPS);
@@ -64,7 +64,7 @@ void CTestScene::Update( float dTime )
 		switch (m_KeyOn)
 		{
 		case MENU_PLAY:
-			NNSceneDirector::GetInstance()->ChangeScene( CPlaytest::Create() );
+			NNSceneDirector::GetInstance()->ChangeScene( CPlayScene::Create() );
 			break;
 		case MENU_TEST:
 			NNSceneDirector::GetInstance()->ChangeScene( CustomObjectExample::Create() );

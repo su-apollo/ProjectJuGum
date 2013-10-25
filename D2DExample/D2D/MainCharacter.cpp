@@ -1,7 +1,7 @@
-#include "Player.h"
+#include "Maincharacter.h"
 #include "NNInputSystem.h"
 
-CPlayer::CPlayer(void)
+CMaincharacter::CMaincharacter(void)
 {
 	m_Circle = NNCircle::Create(40.f);
 	m_Circle->SetPosition(0.f, 100.f);
@@ -10,16 +10,16 @@ CPlayer::CPlayer(void)
 	m_speed = 500.f;
 }
 
-CPlayer::~CPlayer(void)
+CMaincharacter::~CMaincharacter(void)
 {
 }
 
-void CPlayer::Render()
+void CMaincharacter::Render()
 {
 	NNObject::Render();
 }
 
-void CPlayer::Update( float dTime )
+void CMaincharacter::Update( float dTime )
 {
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_UP ) == KEY_PRESSED && NNInputSystem::GetInstance()->GetKeyState( VK_LEFT ) == KEY_PRESSED )
 	{

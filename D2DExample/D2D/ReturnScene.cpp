@@ -1,7 +1,7 @@
 #include "ReturnScene.h"
 #include "NNInputSystem.h"
 #include "NNSceneDirector.h"
-#include "TestScene.h"
+#include "MainMenuScene.h"
 
 
 CReturnScene::CReturnScene(void)
@@ -64,7 +64,7 @@ void CReturnScene::Update( float dTime )
 		switch (m_bReturn)
 		{
 		case true:
-			NNSceneDirector::GetInstance()->ChangeScene( CTestScene::Create() );
+			NNSceneDirector::GetInstance()->ChangeScene( CMainMenuScene::Create() );
 			break;
 		case false:
 			NNSceneDirector::GetInstance()->BackToPrevScene();			

@@ -1,17 +1,17 @@
 #pragma once
 #include "NNCircle.h"
 
-class CPlayer : public NNObject
+class CMaincharacter : public NNObject
 {
 public:
-	CPlayer(void);
-	virtual ~CPlayer(void);
+	CMaincharacter(void);
+	virtual ~CMaincharacter(void);
 
 	void Render();
 	void Update( float dTime );
 	float GetSpeed(){ return m_speed; };
 
-	NNCREATE_FUNC(CPlayer);
+	NNCREATE_FUNC(CMaincharacter);
 
 private:
 	NNCircle* m_Circle;

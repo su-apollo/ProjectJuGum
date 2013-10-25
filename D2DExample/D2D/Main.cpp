@@ -7,8 +7,8 @@
 #include "SoundExample.h"
 #include "InputExample.h"
 #include "CustomObjectExample.h"
-#include "TestScene.h"
-#include "Playtest.h"
+#include "MainMenuScene.h"
+#include "PlayScene.h"
 #include "ReturnScene.h"
 
 int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nShowCmd )
@@ -43,7 +43,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 	// NNSceneDirector::GetInstance()->ChangeScene( CustomObjectExample::Create() );
 
 	// TestMenuScene
-	 NNSceneDirector::GetInstance()->ChangeScene( CTestScene::Create() );
+	 NNSceneDirector::GetInstance()->ChangeScene( CMainMenuScene::Create() );
 
 	// Playtest
 	// NNSceneDirector::GetInstance()->ChangeScene( CPlaytest::Create() );

@@ -1,24 +1,24 @@
-#include "Playtest.h"
+#include "PlayScene.h"
 #include "NNInputSystem.h"
 
-CPlaytest::CPlaytest(void) : 
+CPlayScene::CPlayScene(void) : 
 	m_BulletIndex(0)
 {
-	m_Player = CPlayer::Create();
+	m_Player = CMaincharacter::Create();
 	AddChild( m_Player );
 
 	m_Player->SetPosition(NNPoint(500.f, 500.f));
 }
 
-CPlaytest::~CPlaytest(void)
+CPlayScene::~CPlayScene(void)
 {
 }
 
-void CPlaytest::Render()
+void CPlayScene::Render()
 {
 	NNScene::Render();
 }
-void CPlaytest::Update( float dTime )
+void CPlayScene::Update( float dTime )
 {
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_SHIFT ) == KEY_DOWN && m_BulletIndex < 5 )
 	{

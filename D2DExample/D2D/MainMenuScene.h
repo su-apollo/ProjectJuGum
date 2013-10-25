@@ -5,7 +5,7 @@
 #include "NNAudioSystem.h"
 
 #include "NNApplication.h"
-#include "Playtest.h"
+#include "PlayScene.h"
 #include "CustomObjectExample.h"
 
 
@@ -17,16 +17,16 @@ enum MENU_LIST
 	MENU_LAST,
 };
 
-class CTestScene : public NNScene
+class CMainMenuScene : public NNScene
 {
 public:
-	CTestScene(void);
-	virtual ~CTestScene(void);
+	CMainMenuScene(void);
+	virtual ~CMainMenuScene(void);
 
 	void Render();
 	void Update( float dTime );
 
-	NNCREATE_FUNC(CTestScene);
+	NNCREATE_FUNC(CMainMenuScene);
 
 private:
 	NNObject m_testobject;
