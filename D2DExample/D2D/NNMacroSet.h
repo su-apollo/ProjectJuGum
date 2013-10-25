@@ -51,6 +51,16 @@ inline double NNRadianToDegree( double n )
 	return n * 180 / NN_PI;
 }
 
+inline float NNAngleToX( int angle )
+{
+	return (float)cos(NN_PI*angle/180);
+}
+
+inline float NNAngleToY( int angle )
+{
+	return (float)sin(NN_PI*angle/180);
+}
+
 #define NNCREATE_FUNC(CLASS_NAME) \
 	static CLASS_NAME* Create() \
 	{ \
