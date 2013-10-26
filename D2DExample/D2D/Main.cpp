@@ -16,12 +16,12 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 #ifdef _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF|_CRTDBG_LEAK_CHECK_DF);
 	//_CrtSetBreakAlloc( );
-#endif
 
-	// for debugging
 	AllocConsole();
 	FILE* pStream;
 	freopen_s( &pStream, "CONOUT$", "wt", stdout );
+#endif
+
 
 	NNApplication* Application = NNApplication::GetInstance();
 
