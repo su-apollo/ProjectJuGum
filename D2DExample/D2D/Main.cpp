@@ -32,8 +32,9 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 	Application->Run();
 	Application->Release();
 
-	// for debugging
+#ifdef _DEBUG
 	FreeConsole();
+#endif
 
 	return 0;
 }
