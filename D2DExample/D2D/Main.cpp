@@ -26,30 +26,8 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 	NNApplication* Application = NNApplication::GetInstance();
 
 	Application->Init( L"JuGums", 1000, 700, D2D );
-
-	// Sprite Example
-	// NNSceneDirector::GetInstance()->ChangeScene( SpriteExample::Create() );
-
-	// Label Example
-	// NNSceneDirector::GetInstance()->ChangeScene( LabelExample::Create() );
-
-	// Input Example
-	// NNSceneDirector::GetInstance()->ChangeScene( InputExample::Create() );
-
-	// Sound Example
-	// NNSceneDirector::GetInstance()->ChangeScene( SoundExample::Create() );
-
-	// CustomObject Example
-	// NNSceneDirector::GetInstance()->ChangeScene( CustomObjectExample::Create() );
-
-	// TestMenuScene
-	 NNSceneDirector::GetInstance()->ChangeScene( CMainMenuScene::Create() );
-
-	// Playtest
-	// NNSceneDirector::GetInstance()->ChangeScene( CPlaytest::Create() );
-
-	// ReturnScene
-	// NNSceneDirector::GetInstance()->ChangeScene( CReturnScene::Create() );
+	
+	NNSceneDirector::GetInstance()->ChangeScene( CMainMenuScene::Create() );
 
 	Application->Run();
 	Application->Release();
