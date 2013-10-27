@@ -4,6 +4,7 @@
 #include "Maincharacter.h"
 #include "NNInputSystem.h"
 #include "NNApplication.h"
+#define MAX_BULLET_NUM 10
 
 class CPlayScene : public NNScene
 {
@@ -17,9 +18,12 @@ public:
 	NNCREATE_FUNC(CPlayScene);
 
 private:
-	CMaincharacter * m_Player;
-	CBullet *	m_Bullet[5];
-	int			m_BulletIndex;
+	CMaincharacter * m_Player1;
+	CMaincharacter * m_Player2;
+	CBullet *	m_Bullet1[MAX_BULLET_NUM];
+	CBullet *	m_Bullet2[MAX_BULLET_NUM];
+	int			m_BulletIndex1;
+	int			m_BulletIndex2;
 
 	// FPS
 	NNLabel* m_FPSLabel;
