@@ -80,6 +80,9 @@
     <ClCompile Include="MainMenuScene.cpp">
       <Filter>ProjectJG\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="NNRectangle.cpp">
+      <Filter>Core\Node\Rect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -181,6 +184,9 @@
     <Filter Include="ProjectJG\etcObject">
       <UniqueIdentifier>{82e26d28-1799-485f-8875-d01b1f261c68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Node\Rect">
+      <UniqueIdentifier>{fa8555e6-1b2d-4c13-86a3-6a3c7d32ed9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NNObject.h">
@@ -275,6 +281,9 @@
     </ClInclude>
     <ClInclude Include="MainMenuScene.h">
       <Filter>ProjectJG\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="NNRectangle.h">
+      <Filter>Core\Node\Rect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
