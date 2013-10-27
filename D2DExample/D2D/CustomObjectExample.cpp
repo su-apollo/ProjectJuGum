@@ -21,6 +21,7 @@ void CustomObjectExample::Render()
 }
 void CustomObjectExample::Update( float dTime )
 {
+#ifdef _DEBUG
 	// FPS
 	m_SumTime += dTime;
 	if ( m_SumTime > 0.2 )
@@ -28,5 +29,7 @@ void CustomObjectExample::Update( float dTime )
 		printf_s("FPS : %0.3f\n", NNApplication::GetInstance()->GetFPS() );
 		m_SumTime = 0;
 	}
+#endif
+
 	m_CustomObject->Update( dTime );
 }

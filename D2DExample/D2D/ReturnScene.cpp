@@ -37,17 +37,14 @@ void CReturnScene::Update( float dTime )
 		|| NNInputSystem::GetInstance()->GetKeyState( VK_DOWN ) == KEY_DOWN )
 	{
 		m_bReturn = !m_bReturn;
-		// printf_s("%d\n", m_bReturn);
 
 		switch (m_bReturn)
 		{
 		case true:
-			// printf_s( " Yes! \n");
 			m_NoLabel->SetColor( 0, 0, 0 );
 			m_YesLabel->SetColor( 255, 0, 0 );
 			break;
 		case false:
-			// printf_s( " No! \n");
 			m_YesLabel->SetColor( 0, 0, 0 );
 			m_NoLabel->SetColor( 255, 0, 0 );
 			break;
