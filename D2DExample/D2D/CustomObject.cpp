@@ -19,6 +19,10 @@ CustomObject::CustomObject()
 	m_Circle->SetPosition(0.f, 100.f);
 	AddChild( m_Circle );
 
+	m_Rect = NNRect::Create(100.f, 100.f);
+	m_Rect->SetPosition(0.f, 200.f);
+	AddChild( m_Rect );
+
 	m_Speed = 500.f;
 }
 CustomObject::~CustomObject()
