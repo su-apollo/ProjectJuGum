@@ -22,6 +22,8 @@ CPlayScene::CPlayScene(void) :
 	m_FPSLabel->SetPosition( 0.f, 0.f );
 	AddChild( m_FPSLabel );
 
+	m_SumTime = 0;
+
 }
 
 CPlayScene::~CPlayScene(void)
@@ -35,10 +37,20 @@ void CPlayScene::Render()
 void CPlayScene::Update( float dTime )
 {
 	// FPS
+	m_SumTime += dTime;
+	// 1초는 너무 길길래 0.2초로 줄임
+	if ( m_SumTime > 0.2 )
+	{
 	swprintf_s( m_FPS, _countof(m_FPS), L"FPS : %0.3f\n", NNApplication::GetInstance()->GetFPS() );
 	m_FPSLabel->SetString(m_FPS);
-	// 이걸로 콘솔창에서도 볼 수 있어요 팀장님
+		// 밑의 두 줄 중에 어느 게 더 나은 지 모르겠다 ㅜㅜ
+		// 0.2 초 한 번 찍고 난 다음엔 리셋(=0) 되는 게 나은 듯.
+		 m_SumTime = 0;
+		// m_SumTime -= 0.2;
+
+		// 값이 0.2초 전과 같을 때는 마치 출력이 안 되는 것 처럼 보임.. 그래서 콘솔에도 찍어 보면 비교하기 편함
 	printf_s("FPS : %0.3f\n", NNApplication::GetInstance()->GetFPS() );
+	}
 
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_SPACE ) == KEY_DOWN && m_BulletIndex1 < MAX_BULLET_NUM )
 	{

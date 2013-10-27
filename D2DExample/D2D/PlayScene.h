@@ -26,6 +26,7 @@ private:
 	int			m_BulletIndex2;
 
 	// FPS
+	float m_SumTime;
 	NNLabel* m_FPSLabel;
 	wchar_t m_FPS[20];
 };

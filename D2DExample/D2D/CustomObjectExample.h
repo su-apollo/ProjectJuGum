@@ -8,7 +8,7 @@ class CustomObjectExample : public NNScene
 {
 private:
 	CustomObject* m_CustomObject;
-
+	float m_SumTime;
 public:
 	CustomObjectExample();
 	virtual ~CustomObjectExample();

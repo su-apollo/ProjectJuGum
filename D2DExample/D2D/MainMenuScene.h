@@ -34,9 +34,5 @@ private:
 	NNLabel* m_MenuLabel[3];
 
 	unsigned int m_KeyOn;
-
-	// FPS
-	NNLabel* m_FPSLabel;
-	wchar_t m_FPS[20];
 };
 
