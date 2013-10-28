@@ -3,6 +3,10 @@
 CPlayScene::CPlayScene(void) : 
 	m_BulletIndex1(0), m_BulletIndex2(0)
 {
+	m_Map = CMainMap::Create();
+	AddChild(m_Map);
+	m_Map->SetPosition(NNPoint(640.f, 400.f));
+
 	m_Player1 = CMaincharacter::Create();
 	m_Player2 = CMaincharacter::Create();
 
@@ -14,8 +18,8 @@ CPlayScene::CPlayScene(void) :
 	AddChild( m_Player1 );
 	AddChild( m_Player2 );
 
-	m_Player1->SetPosition(NNPoint(600.f, 700.f));
-	m_Player2->SetPosition(NNPoint(600.f, 100.f));
+	m_Player1->SetPosition(NNPoint(640.f, 700.f));
+	m_Player2->SetPosition(NNPoint(640.f, 100.f));
 
 	// FPS
 	m_FPSLabel = NNLabel::Create( L"FPS : ", L"¸¼Àº °íµñ", 20.f );

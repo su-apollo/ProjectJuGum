@@ -83,6 +83,9 @@
     <ClCompile Include="NNRect.cpp">
       <Filter>Core\Node\Rect</Filter>
     </ClCompile>
+    <ClCompile Include="MainMap.cpp">
+      <Filter>ProjectJG\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -284,6 +287,9 @@
     </ClInclude>
     <ClInclude Include="NNRect.h">
       <Filter>Core\Node\Rect</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMap.h">
+      <Filter>ProjectJG\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

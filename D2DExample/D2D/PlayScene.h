@@ -4,6 +4,8 @@
 #include "Maincharacter.h"
 #include "NNInputSystem.h"
 #include "NNApplication.h"
+#include "MainMap.h"
+
 #define MAX_BULLET_NUM 10
 
 class CPlayScene : public NNScene
@@ -20,6 +22,7 @@ public:
 private:
 	CMaincharacter * m_Player1;
 	CMaincharacter * m_Player2;
+	CMainMap * m_Map;
 	CBullet *	m_Bullet1[MAX_BULLET_NUM];
 	CBullet *	m_Bullet2[MAX_BULLET_NUM];
 	int			m_BulletIndex1;
