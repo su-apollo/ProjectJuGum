@@ -3,24 +3,28 @@
 
 CMainMenuScene::CMainMenuScene(void)
 {
-	m_LogoLabelEnglish = NNLabel::Create( L"JuGums", L"Something Strange", 75.f );
-	m_LogoLabelEnglish->SetPosition( 90.f, 30.f );
+	float width = NNApplication::GetInstance()->GetScreenWidth();
+	float height = NNApplication::GetInstance()->GetScreenHeight();
+	m_LogoLabelEnglish = NNLabel::Create( L"JuGums", L"Something Strange", 100.f );
+	m_LogoLabelEnglish->SetColor( 255, 0, 0 );
+	m_LogoLabelEnglish->SetPosition( width/2 - 25.f, height/4 - 100.f );
 	AddChild( m_LogoLabelEnglish );
 	
-	m_LogoLabelKorean = NNLabel::Create( L"ÁÖ°Ëµé", L"±Ã¼­Ã¼", 50.f );
-	m_LogoLabelKorean->SetPosition( 170.f, 105.f );
+	m_LogoLabelKorean = NNLabel::Create( L"ÁÖ°Ëµé", L"±Ã¼­Ã¼", 70.f );
+	m_LogoLabelKorean->SetPosition( width/2 + 40.f, height/4 );
 	AddChild( m_LogoLabelKorean );
 
 	m_MenuLabel[MENU_PLAY] = NNLabel::Create( L"Play", L"±Ã¼­Ã¼", 40.f );
-	m_MenuLabel[MENU_PLAY]->SetPosition( 160.f, 300.f );
+	//m_MenuLabel[MENU_PLAY]->SetCenter(height/2, width/2);
+	m_MenuLabel[MENU_PLAY]->SetPosition( width/2 + 60.f, height/2 );
 	AddChild( m_MenuLabel[MENU_PLAY] );
 
 	m_MenuLabel[MENU_TEST] = NNLabel::Create( L"Test", L"±Ã¼­Ã¼", 40.f );
-	m_MenuLabel[MENU_TEST]->SetPosition( 160.f, 362.f );
+	m_MenuLabel[MENU_TEST]->SetPosition( width/2 + 60.f, height/2 + 80.f );
 	AddChild( m_MenuLabel[MENU_TEST] );
 
 	m_MenuLabel[MENU_QUIT] = NNLabel::Create( L"Quit", L"±Ã¼­Ã¼", 40.f );
-	m_MenuLabel[MENU_QUIT]->SetPosition( 160.f, 420.f );
+	m_MenuLabel[MENU_QUIT]->SetPosition( width/2 + 60.f, height/2 + 150.f );
 	AddChild( m_MenuLabel[MENU_QUIT] );
 
 	m_KeyOn = 0;

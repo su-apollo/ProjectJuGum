@@ -3,16 +3,19 @@
 
 CReturnScene::CReturnScene(void)
 {
+	float width = NNApplication::GetInstance()->GetScreenWidth();
+	float height = NNApplication::GetInstance()->GetScreenHeight();
+
 	m_ReturnLabel = NNLabel::Create( L"Return to Main Menu? ", L"±Ã¼­Ã¼", 75.f );
-	m_ReturnLabel->SetPosition( 50.f, 30.f );
+	m_ReturnLabel->SetPosition( width/2 - 220.f, height/4 );
 	AddChild( m_ReturnLabel );
 
 	m_YesLabel = NNLabel::Create( L"Yes", L"±Ã¼­Ã¼", 60.f );
-	m_YesLabel->SetPosition( 250.f, 250.f );
+	m_YesLabel->SetPosition( width/2 - 50.f, height/2 );
 	AddChild( m_YesLabel );
 
 	m_NoLabel = NNLabel::Create( L"No", L"±Ã¼­Ã¼", 60.f );
-	m_NoLabel->SetPosition( 500.f, 250.f );
+	m_NoLabel->SetPosition( width/2 + 200.f, height/2 );
 	AddChild( m_NoLabel );
 
 	m_bReturn = false;
