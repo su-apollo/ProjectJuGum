@@ -17,8 +17,9 @@ public:
 	virtual void Destroy() {}
 	virtual void Render() {}
 
-public:
 	inline float GetOpacity() const { return m_Opacity; }
+	float GetHeight() {return m_height;}
+	float GetWidth() {return m_width;}
 
 	void SetOpacity( float opacity ) { m_Opacity = opacity; }
 	virtual void SetRed( float r ) { m_ColorR = r; }
@@ -45,7 +46,6 @@ public:
 	void Destroy();
 	void Render();
 
-public:
 	void SetRed( float r) { m_ColorR = r; m_Brush->SetColor(D2D1::ColorF(r/255.f,m_ColorG/255.f,m_ColorB/255.f)); }
 	void SetGreen( float g ) { m_ColorG = g; m_Brush->SetColor(D2D1::ColorF(m_ColorR/255.f,g/255.f,m_ColorB/255.f)); }
 	void SetBlue( float b ) { m_ColorB = b; m_Brush->SetColor(D2D1::ColorF(m_ColorR/255.f,m_ColorG/255.f,b/255.f)); }

@@ -17,6 +17,8 @@ public:
 	void SetKeyDown(int down){m_keydown = down;}
 	void SetKeyLeft(int left){m_keyleft = left;}
 	void SetKeyRight(int right){m_keyright = right;}
+	void SetMoveArea(float left, float right, float top, float bottom);
+
 
 	NNCREATE_FUNC(CMaincharacter);
 
@@ -27,5 +29,13 @@ private:
 	int m_keydown;
 	int m_keyleft;
 	int m_keyright;
+
+	//MoveArea를 위한 변수
+	float m_AreaLeft;
+	float m_AreaRight;
+	float m_AreaBottom;
+	float m_AreaTop;
+
+	void UpdateMotion(float dTime);
 };
 

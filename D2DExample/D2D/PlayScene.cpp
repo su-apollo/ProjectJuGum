@@ -10,6 +10,9 @@ CPlayScene::CPlayScene(void) :
 	m_Player1 = CMaincharacter::Create();
 	m_Player2 = CMaincharacter::Create();
 
+	m_Player1->SetMoveArea(640.f-m_Map->GetMainFrame()->GetWidth()/2, 640.f+m_Map->GetMainFrame()->GetWidth()/2, 400.f-m_Map->GetMainFrame()->GetHeight()/2, 400.f+m_Map->GetMainFrame()->GetHeight()/2);
+	m_Player2->SetMoveArea(640.f-m_Map->GetMainFrame()->GetWidth()/2, 640.f+m_Map->GetMainFrame()->GetWidth()/2, 400.f-m_Map->GetMainFrame()->GetHeight()/2, 400.f+m_Map->GetMainFrame()->GetHeight()/2);
+
 	m_Player2->SetKeyUp('W');
 	m_Player2->SetKeyDown('S');
 	m_Player2->SetKeyLeft('A');

@@ -10,6 +10,9 @@ public:
 	void Render();
 	void Update( float dTime );
 
+	NNRect * GetMainFrame() {return m_MainFrame;}
+
+
 	NNCREATE_FUNC(CMainMap);
 
 private:
