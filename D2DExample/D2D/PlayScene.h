@@ -17,6 +17,8 @@ public:
 	void Render();
 	void Update( float dTime );
 
+	bool HitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius);
+
 	NNCREATE_FUNC(CPlayScene);
 
 private:

@@ -11,6 +11,7 @@ public:
 	void Update( float dTime );
 
 	float GetSpeed(){ return m_speed; }
+	NNCircle * GetMainCircle(){return m_Circle;}
 
 	void SetSpeed( float new_speed ){ m_speed = new_speed;}
 	void SetKeyUp(int up){m_keyup = up;}
