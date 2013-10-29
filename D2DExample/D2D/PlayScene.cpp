@@ -127,10 +127,7 @@ void CPlayScene::Update( float dTime )
 
 bool CPlayScene::CtoCHitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius)
 {
-	float x = Apoint.GetX() - Bpoint.GetX();
-	float y = Apoint.GetY() - Bpoint.GetY();
-
-	if((Aradius + Bradius) > sqrt(x*x + y*y))
+	if((Aradius + Bradius) > Apoint.GetDistance(Bpoint))
 	{
 		return true;
 	}
