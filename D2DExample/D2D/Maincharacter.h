@@ -31,12 +31,6 @@ private:
 	int m_keyleft;
 	int m_keyright;
 
-	//MoveArea를 위한 변수
-	float m_AreaLeft;
-	float m_AreaRight;
-	float m_AreaBottom;
-	float m_AreaTop;
-
 	void UpdateMotion(float dTime);
 };
 

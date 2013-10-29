@@ -4,28 +4,30 @@
 CPlayScene::CPlayScene(void) : 
 	m_BulletIndex1(0), m_BulletIndex2(0)
 {
+	//맵생성
 	m_Map = CMainMap::Create();
-	AddChild(m_Map);
 	m_Map->SetPosition(NNPoint(640.f, 400.f));
+	AddChild(m_Map);
 
+	//플레이어 생성
 	m_Player1 = CMaincharacter::Create();
 	m_Player2 = CMaincharacter::Create();
-
-	m_Player1->SetMoveArea(640.f-m_Map->GetMainFrame()->GetWidth()/2, 640.f+m_Map->GetMainFrame()->GetWidth()/2, 400.f-m_Map->GetMainFrame()->GetHeight()/2, 400.f+m_Map->GetMainFrame()->GetHeight()/2);
-	m_Player2->SetMoveArea(640.f-m_Map->GetMainFrame()->GetWidth()/2, 640.f+m_Map->GetMainFrame()->GetWidth()/2, 400.f-m_Map->GetMainFrame()->GetHeight()/2, 400.f+m_Map->GetMainFrame()->GetHeight()/2);
 
 	m_Player2->SetKeyUp('W');
 	m_Player2->SetKeyDown('S');
 	m_Player2->SetKeyLeft('A');
 	m_Player2->SetKeyRight('D');
 
+	m_Player1->SetPosition(NNPoint(640.f, 700.f));
+	m_Player2->SetPosition(NNPoint(640.f, 100.f));
+
 	AddChild( m_Player1 );
 	AddChild( m_Player2 );
 
+	//총알 장전
 	for(int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
 		m_Bullet1[i] = CBullet::Create();
-		
 	}
 
 	for(int i = 0; i < MAX_BULLET_NUM; ++i)
@@ -34,9 +36,6 @@ CPlayScene::CPlayScene(void) :
 		m_Bullet2[i]->SetDirection(90);
 		
 	}
-
-	m_Player1->SetPosition(NNPoint(640.f, 700.f));
-	m_Player2->SetPosition(NNPoint(640.f, 100.f));
 
 	// FPS
 	m_FPSLabel = NNLabel::Create( L"FPS : ", L"맑은 고딕", 20.f );
@@ -75,6 +74,7 @@ void CPlayScene::Update( float dTime )
 #endif // _DEBUG	
 	}
 
+	//공격입력
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_SPACE ) == KEY_DOWN && m_BulletIndex1 < MAX_BULLET_NUM )
 	{
 		m_Bullet1[m_BulletIndex1]->SetPosition( m_Player1->GetPosition() );
@@ -89,6 +89,7 @@ void CPlayScene::Update( float dTime )
 		++m_BulletIndex2;
 	}
 
+	//총알의 이동
 	for (int i = 0; i < m_BulletIndex1; ++i)
 	{
 		m_Bullet1[i]->Update(dTime);
@@ -99,27 +100,32 @@ void CPlayScene::Update( float dTime )
 		m_Bullet2[i]->Update(dTime);
 	}
 
+	//캐릭터의 이동
 	m_Player1->Update(dTime);
 	m_Player2->Update(dTime);
 
+	//맵과 캐릭터의 충돌채크
+	SetPlayerMoveArea(m_Player1);
+	SetPlayerMoveArea(m_Player2);
+
+	//총알과 캐릭터의 충돌채크
 	for (int i = 0; i < m_BulletIndex1; ++i)
 	{
-		if(HitCheck(m_Bullet1[i]->GetPosition(), m_Bullet1[i]->GetMainCircle()->GetRadius(), m_Player2->GetPosition(), m_Player2->GetMainCircle()->GetRadius()))
+		if(CtoCHitCheck(m_Bullet1[i]->GetPosition(), m_Bullet1[i]->GetMainCircle()->GetRadius(), m_Player2->GetPosition(), m_Player2->GetMainCircle()->GetRadius()))
 		{
 			NNSceneDirector::GetInstance()->ChangeScene(CMainMenuScene::Create());
 		}
 	}
-
 	for (int i = 0; i < m_BulletIndex2; ++i)
 	{
-		if(HitCheck(m_Bullet2[i]->GetPosition(), m_Bullet2[i]->GetMainCircle()->GetRadius(), m_Player1->GetPosition(), m_Player1->GetMainCircle()->GetRadius()))
+		if(CtoCHitCheck(m_Bullet2[i]->GetPosition(), m_Bullet2[i]->GetMainCircle()->GetRadius(), m_Player1->GetPosition(), m_Player1->GetMainCircle()->GetRadius()))
 		{
 			NNSceneDirector::GetInstance()->ChangeScene(CMainMenuScene::Create());
 		}
 	}
 }
 
-bool CPlayScene::HitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius)
+bool CPlayScene::CtoCHitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius)
 {
 	float x = Apoint.GetX() - Bpoint.GetX();
 	float y = Apoint.GetY() - Bpoint.GetY();
@@ -129,4 +135,29 @@ bool CPlayScene::HitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float B
 		return true;
 	}
 	return false;
+}
+
+void CPlayScene::SetPlayerMoveArea(CMaincharacter * Player)
+{
+	float leftline = m_Map->GetPositionX() + m_Map->GetMainFrame()->GetWidth()/2;
+	float rightline = m_Map->GetPositionX() - m_Map->GetMainFrame()->GetWidth()/2;
+	float botline = m_Map->GetPositionY() + m_Map->GetMainFrame()->GetHeight()/2;
+	float topline = m_Map->GetPositionY() - m_Map->GetMainFrame()->GetHeight()/2;
+
+	if (Player->GetPositionX() > leftline )
+	{
+		Player->SetPosition(NNPoint(leftline, Player->GetPositionY()));
+	}
+	if (Player->GetPositionX() < rightline)
+	{
+		Player->SetPosition(NNPoint(rightline, Player->GetPositionY()));
+	}
+	if (Player->GetPositionY() > botline)
+	{
+		Player->SetPosition(NNPoint(Player->GetPositionX(), botline));
+	}
+	if (Player->GetPositionY() < topline)
+	{
+		Player->SetPosition(NNPoint(Player->GetPositionX(),topline));
+	}
 }

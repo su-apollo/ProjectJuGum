@@ -3,8 +3,8 @@
 
 CMainMenuScene::CMainMenuScene(void)
 {
-	float width = NNApplication::GetInstance()->GetScreenWidth();
-	float height = NNApplication::GetInstance()->GetScreenHeight();
+	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
+	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 	m_LogoLabelEnglish = NNLabel::Create( L"JuGums", L"Something Strange", 100.f );
 	m_LogoLabelEnglish->SetColor( 255, 0, 0 );
 	m_LogoLabelEnglish->SetPosition( width/2 - 25.f, height/4 - 100.f );

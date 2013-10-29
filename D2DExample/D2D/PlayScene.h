@@ -17,7 +17,7 @@ public:
 	void Render();
 	void Update( float dTime );
 
-	bool HitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius);
+	bool CtoCHitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius);
 
 	NNCREATE_FUNC(CPlayScene);
 
@@ -34,5 +34,7 @@ private:
 	float m_SumTime;
 	NNLabel* m_FPSLabel;
 	wchar_t m_FPS[20];
+
+	void SetPlayerMoveArea(CMaincharacter * Player);
 };
 
