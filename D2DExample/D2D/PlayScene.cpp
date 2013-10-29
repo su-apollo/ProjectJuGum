@@ -98,7 +98,10 @@ void CPlayScene::Update( float dTime )
 	{
 		m_Bullet2[i]->Update(dTime);
 	}
-	
+
+	m_Player1->Update(dTime);
+	m_Player2->Update(dTime);
+
 	for (int i = 0; i < m_BulletIndex1; ++i)
 	{
 		if(HitCheck(m_Bullet1[i]->GetPosition(), m_Bullet1[i]->GetMainCircle()->GetRadius(), m_Player2->GetPosition(), m_Player2->GetMainCircle()->GetRadius()))
@@ -114,14 +117,14 @@ void CPlayScene::Update( float dTime )
 			NNSceneDirector::GetInstance()->ChangeScene(CMainMenuScene::Create());
 		}
 	}
-
-	m_Player1->Update(dTime);
-	m_Player2->Update(dTime);
 }
 
 bool CPlayScene::HitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius)
 {
-	if((Aradius + Bradius) > sqrt((Apoint.GetX()-Bpoint.GetX())*(Apoint.GetX()-Bpoint.GetX())+(Apoint.GetY()-Bpoint.GetY()*(Apoint.GetY()-Bpoint.GetY()))))
+	float x = Apoint.GetX() - Bpoint.GetX();
+	float y = Apoint.GetY() - Bpoint.GetY();
+
+	if((Aradius + Bradius) > sqrt(x*x + y*y))
 	{
 		return true;
 	}
