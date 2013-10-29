@@ -36,5 +36,6 @@ private:
 	wchar_t m_FPS[20];
 
 	void SetPlayerMoveArea(CMaincharacter * Player);
+	void SetBolletLifeTime(CBullet * Bullet);
 };
 

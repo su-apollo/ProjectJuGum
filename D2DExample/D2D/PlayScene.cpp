@@ -123,6 +123,16 @@ void CPlayScene::Update( float dTime )
 			NNSceneDirector::GetInstance()->ChangeScene(CMainMenuScene::Create());
 		}
 	}
+	
+	//총알의 라이프타임 처리
+	for (int i = 0; i < m_BulletIndex1; ++i)
+	{
+		SetBolletLifeTime(m_Bullet1[i]);
+	}
+	for (int i = 0; i < m_BulletIndex2; ++i)
+	{
+		SetBolletLifeTime(m_Bullet2[i]);
+	}
 }
 
 bool CPlayScene::CtoCHitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius)
@@ -156,5 +166,30 @@ void CPlayScene::SetPlayerMoveArea(CMaincharacter * Player)
 	if (Player->GetPositionY() < topline)
 	{
 		Player->SetPosition(NNPoint(Player->GetPositionX(),topline));
+	}
+}
+
+void CPlayScene::SetBolletLifeTime(CBullet * Bullet)
+{
+	float leftline = m_Map->GetPositionX() + m_Map->GetMainFrame()->GetWidth()/2 + Bullet->GetMainCircle()->GetRadius();
+	float rightline = m_Map->GetPositionX() - m_Map->GetMainFrame()->GetWidth()/2 - Bullet->GetMainCircle()->GetRadius();
+	float botline = m_Map->GetPositionY() + m_Map->GetMainFrame()->GetHeight()/2 + Bullet->GetMainCircle()->GetRadius();
+	float topline = m_Map->GetPositionY() - m_Map->GetMainFrame()->GetHeight()/2 - Bullet->GetMainCircle()->GetRadius();
+
+	if (Bullet->GetPositionX() > leftline )
+	{
+		Bullet->SetSpeed(0.f);
+	}
+	if (Bullet->GetPositionX() < rightline)
+	{
+		Bullet->SetSpeed(0.f);
+	}
+	if (Bullet->GetPositionY() > botline)
+	{
+		Bullet->SetSpeed(0.f);
+	}
+	if (Bullet->GetPositionY() < topline)
+	{
+		Bullet->SetSpeed(0.f);
 	}
 }
