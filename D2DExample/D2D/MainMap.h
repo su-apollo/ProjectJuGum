@@ -12,9 +12,6 @@ public:
 
 	NNRect * GetMainFrame() {return m_MainFrame;}
 
-
-	NNCREATE_FUNC(CMainMap);
-
 private:
 	NNRect * m_MainFrame;
 };

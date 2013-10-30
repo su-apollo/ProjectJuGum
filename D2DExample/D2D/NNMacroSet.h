@@ -61,9 +61,9 @@ inline float NNAngleToY( int angle )
 	return (float)sin(NN_PI*angle/180);
 }
 
-#define NNCREATE_FUNC(CLASS_NAME) \
-	static CLASS_NAME* Create() \
-	{ \
-		CLASS_NAME* pInstance = new CLASS_NAME(); \
-		return pInstance; \
-	}
+// #define NNCREATE_FUNC(CLASS_NAME) \
+// 	static CLASS_NAME* Create() \
+// 	{ \
+// 		CLASS_NAME* pInstance = new CLASS_NAME(); \
+// 		return pInstance; \
+// 	}

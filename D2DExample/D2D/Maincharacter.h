@@ -20,9 +20,6 @@ public:
 	void SetKeyRight(int right){m_keyright = right;}
 	void SetMoveArea(float left, float right, float top, float bottom);
 
-
-	NNCREATE_FUNC(CMaincharacter);
-
 private:
 	NNCircle* m_Circle;
 	float m_speed;

@@ -19,8 +19,6 @@ public:
 
 	bool CtoCHitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius);
 
-	NNCREATE_FUNC(CPlayScene);
-
 private:
 	CMaincharacter * m_Player1;
 	CMaincharacter * m_Player2;

@@ -5,13 +5,13 @@ CPlayScene::CPlayScene(void) :
 	m_BulletIndex1(0), m_BulletIndex2(0)
 {
 	//맵생성
-	m_Map = CMainMap::Create();
+	m_Map = new CMainMap;
 	m_Map->SetPosition(NNPoint(640.f, 400.f));
 	AddChild(m_Map);
 
 	//플레이어 생성
-	m_Player1 = CMaincharacter::Create();
-	m_Player2 = CMaincharacter::Create();
+	m_Player1 = new CMaincharacter;
+	m_Player2 = new CMaincharacter;
 
 	m_Player2->SetKeyUp('W');
 	m_Player2->SetKeyDown('S');
@@ -27,12 +27,12 @@ CPlayScene::CPlayScene(void) :
 	//총알 장전
 	for(int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
-		m_Bullet1[i] = CBullet::Create();
+		m_Bullet1[i] = new CBullet;
 	}
 
 	for(int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
-		m_Bullet2[i] = CBullet::Create();
+		m_Bullet2[i] = new CBullet;
 		m_Bullet2[i]->SetDirection(90);
 		
 	}

@@ -16,8 +16,6 @@ public:
 	void Render();
 	void Update( float dTime );
 
-	NNCREATE_FUNC(CReturnScene);
-
 private:
 	NNLabel* m_ReturnLabel;
 	NNLabel* m_YesLabel;

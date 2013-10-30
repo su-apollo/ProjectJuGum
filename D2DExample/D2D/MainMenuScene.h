@@ -26,8 +26,6 @@ public:
 	void Render();
 	void Update( float dTime );
 
-	NNCREATE_FUNC(CMainMenuScene);
-
 private:
 	NNLabel* m_LogoLabelEnglish;
 	NNLabel* m_LogoLabelKorean;

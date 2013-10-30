@@ -1,5 +1,6 @@
 #pragma once
 #include "NNCircle.h"
+#include "Maincharacter.h"
 
 class CBullet : public NNObject
 {
@@ -15,7 +16,7 @@ public:
 	void SetSpeed( float new_speed ){ m_speed = new_speed;}
 	void SetDirection(int new_direction){ m_direction = new_direction; }
 
-	NNCREATE_FUNC(CBullet);
+	bool HitCheck(CMaincharacter * Player);
 
 private:
 	NNCircle* m_Circle;
