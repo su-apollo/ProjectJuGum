@@ -41,33 +41,27 @@ void CReturnScene::Update( float dTime )
 	{
 		m_bReturn = !m_bReturn;
 
-		switch (m_bReturn)
+		if (m_bReturn)
 		{
-		case true:
 			m_NoLabel->SetColor( 0, 0, 0 );
 			m_YesLabel->SetColor( 255, 0, 0 );
-			break;
-		case false:
+		} 
+		else
+		{
 			m_YesLabel->SetColor( 0, 0, 0 );
 			m_NoLabel->SetColor( 255, 0, 0 );
-			break;
-		default:
-			break;
 		}
 	}
 
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_RETURN ) == KEY_DOWN )
 	{
-		switch (m_bReturn)
+		if (m_bReturn)
 		{
-		case true:
 			NNSceneDirector::GetInstance()->ChangeScene( CMainMenuScene::Create() );
-			break;
-		case false:
-			NNSceneDirector::GetInstance()->BackToPrevScene();			
-			break;
-		default:
-			break;
+		} 
+		else
+		{
+			NNSceneDirector::GetInstance()->BackToPrevScene();
 		}
 	}
 }
