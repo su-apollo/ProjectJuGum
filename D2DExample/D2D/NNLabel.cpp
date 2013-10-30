@@ -66,10 +66,10 @@ void NND2DLabel::Render()
 	m_pD2DRenderer->GetHwndRenderTarget()->DrawTextW( m_String,
 		wcslen(m_String), 
 		m_TextFormat, 
-		D2D1::RectF(-(m_pD2DRenderer->GetHwndRenderTarget()->GetSize().width)/2,
-					-(m_pD2DRenderer->GetHwndRenderTarget()->GetSize().height)/2,
-					m_pD2DRenderer->GetHwndRenderTarget()->GetSize().width/2,
-					m_pD2DRenderer->GetHwndRenderTarget()->GetSize().height/2),
+		D2D1::RectF(0,
+					0,
+					m_pD2DRenderer->GetHwndRenderTarget()->GetSize().width,
+					m_pD2DRenderer->GetHwndRenderTarget()->GetSize().height),
 		m_Brush );
 }
 void NND2DLabel::SetTextFormat()
