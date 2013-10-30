@@ -104,11 +104,11 @@ void CPlayScene::Update( float dTime )
 	m_Player1->Update(dTime);
 	m_Player2->Update(dTime);
 
-	//맵과 캐릭터의 충돌채크
+	//맵과 캐릭터의 충돌체크
 	SetPlayerMoveArea(m_Player1);
 	SetPlayerMoveArea(m_Player2);
 
-	//총알과 캐릭터의 충돌채크
+	//총알과 캐릭터의 충돌체크
 	for (int i = 0; i < m_BulletIndex1; ++i)
 	{
 		if(CtoCHitCheck(m_Bullet1[i]->GetPosition(), m_Bullet1[i]->GetMainCircle()->GetRadius(), m_Player2->GetPosition(), m_Player2->GetMainCircle()->GetRadius()))
