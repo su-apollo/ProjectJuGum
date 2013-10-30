@@ -10,7 +10,7 @@ NNApplication::NNApplication()
 	  m_Fps(0.f), m_ElapsedTime(0.f), m_DeltaTime(0.f),
 	  m_PrevTime(0), m_NowTime(0),
 	  m_Renderer(nullptr), m_pSceneDirector(nullptr),
-	  m_RendererStatus(UNKNOWN)
+	  m_RendererStatus(UNKNOWN), m_DestroyWindow(false)
 {
 
 }
@@ -59,13 +59,17 @@ bool NNApplication::Init( wchar_t* const title, int width, int height, RendererS
 
 bool NNApplication::Release()
 {
- 	SafeDelete( m_Renderer );
+	if ( m_DestroyWindow == true ) {
+		ReleaseInstance();
+		return true;
+	}
  	m_pSceneDirector->Release();
 
 	NNSceneDirector::ReleaseInstance();
 	NNResourceManager::ReleaseInstance();
 	NNInputSystem::ReleaseInstance();
 	NNAudioSystem::ReleaseInstance();
+	SafeDelete( m_Renderer );
 	ReleaseInstance();
 
 	return true;
@@ -172,15 +176,10 @@ LRESULT CALLBACK NNApplication::WndProc( HWND hWnd, UINT message, WPARAM wParam,
 	switch( message )
 	{
 	case WM_DESTROY:
-		ExitProcess(0);
+		NNApplication::GetInstance()->Release();
+		NNApplication::GetInstance()->m_DestroyWindow = true;
 		PostQuitMessage(0);
 		return 0;
-		/*
-	case WM_PAINT:
-		PAINTSTRUCT ps;
-		HDC hdc = BeginPaint( hWnd, &ps );
-		EndPaint( hWnd, &ps );
-		*/
 	}
 
 	return(DefWindowProc(hWnd,message,wParam,lParam));

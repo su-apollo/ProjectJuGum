@@ -71,6 +71,8 @@ private:
 	int m_PrevTime;
 	int m_NowTime;
 
+	bool m_DestroyWindow;
+
 private:
 	static NNApplication* m_pInstance;
 
