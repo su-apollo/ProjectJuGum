@@ -6,6 +6,7 @@
 
 #include "NNApplication.h"
 #include "PlayScene.h"
+#include "NNSprite.h"
 
 
 enum MENU_LIST
@@ -26,8 +27,7 @@ public:
 	void Update( float dTime );
 
 private:
-	NNLabel* m_LogoLabelEnglish;
-	NNLabel* m_LogoLabelKorean;
+	NNSprite* m_Logo;
 	NNLabel* m_MenuLabel[3];
 
 	unsigned int m_KeyOn;
