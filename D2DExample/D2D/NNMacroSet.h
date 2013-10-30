@@ -55,13 +55,13 @@ inline double NNRadianToDegree( double n )
 
 
 //주어진 각도에 대한 X축 길이를 코사인으로 계산해냄
-inline float NNAngleToX( int angle )
+inline float NNGetLengthX( int angle )
 {
 	return (float)cos(NN_PI*angle/180);
 }
 
 //주어진 각도에 대한 Y축 길이를 사인으로 계산해냄
-inline float NNAngleToY( int angle )
+inline float NNLengthY( int angle )
 {
 	return (float)sin(NN_PI*angle/180);
 }
