@@ -57,7 +57,7 @@ void CReturnScene::Update( float dTime )
 	{
 		if (m_bReturn)
 		{
-			NNSceneDirector::GetInstance()->ChangeScene( CMainMenuScene::Create() );
+			NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
 		} 
 		else
 		{

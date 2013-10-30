@@ -112,7 +112,7 @@ bool NNApplication::Run()
 
 			if ( NNInputSystem::GetInstance()->GetKeyState( VK_ESCAPE ) == KEY_DOWN )
 			{
-				NNSceneDirector::GetInstance()->ChangeScene( CReturnScene::Create() );
+				NNSceneDirector::GetInstance()->ChangeScene( new CReturnScene() );
 			}
 		}
 	}

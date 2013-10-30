@@ -61,7 +61,7 @@ void CMainMenuScene::Update( float dTime )
 		switch (m_KeyOn)
 		{
 		case MENU_PLAY:
-			NNSceneDirector::GetInstance()->ChangeScene( CPlayScene::Create() );
+			NNSceneDirector::GetInstance()->ChangeScene( new CPlayScene() );
 			break;
 		case MENU_TEST:
 			break;

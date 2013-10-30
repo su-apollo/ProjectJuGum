@@ -22,7 +22,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 
 	Application->Init( L"JuGums", 1000, 700, D2D );
 	
-	NNSceneDirector::GetInstance()->ChangeScene( CMainMenuScene::Create() );
+	NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
 
 	Application->Run();
 	Application->Release();
