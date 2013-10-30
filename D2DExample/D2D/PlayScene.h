@@ -6,7 +6,7 @@
 #include "NNApplication.h"
 #include "MainMap.h"
 
-#define MAX_BULLET_NUM 10
+#define MAX_BULLET_NUM 100
 
 class CPlayScene : public NNScene
 {

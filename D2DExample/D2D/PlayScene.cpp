@@ -81,12 +81,20 @@ void CPlayScene::Update( float dTime )
 	{
 		m_Bullet1[m_BulletIndex1]->SetPosition( m_Player1->GetPosition() );
 		++m_BulletIndex1;
+		if (m_BulletIndex1 >= MAX_BULLET_NUM)
+		{
+			m_BulletIndex1 = 0;
+		}
 	}
 
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_SHIFT ) == KEY_DOWN && m_BulletIndex2 < MAX_BULLET_NUM )
 	{
 		m_Bullet2[m_BulletIndex2]->SetPosition( m_Player2->GetPosition() );
 		++m_BulletIndex2;
+		if (m_BulletIndex2 >= MAX_BULLET_NUM)
+		{
+			m_BulletIndex2 = 0;
+		}
 	}
 
 	//ÃÑ¾ËÀÇ ÀÌµ¿
@@ -178,18 +186,18 @@ void CPlayScene::SetBolletLifeTime(CBullet * Bullet)
 
 	if (Bullet->GetPositionX() > leftline )
 	{
-		Bullet->SetSpeed(0.f);
+		Bullet->SetPosition(0.f, 0.f);
 	}
 	if (Bullet->GetPositionX() < rightline)
 	{
-		Bullet->SetSpeed(0.f);
+		Bullet->SetPosition(0.f, 0.f);
 	}
 	if (Bullet->GetPositionY() > botline)
 	{
-		Bullet->SetSpeed(0.f);
+		Bullet->SetPosition(0.f, 0.f);
 	}
 	if (Bullet->GetPositionY() < topline)
 	{
-		Bullet->SetSpeed(0.f);
+		Bullet->SetPosition(0.f, 0.f);
 	}
 }
