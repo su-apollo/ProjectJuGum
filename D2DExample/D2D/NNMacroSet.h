@@ -33,6 +33,8 @@ inline void SafeRelease( T* &p )
 
 #define NN_PI 3.14159265358979
 
+// 1 Radian = 180/PI Degree
+// 1 Degree = PI/180 Radian
 inline float NNDegreeToRadian( float n )
 {
 	return n / 180.f * (float)NN_PI;
@@ -51,15 +53,25 @@ inline double NNRadianToDegree( double n )
 	return n * 180 / NN_PI;
 }
 
+
+//주어진 각도에 대한 X축 길이를 코사인으로 계산해냄
 inline float NNAngleToX( int angle )
 {
 	return (float)cos(NN_PI*angle/180);
 }
 
+//주어진 각도에 대한 Y축 길이를 사인으로 계산해냄
 inline float NNAngleToY( int angle )
 {
 	return (float)sin(NN_PI*angle/180);
 }
+
+// #define NNCREATE_FUNC(CLASS_NAME) \
+// 	static CLASS_NAME* Create() \
+// 	{ \
+// 		CLASS_NAME* pInstance = new CLASS_NAME(); \
+// 		return pInstance; \
+// 	}
 
 #define SINGLETON(type) \
 	public: \
