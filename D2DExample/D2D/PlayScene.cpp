@@ -113,14 +113,14 @@ void CPlayScene::Update( float dTime )
 	{
 		if(CtoCHitCheck(m_Bullet1[i]->GetPosition(), m_Bullet1[i]->GetMainCircle()->GetRadius(), m_Player2->GetPosition(), m_Player2->GetMainCircle()->GetRadius()))
 		{
-			NNSceneDirector::GetInstance()->ChangeScene(CMainMenuScene::Create());
+			NNSceneDirector::GetInstance()->ChangeScene(new CMainMenuScene);
 		}
 	}
 	for (int i = 0; i < m_BulletIndex2; ++i)
 	{
 		if(CtoCHitCheck(m_Bullet2[i]->GetPosition(), m_Bullet2[i]->GetMainCircle()->GetRadius(), m_Player1->GetPosition(), m_Player1->GetMainCircle()->GetRadius()))
 		{
-			NNSceneDirector::GetInstance()->ChangeScene(CMainMenuScene::Create());
+			NNSceneDirector::GetInstance()->ChangeScene(new CMainMenuScene);
 		}
 	}
 	
