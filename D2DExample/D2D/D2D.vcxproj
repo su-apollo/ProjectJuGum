@@ -82,10 +82,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="CustomObject.cpp" />
-    <ClCompile Include="CustomObjectExample.cpp" />
-    <ClCompile Include="InputExamle.cpp" />
-    <ClCompile Include="LabelExample.cpp" />
     <ClCompile Include="MainMap.cpp" />
     <ClCompile Include="NNAudioSystem.cpp" />
     <ClCompile Include="NNCircle.cpp" />
@@ -107,16 +103,10 @@
     <ClCompile Include="MainCharacter.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="ReturnScene.cpp" />
-    <ClCompile Include="SoundExample.cpp" />
-    <ClCompile Include="SpriteExample.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
-    <ClInclude Include="CustomObject.h" />
-    <ClInclude Include="CustomObjectExample.h" />
-    <ClInclude Include="InputExample.h" />
-    <ClInclude Include="LabelExample.h" />
     <ClInclude Include="MainMap.h" />
     <ClInclude Include="NNAudioSystem.h" />
     <ClInclude Include="NNApplication.h" />
@@ -142,8 +132,6 @@
     <ClInclude Include="Maincharacter.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="ReturnScene.h" />
-    <ClInclude Include="SoundExample.h" />
-    <ClInclude Include="SpriteExample.h" />
     <ClInclude Include="MainMenuScene.h" />
   </ItemGroup>
   <ItemGroup>

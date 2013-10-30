@@ -3,8 +3,8 @@
 
 CReturnScene::CReturnScene(void)
 {
-	float width = NNApplication::GetInstance()->GetScreenWidth();
-	float height = NNApplication::GetInstance()->GetScreenHeight();
+	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
+	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 
 	m_ReturnLabel = NNLabel::Create( L"Return to Main Menu? ", L"±Ã¼­Ã¼", 75.f );
 	m_ReturnLabel->SetPosition( width/2 - 220.f, height/4 );

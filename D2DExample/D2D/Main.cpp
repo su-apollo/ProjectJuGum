@@ -2,11 +2,6 @@
 #include "NNApplication.h"
 #include "NNAudioSystem.h"
 
-#include "SpriteExample.h"
-#include "LabelExample.h"
-#include "SoundExample.h"
-#include "InputExample.h"
-#include "CustomObjectExample.h"
 #include "MainMenuScene.h"
 #include "PlayScene.h"
 #include "ReturnScene.h"

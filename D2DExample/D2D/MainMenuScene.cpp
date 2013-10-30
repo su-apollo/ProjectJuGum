@@ -64,7 +64,6 @@ void CMainMenuScene::Update( float dTime )
 			NNSceneDirector::GetInstance()->ChangeScene( CPlayScene::Create() );
 			break;
 		case MENU_TEST:
-			NNSceneDirector::GetInstance()->ChangeScene( CustomObjectExample::Create() );
 			break;
 		case MENU_QUIT:
 			PostQuitMessage(0);

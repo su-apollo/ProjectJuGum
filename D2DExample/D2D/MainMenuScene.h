@@ -6,7 +6,6 @@
 
 #include "NNApplication.h"
 #include "PlayScene.h"
-#include "CustomObjectExample.h"
 
 
 enum MENU_LIST

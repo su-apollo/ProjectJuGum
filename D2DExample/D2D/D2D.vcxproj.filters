@@ -44,24 +44,6 @@
     <ClCompile Include="NNTexture.cpp">
       <Filter>Core\Resource\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteExample.cpp">
-      <Filter>Example\Sprite</Filter>
-    </ClCompile>
-    <ClCompile Include="LabelExample.cpp">
-      <Filter>Example\Label</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundExample.cpp">
-      <Filter>Example\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="CustomObjectExample.cpp">
-      <Filter>Example\CustomObject</Filter>
-    </ClCompile>
-    <ClCompile Include="InputExamle.cpp">
-      <Filter>Example\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="CustomObject.cpp">
-      <Filter>Example\CustomObject</Filter>
-    </ClCompile>
     <ClCompile Include="NNCircle.cpp">
       <Filter>Core\Node\Circle</Filter>
     </ClCompile>
@@ -148,26 +130,8 @@
     <Filter Include="Core\Resource\Texture">
       <UniqueIdentifier>{7bcc719b-38e5-4210-a4fb-2ae864fc1f08}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Example">
-      <UniqueIdentifier>{5726bfd9-10dd-4a69-8270-3eac777c41aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Example\CustomObject">
-      <UniqueIdentifier>{122781cc-b3b1-4797-9052-11c7c5ca79ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Example\Label">
-      <UniqueIdentifier>{1e887844-91f8-44ba-9924-54e5ef933241}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Example\Sound">
-      <UniqueIdentifier>{f0a84e74-f556-4547-9df9-f3e0df3ca2f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Example\Sprite">
-      <UniqueIdentifier>{37bc7267-9cc8-4db2-9539-e6dc9e57f538}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Node\Circle">
       <UniqueIdentifier>{a694774a-ea53-4bd1-86aa-4c4d4789dc7e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Example\Input">
-      <UniqueIdentifier>{62623a13-cd0c-4e38-b21f-c405dc3243f1}</UniqueIdentifier>
     </Filter>
     <Filter Include="ProjectJG">
       <UniqueIdentifier>{01f6edb0-bd8c-4edd-bd64-43ddb6cfcf04}</UniqueIdentifier>
@@ -248,24 +212,6 @@
     </ClInclude>
     <ClInclude Include="NNTexture.h">
       <Filter>Core\Resource\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteExample.h">
-      <Filter>Example\Sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="InputExample.h">
-      <Filter>Example\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="LabelExample.h">
-      <Filter>Example\Label</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundExample.h">
-      <Filter>Example\Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="CustomObjectExample.h">
-      <Filter>Example\CustomObject</Filter>
-    </ClInclude>
-    <ClInclude Include="CustomObject.h">
-      <Filter>Example\CustomObject</Filter>
     </ClInclude>
     <ClInclude Include="NNCircle.h">
       <Filter>Core\Node\Circle</Filter>
