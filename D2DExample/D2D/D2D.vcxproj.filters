@@ -68,6 +68,7 @@
     <ClCompile Include="MainMap.cpp">
       <Filter>ProjectJG\Map</Filter>
     </ClCompile>
+    <ClCompile Include="InputManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -237,6 +238,7 @@
     <ClInclude Include="MainMap.h">
       <Filter>ProjectJG\Map</Filter>
     </ClInclude>
+    <ClInclude Include="InputManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

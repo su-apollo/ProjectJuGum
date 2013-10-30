@@ -22,5 +22,5 @@ void CBullet::Render()
 
 void CBullet::Update( float dTime )
 {
-	SetPosition( GetPosition() + NNPoint(m_speed*NNAngleToX(m_direction), m_speed*NNAngleToY(m_direction))*dTime);
+	SetPosition( GetPosition() + NNPoint(m_speed*NNDegreeToX(m_direction), m_speed*NNDegreeToY(m_direction))*dTime);
 }

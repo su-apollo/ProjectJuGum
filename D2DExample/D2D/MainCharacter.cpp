@@ -33,34 +33,34 @@ void CMaincharacter::UpdateMotion(float dTime)
 	//입력에 따른 캐릭터의 이동
 	if ( NNInputSystem::GetInstance()->GetKeyState( m_keyup ) == KEY_PRESSED && NNInputSystem::GetInstance()->GetKeyState( m_keyleft ) == KEY_PRESSED )
 	{
-		SetPosition( GetPosition() + NNPoint(m_speed*NNAngleToX(225), m_speed*NNAngleToY(225))*dTime );
+		SetPosition( GetPosition() + NNPoint(m_speed*NNDegreeToX(225), m_speed*NNDegreeToY(225))*dTime );
 	}
 	else if ( NNInputSystem::GetInstance()->GetKeyState( m_keyup ) == KEY_PRESSED && NNInputSystem::GetInstance()->GetKeyState( m_keyright ) == KEY_PRESSED )
 	{
-		SetPosition( GetPosition() + NNPoint(m_speed*NNAngleToX(315), m_speed*NNAngleToY(315))* dTime );
+		SetPosition( GetPosition() + NNPoint(m_speed*NNDegreeToX(315), m_speed*NNDegreeToY(315))* dTime );
 	}
 	else if ( NNInputSystem::GetInstance()->GetKeyState( m_keydown ) == KEY_PRESSED && NNInputSystem::GetInstance()->GetKeyState( m_keyleft ) == KEY_PRESSED )
 	{
-		SetPosition( GetPosition() + NNPoint(m_speed*NNAngleToX(135), m_speed*NNAngleToY(135)) * dTime );
+		SetPosition( GetPosition() + NNPoint(m_speed*NNDegreeToX(135), m_speed*NNDegreeToY(135)) * dTime );
 	}
 	else if ( NNInputSystem::GetInstance()->GetKeyState( m_keydown ) == KEY_PRESSED && NNInputSystem::GetInstance()->GetKeyState( m_keyright ) == KEY_PRESSED )
 	{
-		SetPosition( GetPosition() + NNPoint(m_speed*NNAngleToX(45), m_speed*NNAngleToY(45)) * dTime );
+		SetPosition( GetPosition() + NNPoint(m_speed*NNDegreeToX(45), m_speed*NNDegreeToY(45)) * dTime );
 	}
 	else if ( NNInputSystem::GetInstance()->GetKeyState( m_keyleft ) == KEY_PRESSED )
 	{
-		SetPosition( GetPosition() + NNPoint(m_speed*NNAngleToX(180), m_speed*NNAngleToY(180)) * dTime );
+		SetPosition( GetPosition() + NNPoint(m_speed*NNDegreeToX(180), m_speed*NNDegreeToY(180)) * dTime );
 	}
 	else if ( NNInputSystem::GetInstance()->GetKeyState( m_keyright ) == KEY_PRESSED )
 	{
-		SetPosition( GetPosition() + NNPoint(m_speed*NNAngleToX(0), m_speed*NNAngleToY(0)) * dTime );
+		SetPosition( GetPosition() + NNPoint(m_speed*NNDegreeToX(0), m_speed*NNDegreeToY(0)) * dTime );
 	}
 	else if ( NNInputSystem::GetInstance()->GetKeyState( m_keydown ) == KEY_PRESSED )
 	{
-		SetPosition( GetPosition() + NNPoint(m_speed*NNAngleToX(90), m_speed*NNAngleToY(90)) * dTime );
+		SetPosition( GetPosition() + NNPoint(m_speed*NNDegreeToX(90), m_speed*NNDegreeToY(90)) * dTime );
 	}
 	else if ( NNInputSystem::GetInstance()->GetKeyState( m_keyup ) == KEY_PRESSED )
 	{
-		SetPosition( GetPosition() + NNPoint(m_speed*NNAngleToX(270), m_speed*NNAngleToY(270)) * dTime );
+		SetPosition( GetPosition() + NNPoint(m_speed*NNDegreeToX(270), m_speed*NNDegreeToY(270)) * dTime );
 	}
 }
