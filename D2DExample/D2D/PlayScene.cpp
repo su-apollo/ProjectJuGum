@@ -111,14 +111,14 @@ void CPlayScene::Update( float dTime )
 	//총알과 캐릭터의 충돌체크
 	for (int i = 0; i < m_BulletIndex1; ++i)
 	{
-		if(CtoCHitCheck(m_Bullet1[i]->GetPosition(), m_Bullet1[i]->GetMainCircle()->GetRadius(), m_Player2->GetPosition(), m_Player2->GetMainCircle()->GetRadius()))
+		if(CircleToCircleHitCheck(m_Bullet1[i]->GetPosition(), m_Bullet1[i]->GetMainCircle()->GetRadius(), m_Player2->GetPosition(), m_Player2->GetMainCircle()->GetRadius()))
 		{
 			NNSceneDirector::GetInstance()->ChangeScene(new CMainMenuScene);
 		}
 	}
 	for (int i = 0; i < m_BulletIndex2; ++i)
 	{
-		if(CtoCHitCheck(m_Bullet2[i]->GetPosition(), m_Bullet2[i]->GetMainCircle()->GetRadius(), m_Player1->GetPosition(), m_Player1->GetMainCircle()->GetRadius()))
+		if(CircleToCircleHitCheck(m_Bullet2[i]->GetPosition(), m_Bullet2[i]->GetMainCircle()->GetRadius(), m_Player1->GetPosition(), m_Player1->GetMainCircle()->GetRadius()))
 		{
 			NNSceneDirector::GetInstance()->ChangeScene(new CMainMenuScene);
 		}
@@ -135,7 +135,7 @@ void CPlayScene::Update( float dTime )
 	}
 }
 
-bool CPlayScene::CtoCHitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius)
+bool CPlayScene::CircleToCircleHitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius)
 {
 	if((Aradius + Bradius) > Apoint.GetDistance(Bpoint))
 	{

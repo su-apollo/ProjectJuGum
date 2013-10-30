@@ -17,21 +17,21 @@ public:
 	void Render();
 	void Update( float dTime );
 
-	bool CtoCHitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius);
+	bool CircleToCircleHitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius);
 
 private:
 	CMaincharacter * m_Player1;
 	CMaincharacter * m_Player2;
-	CMainMap * m_Map;
+	CMainMap *	m_Map;
 	CBullet *	m_Bullet1[MAX_BULLET_NUM];
 	CBullet *	m_Bullet2[MAX_BULLET_NUM];
 	int			m_BulletIndex1;
 	int			m_BulletIndex2;
 
 	// FPS
-	float m_SumTime;
-	NNLabel* m_FPSLabel;
-	wchar_t m_FPS[20];
+	float		m_SumTime;
+	NNLabel*	m_FPSLabel;
+	wchar_t		m_FPS[20];
 
 	void SetPlayerMoveArea(CMaincharacter * Player);
 	void SetBolletLifeTime(CBullet * Bullet);

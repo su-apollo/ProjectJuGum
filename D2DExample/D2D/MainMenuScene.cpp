@@ -7,7 +7,7 @@ CMainMenuScene::CMainMenuScene(void)
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 	m_LogoLabelEnglish = NNLabel::Create( L"JuGums", L"Something Strange", 100.f );
 	m_LogoLabelEnglish->SetColor( 255, 0, 0 );
-	m_LogoLabelEnglish->SetPosition( width/2 - 25.f, height/4 - 100.f );
+	m_LogoLabelEnglish->SetPosition( 640.f, 400.f);
 	AddChild( m_LogoLabelEnglish );
 	
 	m_LogoLabelKorean = NNLabel::Create( L"주검들", L"궁서체", 70.f );
