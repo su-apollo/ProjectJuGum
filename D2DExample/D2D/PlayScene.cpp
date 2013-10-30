@@ -28,12 +28,14 @@ CPlayScene::CPlayScene(void) :
 	for(int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
 		m_Bullet1[i] = new CBullet;
+		AddChild( m_Bullet1[i] );
 	}
 
 	for(int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
 		m_Bullet2[i] = new CBullet;
 		m_Bullet2[i]->SetDirection(90);
+		AddChild( m_Bullet2[i] );
 		
 	}
 
@@ -78,14 +80,12 @@ void CPlayScene::Update( float dTime )
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_SPACE ) == KEY_DOWN && m_BulletIndex1 < MAX_BULLET_NUM )
 	{
 		m_Bullet1[m_BulletIndex1]->SetPosition( m_Player1->GetPosition() );
-		AddChild( m_Bullet1[m_BulletIndex1] );
 		++m_BulletIndex1;
 	}
 
 	if ( NNInputSystem::GetInstance()->GetKeyState( VK_SHIFT ) == KEY_DOWN && m_BulletIndex2 < MAX_BULLET_NUM )
 	{
 		m_Bullet2[m_BulletIndex2]->SetPosition( m_Player2->GetPosition() );
-		AddChild( m_Bullet2[m_BulletIndex2] );
 		++m_BulletIndex2;
 	}
 
