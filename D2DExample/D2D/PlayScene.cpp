@@ -69,7 +69,6 @@ void CPlayScene::Update( float dTime )
 		// 0.2 초 한 번 찍고 난 다음엔 리셋(=0) 되는 게 나은 듯.
 		 m_SumTime = 0;
 		// m_SumTime -= 0.2;
-
 	}
 
 	//공격입력
@@ -115,14 +114,14 @@ void CPlayScene::Update( float dTime )
 	//총알과 캐릭터의 충돌체크
 	for (int i = 0; i < m_BulletIndex1; ++i)
 	{
-		if(CircleToCircleHitCheck(m_Bullet1[i]->GetPosition(), m_Bullet1[i]->GetMainCircle()->GetRadius(), m_Player2->GetPosition(), m_Player2->GetMainCircle()->GetRadius()))
+		if(m_Bullet1[i]->CharacterHitCheck(m_Player2))
 		{
 			NNSceneDirector::GetInstance()->ChangeScene(new CMainMenuScene);
 		}
 	}
 	for (int i = 0; i < m_BulletIndex2; ++i)
 	{
-		if(CircleToCircleHitCheck(m_Bullet2[i]->GetPosition(), m_Bullet2[i]->GetMainCircle()->GetRadius(), m_Player1->GetPosition(), m_Player1->GetMainCircle()->GetRadius()))
+		if(m_Bullet2[i]->CharacterHitCheck(m_Player1))
 		{
 			NNSceneDirector::GetInstance()->ChangeScene(new CMainMenuScene);
 		}
