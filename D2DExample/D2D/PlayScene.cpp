@@ -70,10 +70,6 @@ void CPlayScene::Update( float dTime )
 		 m_SumTime = 0;
 		// m_SumTime -= 0.2;
 
-#ifdef _DEBUG
-		 // 값이 0.2초 전과 같을 때는 마치 출력이 안 되는 것 처럼 보임.. 그래서 콘솔에도 찍어 보면 비교하기 편함
-		 printf_s("FPS : %0.3f\n", NNApplication::GetInstance()->GetFPS() );
-#endif // _DEBUG	
 	}
 
 	//공격입력

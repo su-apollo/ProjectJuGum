@@ -12,9 +12,6 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF|_CRTDBG_LEAK_CHECK_DF);
 	//_CrtSetBreakAlloc( );
 
-	AllocConsole();
-	FILE* pStream;
-	freopen_s( &pStream, "CONOUT$", "wt", stdout );
 #endif
 
 
@@ -27,9 +24,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 	Application->Run();
 	Application->Release();
 
-#ifdef _DEBUG
-	FreeConsole();
-#endif
+	OutputDebugString(L"hello") ;
 
 	return 0;
 }

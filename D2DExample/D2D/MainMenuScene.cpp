@@ -64,7 +64,7 @@ void CMainMenuScene::Update( float dTime )
 		case MENU_TEST:
 			break;
 		case MENU_QUIT:
-			ExitProcess(0);
+			PostQuitMessage(0);
 			break;
 		default:
 			break;
