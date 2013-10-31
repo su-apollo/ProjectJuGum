@@ -99,7 +99,7 @@ bool NNApplication::Run()
 			{
 				m_PrevTime = m_NowTime;
 			}
-			m_DeltaTime = static_cast<float>(m_NowTime - m_PrevTime) / 1000.f;
+			m_DeltaTime = (float)(m_NowTime - m_PrevTime) / 1000.f;
 			m_PrevTime = m_NowTime;
 			m_Fps = 1.f / m_DeltaTime;
 

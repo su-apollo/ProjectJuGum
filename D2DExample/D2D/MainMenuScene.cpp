@@ -7,7 +7,7 @@ CMainMenuScene::CMainMenuScene(void)
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 
 	m_Logo = NNSprite::Create( L"Sprite/logo.png" );
-	float image_ratio = width * 0.5 / m_Logo->GetImageWidth();
+	float image_ratio = (float)width * 0.5 / m_Logo->GetImageWidth();
 	m_Logo->SetImageWidth(m_Logo->GetImageWidth() * image_ratio);
 	m_Logo->SetImageHeight(m_Logo->GetImageHeight() * image_ratio);
 	m_Logo->SetPosition( width/2, height/4 );
