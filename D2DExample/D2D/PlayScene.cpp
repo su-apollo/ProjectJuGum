@@ -1,8 +1,7 @@
 #include "PlayScene.h"
 #include "MainMenuScene.h"
 
-CPlayScene::CPlayScene(void) : 
-	m_BulletIndex1(0), m_BulletIndex2(0)
+CPlayScene::CPlayScene(void)
 {
 	//맵생성
 	m_Map = new CMainMap;
@@ -25,17 +24,10 @@ CPlayScene::CPlayScene(void) :
 	AddChild( m_Player2 );
 
 	//총알 장전
-	for(int i = 0; i < MAX_BULLET_NUM; ++i)
+	for (int i = 0 ; i < MAX_BULLET_NUM ; ++i)
 	{
-		m_Bullet1[i] = new CBullet;
-		AddChild( m_Bullet1[i] );
-	}
-
-	for(int i = 0; i < MAX_BULLET_NUM; ++i)
-	{
-		m_Bullet2[i] = new CBullet;
-		m_Bullet2[i]->SetDirection(90);
-		AddChild( m_Bullet2[i] );
+		CBulletManager::GetInstance()->GetBulletArray()[i] = new CBullet;
+		AddChild( CBulletManager::GetInstance()->GetBulletArray()[i] );
 	}
 
 	// FPS
@@ -71,36 +63,18 @@ void CPlayScene::Update( float dTime )
 	}
 
 	//공격입력
-	if ( NNInputSystem::GetInstance()->GetKeyState( VK_SPACE ) == KEY_DOWN && m_BulletIndex1 < MAX_BULLET_NUM )
+	if ( NNInputSystem::GetInstance()->GetKeyState( VK_SPACE ) == KEY_DOWN)
 	{
-		m_Bullet1[m_BulletIndex1]->SetPosition( m_Player1->GetPosition() );
-		++m_BulletIndex1;
-		if (m_BulletIndex1 >= MAX_BULLET_NUM)
-		{
-			m_BulletIndex1 = 0;
-		}
+		CBulletManager::GetInstance()->ShotBullet(m_Player1);
 	}
 
-	if ( NNInputSystem::GetInstance()->GetKeyState( VK_SHIFT ) == KEY_DOWN && m_BulletIndex2 < MAX_BULLET_NUM )
+	if ( NNInputSystem::GetInstance()->GetKeyState( VK_SHIFT ) == KEY_DOWN)
 	{
-		m_Bullet2[m_BulletIndex2]->SetPosition( m_Player2->GetPosition() );
-		++m_BulletIndex2;
-		if (m_BulletIndex2 >= MAX_BULLET_NUM)
-		{
-			m_BulletIndex2 = 0;
-		}
+		CBulletManager::GetInstance()->ShotBullet(m_Player2);
 	}
 
 	//총알의 이동
-	for (int i = 0; i < m_BulletIndex1; ++i)
-	{
-		m_Bullet1[i]->Update(dTime);
-	}
-
-	for (int i = 0; i < m_BulletIndex2; ++i)
-	{
-		m_Bullet2[i]->Update(dTime);
-	}
+	CBulletManager::GetInstance()->UpdateBullet(dTime);
 
 	//캐릭터의 이동
 	m_Player1->Update(dTime);
@@ -111,30 +85,11 @@ void CPlayScene::Update( float dTime )
 	SetPlayerMoveArea(m_Player2);
 
 	//총알과 캐릭터의 충돌체크
-	for (int i = 0; i < m_BulletIndex1; ++i)
-	{
-		if(m_Bullet1[i]->CharacterHitCheck(m_Player2))
-		{
-			NNSceneDirector::GetInstance()->ChangeScene(new CMainMenuScene);
-		}
-	}
-	for (int i = 0; i < m_BulletIndex2; ++i)
-	{
-		if(m_Bullet2[i]->CharacterHitCheck(m_Player1))
-		{
-			NNSceneDirector::GetInstance()->ChangeScene(new CMainMenuScene);
-		}
-	}
+	CBulletManager::GetInstance()->CharacterHitCheck(m_Player1);
+	CBulletManager::GetInstance()->CharacterHitCheck(m_Player2);
 	
 	//총알의 라이프타임 처리
-	for (int i = 0; i < m_BulletIndex1; ++i)
-	{
-		SetBolletLifeTime(m_Bullet1[i]);
-	}
-	for (int i = 0; i < m_BulletIndex2; ++i)
-	{
-		SetBolletLifeTime(m_Bullet2[i]);
-	}
+
 }
 
 bool CPlayScene::CircleToCircleHitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius)
@@ -168,30 +123,5 @@ void CPlayScene::SetPlayerMoveArea(CMaincharacter * Player)
 	if (Player->GetPositionY() < topline)
 	{
 		Player->SetPosition(NNPoint(Player->GetPositionX(),topline));
-	}
-}
-
-void CPlayScene::SetBolletLifeTime(CBullet * Bullet)
-{
-	float leftline = m_Map->GetPositionX() + m_Map->GetMainFrame()->GetWidth()/2 + Bullet->GetMainCircle()->GetRadius();
-	float rightline = m_Map->GetPositionX() - m_Map->GetMainFrame()->GetWidth()/2 - Bullet->GetMainCircle()->GetRadius();
-	float botline = m_Map->GetPositionY() + m_Map->GetMainFrame()->GetHeight()/2 + Bullet->GetMainCircle()->GetRadius();
-	float topline = m_Map->GetPositionY() - m_Map->GetMainFrame()->GetHeight()/2 - Bullet->GetMainCircle()->GetRadius();
-
-	if (Bullet->GetPositionX() > leftline )
-	{
-		Bullet->SetPosition(0.f, 0.f);
-	}
-	if (Bullet->GetPositionX() < rightline)
-	{
-		Bullet->SetPosition(0.f, 0.f);
-	}
-	if (Bullet->GetPositionY() > botline)
-	{
-		Bullet->SetPosition(0.f, 0.f);
-	}
-	if (Bullet->GetPositionY() < topline)
-	{
-		Bullet->SetPosition(0.f, 0.f);
 	}
 }

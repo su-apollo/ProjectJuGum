@@ -5,6 +5,7 @@
 #include "NNInputSystem.h"
 #include "NNApplication.h"
 #include "MainMap.h"
+#include "BulletManager.h"
 
 class CPlayScene : public NNScene
 {
@@ -28,6 +29,5 @@ private:
 	wchar_t		m_FPS[20];
 
 	void SetPlayerMoveArea(CMaincharacter * Player);
-	void SetBolletLifeTime(CBullet * Bullet);
 };
 
