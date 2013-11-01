@@ -36,7 +36,6 @@ CPlayScene::CPlayScene(void) :
 		m_Bullet2[i] = new CBullet;
 		m_Bullet2[i]->SetDirection(90);
 		AddChild( m_Bullet2[i] );
-		
 	}
 
 	// FPS
