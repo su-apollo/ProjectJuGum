@@ -17,18 +17,16 @@ public:
 	void UpdateBullet(float dTime);
 	void CharacterHitCheck(CMaincharacter * Player);
 	void CheckBulletLifeTime(CMainMap * Map);
-	void SetBulletLifeTime(CMainMap * Map, CBullet * Bullet);
-
+	
+	//생산은 씬에서 해줘야함 불렛메니져는 생산된 불렛을 어레이로 보관하고 관리
 	CBullet ** GetBulletArray() { return m_pBulletArray; }
-	int GetBulletIndex() { return m_BulletIndex; }
-	void AddBulletIndex() { ++m_BulletIndex; if(m_BulletIndex > MAX_BULLET_NUM){m_BulletIndex = 0;}}
-
 
 private:
 	static CBulletManager * m_pInstance;
 
-	CBullet *	m_pBulletArray[MAX_BULLET_NUM];
-	int			m_BulletIndex;
+	CBullet * m_pBulletArray[MAX_BULLET_NUM];
+	int	m_BulletIndex;
 
+	void SetBulletLifeTime(CMainMap * Map, CBullet * Bullet);
 };
 

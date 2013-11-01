@@ -29,9 +29,8 @@ void CBullet::Update( float dTime )
 
 bool CBullet::CharacterHitCheck(CMaincharacter * Player)
 {
-	printf_s("%f %f\n", GetPosition().GetX(), GetPosition().GetY());
-
-	if((m_Circle->GetRadius() + Player->GetMainCircle()->GetRadius()) > GetPosition().GetDistance(Player->GetPosition()))
+	if((m_Circle->GetRadius() + Player->GetMainCircle()->GetRadius()) 
+					> GetPosition().GetDistance(Player->GetPosition()))
 	{
 		return true;
 	}

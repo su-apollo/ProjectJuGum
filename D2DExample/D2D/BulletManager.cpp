@@ -6,15 +6,21 @@ CBulletManager::CBulletManager(void) : m_BulletIndex(0)
 {
 }
 
-
 CBulletManager::~CBulletManager(void)
 {
 }
 
 void CBulletManager::ShotBullet(CMaincharacter * Player)
 {
-	m_pBulletArray[m_BulletIndex]->SetPosition( Player->GetPosition() );
-	AddBulletIndex();
+	NNPoint point = Player->GetPosition();
+	float radius_of_Player = Player->GetMainCircle()->GetRadius();
+	float radius_of_Bullet = m_pBulletArray[m_BulletIndex]->GetMainCircle()->GetRadius();
+	point.SetY( Player->GetPositionY() - (radius_of_Bullet + radius_of_Player));
+	m_pBulletArray[m_BulletIndex]->SetPosition( point );
+	if (m_BulletIndex < ( MAX_BULLET_NUM - 1))
+	{
+		++m_BulletIndex;
+	}
 }
 
 void CBulletManager::UpdateBullet(float dTime)
@@ -54,18 +60,22 @@ void CBulletManager::SetBulletLifeTime(CMainMap * Map, CBullet * Bullet)
 	if (Bullet->GetPositionX() > leftline )
 	{
 		Bullet->SetPosition(0.f, 0.f);
+		--m_BulletIndex;
 	}
-	if (Bullet->GetPositionX() < rightline)
+	else if (Bullet->GetPositionX() < rightline)
 	{
 		Bullet->SetPosition(0.f, 0.f);
+		--m_BulletIndex;
 	}
-	if (Bullet->GetPositionY() > botline)
+	else if (Bullet->GetPositionY() > botline)
 	{
 		Bullet->SetPosition(0.f, 0.f);
+		--m_BulletIndex;
 	}
-	if (Bullet->GetPositionY() < topline)
+	else if (Bullet->GetPositionY() < topline)
 	{
 		Bullet->SetPosition(0.f, 0.f);
+		--m_BulletIndex;
 	}
 }
 

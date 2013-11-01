@@ -68,11 +68,6 @@ void CPlayScene::Update( float dTime )
 		CBulletManager::GetInstance()->ShotBullet(m_Player1);
 	}
 
-	if ( NNInputSystem::GetInstance()->GetKeyState( VK_SHIFT ) == KEY_DOWN)
-	{
-		CBulletManager::GetInstance()->ShotBullet(m_Player2);
-	}
-
 	//총알의 이동
 	CBulletManager::GetInstance()->UpdateBullet(dTime);
 
@@ -89,7 +84,7 @@ void CPlayScene::Update( float dTime )
 	CBulletManager::GetInstance()->CharacterHitCheck(m_Player2);
 	
 	//총알의 라이프타임 처리
-
+	CBulletManager::GetInstance()->CheckBulletLifeTime(m_Map);
 }
 
 bool CPlayScene::CircleToCircleHitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius)
