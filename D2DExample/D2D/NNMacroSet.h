@@ -75,7 +75,4 @@ inline float NNDegreeToY( int angle )
 
 #define SINGLETON(type) \
 	public: \
-	type(); \
-	~type(); \
-	public: \
 	static type* GetInstance() {static type s; return &s;}
