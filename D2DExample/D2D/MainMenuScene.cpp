@@ -31,7 +31,6 @@ CMainMenuScene::CMainMenuScene(void)
 
 CMainMenuScene::~CMainMenuScene(void)
 {
-	CBulletManager::ReleaseInstance();
 }
 
 void CMainMenuScene::Render()

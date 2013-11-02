@@ -69,6 +69,10 @@ bool NNApplication::Release()
 	NNResourceManager::ReleaseInstance();
 	NNInputSystem::ReleaseInstance();
 	NNAudioSystem::ReleaseInstance();
+
+	//이하 게임관련 싱글톤 릴리즈
+	CBulletManager::ReleaseInstance();
+
 	SafeDelete( m_Renderer );
 	ReleaseInstance();
 
