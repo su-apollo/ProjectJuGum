@@ -19,7 +19,8 @@ public:
 	void CheckBulletLifeTime(CMainMap * Map);
 	
 	//생산은 씬에서 해줘야함 불렛메니져는 생산된 불렛을 어레이로 보관하고 관리
-	CBullet ** GetBulletArray() { return m_pBulletArray; }
+	CBullet **	GetBulletArray() { return m_pBulletArray; }
+	CBullet *	GetBullet();
 
 private:
 	static CBulletManager * m_pInstance;

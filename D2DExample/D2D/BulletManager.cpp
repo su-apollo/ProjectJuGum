@@ -10,16 +10,23 @@ CBulletManager::~CBulletManager(void)
 {
 }
 
+CBullet * CBulletManager::GetBullet()
+{
+	++m_BulletIndex;
+	m_BulletIndex %= MAX_BULLET_NUM;
+	m_pBulletArray[m_BulletIndex]->SetVisible(true);
+	return m_pBulletArray[m_BulletIndex];
+}
+
 void CBulletManager::ShotBullet(CMaincharacter * Player)
 {
-	m_pBulletArray[m_BulletIndex]->SetVisible(true);
+	CBullet * pBullet = GetBullet();
 
 	NNPoint point = Player->GetPosition();
 	float radius_of_Player = Player->GetMainCircle()->GetRadius();
-	float radius_of_Bullet = m_pBulletArray[m_BulletIndex]->GetMainCircle()->GetRadius();
+	float radius_of_Bullet = pBullet->GetMainCircle()->GetRadius();
 	point.SetY( Player->GetPositionY() - (radius_of_Bullet + radius_of_Player));
-	m_pBulletArray[m_BulletIndex]->SetPosition( point );
-	++m_BulletIndex;
+	pBullet->SetPosition( point );
 }
 
 void CBulletManager::UpdateBullet(float dTime)

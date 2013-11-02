@@ -42,7 +42,6 @@ CPlayScene::CPlayScene(void)
 
 CPlayScene::~CPlayScene(void)
 {
-	CBulletManager::ReleaseInstance();
 }
 
 void CPlayScene::Render()

@@ -3,7 +3,7 @@
 
 CBullet::CBullet(void)
 {
-	m_Circle = NNCircle::Create(5.f);
+	m_Circle = NNCircle::Create(20.f);
 	m_Circle->SetPosition(0.f, 0.f);
 	AddChild( m_Circle );
 
