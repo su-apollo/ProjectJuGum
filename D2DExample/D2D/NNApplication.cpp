@@ -154,7 +154,10 @@ bool NNApplication::_CreateWindow( wchar_t* title, int width, int height )
 
 	ShowCursor(false);
 
+	/*
+	// not full screen
 	ShowWindow(m_Hwnd, SW_SHOWDEFAULT);
+	*/
 
 	// full screen
 	SetWindowLong(m_Hwnd, GWL_STYLE, 0);

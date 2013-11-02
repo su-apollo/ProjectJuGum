@@ -24,7 +24,5 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 	Application->Run();
 	Application->Release();
 
-	OutputDebugString(L"hello") ;
-
 	return 0;
 }
