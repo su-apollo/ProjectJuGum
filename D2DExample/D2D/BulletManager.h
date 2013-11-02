@@ -1,8 +1,15 @@
 #pragma once
 #include "Bullet.h"
-#include "PlayScene.h"
+#include "MainMenuScene.h"
 
 #define MAX_BULLET_NUM 100
+
+enum ESkill
+{
+	NORMAL,
+	SHOTBULLET,
+	BULLETSHOWERSHOT
+};
 
 class CBulletManager
 {

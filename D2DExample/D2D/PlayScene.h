@@ -1,11 +1,9 @@
 #pragma once
-#include "NNScene.h"
-#include "Bullet.h"
-#include "Maincharacter.h"
-#include "NNInputSystem.h"
-#include "NNApplication.h"
 #include "MainMap.h"
-#include "BulletManager.h"
+#include "MainMenuScene.h"
+#include "FirstModeCharic.h"
+
+class CFirstModeCharic;
 
 class CPlayScene : public NNScene
 {
@@ -19,10 +17,10 @@ public:
 	bool CircleToCircleHitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius);
 
 private:
-	CMaincharacter * m_Player1;
+	CFirstModeCharic * m_Player1;
 	CMaincharacter * m_Player2;
 	CMainMap *	m_Map;
-	
+
 	// FPS
 	float		m_SumTime;
 	NNLabel*	m_FPSLabel;

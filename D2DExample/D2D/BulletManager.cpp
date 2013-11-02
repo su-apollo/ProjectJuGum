@@ -20,24 +20,18 @@ CBullet * CBulletManager::GetBullet()
 
 void CBulletManager::ShotBullet(CMaincharacter * Player)
 {
-	if (NNInputSystem::GetInstance()->GetKeyState(VK_SHIFT) == KEY_DOWN)
-	{
-		CBullet * pBullet = GetBullet();
+	CBullet * pBullet = GetBullet();
 
-		NNPoint point = Player->GetPosition();
-		float radius_of_Player = Player->GetMainCircle()->GetRadius();
-		float radius_of_Bullet = pBullet->GetMainCircle()->GetRadius();
-		point.SetY( Player->GetPositionY() - (radius_of_Bullet + radius_of_Player));
-		pBullet->SetPosition( point );
-	}
+	NNPoint point = Player->GetPosition();
+	float radius_of_Player = Player->GetMainCircle()->GetRadius();
+	float radius_of_Bullet = pBullet->GetMainCircle()->GetRadius();
+	point.SetY( Player->GetPositionY() - (radius_of_Bullet + radius_of_Player));
+	pBullet->SetPosition( point );
 }
 
 void CBulletManager::BulletShowerShot(CMaincharacter * Player)
 {
-	if (NNInputSystem::GetInstance()->GetKeyState('Z') == KEY_DOWN)
-	{
-		Player->SetSpeed(0.f);
-	}
+	Player->SetSpeed(0.f);
 }
 
 void CBulletManager::UpdateBullet(float dTime)

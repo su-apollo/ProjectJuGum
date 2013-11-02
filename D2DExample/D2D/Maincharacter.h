@@ -20,7 +20,7 @@ public:
 // 	void SetKeyRight(int right){m_keyright = right;}
 	void SetMoveArea(float left, float right, float top, float bottom);
 
-private:
+protected:
 	NNCircle* m_Circle;
 	float m_speed;
 // 	int m_keyup;

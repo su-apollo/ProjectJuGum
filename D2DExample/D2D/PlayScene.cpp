@@ -1,5 +1,4 @@
 #include "PlayScene.h"
-#include "MainMenuScene.h"
 
 CPlayScene::CPlayScene(void)
 {
@@ -9,7 +8,7 @@ CPlayScene::CPlayScene(void)
 	AddChild(m_Map);
 
 	//플레이어 생성
-	m_Player1 = new CMaincharacter;
+	m_Player1 = new CFirstModeCharic;
 	m_Player2 = new CMaincharacter;
 
 // 	m_Player2->SetKeyUp('W');
@@ -64,9 +63,7 @@ void CPlayScene::Update( float dTime )
 	}
 
 	//공격입력
-	
-	CBulletManager::GetInstance()->ShotBullet(m_Player1);
-	CBulletManager::GetInstance()->BulletShowerShot(m_Player1);
+	m_Player1->SkillCasting(m_Player1);
 	
 
 	//총알의 이동

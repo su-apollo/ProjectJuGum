@@ -83,6 +83,7 @@
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
+    <ClCompile Include="FirstModeCharic.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="MainMap.cpp" />
     <ClCompile Include="NNAudioSystem.cpp" />
@@ -110,6 +111,7 @@
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />
+    <ClInclude Include="FirstModeCharic.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MainMap.h" />
     <ClInclude Include="NNAudioSystem.h" />

@@ -72,6 +72,9 @@
     <ClCompile Include="BulletManager.cpp">
       <Filter>ProjectJG\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="FirstModeCharic.cpp">
+      <Filter>ProjectJG\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -244,6 +247,9 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="BulletManager.h">
       <Filter>ProjectJG\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="FirstModeCharic.h">
+      <Filter>ProjectJG\Character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
