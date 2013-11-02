@@ -12,10 +12,10 @@ CPlayScene::CPlayScene(void)
 	m_Player1 = new CMaincharacter;
 	m_Player2 = new CMaincharacter;
 
-	m_Player2->SetKeyUp('W');
-	m_Player2->SetKeyDown('S');
-	m_Player2->SetKeyLeft('A');
-	m_Player2->SetKeyRight('D');
+// 	m_Player2->SetKeyUp('W');
+// 	m_Player2->SetKeyDown('S');
+// 	m_Player2->SetKeyLeft('A');
+// 	m_Player2->SetKeyRight('D');
 
 	m_Player1->SetPosition(NNPoint(640.f, 700.f));
 	m_Player2->SetPosition(NNPoint(640.f, 100.f));
@@ -88,7 +88,7 @@ void CPlayScene::Update( float dTime )
 	CBulletManager::GetInstance()->CheckBulletLifeTime(m_Map);
 }
 
-bool CPlayScene::CircleToCircleHitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius)
+bool CPlayScene::CircleToCircleHitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius) 
 {
 	if((Aradius + Bradius) > Apoint.GetDistance(Bpoint))
 	{
