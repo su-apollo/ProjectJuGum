@@ -29,6 +29,7 @@ public:
 public:
 	ID2D1Factory* GetD2DFactory() const { return m_ipD2DFactory; }
 	ID2D1HwndRenderTarget* GetHwndRenderTarget() const { return m_ipRenderTarget; }
+	
 };
 
 

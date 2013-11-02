@@ -27,15 +27,31 @@ NNCircle*  NNCircle::Create( float radius )
 /*					NND2DCircle											*/
 //////////////////////////////////////////////////////////////////////////
 NND2DCircle::NND2DCircle()
-	: m_pD2DRenderer(nullptr), m_Brush(nullptr)
+	: m_pD2DRenderer(nullptr), m_Brush(nullptr), m_pRadialGradientBrush(nullptr), m_pGradientStops(nullptr)
 {
 }
 
 NND2DCircle::NND2DCircle( float radius)
 {
+
+	gradientStops[0].color = D2D1::ColorF(D2D1::ColorF::Yellow, 1);
+	gradientStops[0].position = 0.0f;
+	gradientStops[1].color = D2D1::ColorF(D2D1::ColorF::ForestGreen, 1);
+	gradientStops[1].position = 1.0f;
+
+
+
 	m_radius = radius;
 	m_pD2DRenderer = static_cast<NND2DRenderer*>(NNApplication::GetInstance()->GetRenderer());
+
+
 	m_pD2DRenderer->GetHwndRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(m_ColorR, m_ColorG, m_ColorB), &m_Brush);
+	
+	m_pD2DRenderer->GetHwndRenderTarget()->CreateGradientStopCollection(gradientStops, 2, D2D1_GAMMA_2_2, D2D1_EXTEND_MODE_CLAMP, &m_pGradientStops);
+
+	m_pD2DRenderer->GetHwndRenderTarget()->CreateRadialGradientBrush(D2D1::RadialGradientBrushProperties(D2D1::Point2F(75,75), D2D1::Point2F(0,0),75,75), m_pGradientStops, &m_pRadialGradientBrush);
+	
+
 
 	m_Ellipse.point.x = 0.f;
 	m_Ellipse.point.y = 0.f;
@@ -59,4 +75,6 @@ void NND2DCircle::Render()
 
 	m_pD2DRenderer->GetHwndRenderTarget()->SetTransform( m_Matrix );
 	m_pD2DRenderer->GetHwndRenderTarget()->DrawEllipse(m_Ellipse, m_Brush);
+
+	m_pD2DRenderer->GetHwndRenderTarget()->FillEllipse(m_Ellipse, m_pRadialGradientBrush);
 }

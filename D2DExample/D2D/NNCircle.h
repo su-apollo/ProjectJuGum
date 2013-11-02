@@ -58,5 +58,8 @@ private:
 	NND2DRenderer * m_pD2DRenderer;
 	D2D1_ELLIPSE	m_Ellipse;
 	ID2D1SolidColorBrush * m_Brush;
-
+	ID2D1RadialGradientBrush *m_pRadialGradientBrush;
+	ID2D1GradientStopCollection *m_pGradientStops;
+	D2D1_GRADIENT_STOP gradientStops[2];
+	
 };
