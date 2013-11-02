@@ -30,6 +30,7 @@ CPlayScene::CPlayScene(void)
 		CBulletManager::GetInstance()->GetBulletArray()[i]->SetVisible(false);
 	}
 
+
 	// FPS
 	m_FPSLabel = NNLabel::Create( L"FPS : ", L"맑은 고딕", 20.f );
 	m_FPSLabel->SetPosition( 0.f, 0.f );
@@ -37,6 +38,21 @@ CPlayScene::CPlayScene(void)
 
 	m_SumTime = 0;
 
+
+	// cost
+
+	// giving all players 0 cost at start
+	m_Player1->SetCost(0);
+	m_Player2->SetCost(0);
+	// players receive 5 cost per second
+	m_CostPerSecond = 5;
+	// setting label
+	m_Player1CostLabel = NNLabel::Create( L"Player1's Cost : ", L"맑은 고딕", 20.f );
+	m_Player1CostLabel->SetPosition( 0.f, 700.f );
+	AddChild( m_Player1CostLabel );
+	m_Player2CostLabel = NNLabel::Create( L"Player2's Cost : ", L"맑은 고딕", 20.f );
+	m_Player2CostLabel->SetPosition( 0.f, 100.f );
+	AddChild( m_Player2CostLabel );
 }
 
 CPlayScene::~CPlayScene(void)
@@ -49,18 +65,27 @@ void CPlayScene::Render()
 }
 void CPlayScene::Update( float dTime )
 {
+
 	// FPS
 	m_SumTime += dTime;
-	// 1초는 너무 길길래 0.2초로 줄임
 	if ( m_SumTime > 0.2 )
 	{
-	swprintf_s( m_FPS, _countof(m_FPS), L"FPS : %0.3f\n", NNApplication::GetInstance()->GetFPS() );
-	m_FPSLabel->SetString(m_FPS);
-		// 밑의 두 줄 중에 어느 게 더 나은 지 모르겠다 ㅜㅜ
-		// 0.2 초 한 번 찍고 난 다음엔 리셋(=0) 되는 게 나은 듯.
-		 m_SumTime = 0;
-		// m_SumTime -= 0.2;
+		swprintf_s( m_FPS, _countof(m_FPS), L"FPS : %0.3f", NNApplication::GetInstance()->GetFPS() );
+		m_FPSLabel->SetString( m_FPS );
+		m_SumTime = 0;
 	}
+
+
+	// cost
+
+	m_Player1->SetCost( m_Player1->GetCost() + m_CostPerSecond*dTime );
+	m_Player2->SetCost( m_Player2->GetCost() + m_CostPerSecond*dTime );
+
+	swprintf_s( m_Player1Cost, _countof(m_Player1Cost), L"Player1's Cost : %d", (int)(m_Player1->GetCost()) );
+	m_Player1CostLabel->SetString( m_Player1Cost );
+	swprintf_s( m_Player2Cost, _countof(m_Player2Cost), L"Player2's Cost : %d", (int)(m_Player2->GetCost()) );
+	m_Player2CostLabel->SetString( m_Player2Cost );
+
 
 	//공격입력
 	m_Player1->SkillCasting(m_Player1);

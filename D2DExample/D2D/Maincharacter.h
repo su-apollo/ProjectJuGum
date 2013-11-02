@@ -20,6 +20,9 @@ public:
 // 	void SetKeyRight(int right){m_keyright = right;}
 	void SetMoveArea(float left, float right, float top, float bottom);
 
+	float	GetCost()			{return m_Cost;}
+	void	SetCost(float cost) {m_Cost = cost;}
+
 protected:
 	NNCircle* m_Circle;
 	float m_speed;
@@ -29,5 +32,8 @@ protected:
 // 	int m_keyright;
 
 	void UpdateMotion(float dTime);
+
+private:
+	float m_Cost;
 };
 

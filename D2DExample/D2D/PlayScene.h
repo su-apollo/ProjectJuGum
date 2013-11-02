@@ -2,6 +2,7 @@
 #include "MainMap.h"
 #include "MainMenuScene.h"
 #include "FirstModeCharic.h"
+#include <sstream>
 
 class CFirstModeCharic;
 
@@ -25,6 +26,13 @@ private:
 	float		m_SumTime;
 	NNLabel*	m_FPSLabel;
 	wchar_t		m_FPS[20];
+
+	// cost
+	float		m_CostPerSecond;
+	NNLabel*	m_Player1CostLabel;
+	wchar_t		m_Player1Cost[100];
+	NNLabel*	m_Player2CostLabel;
+	wchar_t		m_Player2Cost[100];
 
 	void SetPlayerMoveArea(CMaincharacter * Player);
 };
