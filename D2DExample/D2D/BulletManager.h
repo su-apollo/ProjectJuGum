@@ -13,6 +13,7 @@ public:
 	static CBulletManager* GetInstance();
 	static void ReleaseInstance();
 	
+	void BulletShowerShot(CMaincharacter * Player);
 	void ShotBullet(CMaincharacter * Player);
 	void UpdateBullet(float dTime);
 	void CharacterHitCheck(CMaincharacter * Player);

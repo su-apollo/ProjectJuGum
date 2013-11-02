@@ -64,10 +64,10 @@ void CPlayScene::Update( float dTime )
 	}
 
 	//공격입력
-	if ( NNInputSystem::GetInstance()->GetKeyState( VK_SPACE ) == KEY_DOWN)
-	{
-		CBulletManager::GetInstance()->ShotBullet(m_Player1);
-	}
+	
+	CBulletManager::GetInstance()->ShotBullet(m_Player1);
+	CBulletManager::GetInstance()->BulletShowerShot(m_Player1);
+	
 
 	//총알의 이동
 	CBulletManager::GetInstance()->UpdateBullet(dTime);
