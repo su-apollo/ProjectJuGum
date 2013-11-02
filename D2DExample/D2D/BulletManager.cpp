@@ -12,20 +12,19 @@ CBulletManager::~CBulletManager(void)
 
 void CBulletManager::ShotBullet(CMaincharacter * Player)
 {
+	m_pBulletArray[m_BulletIndex]->SetVisible(true);
+
 	NNPoint point = Player->GetPosition();
 	float radius_of_Player = Player->GetMainCircle()->GetRadius();
 	float radius_of_Bullet = m_pBulletArray[m_BulletIndex]->GetMainCircle()->GetRadius();
 	point.SetY( Player->GetPositionY() - (radius_of_Bullet + radius_of_Player));
 	m_pBulletArray[m_BulletIndex]->SetPosition( point );
-	if (m_BulletIndex < ( MAX_BULLET_NUM - 1))
-	{
-		++m_BulletIndex;
-	}
+	++m_BulletIndex;
 }
 
 void CBulletManager::UpdateBullet(float dTime)
 {
-	for (int i = 0; i < m_BulletIndex; ++i)
+	for (int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
 		m_pBulletArray[i]->Update(dTime);
 	}
@@ -33,7 +32,7 @@ void CBulletManager::UpdateBullet(float dTime)
 
 void CBulletManager::CharacterHitCheck(CMaincharacter * Player)
 {
-	for (int i = 0; i < m_BulletIndex; ++i)
+	for (int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
 		if(m_pBulletArray[i]->CharacterHitCheck(Player))
 		{
@@ -44,7 +43,7 @@ void CBulletManager::CharacterHitCheck(CMaincharacter * Player)
 
 void CBulletManager::CheckBulletLifeTime(CMainMap * Map)
 {
-	for (int i = 0; i < m_BulletIndex; ++i)
+	for (int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
 		SetBulletLifeTime(Map, m_pBulletArray[i]);
 	}
@@ -60,22 +59,22 @@ void CBulletManager::SetBulletLifeTime(CMainMap * Map, CBullet * Bullet)
 	if (Bullet->GetPositionX() > leftline )
 	{
 		Bullet->SetPosition(0.f, 0.f);
-		--m_BulletIndex;
+		Bullet->SetVisible(false);
 	}
 	else if (Bullet->GetPositionX() < rightline)
 	{
 		Bullet->SetPosition(0.f, 0.f);
-		--m_BulletIndex;
+		Bullet->SetVisible(false);
 	}
 	else if (Bullet->GetPositionY() > botline)
 	{
 		Bullet->SetPosition(0.f, 0.f);
-		--m_BulletIndex;
+		Bullet->SetVisible(false);
 	}
 	else if (Bullet->GetPositionY() < topline)
 	{
 		Bullet->SetPosition(0.f, 0.f);
-		--m_BulletIndex;
+		Bullet->SetVisible(false);
 	}
 }
 
@@ -88,6 +87,7 @@ CBulletManager* CBulletManager::GetInstance()
 
 	return m_pInstance;
 }
+
 void CBulletManager::ReleaseInstance()
 {
 	if ( m_pInstance != nullptr )

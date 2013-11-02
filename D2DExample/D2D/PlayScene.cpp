@@ -28,6 +28,7 @@ CPlayScene::CPlayScene(void)
 	{
 		CBulletManager::GetInstance()->GetBulletArray()[i] = new CBullet;
 		AddChild( CBulletManager::GetInstance()->GetBulletArray()[i] );
+		CBulletManager::GetInstance()->GetBulletArray()[i]->SetVisible(false);
 	}
 
 	// FPS
@@ -41,6 +42,7 @@ CPlayScene::CPlayScene(void)
 
 CPlayScene::~CPlayScene(void)
 {
+	CBulletManager::ReleaseInstance();
 }
 
 void CPlayScene::Render()

@@ -7,7 +7,7 @@ NNObject::NNObject()
 	: m_pParent(nullptr),
 	  m_Position(0.f,0.f), m_Center(0.f,0.f),
 	  m_ScaleX(1.f), m_ScaleY(1.f), m_Rotation(0.f), m_Zindex(0),
-	  m_Visible(false)
+	  m_Visible(true)
 {
 }
 NNObject::~NNObject()
@@ -32,14 +32,17 @@ void NNObject::Render()
 
 	for (auto iter=m_ChildList.begin(); iter!=m_ChildList.end(); iter++ )
 	{
-		(*iter)->Render();
+		//빠져있던 비즈블 기능 추가
+		if ((*iter)->IsVisible())
+			(*iter)->Render();
 	}
 }
 void NNObject::Update( float dTime )
 {
 	for (auto iter=m_ChildList.begin(); iter!=m_ChildList.end(); iter++ )
 	{
-		(*iter)->Update( dTime );
+		if ((*iter)->IsVisible())
+			(*iter)->Update( dTime );
 	}
 }
 void NNObject::SortingChildByZindex()
