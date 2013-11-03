@@ -64,6 +64,10 @@ void CPlayScene::Render()
 }
 void CPlayScene::Update( float dTime )
 {
+	if ( NNInputSystem::GetInstance()->GetKeyState( VK_ESCAPE ) == KEY_DOWN )
+	{
+		NNSceneDirector::GetInstance()->ChangeScene( new CReturnScene() );
+	}
 
 	// FPS
 	m_SumTime += dTime;
