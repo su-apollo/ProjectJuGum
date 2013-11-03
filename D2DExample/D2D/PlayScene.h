@@ -23,12 +23,11 @@ private:
 	CMainMap *	m_Map;
 
 	// FPS
-	float		m_FPSTime;
+	float		m_SumTime;
 	NNLabel*	m_FPSLabel;
 	wchar_t		m_FPS[20];
 
 	// cost
-	float		m_CostTime;
 	float		m_CostPerSecond;
 	NNLabel*	m_Player1CostLabel;
 	wchar_t		m_Player1Cost[100];

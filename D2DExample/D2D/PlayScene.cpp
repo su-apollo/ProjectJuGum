@@ -36,26 +36,22 @@ CPlayScene::CPlayScene(void)
 	m_FPSLabel->SetPosition( 0.f, 0.f );
 	AddChild( m_FPSLabel );
 
-	m_FPSTime = 0;
+	m_SumTime = 0;
 
 
 	// cost
 
-	// giving all players 0 cost at start
 	m_Player1->SetCost(0);
 	m_Player2->SetCost(0);
-	// players receive 5 cost per second
-	m_CostPerSecond = 5;
-
-	// setting label
+	
+	m_CostPerSecond = 0.5;
+	
 	m_Player1CostLabel = NNLabel::Create( L"Player1's Cost : ", L"¸¼Àº °íµñ", 20.f );
 	m_Player1CostLabel->SetPosition( 0.f, 700.f );
 	AddChild( m_Player1CostLabel );
 	m_Player2CostLabel = NNLabel::Create( L"Player2's Cost : ", L"¸¼Àº °íµñ", 20.f );
 	m_Player2CostLabel->SetPosition( 0.f, 100.f );
 	AddChild( m_Player2CostLabel );
-
-	m_CostTime = 0;
 }
 
 CPlayScene::~CPlayScene(void)
@@ -70,31 +66,25 @@ void CPlayScene::Update( float dTime )
 {
 
 	// FPS
-	m_FPSTime += dTime;
-	if ( m_FPSTime > 0.2 )
+	m_SumTime += dTime;
+	if ( m_SumTime > 0.2 )
 	{
 		swprintf_s( m_FPS, _countof(m_FPS), L"FPS : %0.3f", NNApplication::GetInstance()->GetFPS() );
 		m_FPSLabel->SetString( m_FPS );
-		m_FPSTime = 0;
+		m_SumTime = 0;
 	}
 
 
 	// cost
-	// giving cost
+
 	m_Player1->SetCost( m_Player1->GetCost() + m_CostPerSecond*dTime );
 	m_Player2->SetCost( m_Player2->GetCost() + m_CostPerSecond*dTime );
 
-	// printing cost
-	m_CostTime += dTime;
-	if ( m_CostTime > 1 )
-	{
-		swprintf_s( m_Player1Cost, _countof(m_Player1Cost), L"Player1's Cost : %d", (int)(m_Player1->GetCost()) );
-		m_Player1CostLabel->SetString( m_Player1Cost );
-		swprintf_s( m_Player2Cost, _countof(m_Player2Cost), L"Player2's Cost : %d", (int)(m_Player2->GetCost()) );
-		m_Player2CostLabel->SetString( m_Player2Cost );
-		m_CostTime = 0;
-	}
-	
+	swprintf_s( m_Player1Cost, _countof(m_Player1Cost), L"Player1's Cost : %d", (int)(m_Player1->GetCost()) );
+	m_Player1CostLabel->SetString( m_Player1Cost );
+	swprintf_s( m_Player2Cost, _countof(m_Player2Cost), L"Player2's Cost : %d", (int)(m_Player2->GetCost()) );
+	m_Player2CostLabel->SetString( m_Player2Cost );
+
 
 	//°ø°ÝÀÔ·Â
 	m_Player1->SkillCasting(m_Player1);
