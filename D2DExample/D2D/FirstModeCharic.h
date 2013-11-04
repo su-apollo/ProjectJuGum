@@ -8,6 +8,6 @@ public:
 	CFirstModeCharic(void);
 	virtual ~CFirstModeCharic(void);
 
-	void SkillCasting(CMaincharacter * Player);
+	void SkillCasting(CMaincharacter * Player, CMainMap * Map, float dTime);
 };
 

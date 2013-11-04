@@ -83,7 +83,6 @@ void CPlayScene::Update( float dTime )
 
 
 	// cost
-
 	m_Player1->SetCost( m_Player1->GetCost() + m_CostPerSecond*dTime );
 	m_Player2->SetCost( m_Player2->GetCost() + m_CostPerSecond*dTime );
 
@@ -94,9 +93,8 @@ void CPlayScene::Update( float dTime )
 
 
 	//공격입력
-	m_Player1->SkillCasting(m_Player1);
+	m_Player1->SkillCasting(m_Player1, m_Map, dTime);
 	
-
 	//총알의 이동
 	CBulletManager::GetInstance()->UpdateBullet(dTime);
 

@@ -10,7 +10,7 @@ CFirstModeCharic::~CFirstModeCharic(void)
 
 }
 
-void CFirstModeCharic::SkillCasting(CMaincharacter * Player)
+void CFirstModeCharic::SkillCasting(CMaincharacter * Player, CMainMap * Map, float dTime)
 {
 	if (NNInputSystem::GetInstance()->GetKeyState(VK_SHIFT) == KEY_DOWN)
 	{
