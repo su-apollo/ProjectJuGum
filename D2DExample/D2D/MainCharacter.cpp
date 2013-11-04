@@ -29,7 +29,7 @@ void CMaincharacter::UpdateMotion(float dTime)
 	//입력에 따른 캐릭터의 이동
 	
 
-	switch (CInputManager::getInstance()->GetDirectionKeyInput())
+	switch (NNInputSystem::GetInstance()->GetDirectionKeyInput())
 	{
 	case UP:
 		SetPosition( GetPosition() + NNPoint(m_speed*NNDegreeToX(270), m_speed*NNDegreeToY(270)) * dTime );

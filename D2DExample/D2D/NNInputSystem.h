@@ -23,19 +23,29 @@ public:
 	static NNInputSystem* GetInstance();
 	static void ReleaseInstance();
 
-public:
+	void SetKeyUp(int up){m_keyup = up;}
+	void SetKeyDown(int down){m_keydown = down;}
+	void SetKeyLeft(int left){m_keyleft = left;}
+	void SetKeyRight(int right){m_keyright = right;}
+
+
 	void UpdateKeyState();
 	KeyState GetKeyState( int key );
 
+	Directions GetDirectionKeyInput(void);
 
 private:
 	static NNInputSystem* m_pInstance;
 
-private:
+	int m_keyup;
+	int m_keydown;
+	int m_keyleft;
+	int m_keyright;
+
 	NNInputSystem();
 	~NNInputSystem();
 
-private:
+
 	bool m_PrevKeyState[256];
 	bool m_NowKeyState[256];
 };

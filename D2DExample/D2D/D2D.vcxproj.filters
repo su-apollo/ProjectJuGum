@@ -68,7 +68,6 @@
     <ClCompile Include="MainMap.cpp">
       <Filter>ProjectJG\Map</Filter>
     </ClCompile>
-    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="BulletManager.cpp">
       <Filter>ProjectJG\Bullet</Filter>
     </ClCompile>
@@ -247,7 +246,6 @@
     <ClInclude Include="MainMap.h">
       <Filter>ProjectJG\Map</Filter>
     </ClInclude>
-    <ClInclude Include="InputManager.h" />
     <ClInclude Include="BulletManager.h">
       <Filter>ProjectJG\Bullet</Filter>
     </ClInclude>
