@@ -71,7 +71,7 @@ KeyState NNInputSystem::GetKeyState( int key )
 	return KEY_NOTPRESSED;
 }
 
-Directions NNInputSystem::GetDirectionKeyInput(void)
+InputSetUp NNInputSystem::GetDirectionKeyInput(void)
 {
 	if  (NNInputSystem::GetInstance()->GetKeyState( m_keyup ) == KEY_PRESSED && NNInputSystem::GetInstance()->GetKeyState( m_keyleft ) == KEY_PRESSED)
 	{

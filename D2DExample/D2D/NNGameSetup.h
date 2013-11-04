@@ -1,6 +1,6 @@
 #pragma once
 
-#define CHARIC_SPEED				300.f
+#define CHARIC_SPEED				200.f
 
 #define MAX_BULLET_NUM			100
 #define MAX_ACCELBULLET_NUM		100
@@ -20,8 +20,9 @@ enum Skill
 	SHOTACCELBULLET
 };
 
-enum Directions
+enum InputSetUp
 {
+	WRONG_INPUT,
 	UP,
 	DOWN,
 	LEFT,
@@ -30,7 +31,13 @@ enum Directions
 	RIGHT_UP,
 	LEFT_DOWN,
 	RIGHT_DOWN,
-	WRONG_INPUT
+	SKILL_KEY_ONE,
+	SKILL_KEY_TWO,
+	SKILL_KEY_THREE,
+	SKILL_KEY_FOUR,
+	SKILL_KEY_FIVE,
+	SKILL_KEY_SIX,
+	UPGRADE_KEY
 };
 
 enum MENU_LIST

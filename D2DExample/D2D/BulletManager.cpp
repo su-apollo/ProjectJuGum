@@ -2,7 +2,7 @@
 
 CBulletManager* CBulletManager::m_pInstance = nullptr;
 
-CBulletManager::CBulletManager(void) : m_BulletIndex(0)
+CBulletManager::CBulletManager(void) : m_BulletIndex(0), m_AccelBulletIndex(0)
 {
 }
 
@@ -43,15 +43,15 @@ void CBulletManager::ShotBullet(CMaincharacter * Player)
 
 void CBulletManager::ShotAccelBullet(CMaincharacter * Player)
 {
-	CAccelBullet * pBullet = GetAccelBullet();
-
-	NNPoint point = Player->GetPosition();
-
-	float radius_of_Player = Player->GetMainCircle()->GetRadius();
-	float radius_of_Bullet = pBullet->GetMainCircle()->GetRadius();
-
-	point.SetY( Player->GetPositionY() - (radius_of_Bullet + radius_of_Player));
-	pBullet->SetPosition( point );
+ 	CAccelBullet * pAccelBullet = GetAccelBullet();
+ 
+ 	NNPoint point = Player->GetPosition();
+ 
+ 	float radius_of_Player = Player->GetMainCircle()->GetRadius();
+ 	float radius_of_Bullet = pAccelBullet->GetMainCircle()->GetRadius();
+ 
+ 	point.SetY( Player->GetPositionY() - (radius_of_Bullet + radius_of_Player));
+ 	pAccelBullet->SetPosition( point );
 }
 
 void CBulletManager::UpdateBullet(float dTime)

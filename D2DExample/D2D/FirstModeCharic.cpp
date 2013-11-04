@@ -20,8 +20,7 @@ void CFirstModeCharic::SkillCasting(CMaincharacter* Player, CMainMap* Map, float
 			SetCost( GetCost() - SHOTBULLET_COST );
 		}
 	}
-
-	if (NNInputSystem::GetInstance()->GetKeyState('X') == KEY_DOWN)
+	else if (NNInputSystem::GetInstance()->GetKeyState('X') == KEY_DOWN)
 	{
 		if ( GetCost() >= SHOTACCELBULLET_COST )
 		{

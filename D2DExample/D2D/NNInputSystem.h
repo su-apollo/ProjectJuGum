@@ -32,7 +32,7 @@ public:
 	void UpdateKeyState();
 	KeyState GetKeyState( int key );
 
-	Directions GetDirectionKeyInput(void);
+	InputSetUp GetDirectionKeyInput(void);
 
 private:
 	static NNInputSystem* m_pInstance;

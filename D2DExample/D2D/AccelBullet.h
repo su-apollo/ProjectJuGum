@@ -23,10 +23,10 @@ public:
 	void SetDirection(int new_direction){ m_direction = new_direction; }
 
 private:
-	NNCircle* m_Circle;
+	NNCircle*	m_Circle;
 
-	float m_accelation;
-	float m_speed;
-	int m_direction;
+	float		m_accelation;
+	float		m_speed;
+	int			m_direction;
 };
 

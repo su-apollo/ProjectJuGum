@@ -1,5 +1,7 @@
 #include "PlayScene.h"
 #include "FirstModeCharic.h"
+#include "Maincharacter.h"
+#include "BulletManager.h"
 
 CPlayScene::CPlayScene(void)
 {
@@ -31,6 +33,7 @@ CPlayScene::CPlayScene(void)
 		AddChild( CBulletManager::GetInstance()->GetBulletArray()[i] );
 		CBulletManager::GetInstance()->GetBulletArray()[i]->SetVisible(false);
 	}
+
 	for (int i = 0 ; i < MAX_ACCELBULLET_NUM ; ++i)
 	{
 		CBulletManager::GetInstance()->GetAccelBulletArray()[i] = new CAccelBullet;

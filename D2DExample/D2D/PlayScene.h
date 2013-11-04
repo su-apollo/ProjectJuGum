@@ -1,11 +1,13 @@
 #pragma once
-#include "Maincharacter.h"
+
 #include "MainMap.h"
 #include "MainMenuScene.h"
-#include "BulletManager.h"
+
 #include <sstream>
 
 class CFirstModeCharic;
+class CMaincharacter;
+class CAccelBullet;
 
 class CPlayScene : public NNScene
 {

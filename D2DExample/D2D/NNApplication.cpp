@@ -1,6 +1,6 @@
 
 #include "NNApplication.h"
-
+#include "BulletManager.h"
 
 NNApplication* NNApplication::m_pInstance = nullptr;
 
