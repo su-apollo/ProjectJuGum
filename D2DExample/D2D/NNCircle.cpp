@@ -34,9 +34,9 @@ NND2DCircle::NND2DCircle()
 NND2DCircle::NND2DCircle( float radius)
 {
 
-	gradientStops[0].color = D2D1::ColorF(D2D1::ColorF::Yellow, 1);
+	gradientStops[0].color = D2D1::ColorF(D2D1::ColorF::WhiteSmoke, 1);
 	gradientStops[0].position = 0.0f;
-	gradientStops[1].color = D2D1::ColorF(D2D1::ColorF::ForestGreen, 1);
+	gradientStops[1].color = D2D1::ColorF(D2D1::ColorF::Red, 1);
 	gradientStops[1].position = 1.0f;
 
 
@@ -49,7 +49,9 @@ NND2DCircle::NND2DCircle( float radius)
 	
 	m_pD2DRenderer->GetHwndRenderTarget()->CreateGradientStopCollection(gradientStops, 2, D2D1_GAMMA_2_2, D2D1_EXTEND_MODE_CLAMP, &m_pGradientStops);
 
-	m_pD2DRenderer->GetHwndRenderTarget()->CreateRadialGradientBrush(D2D1::RadialGradientBrushProperties(D2D1::Point2F(75,75), D2D1::Point2F(0,0),75,75), m_pGradientStops, &m_pRadialGradientBrush);
+	
+
+	m_pD2DRenderer->GetHwndRenderTarget()->CreateRadialGradientBrush(D2D1::RadialGradientBrushProperties(D2D1::Point2F(0,0), D2D1::Point2F(0,0),30,30), m_pGradientStops, &m_pRadialGradientBrush);
 	
 
 
