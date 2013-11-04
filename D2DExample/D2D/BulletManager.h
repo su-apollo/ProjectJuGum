@@ -2,15 +2,6 @@
 #include "Bullet.h"
 #include "MainMenuScene.h"
 
-#define MAX_BULLET_NUM 100
-
-enum ESkill
-{
-	NORMAL,
-	SHOTBULLET,
-	BULLETSHOWERSHOT
-};
-
 class CBulletManager
 {
 public:

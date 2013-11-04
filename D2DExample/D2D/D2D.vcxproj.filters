@@ -251,6 +251,9 @@
     <ClInclude Include="FirstModeCharic.h">
       <Filter>ProjectJG\Character</Filter>
     </ClInclude>
+    <ClInclude Include="NNGameSetup.h">
+      <Filter>Core\Macro</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -8,15 +8,6 @@
 #include "PlayScene.h"
 #include "NNSprite.h"
 
-
-enum MENU_LIST
-{
-	MENU_PLAY,
-	MENU_TEST,
-	MENU_QUIT,
-	MENU_LAST,
-};
-
 class CMainMenuScene : public NNScene
 {
 public:

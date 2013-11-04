@@ -17,6 +17,8 @@ CPlayScene::CPlayScene(void)
 // 	m_Player2->SetKeyLeft('A');
 // 	m_Player2->SetKeyRight('D');
 
+	m_Player2->SetSpeed(0.f);
+
 	m_Player1->SetPosition(NNPoint(640.f, 700.f));
 	m_Player2->SetPosition(NNPoint(640.f, 100.f));
 

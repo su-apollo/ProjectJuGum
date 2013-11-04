@@ -1,19 +1,6 @@
 #pragma once
 #include "NNInputSystem.h"
 
-enum Directions
-{
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT,
-	LEFT_UP,
-	RIGHT_UP,
-	LEFT_DOWN,
-	RIGHT_DOWN,
-	WRONG_INPUT
-};
-
 class CInputManager
 {
 public:

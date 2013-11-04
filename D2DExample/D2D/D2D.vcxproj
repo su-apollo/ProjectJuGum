@@ -119,6 +119,7 @@
     <ClInclude Include="NNCircle.h" />
     <ClInclude Include="NNConfig.h" />
     <ClInclude Include="NND2DRenderer.h" />
+    <ClInclude Include="NNGameSetup.h" />
     <ClInclude Include="NNIncludeSet.h" />
     <ClInclude Include="NNInputSystem.h" />
     <ClInclude Include="NNLabel.h" />

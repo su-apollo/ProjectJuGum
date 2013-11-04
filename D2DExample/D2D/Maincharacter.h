@@ -15,7 +15,7 @@ public:
 	float GetSpeed(){ return m_speed; }
 	NNCircle * GetMainCircle(){return m_Circle;}
 
-	void SetSpeed( float new_speed ){ m_speed = new_speed;}
+	void SetSpeed( float new_speed = CHARIC_SPEED ){ m_speed = new_speed;}
 // 	void SetKeyUp(int up){m_keyup = up;}
 // 	void SetKeyDown(int down){m_keydown = down;}
 // 	void SetKeyLeft(int left){m_keyleft = left;}

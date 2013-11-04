@@ -1,5 +1,5 @@
 #include "Maincharacter.h"
-
+#include "BulletManager.h"
 
 CMaincharacter::CMaincharacter(void)
 {
@@ -7,7 +7,7 @@ CMaincharacter::CMaincharacter(void)
 	m_Circle->SetPosition(0.f, 0.f);
 	AddChild( m_Circle );
 
-	m_speed = 500.f;
+	m_speed = CHARIC_SPEED;
 // 	m_keyup = VK_UP;
 // 	m_keydown = VK_DOWN;
 // 	m_keyright = VK_RIGHT;
