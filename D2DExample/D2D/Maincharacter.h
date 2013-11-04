@@ -1,7 +1,6 @@
 #pragma once
 #include "NNCircle.h"
 #include "NNInputSystem.h"
-#include "InputManager.h"
 
 class CMaincharacter : public NNObject
 {
@@ -25,10 +24,6 @@ protected:
 	NNCircle* m_Circle;
 	float m_speed;
 	float m_Cost;
-// 	int m_keyup;
-// 	int m_keydown;
-// 	int m_keyleft;
-// 	int m_keyright;
 
 	void UpdateMotion(float dTime);
 };
