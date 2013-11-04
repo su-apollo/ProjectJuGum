@@ -14,10 +14,10 @@ void CFirstModeCharic::SkillCasting(CMaincharacter * Player, CMainMap * Map, flo
 {
 	if (NNInputSystem::GetInstance()->GetKeyState(VK_SHIFT) == KEY_DOWN)
 	{
-		if ( GetCost() > 0 )
+		if ( GetCost() >= SHOTBULLETCOST )
 		{
 			CBulletManager::GetInstance()->ShotBullet(Player);
-			SetCost( GetCost() -1 );
+			SetCost( GetCost() - SHOTBULLETCOST );
 		}
 	}
 	if (NNInputSystem::GetInstance()->GetKeyState('Z') == KEY_DOWN)

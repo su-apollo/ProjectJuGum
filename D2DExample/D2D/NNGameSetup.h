@@ -1,7 +1,11 @@
 #pragma once
 
 #define CHARIC_SPEED		500.f
+
 #define MAX_BULLET_NUM	100
+#define BULLET_SPEED		300.f
+
+#define SHOTBULLETCOST	5
 
 enum Skill
 {

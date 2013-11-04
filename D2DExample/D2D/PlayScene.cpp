@@ -47,7 +47,7 @@ CPlayScene::CPlayScene(void)
 	m_Player1->SetCost(0);
 	m_Player2->SetCost(0);
 	
-	m_CostPerSecond = 0.5;
+	m_CostPerSecond = 5;
 	
 	m_Player1CostLabel = NNLabel::Create( L"Player1's Cost : ", L"¸¼Àº °íµñ", 20.f );
 	m_Player1CostLabel->SetPosition( 0.f, 700.f );
