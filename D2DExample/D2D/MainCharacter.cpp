@@ -1,6 +1,5 @@
 #include "Maincharacter.h"
-#include "NNInputSystem.h"
-#include "InputManager.h"
+
 
 CMaincharacter::CMaincharacter(void)
 {

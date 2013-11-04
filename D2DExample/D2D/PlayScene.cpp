@@ -1,4 +1,5 @@
 #include "PlayScene.h"
+#include "FirstModeCharic.h"
 
 CPlayScene::CPlayScene(void)
 {

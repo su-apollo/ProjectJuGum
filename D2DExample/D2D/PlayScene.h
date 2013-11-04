@@ -1,7 +1,8 @@
 #pragma once
+#include "Maincharacter.h"
 #include "MainMap.h"
 #include "MainMenuScene.h"
-#include "FirstModeCharic.h"
+#include "BulletManager.h"
 #include <sstream>
 
 class CFirstModeCharic;

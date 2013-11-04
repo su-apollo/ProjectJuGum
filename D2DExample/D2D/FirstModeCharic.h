@@ -5,8 +5,8 @@
 class CFirstModeCharic : public CMaincharacter
 {
 public:
-	CFirstModeCharic(void) {}
-	virtual ~CFirstModeCharic(void) {}
+	CFirstModeCharic(void);
+	virtual ~CFirstModeCharic(void);
 
 	void SkillCasting(CMaincharacter * Player);
 };
