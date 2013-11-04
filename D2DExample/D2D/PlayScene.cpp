@@ -12,11 +12,6 @@ CPlayScene::CPlayScene(void)
 	m_Player1 = new CFirstModeCharic;
 	m_Player2 = new CMaincharacter;
 
-// 	m_Player2->SetKeyUp('W');
-// 	m_Player2->SetKeyDown('S');
-// 	m_Player2->SetKeyLeft('A');
-// 	m_Player2->SetKeyRight('D');
-
 	m_Player2->SetSpeed(0.f);
 
 	m_Player1->SetPosition(NNPoint(640.f, 700.f));
@@ -25,6 +20,10 @@ CPlayScene::CPlayScene(void)
 	AddChild( m_Player1 );
 	AddChild( m_Player2 );
 
+	m_testbullet = new CAccelBullet;
+	m_testbullet->SetPosition(NNPoint(640.f, 700.f));
+	AddChild( m_testbullet );
+
 	//총알 장전
 	for (int i = 0 ; i < MAX_BULLET_NUM ; ++i)
 	{
@@ -32,7 +31,12 @@ CPlayScene::CPlayScene(void)
 		AddChild( CBulletManager::GetInstance()->GetBulletArray()[i] );
 		CBulletManager::GetInstance()->GetBulletArray()[i]->SetVisible(false);
 	}
-
+	for (int i = 0 ; i < MAX_ACCELBULLET_NUM ; ++i)
+	{
+		CBulletManager::GetInstance()->GetAccelBulletArray()[i] = new CAccelBullet;
+		AddChild( CBulletManager::GetInstance()->GetAccelBulletArray()[i] );
+		CBulletManager::GetInstance()->GetAccelBulletArray()[i]->SetVisible(false);
+	}
 
 	// FPS
 	m_FPSLabel = NNLabel::Create( L"FPS : ", L"맑은 고딕", 20.f );
@@ -43,7 +47,6 @@ CPlayScene::CPlayScene(void)
 
 
 	// cost
-
 	m_Player1->SetCost(0);
 	m_Player2->SetCost(0);
 	
@@ -98,6 +101,8 @@ void CPlayScene::Update( float dTime )
 	//총알의 이동
 	CBulletManager::GetInstance()->UpdateBullet(dTime);
 
+	m_testbullet->Update(dTime);
+
 	//캐릭터의 이동
 	m_Player1->Update(dTime);
 	m_Player2->Update(dTime);
@@ -107,8 +112,14 @@ void CPlayScene::Update( float dTime )
 	SetPlayerMoveArea(m_Player2);
 
 	//총알과 캐릭터의 충돌체크
-	CBulletManager::GetInstance()->CharacterHitCheck(m_Player1);
-	CBulletManager::GetInstance()->CharacterHitCheck(m_Player2);
+	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player1))
+	{
+		NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
+	}
+	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player2))
+	{
+		NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
+	}
 	
 	//총알의 라이프타임 처리
 	CBulletManager::GetInstance()->CheckBulletLifeTime(m_Map);

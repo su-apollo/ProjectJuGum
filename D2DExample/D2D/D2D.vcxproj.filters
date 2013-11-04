@@ -75,6 +75,9 @@
     <ClCompile Include="FirstModeCharic.cpp">
       <Filter>ProjectJG\Character</Filter>
     </ClCompile>
+    <ClCompile Include="AccelBullet.cpp">
+      <Filter>ProjectJG\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -253,6 +256,9 @@
     </ClInclude>
     <ClInclude Include="NNGameSetup.h">
       <Filter>Core\Macro</Filter>
+    </ClInclude>
+    <ClInclude Include="AccelBullet.h">
+      <Filter>ProjectJG\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

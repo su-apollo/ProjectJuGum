@@ -83,6 +83,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AccelBullet.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="FirstModeCharic.cpp" />
@@ -111,6 +112,7 @@
     <ClCompile Include="MainMenuScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AccelBullet.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="FirstModeCharic.h" />

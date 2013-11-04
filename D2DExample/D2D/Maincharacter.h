@@ -16,10 +16,6 @@ public:
 	NNCircle * GetMainCircle(){return m_Circle;}
 
 	void SetSpeed( float new_speed = CHARIC_SPEED ){ m_speed = new_speed;}
-// 	void SetKeyUp(int up){m_keyup = up;}
-// 	void SetKeyDown(int down){m_keydown = down;}
-// 	void SetKeyLeft(int left){m_keyleft = left;}
-// 	void SetKeyRight(int right){m_keyright = right;}
 	void SetMoveArea(float left, float right, float top, float bottom);
 
 	float	GetCost()			{return m_Cost;}

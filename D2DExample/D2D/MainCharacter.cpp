@@ -8,10 +8,6 @@ CMaincharacter::CMaincharacter(void)
 	AddChild( m_Circle );
 
 	m_speed = CHARIC_SPEED;
-// 	m_keyup = VK_UP;
-// 	m_keydown = VK_DOWN;
-// 	m_keyright = VK_RIGHT;
-// 	m_keyleft = VK_LEFT;
 }
 
 CMaincharacter::~CMaincharacter(void)

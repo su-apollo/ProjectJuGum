@@ -36,5 +36,7 @@ private:
 	wchar_t		m_Player2Cost[100];
 
 	void SetPlayerMoveArea(CMaincharacter * Player);
+
+	CAccelBullet* m_testbullet;
 };
 

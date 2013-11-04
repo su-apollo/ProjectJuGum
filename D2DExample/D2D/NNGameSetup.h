@@ -1,17 +1,23 @@
 #pragma once
 
-#define CHARIC_SPEED		500.f
+#define CHARIC_SPEED				300.f
 
-#define MAX_BULLET_NUM	100
-#define BULLET_SPEED		300.f
+#define MAX_BULLET_NUM			100
+#define MAX_ACCELBULLET_NUM		100
 
-#define SHOTBULLETCOST	5
+#define BULLET_SPEED				300.f
+#define ACCELBULLET_SPEED		100.f
+
+#define ACCELBULLET_ACCELERATION	1.f
+
+#define SHOTBULLET_COST			5
+#define SHOTACCELBULLET_COST		10
 
 enum Skill
 {
 	NORMAL,
 	SHOTBULLET,
-	BULLETSHOWERSHOT
+	SHOTACCELBULLET
 };
 
 enum Directions
