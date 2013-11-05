@@ -22,10 +22,6 @@ CPlayScene::CPlayScene(void)
 	AddChild( m_Player1 );
 	AddChild( m_Player2 );
 
-	m_testbullet = new CAccelBullet;
-	m_testbullet->SetPosition(NNPoint(640.f, 700.f));
-	AddChild( m_testbullet );
-
 	//총알 장전
 	for (int i = 0 ; i < MAX_BULLET_NUM ; ++i)
 	{
@@ -53,7 +49,7 @@ CPlayScene::CPlayScene(void)
 	m_Player1->SetCost(0);
 	m_Player2->SetCost(0);
 	
-	m_CostPerSecond = 5;
+	m_CostPerSecond = 5.f;
 	
 	m_Player1CostLabel = NNLabel::Create( L"Player1's Cost : ", L"맑은 고딕", 20.f );
 	m_Player1CostLabel->SetPosition( 0.f, 700.f );
@@ -104,15 +100,13 @@ void CPlayScene::Update( float dTime )
 	//총알의 이동
 	CBulletManager::GetInstance()->UpdateBullet(dTime);
 
-	m_testbullet->Update(dTime);
-
 	//캐릭터의 이동
 	m_Player1->Update(dTime);
 	m_Player2->Update(dTime);
 
 	//맵과 캐릭터의 충돌체크
-	SetPlayerMoveArea(m_Player1);
-	SetPlayerMoveArea(m_Player2);
+ 	SetPlayerMoveArea(m_Player1);
+ 	SetPlayerMoveArea(m_Player2);
 
 	//총알과 캐릭터의 충돌체크
 	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player1))

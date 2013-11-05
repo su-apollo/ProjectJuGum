@@ -12,6 +12,7 @@ public:
 	static CBulletManager* GetInstance();
 	static void ReleaseInstance();
 	
+	//½ºÅ³µé
 	void ShotAccelBullet(CMaincharacter * Player);
 	void ShotBullet(CMaincharacter * Player);
 
@@ -33,8 +34,9 @@ private:
 	int				m_BulletIndex;
 	int				m_AccelBulletIndex;
 
-	void			SetBulletLifeTime(CMainMap * Map, NNObject * Bullet, float radius);
+	void			BulletLifeTime(CMainMap * Map, CBullet * Bullet);
+	void			AccelBulletLifeTime(CMainMap * Map, CAccelBullet * Bullet);
+
 	CBullet *		GetBullet();
 	CAccelBullet *	GetAccelBullet();
 };
-

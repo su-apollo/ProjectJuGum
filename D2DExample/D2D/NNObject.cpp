@@ -34,7 +34,9 @@ void NNObject::Render()
 	{
 		//빠져있던 비즈블 기능 추가
 		if ((*iter)->IsVisible())
+		{
 			(*iter)->Render();
+		}
 	}
 }
 void NNObject::Update( float dTime )
@@ -42,7 +44,9 @@ void NNObject::Update( float dTime )
 	for (auto iter=m_ChildList.begin(); iter!=m_ChildList.end(); iter++ )
 	{
 		if ((*iter)->IsVisible())
+		{
 			(*iter)->Update( dTime );
+		}
 	}
 }
 void NNObject::SortingChildByZindex()

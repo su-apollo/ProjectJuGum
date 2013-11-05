@@ -8,7 +8,7 @@ CAccelBullet::CAccelBullet(void)
 
 	m_direction = 270;
 	m_speed = ACCELBULLET_SPEED;
-	m_accelation = ACCELBULLET_ACCELERATION;
+	m_accelation = 0;
 }
 
 CAccelBullet::~CAccelBullet(void)

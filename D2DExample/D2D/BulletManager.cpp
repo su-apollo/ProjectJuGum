@@ -51,6 +51,7 @@ void CBulletManager::ShotAccelBullet(CMaincharacter * Player)
  	float radius_of_Bullet = pAccelBullet->GetMainCircle()->GetRadius();
  
  	point.SetY( Player->GetPositionY() - (radius_of_Bullet + radius_of_Player));
+	pAccelBullet->SetAccelation(ACCELBULLET_ACCELERATION);
  	pAccelBullet->SetPosition( point );
 }
 
@@ -90,38 +91,41 @@ void CBulletManager::CheckBulletLifeTime(CMainMap * Map)
 {
 	for (int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
-		SetBulletLifeTime(Map, m_pBulletArray[i], m_pBulletArray[i]->GetMainCircle()->GetRadius());
+		BulletLifeTime(Map, m_pBulletArray[i]);
 	}
 	for (int i = 0; i < MAX_ACCELBULLET_NUM; ++i)
 	{
-		SetBulletLifeTime(Map, m_pAccelBulletArray[i], m_pAccelBulletArray[i]->GetMainCircle()->GetRadius());
+		AccelBulletLifeTime(Map, m_pAccelBulletArray[i]);
 	}
 }
 
-void CBulletManager::SetBulletLifeTime(CMainMap * Map, NNObject * Bullet, float radius)
+void CBulletManager::BulletLifeTime(CMainMap * Map, CBullet * Bullet)
 {
-	float leftline = Map->GetPositionX() + Map->GetMainFrame()->GetWidth()/2 +radius;
-	float rightline = Map->GetPositionX() - Map->GetMainFrame()->GetWidth()/2 - radius;
-	float botline = Map->GetPositionY() + Map->GetMainFrame()->GetHeight()/2 + radius;
-	float topline = Map->GetPositionY() - Map->GetMainFrame()->GetHeight()/2 - radius;
+	float leftline = Map->GetLeftLine() - Bullet->GetMainCircle()->GetRadius();
+	float rightline = Map->GetRightLine() + Bullet->GetMainCircle()->GetRadius();
+	float botline = Map->GetBotLine() + Bullet->GetMainCircle()->GetRadius();
+	float topline = Map->GetTopLine() - Bullet->GetMainCircle()->GetRadius();
 
-	if (Bullet->GetPositionX() > leftline )
+	if (Bullet->GetPositionX() < leftline || Bullet->GetPositionX() > rightline
+		|| Bullet->GetPositionY() > botline || Bullet->GetPositionY() < topline)
 	{
 		Bullet->SetPosition(0.f, 0.f);
 		Bullet->SetVisible(false);
 	}
-	else if (Bullet->GetPositionX() < rightline)
+}
+
+void CBulletManager::AccelBulletLifeTime(CMainMap * Map, CAccelBullet * Bullet)
+{
+	float leftline = Map->GetLeftLine() - Bullet->GetMainCircle()->GetRadius();
+	float rightline = Map->GetRightLine() + Bullet->GetMainCircle()->GetRadius();
+	float botline = Map->GetBotLine() + Bullet->GetMainCircle()->GetRadius();
+	float topline = Map->GetTopLine() - Bullet->GetMainCircle()->GetRadius();
+
+	if (Bullet->GetPositionX() < leftline || Bullet->GetPositionX() > rightline
+		|| Bullet->GetPositionY() > botline || Bullet->GetPositionY() < topline)
 	{
-		Bullet->SetPosition(0.f, 0.f);
-		Bullet->SetVisible(false);
-	}
-	else if (Bullet->GetPositionY() > botline)
-	{
-		Bullet->SetPosition(0.f, 0.f);
-		Bullet->SetVisible(false);
-	}
-	else if (Bullet->GetPositionY() < topline)
-	{
+		Bullet->SetSpeed();
+		Bullet->SetAccelation();
 		Bullet->SetPosition(0.f, 0.f);
 		Bullet->SetVisible(false);
 	}
