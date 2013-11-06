@@ -3,7 +3,7 @@
 
 CBullet::CBullet(void)
 {
-	m_Circle = NNCircle::Create(20.f, D2D1::ColorF::WhiteSmoke, D2D1::ColorF::BlueViolet);
+	m_Circle = NNCircle::Create(20.f, D2D1::ColorF::White, D2D1::ColorF::Black);
 	m_Circle->SetPosition(0.f, 0.f);
 	AddChild( m_Circle );
 

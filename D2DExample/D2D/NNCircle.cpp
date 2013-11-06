@@ -98,7 +98,7 @@ NND2DCircle::NND2DCircle(float radius, D2D1::ColorF::Enum startColor, D2D1::Colo
 
 	m_pD2DRenderer->GetHwndRenderTarget()->CreateGradientStopCollection(gradientStops, 2, D2D1_GAMMA_2_2, D2D1_EXTEND_MODE_CLAMP, &m_pGradientStops);	
 
-	m_pD2DRenderer->GetHwndRenderTarget()->CreateRadialGradientBrush(D2D1::RadialGradientBrushProperties(D2D1::Point2F(0,0), D2D1::Point2F(0,0),30,30), m_pGradientStops, &m_pRadialGradientBrush);
+	m_pD2DRenderer->GetHwndRenderTarget()->CreateRadialGradientBrush(D2D1::RadialGradientBrushProperties(D2D1::Point2F(0,0), D2D1::Point2F(0,0),radius,radius), m_pGradientStops, &m_pRadialGradientBrush);
 }
 
 
@@ -113,7 +113,7 @@ NND2DCircle::NND2DCircle(float radius, float startR, float startG, float startB,
 
 	m_pD2DRenderer->GetHwndRenderTarget()->CreateGradientStopCollection(gradientStops, 2, D2D1_GAMMA_2_2, D2D1_EXTEND_MODE_CLAMP, &m_pGradientStops);	
 
-	m_pD2DRenderer->GetHwndRenderTarget()->CreateRadialGradientBrush(D2D1::RadialGradientBrushProperties(D2D1::Point2F(0,0), D2D1::Point2F(0,0),30,30), m_pGradientStops, &m_pRadialGradientBrush);
+	m_pD2DRenderer->GetHwndRenderTarget()->CreateRadialGradientBrush(D2D1::RadialGradientBrushProperties(D2D1::Point2F(0,0), D2D1::Point2F(0,0),radius,radius), m_pGradientStops, &m_pRadialGradientBrush);
 }
 
 NND2DCircle::~NND2DCircle()
