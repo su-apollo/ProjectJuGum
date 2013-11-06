@@ -39,6 +39,8 @@ class NND2DCircle:
 public:
 	NND2DCircle(void);
 	NND2DCircle( float radius );
+	NND2DCircle(float radius, float startR, float startG, float startB, float endR, float endG, float endB);
+	NND2DCircle(float radius, D2D1::ColorF::Enum startColor, D2D1::ColorF::Enum endColor);
 	virtual ~NND2DCircle(void);
 
 	void Destroy();
