@@ -18,7 +18,8 @@ public:
 	//½ºÅ³µé
 	void ShotAccelBullet(CMaincharacter * Player);
 	void ShotBullet(CMaincharacter * Player);
-	void ShotSectorBullets(CMaincharacter* Player, int direction, int degree, int n);
+	void ShotSectorNormalBullets(CMaincharacter* Player, int direction, int degree, int n);
+	void ShotSectorMixBullets(CMaincharacter* Player, int direction, int degree, int n);
 
 	void UpdateBullet(float dTime);
 
