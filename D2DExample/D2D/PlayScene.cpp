@@ -85,12 +85,8 @@ void CPlayScene::Update( float dTime )
 
 	// FPS
 	m_SumTime += dTime;
-	if ( m_SumTime > 0.2 )
-	{
-		swprintf_s( m_FPS, _countof(m_FPS), L"FPS : %0.3f", NNApplication::GetInstance()->GetFPS() );
-		m_FPSLabel->SetString( m_FPS );
-		m_SumTime = 0;
-	}
+	swprintf_s( m_FPS, _countof(m_FPS), L"FPS : %0.3f", NNApplication::GetInstance()->GetFPS() );
+	m_FPSLabel->SetString( m_FPS );
 
 
 	// cost

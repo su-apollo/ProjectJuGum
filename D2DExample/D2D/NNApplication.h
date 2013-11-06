@@ -54,24 +54,29 @@ private:
 	NNSceneDirector* m_pSceneDirector;
 
 private:
-	HWND m_Hwnd;
-	HINSTANCE m_hInstance;
-	RendererStatus m_RendererStatus;
+	HWND			m_Hwnd;
+	HINSTANCE		m_hInstance;
+	RendererStatus	m_RendererStatus;
 
 private:
-	wchar_t* m_Title;
-	int m_ScreenWidth;
-	int m_ScreenHeight;
+	wchar_t*		m_Title;
+	int				m_ScreenWidth;
+	int				m_ScreenHeight;
 
 private:
-	float m_Fps;
-	float m_ElapsedTime;
-	float m_DeltaTime;
+	float			m_Fps;
+	float			m_ElapsedTime;
+	float			m_DeltaTimeSum;
+	float			m_DeltaTimeSum1;
+	int				m_FrameCount;
+	int				m_FrameCount1;
 
-	int m_PrevTime;
-	int m_NowTime;
+	float			m_DeltaTime;
 
-	bool m_DestroyWindow;
+	int				m_PrevTime;
+	int				m_NowTime;
+
+	bool			m_DestroyWindow;
 
 private:
 	static NNApplication* m_pInstance;
