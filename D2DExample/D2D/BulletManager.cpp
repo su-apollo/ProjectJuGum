@@ -60,6 +60,21 @@ void CBulletManager::ShotAccelBullet(CMaincharacter * Player)
  	pAccelBullet->SetPosition( point );
 }
 
+void CBulletManager::ShotSectorBullets( CMaincharacter* Player, int direction, int degree, int n )
+{
+	NNPoint point = Player->GetPosition();
+	float radius_of_Player = Player->GetMainCircle()->GetRadius();
+
+	for (int i=0; i<n; ++i)
+	{
+		CBullet* pBullet = GetBullet();
+		float radius_of_Bullet = pBullet->GetMainCircle()->GetRadius();
+		point.SetY( Player->GetPositionY() - (radius_of_Bullet + radius_of_Player) );
+		pBullet->SetPosition( point );
+		pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
+	}
+}
+
 void CBulletManager::UpdateBullet(float dTime)
 {
 	for (int i = 0; i < MAX_BULLET_NUM; ++i)
