@@ -28,6 +28,7 @@ private:
 
 	float		m_accelation;
 	float		m_speed;
+	float		m_dTimeSum;
 	int			m_direction;
 };
 

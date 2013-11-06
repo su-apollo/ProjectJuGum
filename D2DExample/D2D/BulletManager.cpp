@@ -4,15 +4,26 @@
 #include "AccelBullet.h"
 #include "MainMenuScene.h"
 #include "Maincharacter.h"
+#include "Satellite.h"
 
 CBulletManager* CBulletManager::m_pInstance = nullptr;
 
-CBulletManager::CBulletManager(void) : m_BulletIndex(0), m_AccelBulletIndex(0)
+CBulletManager::CBulletManager(void) : m_BulletIndex(0), m_AccelBulletIndex(0),
+	m_SatelliteIndex(0)
 {
 }
 
 CBulletManager::~CBulletManager(void)
 {
+}
+
+CSatellite * CBulletManager::GetSatellite()
+{
+	++m_SatelliteIndex;
+	m_SatelliteIndex %= MAX_SATELLITE_NUM;
+	m_pSatelliteArray[m_SatelliteIndex]->SetVisible(true);
+
+	return m_pSatelliteArray[m_SatelliteIndex];
 }
 
 CBullet * CBulletManager::GetBullet()
@@ -32,6 +43,17 @@ CAccelBullet * CBulletManager::GetAccelBullet()
 
 	return m_pAccelBulletArray[m_AccelBulletIndex];
 }
+
+
+void CBulletManager::ShotSetupSatellite( CMaincharacter* Player )
+{
+	CSatellite* pSatellite = GetSatellite();
+
+	NNPoint point = Player->GetPosition();
+
+	pSatellite->SetPosition(point);
+}
+
 
 void CBulletManager::ShotBullet(CMaincharacter * Player)
 {
@@ -199,3 +221,5 @@ void CBulletManager::ReleaseInstance()
 		m_pInstance = nullptr;
 	}
 }
+
+

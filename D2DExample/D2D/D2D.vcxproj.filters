@@ -77,6 +77,9 @@
     <ClCompile Include="AccelBullet.cpp">
       <Filter>ProjectJG\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="Satellite.cpp">
+      <Filter>ProjectJG\etcObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -257,6 +260,9 @@
     </ClInclude>
     <ClInclude Include="AccelBullet.h">
       <Filter>ProjectJG\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Satellite.h">
+      <Filter>ProjectJG\etcObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

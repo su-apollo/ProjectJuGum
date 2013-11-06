@@ -11,6 +11,7 @@
 #include "ReturnScene.h"
 #include "Bullet.h"
 #include "AccelBullet.h"
+#include "Satellite.h"
 
 CPlayScene::CPlayScene(void)
 {
@@ -44,6 +45,14 @@ CPlayScene::CPlayScene(void)
 		CBulletManager::GetInstance()->GetAccelBulletArray()[i]->SetVisible(false);
 	}
 
+	//인공위성 로딩
+	for (int i = 0; i <MAX_SATELLITE_NUM; ++i)
+	{
+		CBulletManager::GetInstance()->GetSatelliteArray()[i] = new CSatellite;
+		AddChild( CBulletManager::GetInstance()->GetSatelliteArray()[i]);
+		CBulletManager::GetInstance()->GetSatelliteArray()[i]->SetVisible(false);
+	}
+
 	// FPS
 	m_FPSLabel = NNLabel::Create( L"FPS : ", L"맑은 고딕", 20.f );
 	m_FPSLabel->SetPosition( 0.f, 0.f );
@@ -53,8 +62,7 @@ CPlayScene::CPlayScene(void)
 
 
 	// cost
-	m_Player1->SetCost(0);
-	m_Player2->SetCost(0);
+	m_Player1->SetCost(10000);
 	
 	m_CostPerSecond = 5.f;
 	

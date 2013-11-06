@@ -109,6 +109,7 @@
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="ReturnScene.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
+    <ClCompile Include="Satellite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccelBullet.h" />
@@ -142,6 +143,7 @@
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="ReturnScene.h" />
     <ClInclude Include="MainMenuScene.h" />
+    <ClInclude Include="Satellite.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

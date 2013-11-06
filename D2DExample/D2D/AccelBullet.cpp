@@ -10,6 +10,7 @@ CAccelBullet::CAccelBullet(void)
 	m_direction = 270;
 	m_speed = ACCELBULLET_SPEED;
 	m_accelation = 0;
+	m_dTimeSum = 0;
 }
 
 CAccelBullet::~CAccelBullet(void)
@@ -18,7 +19,7 @@ CAccelBullet::~CAccelBullet(void)
 
 void CAccelBullet::Update( float dTime )
 {
-	m_speed += m_accelation;
+	m_speed += m_accelation*dTime;
 	float x = m_speed * NNDegreeToX(m_direction);
 	float y = m_speed * NNDegreeToY(m_direction);
 	SetPosition( GetPosition() + NNPoint(x, y) * dTime);

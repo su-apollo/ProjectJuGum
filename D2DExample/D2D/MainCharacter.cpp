@@ -9,6 +9,7 @@ CMaincharacter::CMaincharacter(void)
 	AddChild( m_Circle );
 
 	m_speed = CHARIC_SPEED;
+	m_Cost = 0;
 }
 
 CMaincharacter::~CMaincharacter(void)
