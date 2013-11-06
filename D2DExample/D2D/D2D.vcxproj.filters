@@ -80,6 +80,7 @@
     <ClCompile Include="Satellite.cpp">
       <Filter>ProjectJG\etcObject</Filter>
     </ClCompile>
+    <ClCompile Include="PrintLog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -264,6 +265,7 @@
     <ClInclude Include="Satellite.h">
       <Filter>ProjectJG\etcObject</Filter>
     </ClInclude>
+    <ClInclude Include="PrintLog.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -107,6 +107,7 @@
     <ClCompile Include="NNResourceManager.cpp" />
     <ClCompile Include="MainCharacter.cpp" />
     <ClCompile Include="PlayScene.cpp" />
+    <ClCompile Include="PrintLog.cpp" />
     <ClCompile Include="ReturnScene.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="Satellite.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="NNTexture.h" />
     <ClInclude Include="Maincharacter.h" />
     <ClInclude Include="PlayScene.h" />
+    <ClInclude Include="PrintLog.h" />
     <ClInclude Include="ReturnScene.h" />
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="Satellite.h" />
