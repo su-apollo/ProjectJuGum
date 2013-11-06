@@ -14,7 +14,18 @@ NNInputSystem::NNInputSystem()
 	m_keyright = VK_RIGHT;
 	m_keyleft = VK_LEFT;
 
+	m_skill[0] = 'Z';
+	m_skill[1] = 'X';
+	m_skill[2] = 'C';
+	m_skill[3] = 'A';
+	m_skill[4] = 'S';
+	m_skill[5] = 'D';
+
+	m_upgradekey = VK_SPACE;
+	m_changespeedkey = VK_SHIFT;
+	m_pausekey = VK_ESCAPE;
 }
+
 NNInputSystem::~NNInputSystem()
 {
 }
@@ -73,19 +84,19 @@ KeyState NNInputSystem::GetKeyState( int key )
 
 InputSetUp NNInputSystem::GetDirectionKeyInput(void)
 {
-	if  (GetKeyState( m_keyup ) == KEY_PRESSED && NNInputSystem::GetInstance()->GetKeyState( m_keyleft ) == KEY_PRESSED)
+	if  (GetInstance()->GetKeyState( m_keyup ) == KEY_PRESSED && GetInstance()->GetKeyState( m_keyleft ) == KEY_PRESSED)
 	{
 		return LEFT_UP;
 	}
-	else if (GetInstance()->GetKeyState( m_keyup ) == KEY_PRESSED && NNInputSystem::GetInstance()->GetKeyState( m_keyright ) == KEY_PRESSED )
+	else if (GetInstance()->GetKeyState( m_keyup ) == KEY_PRESSED && GetInstance()->GetKeyState( m_keyright ) == KEY_PRESSED )
 	{
 		return RIGHT_UP;
 	}
-	else if (GetInstance()->GetKeyState( m_keydown ) == KEY_PRESSED && NNInputSystem::GetInstance()->GetKeyState( m_keyleft ) == KEY_PRESSED )
+	else if (GetInstance()->GetKeyState( m_keydown ) == KEY_PRESSED && GetInstance()->GetKeyState( m_keyleft ) == KEY_PRESSED )
 	{
 		return LEFT_DOWN;
 	}
-	else if (GetInstance()->GetKeyState( m_keydown ) == KEY_PRESSED && NNInputSystem::GetInstance()->GetKeyState( m_keyright ) == KEY_PRESSED )
+	else if (GetInstance()->GetKeyState( m_keydown ) == KEY_PRESSED && GetInstance()->GetKeyState( m_keyright ) == KEY_PRESSED )
 	{
 		return RIGHT_DOWN;
 	}
@@ -111,34 +122,54 @@ InputSetUp NNInputSystem::GetDirectionKeyInput(void)
 
 InputSetUp NNInputSystem::GetSkillKeyInput(void)
 {
-	if (GetInstance()->GetKeyState('Z') == KEY_DOWN)
+	if (GetInstance()->GetKeyState(m_skill[0]) == KEY_DOWN)
 	{
 		return SKILL_KEY_ONE;
 	}
-	else if (GetInstance()->GetKeyState('X') == KEY_DOWN)
+	else if (GetInstance()->GetKeyState(m_skill[1]) == KEY_DOWN)
 	{
 		return SKILL_KEY_TWO;
 	}
-	else if (GetInstance()->GetKeyState('C') == KEY_DOWN)
+	else if (GetInstance()->GetKeyState(m_skill[2]) == KEY_DOWN)
 	{
 		return SKILL_KEY_THREE;
 	}
-	else if (GetInstance()->GetKeyState('A') == KEY_DOWN)
+	else if (GetInstance()->GetKeyState(m_skill[3]) == KEY_DOWN)
 	{
 		return SKILL_KEY_FOUR;
 	}
-	else if (GetInstance()->GetKeyState('S') == KEY_DOWN)
+	else if (GetInstance()->GetKeyState(m_skill[4]) == KEY_DOWN)
 	{
 		return SKILL_KEY_FIVE;
 	}
-	else if (GetInstance()->GetKeyState('D') == KEY_DOWN)
+	else if (GetInstance()->GetKeyState(m_skill[5]) == KEY_DOWN)
 	{
 		return SKILL_KEY_SIX;
 	}
-	else if (GetInstance()->GetKeyState(VK_SPACE) == KEY_DOWN)
+	else if (GetInstance()->GetKeyState(m_upgradekey) == KEY_DOWN)
 	{
 		return UPGRADE_KEY;
 	}
 	else
 		return ELSE;
 }
+
+InputSetUp NNInputSystem::GetChangeSpeedKeyInput(void)
+{
+	if (GetInstance()->GetKeyState(m_changespeedkey) == KEY_PRESSED)
+	{
+		return CHANGE_SPEED;
+	}
+	else
+		return ELSE;
+};
+
+InputSetUp NNInputSystem::GetMenuKeyInput(void)
+{
+	if (GetInstance()->GetKeyState(m_pausekey) == KEY_DOWN)
+	{
+		return PAUSE;
+	}
+	else
+		return ELSE;
+};

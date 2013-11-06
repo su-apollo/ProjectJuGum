@@ -27,12 +27,15 @@ public:
 	void SetKeyDown(int down){m_keydown = down;}
 	void SetKeyLeft(int left){m_keyleft = left;}
 	void SetKeyRight(int right){m_keyright = right;}
-
+	void SetSkillKey(int skillnum, int skillkey) {m_skill[skillnum] = skillkey;}
 
 	void UpdateKeyState();
 	KeyState GetKeyState( int key );
 
 	InputSetUp GetDirectionKeyInput(void);
+	InputSetUp GetSkillKeyInput(void);
+	InputSetUp GetChangeSpeedKeyInput(void);
+	InputSetUp GetMenuKeyInput(void);
 
 private:
 	static NNInputSystem* m_pInstance;
@@ -41,6 +44,12 @@ private:
 	int m_keydown;
 	int m_keyleft;
 	int m_keyright;
+	
+	int m_skill[6];
+
+	int m_upgradekey;
+	int m_changespeedkey;
+	int m_pausekey;
 
 	NNInputSystem();
 	~NNInputSystem();
@@ -48,8 +57,8 @@ private:
 
 	bool m_PrevKeyState[256];
 	bool m_NowKeyState[256];
-public:
-	InputSetUp GetSkillKeyInput(void);
+
+	
 };
 
 

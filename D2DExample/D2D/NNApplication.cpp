@@ -129,13 +129,11 @@ bool NNApplication::Run()
 			NNInputSystem::GetInstance()->UpdateKeyState();
 			m_pSceneDirector->UpdateScene( m_DeltaTime );
 
-			//if ( m_DeltaTime > (1.f / 60.f) )
-			{
-				m_Renderer->Begin();
-				m_Renderer->Clear();
-				m_pSceneDirector->RenderScene();
-				m_Renderer->End();
-			}
+			m_Renderer->Begin();
+			m_Renderer->Clear();
+			m_pSceneDirector->RenderScene();
+			m_Renderer->End();
+			
 		}
 	}
 

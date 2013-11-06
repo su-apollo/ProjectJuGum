@@ -27,9 +27,17 @@ void CMaincharacter::Update( float dTime )
 
 void CMaincharacter::UpdateMotion(float dTime)
 {
-	//입력에 따른 캐릭터의 이동
 	
+	if (NNInputSystem::GetInstance()->GetChangeSpeedKeyInput() == CHANGE_SPEED)
+	{
+		m_speed = CHARIC_FAST_SPEED;
+	}
+	else
+	{
+		m_speed = CHARIC_SPEED;
+	}
 
+	//입력에 따른 캐릭터의 이동
 	switch (NNInputSystem::GetInstance()->GetDirectionKeyInput())
 	{
 	case UP:

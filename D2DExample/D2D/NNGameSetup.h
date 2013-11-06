@@ -1,6 +1,7 @@
 #pragma once
 
 #define CHARIC_SPEED				200.f
+#define CHARIC_FAST_SPEED		300.f
 
 #define MAX_BULLET_NUM			100
 #define MAX_ACCELBULLET_NUM		100
@@ -12,6 +13,7 @@
 
 #define SHOTBULLET_COST			5
 #define SHOTACCELBULLET_COST		10
+
 
 enum Skill
 {
@@ -39,7 +41,9 @@ enum InputSetUp
 	SKILL_KEY_FOUR,
 	SKILL_KEY_FIVE,
 	SKILL_KEY_SIX,
-	UPGRADE_KEY
+	UPGRADE_KEY,
+	CHANGE_SPEED,
+	PAUSE
 };
 
 enum MENU_LIST

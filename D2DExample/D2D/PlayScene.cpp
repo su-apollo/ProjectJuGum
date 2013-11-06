@@ -23,8 +23,6 @@ CPlayScene::CPlayScene(void)
 	m_Player1 = new CFirstModeCharic;
 	m_Player2 = new CMaincharacter;
 
-	m_Player2->SetSpeed(0.f);
-
 	m_Player1->SetPosition(NNPoint(640.f, 700.f));
 	m_Player2->SetPosition(NNPoint(640.f, 100.f));
 
@@ -78,7 +76,7 @@ void CPlayScene::Render()
 }
 void CPlayScene::Update( float dTime )
 {
-	if ( NNInputSystem::GetInstance()->GetKeyState( VK_ESCAPE ) == KEY_DOWN )
+	if ( NNInputSystem::GetInstance()->GetMenuKeyInput() == PAUSE )
 	{
 		NNSceneDirector::GetInstance()->ChangeScene( new CReturnScene() );
 	}
@@ -107,7 +105,7 @@ void CPlayScene::Update( float dTime )
 
 	//캐릭터의 이동
 	m_Player1->Update(dTime);
-	m_Player2->Update(dTime);
+	//m_Player2->Update(dTime);
 
 	//맵과 캐릭터의 충돌체크
  	SetPlayerMoveArea(m_Player1);
@@ -118,10 +116,10 @@ void CPlayScene::Update( float dTime )
 	{
 		NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
 	}
-	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player2))
-	{
-		NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
-	}
+// 	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player2))
+// 	{
+// 		NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
+// 	}
 	
 	//총알의 라이프타임 처리
 	CBulletManager::GetInstance()->CheckBulletLifeTime(m_Map);
