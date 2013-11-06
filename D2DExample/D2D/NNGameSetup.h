@@ -22,7 +22,7 @@ enum Skill
 
 enum InputSetUp
 {
-	WRONG_INPUT,
+	ELSE,
 	UP,
 	DOWN,
 	LEFT,

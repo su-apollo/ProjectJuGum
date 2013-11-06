@@ -48,6 +48,8 @@ private:
 
 	bool m_PrevKeyState[256];
 	bool m_NowKeyState[256];
+public:
+	InputSetUp GetSkillKeyInput(void);
 };
 
 

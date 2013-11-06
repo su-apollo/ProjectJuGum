@@ -17,20 +17,21 @@ CFirstModeCharic::~CFirstModeCharic(void)
 
 void CFirstModeCharic::SkillCasting(CMaincharacter* Player, CMainMap* Map, float dTime)
 {
-	if (NNInputSystem::GetInstance()->GetKeyState('Z') == KEY_DOWN)
+	switch (NNInputSystem::GetInstance()->GetSkillKeyInput())
 	{
+	case SKILL_KEY_ONE:
 		if ( GetCost() >= SHOTBULLET_COST )
 		{
 			CBulletManager::GetInstance()->ShotBullet(Player);
 			SetCost( GetCost() - SHOTBULLET_COST );
 		}
-	}
-	else if (NNInputSystem::GetInstance()->GetKeyState('X') == KEY_DOWN)
-	{
+		break;
+	case SKILL_KEY_TWO:
 		if ( GetCost() >= SHOTACCELBULLET_COST )
 		{
 			CBulletManager::GetInstance()->ShotAccelBullet(Player);
 			SetCost( GetCost() - SHOTACCELBULLET_COST );
 		}
+		break;
 	}
 }
