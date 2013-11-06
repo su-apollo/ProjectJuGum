@@ -14,6 +14,8 @@ public:
 	virtual ~NNCircle(void) {}
 
 	static NNCircle* Create( float radius );
+	static NNCircle* Create(float radius, float startR, float startG, float startB, float endR, float endG, float endB );
+	static NNCircle* Create(float radius, D2D1::ColorF::Enum startColor, D2D1::ColorF::Enum endColor);
 	virtual void Destroy() {}
 	virtual void Render() {}
 
@@ -25,8 +27,7 @@ public:
 	virtual void SetGreen( float g ) { m_ColorG = g; }
 	virtual void SetBlue( float b ) { m_ColorB = b; }
 	virtual void SetColor( float r, float g, float b ) { m_ColorR = r; m_ColorG = g; m_ColorB = b; }
-
-
+	
 protected:
 	float m_ColorR, m_ColorG, m_ColorB;
 	float m_radius;
@@ -54,8 +55,7 @@ public:
 		m_ColorR = r; m_ColorG = g; m_ColorB = b;
 		m_Brush->SetColor(D2D1::ColorF(r/255.f,g/255.f,b/255.f));
 	}
-
-
+	void DrawCircle(float radius);
 private:
 	NND2DRenderer * m_pD2DRenderer;
 	D2D1_ELLIPSE	m_Ellipse;
