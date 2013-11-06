@@ -127,6 +127,10 @@ void CBulletManager::ShotSectorNormalBullets( CMaincharacter* Player, int direct
 
 void CBulletManager::UpdateBullet(float dTime)
 {
+	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
+	{
+		m_pSatelliteArray[i]->Update(dTime);
+	}
 	for (int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
 		m_pBulletArray[i]->Update(dTime);

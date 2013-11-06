@@ -47,5 +47,12 @@ void CFirstModeCharic::SkillCasting(CMaincharacter* Player, CMainMap* Map, float
 			SetCost( GetCost() - SHOTBULLET_COST*20 );
 		}
 		break;
+	case SKILL_KEY_FIVE:
+		if ( GetCost() >= SETUPSATELLITE_COST )
+		{
+			CBulletManager::GetInstance()->ShotSetupSatellite(Player);
+			SetCost(GetCost() - SETUPSATELLITE_COST);
+		}
+		break;
 	}
 }
