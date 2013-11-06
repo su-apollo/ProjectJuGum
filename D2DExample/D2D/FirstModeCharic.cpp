@@ -34,7 +34,7 @@ void CFirstModeCharic::SkillCasting(CMaincharacter* Player, CMainMap* Map, float
 		}
 		break;
 	case SKILL_KEY_THREE:
-		if ( GetCost() >= SHOTBULLET*5 )
+		if ( GetCost() >= SHOTBULLET_COST*5 )
 		{
 			CBulletManager::GetInstance()->ShotSectorMixBullets(Player, 270, 90, 7);
 			SetCost( GetCost() - SHOTBULLET_COST*5 );
