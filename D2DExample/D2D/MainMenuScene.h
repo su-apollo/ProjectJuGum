@@ -1,12 +1,8 @@
 #pragma once
 #include "NNScene.h"
-#include "NNLabel.h"
-#include "NNInputSystem.h"
-#include "NNAudioSystem.h"
 
-#include "NNApplication.h"
-#include "PlayScene.h"
-#include "NNSprite.h"
+class NNSprite;
+class NNLabel;
 
 class CMainMenuScene : public NNScene
 {

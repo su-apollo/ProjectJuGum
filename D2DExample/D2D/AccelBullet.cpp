@@ -1,4 +1,5 @@
 #include "AccelBullet.h"
+#include "Maincharacter.h"
 
 CAccelBullet::CAccelBullet(void)
 {

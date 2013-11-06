@@ -1,4 +1,9 @@
 #include "BulletManager.h"
+#include "MainMap.h"
+#include "Bullet.h"
+#include "AccelBullet.h"
+#include "MainMenuScene.h"
+#include "Maincharacter.h"
 
 CBulletManager* CBulletManager::m_pInstance = nullptr;
 

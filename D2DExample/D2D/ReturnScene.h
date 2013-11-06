@@ -1,10 +1,7 @@
-
 #pragma once
 #include "NNScene.h"
-#include "NNLabel.h"
-#include "NNInputSystem.h"
-#include "NNSceneDirector.h"
-#include "MainMenuScene.h"
+
+class NNLabel;
 
 class CReturnScene :
 	public NNScene

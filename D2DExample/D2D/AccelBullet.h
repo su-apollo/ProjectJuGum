@@ -1,6 +1,7 @@
 #pragma once
-#include "NNObject.h"
-#include "Maincharacter.h"
+#include "NNCircle.h"
+
+class CMaincharacter;
 
 class CAccelBullet :
 	public NNObject

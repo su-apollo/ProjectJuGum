@@ -1,7 +1,10 @@
 #pragma once
-#include "Bullet.h"
-#include "AccelBullet.h"
-#include "MainMenuScene.h"
+#include "NNConfig.h"
+
+class CBullet;
+class CMainMap;
+class CAccelBullet;
+class CMaincharacter;
 
 class CBulletManager
 {

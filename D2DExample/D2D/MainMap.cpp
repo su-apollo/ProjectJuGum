@@ -1,6 +1,5 @@
 #include "MainMap.h"
 
-
 CMainMap::CMainMap(void)
 {
 	m_MainFrame = NNRect::Create(750.f, 750.f);

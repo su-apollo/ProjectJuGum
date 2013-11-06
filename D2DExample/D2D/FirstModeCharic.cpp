@@ -1,4 +1,9 @@
+#include "NNInputSystem.h"
+
 #include "FirstModeCharic.h"
+#include "BulletManager.h"
+#include "MainMap.h"
+
 
 CFirstModeCharic::CFirstModeCharic(void) 
 {

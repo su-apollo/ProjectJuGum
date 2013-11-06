@@ -1,6 +1,7 @@
 #pragma once
 #include "NNCircle.h"
-#include "Maincharacter.h"
+
+class CMaincharacter;
 
 class CBullet : public NNObject
 {

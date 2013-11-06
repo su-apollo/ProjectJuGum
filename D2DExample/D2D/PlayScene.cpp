@@ -1,7 +1,16 @@
+#include "NNLabel.h"
+#include "NNSceneDirector.h"
+#include "NNApplication.h"
+
 #include "PlayScene.h"
 #include "FirstModeCharic.h"
 #include "Maincharacter.h"
 #include "BulletManager.h"
+#include "MainMenuScene.h"
+#include "MainMap.h"
+#include "ReturnScene.h"
+#include "Bullet.h"
+#include "AccelBullet.h"
 
 CPlayScene::CPlayScene(void)
 {

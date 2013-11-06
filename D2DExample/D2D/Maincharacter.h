@@ -1,6 +1,6 @@
 #pragma once
 #include "NNCircle.h"
-#include "NNInputSystem.h"
+
 
 class CMaincharacter : public NNObject
 {

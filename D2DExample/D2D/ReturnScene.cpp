@@ -1,5 +1,9 @@
 #include "ReturnScene.h"
-
+#include "MainMenuScene.h"
+#include "NNSceneDirector.h"
+#include "NNInputSystem.h"
+#include "NNLabel.h"
+#include "NNApplication.h"
 
 CReturnScene::CReturnScene(void)
 {

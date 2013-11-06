@@ -1,6 +1,7 @@
 #pragma once
-#include "BulletManager.h"
 #include "Maincharacter.h"
+
+class CMainMap;
 
 class CFirstModeCharic : public CMaincharacter
 {

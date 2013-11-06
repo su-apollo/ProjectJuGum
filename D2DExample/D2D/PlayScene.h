@@ -1,10 +1,8 @@
 #pragma once
+#include "NNScene.h"
 
-#include "MainMap.h"
-#include "MainMenuScene.h"
-
-#include <sstream>
-
+class NNLabel;
+class CMainMap;
 class CFirstModeCharic;
 class CMaincharacter;
 class CAccelBullet;

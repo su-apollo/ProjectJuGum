@@ -1,5 +1,11 @@
 #include "MainMenuScene.h"
+#include "NNLabel.h"
+#include "NNInputSystem.h"
+#include "NNAudioSystem.h"
 
+#include "NNApplication.h"
+#include "PlayScene.h"
+#include "NNSprite.h"
 
 CMainMenuScene::CMainMenuScene(void)
 {

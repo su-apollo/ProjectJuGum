@@ -1,5 +1,5 @@
 #include "Bullet.h"
-
+#include "Maincharacter.h"
 
 CBullet::CBullet(void)
 {

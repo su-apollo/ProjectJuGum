@@ -1,5 +1,6 @@
 #include "Maincharacter.h"
 #include "BulletManager.h"
+#include "NNInputSystem.h"
 
 CMaincharacter::CMaincharacter(void)
 {
