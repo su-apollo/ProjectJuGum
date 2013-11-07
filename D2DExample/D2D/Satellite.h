@@ -11,11 +11,11 @@ public:
 	virtual ~CSatellite(void);
 
 	void		Render();
-	void		Update( float dTime );
+	void		Update( float dTime, CSatellite* Satellite);
 
 	NNCircle *	GetMainCircle(){return m_Circle;}
 
-	void		ShotNomalBullet( float dTime );
+	void		ShotNomalBullet( float dTime, CSatellite* Satellite);
 
 private:
 	NNCircle*	m_Circle;

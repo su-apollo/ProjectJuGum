@@ -19,16 +19,18 @@ void CSatellite::Render()
 	NNObject::Render();
 }
 
-void CSatellite::Update( float dTime )
+void CSatellite::Update( float dTime, CSatellite* Satellite)
 {
+	ShotNomalBullet(dTime, Satellite);
 }
  
-void CSatellite::ShotNomalBullet( float dTime )
+void CSatellite::ShotNomalBullet( float dTime, CSatellite* Satellite)
 {
 	m_dTimeSum += dTime;
-	if (m_dTimeSum >= 3.f)
+	if (m_dTimeSum >= 2.f)
 	{
-
+		CBulletManager::GetInstance()->ShotBullet(Satellite);
+		m_dTimeSum = 0.f;
 	}
 }
 

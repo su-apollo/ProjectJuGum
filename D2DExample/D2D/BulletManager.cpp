@@ -145,7 +145,7 @@ void CBulletManager::UpdateSatellite( float dTime )
 {
 	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
 	{
-		m_pSatelliteArray[i]->Update(dTime);
+		m_pSatelliteArray[i]->Update(dTime, m_pSatelliteArray[i]);
 	}
 }
 
