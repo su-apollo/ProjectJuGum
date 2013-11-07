@@ -81,6 +81,9 @@
       <Filter>GameObjects\etcObject</Filter>
     </ClCompile>
     <ClCompile Include="PrintLog.cpp" />
+    <ClCompile Include="Asteroid.cpp">
+      <Filter>GameObjects\etcObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -266,6 +269,9 @@
       <Filter>GameObjects\etcObject</Filter>
     </ClInclude>
     <ClInclude Include="PrintLog.h" />
+    <ClInclude Include="Asteroid.h">
+      <Filter>GameObjects\etcObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
