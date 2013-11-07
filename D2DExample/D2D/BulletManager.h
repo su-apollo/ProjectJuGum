@@ -20,8 +20,8 @@ public:
 	//½ºÅ³µé
 	void ShotAccelBullet(NNObject * Player);
 	void ShotBullet(NNObject * Player);
-	void ShotSectorNormalBullets(NNObject* Player, int direction, int degree, int n);
-	void ShotSectorMixBullets(NNObject* Player, int direction, int degree, int n);
+	void ShotSectorNormalBullets(NNObject* Player, float direction, float degree, int n);
+	void ShotSectorMixBullets(NNObject* Player, float direction, float degree, int n);
 	void ShotSetupSatellite(NNObject* Player);
 
 	void UpdateObj(float dTime);

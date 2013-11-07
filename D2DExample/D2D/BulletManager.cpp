@@ -80,7 +80,7 @@ void CBulletManager::ShotAccelBullet(NNObject * Player)
  	pAccelBullet->SetPosition( point );
 }
 
-void CBulletManager::ShotSectorMixBullets( NNObject* Player, int direction, int degree, int n )
+void CBulletManager::ShotSectorMixBullets( NNObject* Player, float direction, float degree, int n )
 {
 	NNPoint point = Player->GetPosition();
 
@@ -106,7 +106,7 @@ void CBulletManager::ShotSectorMixBullets( NNObject* Player, int direction, int 
 	}
 }
 
-void CBulletManager::ShotSectorNormalBullets( NNObject* Player, int direction, int degree, int n )
+void CBulletManager::ShotSectorNormalBullets( NNObject* Player, float direction, float degree, int n )
 {
 	NNPoint point = Player->GetPosition();
 

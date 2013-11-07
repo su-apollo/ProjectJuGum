@@ -8,7 +8,7 @@ CBullet::CBullet(void)
 	AddChild( m_Circle );
 
 	m_speed = BULLET_SPEED;
-	m_direction = 270;
+	m_direction = 270.f;
 }
 
 CBullet::~CBullet(void)

@@ -15,7 +15,7 @@ public:
 	NNCircle * GetMainCircle(){return m_Circle;}
 
 	void SetSpeed( float new_speed = BULLET_SPEED ){ m_speed = new_speed;}
-	void SetDirection(int new_direction = 270){ m_direction = new_direction; }
+	void SetDirection(float new_direction = 270.f){ m_direction = new_direction; }
 
 	bool CharacterHitCheck(CMaincharacter * Player);
 
@@ -23,6 +23,6 @@ private:
 	NNCircle* m_Circle;
 
 	float m_speed;
-	int m_direction;
+	float m_direction;
 };
 

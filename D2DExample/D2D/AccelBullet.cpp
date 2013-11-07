@@ -7,9 +7,9 @@ CAccelBullet::CAccelBullet(void)
 	m_Circle->SetPosition(0.f, 0.f);
 	AddChild( m_Circle );
 
-	m_direction = 270;
+	m_direction = 270.f;
 	m_speed = ACCELBULLET_SPEED;
-	m_accelation = 0;
+	m_accelation = 0.f;
 	m_dTimeSum = 0;
 }
 

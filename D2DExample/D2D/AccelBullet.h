@@ -21,7 +21,7 @@ public:
 
 	void SetSpeed( float new_speed = ACCELBULLET_SPEED ){ m_speed = new_speed;}
 	void SetAccelation( float new_accel = 0 ){ m_accelation = new_accel; }
-	void SetDirection(int new_direction = 270){ m_direction = new_direction; }
+	void SetDirection(float new_direction = 270.f){ m_direction = new_direction; }
 
 private:
 	NNCircle*	m_Circle;
@@ -29,6 +29,6 @@ private:
 	float		m_accelation;
 	float		m_speed;
 	float		m_dTimeSum;
-	int			m_direction;
+	float		m_direction;
 };
 
