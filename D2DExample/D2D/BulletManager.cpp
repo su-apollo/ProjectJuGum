@@ -133,11 +133,17 @@ void CBulletManager::UpdateBullet(float dTime)
 {
 	for (int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
-		m_pBulletArray[i]->Update(dTime);
+		if (m_pBulletArray[i]->IsVisible())
+		{
+			m_pBulletArray[i]->Update(dTime);
+		}
 	}
 	for (int i = 0; i < MAX_ACCELBULLET_NUM; ++i)
 	{
-		m_pAccelBulletArray[i]->Update(dTime);
+		if (m_pAccelBulletArray[i]->IsVisible())
+		{
+			m_pAccelBulletArray[i]->Update(dTime);
+		}
 	}
 }
 
@@ -145,7 +151,10 @@ void CBulletManager::UpdateSatellite( float dTime )
 {
 	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
 	{
-		m_pSatelliteArray[i]->Update(dTime, m_pSatelliteArray[i]);
+		if (m_pSatelliteArray[i]->IsVisible())
+		{
+			m_pSatelliteArray[i]->Update(dTime, m_pSatelliteArray[i]);
+		}
 	}
 }
 
