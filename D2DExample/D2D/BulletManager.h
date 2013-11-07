@@ -30,6 +30,9 @@ public:
 
 	bool CharacterHitCheck(CMaincharacter * Player);
 	void CheckBulletLifeTime(CMainMap * Map);
+
+	void DestroyBullet(CBullet* Bullet);
+	void DestroyAccelBullet(CAccelBullet* Bullet);
 	
 	//생산은 씬에서 해줘야함 불렛메니져는 생산된 불렛을 어레이로 보관하고 관리
 	CBullet **		GetBulletArray() { return m_pBulletArray; }

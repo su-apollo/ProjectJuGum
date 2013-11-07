@@ -206,9 +206,7 @@ void CBulletManager::BulletLifeTime(CMainMap * Map, CBullet * Bullet)
 	if (Bullet->GetPositionX() < leftline || Bullet->GetPositionX() > rightline
 		|| Bullet->GetPositionY() > botline || Bullet->GetPositionY() < topline)
 	{
-		Bullet->SetDirection();
-		Bullet->SetPosition(0.f, 0.f);
-		Bullet->SetVisible(false);
+		DestroyBullet(Bullet);
 	}
 }
 
@@ -222,12 +220,24 @@ void CBulletManager::AccelBulletLifeTime(CMainMap * Map, CAccelBullet * Bullet)
 	if (Bullet->GetPositionX() < leftline || Bullet->GetPositionX() > rightline
 		|| Bullet->GetPositionY() > botline || Bullet->GetPositionY() < topline)
 	{
-		Bullet->SetDirection();
-		Bullet->SetSpeed();
-		Bullet->SetAccelation();
-		Bullet->SetPosition(0.f, 0.f);
-		Bullet->SetVisible(false);
+		DestroyAccelBullet(Bullet);
 	}
+}
+
+void CBulletManager::DestroyBullet( CBullet* Bullet )
+{
+	Bullet->SetDirection();
+	Bullet->SetPosition(0.f, 0.f);
+	Bullet->SetVisible(false);
+}
+
+void CBulletManager::DestroyAccelBullet( CAccelBullet* Bullet )
+{
+	Bullet->SetDirection();
+	Bullet->SetSpeed();
+	Bullet->SetAccelation();
+	Bullet->SetPosition(0.f, 0.f);
+	Bullet->SetVisible(false);
 }
 
 //**************************************************************
@@ -251,4 +261,5 @@ void CBulletManager::ReleaseInstance()
 		m_pInstance = nullptr;
 	}
 }
+
 
