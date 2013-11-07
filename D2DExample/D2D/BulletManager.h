@@ -6,6 +6,7 @@ class CMainMap;
 class CAccelBullet;
 class CMaincharacter;
 class CSatellite;
+class NNObject;
 
 class CBulletManager
 {
@@ -17,13 +18,15 @@ public:
 	static void ReleaseInstance();
 	
 	//½ºÅ³µé
-	void ShotAccelBullet(CMaincharacter * Player);
-	void ShotBullet(CMaincharacter * Player);
-	void ShotSectorNormalBullets(CMaincharacter* Player, int direction, int degree, int n);
-	void ShotSectorMixBullets(CMaincharacter* Player, int direction, int degree, int n);
-	void ShotSetupSatellite(CMaincharacter* Player);
+	void ShotAccelBullet(NNObject * Player);
+	void ShotBullet(NNObject * Player);
+	void ShotSectorNormalBullets(NNObject* Player, int direction, int degree, int n);
+	void ShotSectorMixBullets(NNObject* Player, int direction, int degree, int n);
+	void ShotSetupSatellite(NNObject* Player);
 
+	void UpdateObj(float dTime);
 	void UpdateBullet(float dTime);
+	void UpdateSatellite(float dTime);
 
 	bool CharacterHitCheck(CMaincharacter * Player);
 	void CheckBulletLifeTime(CMainMap * Map);

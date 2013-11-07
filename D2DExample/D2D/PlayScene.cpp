@@ -108,8 +108,8 @@ void CPlayScene::Update( float dTime )
 	//공격입력
 	m_Player1->SkillCasting(m_Player1, m_Map, dTime);
 	
-	//총알의 이동
-	CBulletManager::GetInstance()->UpdateBullet(dTime);
+	//총알 및 오브젝트의 업데이트
+	CBulletManager::GetInstance()->UpdateObj(dTime);
 
 	//캐릭터의 이동
 	m_Player1->Update(dTime);

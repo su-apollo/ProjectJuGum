@@ -17,6 +17,9 @@ CBulletManager::~CBulletManager(void)
 {
 }
 
+//**************************************************************
+//                         GetObj
+//**************************************************************
 CSatellite * CBulletManager::GetSatellite()
 {
 	++m_SatelliteIndex;
@@ -44,8 +47,10 @@ CAccelBullet * CBulletManager::GetAccelBullet()
 	return m_pAccelBulletArray[m_AccelBulletIndex];
 }
 
-
-void CBulletManager::ShotSetupSatellite( CMaincharacter* Player )
+//**************************************************************
+//                         Skills
+//**************************************************************
+void CBulletManager::ShotSetupSatellite(NNObject* Player )
 {
 	CSatellite* pSatellite = GetSatellite();
 
@@ -54,38 +59,30 @@ void CBulletManager::ShotSetupSatellite( CMaincharacter* Player )
 	pSatellite->SetPosition(point);
 }
 
-
-void CBulletManager::ShotBullet(CMaincharacter * Player)
+void CBulletManager::ShotBullet(NNObject * Player)
 {
 	CBullet * pBullet = GetBullet();
 
 	NNPoint point = Player->GetPosition();
 
-	float radius_of_Player = Player->GetMainCircle()->GetRadius();
-	float radius_of_Bullet = pBullet->GetMainCircle()->GetRadius();
-
-	point.SetY( Player->GetPositionY() - (radius_of_Bullet + radius_of_Player));
+	point.SetY( Player->GetPositionY() - SHOT_POINT);
 	pBullet->SetPosition( point );
 }
 
-void CBulletManager::ShotAccelBullet(CMaincharacter * Player)
+void CBulletManager::ShotAccelBullet(NNObject * Player)
 {
  	CAccelBullet * pAccelBullet = GetAccelBullet();
  
  	NNPoint point = Player->GetPosition();
  
- 	float radius_of_Player = Player->GetMainCircle()->GetRadius();
- 	float radius_of_Bullet = pAccelBullet->GetMainCircle()->GetRadius();
- 
- 	point.SetY( Player->GetPositionY() - (radius_of_Bullet + radius_of_Player));
+ 	point.SetY( Player->GetPositionY() - SHOT_POINT);
 	pAccelBullet->SetAccelation(ACCELBULLET_ACCELERATION);
  	pAccelBullet->SetPosition( point );
 }
 
-void CBulletManager::ShotSectorMixBullets( CMaincharacter* Player, int direction, int degree, int n )
+void CBulletManager::ShotSectorMixBullets( NNObject* Player, int direction, int degree, int n )
 {
 	NNPoint point = Player->GetPosition();
-	float radius_of_Player = Player->GetMainCircle()->GetRadius();
 
 	for (int i=0; i<n; ++i)
 	{
@@ -93,7 +90,7 @@ void CBulletManager::ShotSectorMixBullets( CMaincharacter* Player, int direction
 		{
 			CAccelBullet * pBullet = GetAccelBullet();
 			float radius_of_Bullet = pBullet->GetMainCircle()->GetRadius();
-			point.SetY( Player->GetPositionY() - (radius_of_Bullet + radius_of_Player) );
+			point.SetY( Player->GetPositionY() - SHOT_POINT );
 			pBullet->SetPosition( point );
 			pBullet->SetAccelation(ACCELBULLET_ACCELERATION);
 			pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
@@ -102,35 +99,38 @@ void CBulletManager::ShotSectorMixBullets( CMaincharacter* Player, int direction
 		{
 			CBullet * pBullet = GetBullet();
 			float radius_of_Bullet = pBullet->GetMainCircle()->GetRadius();
-			point.SetY( Player->GetPositionY() - (radius_of_Bullet + radius_of_Player) );
+			point.SetY( Player->GetPositionY() - SHOT_POINT );
 			pBullet->SetPosition( point );
 			pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
 		}
 	}
 }
 
-void CBulletManager::ShotSectorNormalBullets( CMaincharacter* Player, int direction, int degree, int n )
+void CBulletManager::ShotSectorNormalBullets( NNObject* Player, int direction, int degree, int n )
 {
 	NNPoint point = Player->GetPosition();
-	float radius_of_Player = Player->GetMainCircle()->GetRadius();
 
 	for (int i=0; i<n; ++i)
 	{
 		CBullet* pBullet = GetBullet();
 		float radius_of_Bullet = pBullet->GetMainCircle()->GetRadius();
-		point.SetY( Player->GetPositionY() - (radius_of_Bullet + radius_of_Player) );
+		point.SetY( Player->GetPositionY() - SHOT_POINT );
 		pBullet->SetPosition( point );
 		pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
 	}
 }
 
+//**************************************************************
+//                          Update
+//**************************************************************
+void CBulletManager::UpdateObj( float dTime )
+{
+	UpdateSatellite(dTime);
+	UpdateBullet(dTime);
+}
 
 void CBulletManager::UpdateBullet(float dTime)
 {
-	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
-	{
-		m_pSatelliteArray[i]->Update(dTime);
-	}
 	for (int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
 		m_pBulletArray[i]->Update(dTime);
@@ -141,6 +141,17 @@ void CBulletManager::UpdateBullet(float dTime)
 	}
 }
 
+void CBulletManager::UpdateSatellite( float dTime )
+{
+	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
+	{
+		m_pSatelliteArray[i]->Update(dTime);
+	}
+}
+
+//**************************************************************
+//                         HitCheck
+//**************************************************************
 bool CBulletManager::CharacterHitCheck(CMaincharacter * Player)
 {
 	for (int i = 0; i < MAX_BULLET_NUM; ++i)
@@ -161,6 +172,9 @@ bool CBulletManager::CharacterHitCheck(CMaincharacter * Player)
 	return false;
 }
 
+//**************************************************************
+//                         LifeTime
+//**************************************************************
 void CBulletManager::CheckBulletLifeTime(CMainMap * Map)
 {
 	for (int i = 0; i < MAX_BULLET_NUM; ++i)
@@ -207,6 +221,9 @@ void CBulletManager::AccelBulletLifeTime(CMainMap * Map, CAccelBullet * Bullet)
 	}
 }
 
+//**************************************************************
+//							etc
+//**************************************************************
 CBulletManager* CBulletManager::GetInstance()
 {
 	if ( m_pInstance == nullptr )
@@ -225,5 +242,4 @@ void CBulletManager::ReleaseInstance()
 		m_pInstance = nullptr;
 	}
 }
-
 

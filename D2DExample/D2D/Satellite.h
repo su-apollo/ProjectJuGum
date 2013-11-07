@@ -15,9 +15,12 @@ public:
 
 	NNCircle *	GetMainCircle(){return m_Circle;}
 
+	void		ShotNomalBullet( float dTime );
+
 private:
 	NNCircle*	m_Circle;
 	float		m_speed;
+	float		m_dTimeSum;
 	int			m_direction;
 
 };
