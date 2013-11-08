@@ -178,14 +178,14 @@ bool CBulletManager::CharacterHitCheck(CMaincharacter * Player)
 {
 	for (int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
-		if(m_pBulletArray[i]->CharacterHitCheck(Player))
+		if(m_pBulletArray[i]->IsVisible() && m_pBulletArray[i]->CharacterHitCheck(Player))
 		{
 			return true;
 		}
 	}
 	for (int i = 0; i < MAX_ACCELBULLET_NUM; ++i)
 	{
-		if(m_pAccelBulletArray[i]->CharacterHitCheck(Player))
+		if(m_pBulletArray[i]->IsVisible() && m_pAccelBulletArray[i]->CharacterHitCheck(Player))
 		{
 			return true;
 		}
@@ -197,15 +197,33 @@ bool CBulletManager::CharacterHitCheck(CMaincharacter * Player)
 //**************************************************************
 //                         LifeTime
 //**************************************************************
+
+void CBulletManager::CheckSatelliteLifeTime()
+{
+	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
+	{
+		if (m_pSatelliteArray[i]->IsVisible())
+		{
+			DestroySatellite(m_pSatelliteArray[i]);
+		}
+	}
+}
+
 void CBulletManager::CheckBulletLifeTime(CMainMap * Map)
 {
 	for (int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
-		BulletLifeTime(Map, m_pBulletArray[i]);
+		if (m_pBulletArray[i]->IsVisible())
+		{
+			BulletLifeTime(Map, m_pBulletArray[i]);
+		}
 	}
 	for (int i = 0; i < MAX_ACCELBULLET_NUM; ++i)
 	{
-		AccelBulletLifeTime(Map, m_pAccelBulletArray[i]);
+		if (m_pAccelBulletArray[i]->IsVisible())
+		{
+			AccelBulletLifeTime(Map, m_pAccelBulletArray[i]);
+		}
 	}
 }
 
@@ -237,6 +255,9 @@ void CBulletManager::AccelBulletLifeTime(CMainMap * Map, CAccelBullet * Bullet)
 	}
 }
 
+//**************************************************************
+//							Destroy
+//**************************************************************
 void CBulletManager::DestroyBullet( CBullet* Bullet )
 {
 	Bullet->SetDirection();
@@ -251,6 +272,11 @@ void CBulletManager::DestroyAccelBullet( CAccelBullet* Bullet )
 	Bullet->SetAccelation();
 	Bullet->SetPosition(0.f, 0.f);
 	Bullet->SetVisible(false);
+}
+
+void CBulletManager::DestroySatellite( CSatellite* Satellite )
+{
+	Satellite->SetVisible(false);
 }
 
 //**************************************************************
