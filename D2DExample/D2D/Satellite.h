@@ -16,6 +16,7 @@ public:
 	NNCircle *	GetMainCircle(){return m_Circle;}
 
 	void		ShotNomalBullet( float dTime, CSatellite* Satellite);
+	void		ShotSectorNormalBullet();
 
 private:
 	NNCircle*	m_Circle;

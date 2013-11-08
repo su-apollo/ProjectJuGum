@@ -120,6 +120,19 @@ void CBulletManager::ShotSectorNormalBullets( NNObject* Player, float direction,
 	}
 }
 
+
+void CBulletManager::ShotSLSectorNormalBullet()
+{
+	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
+	{
+		if (m_pSatelliteArray[i]->IsVisible())
+		{
+			ShotSectorNormalBullets(m_pSatelliteArray[i]);
+		}
+	}
+}
+
+
 //**************************************************************
 //                          Update
 //**************************************************************
