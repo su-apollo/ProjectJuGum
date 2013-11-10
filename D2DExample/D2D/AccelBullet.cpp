@@ -3,7 +3,7 @@
 
 CAccelBullet::CAccelBullet(void)
 {
-	m_Circle = NNCircle::Create(10.f, D2D1::ColorF::WhiteSmoke, D2D1::ColorF::Crimson );
+	m_Circle = NNCircle::Create(10.f);
 	m_Circle->SetPosition(0.f, 0.f);
 	AddChild( m_Circle );
 

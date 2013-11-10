@@ -24,7 +24,7 @@
       <Filter>Framework\Renderer\Direct2D</Filter>
     </ClCompile>
     <ClCompile Include="NNSceneDirector.cpp">
-      <Filter>Framework\SceneDirector</Filter>
+      <Filter>GameObjects\SceneDirector</Filter>
     </ClCompile>
     <ClCompile Include="NNInputSystem.cpp">
       <Filter>Framework\InputSystem</Filter>
@@ -91,9 +91,6 @@
     </Filter>
     <Filter Include="Framework\Application">
       <UniqueIdentifier>{53c747df-0f5a-4072-ac49-92ff700726dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\SceneDirector">
-      <UniqueIdentifier>{6cc23fc3-d46d-4594-a594-abcaa33d4039}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\Macro">
       <UniqueIdentifier>{dbf42298-eaae-4813-a6dc-1708861162df}</UniqueIdentifier>
@@ -170,6 +167,9 @@
     <Filter Include="GameObjects\etcObject">
       <UniqueIdentifier>{82e26d28-1799-485f-8875-d01b1f261c68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObjects\SceneDirector">
+      <UniqueIdentifier>{6cc23fc3-d46d-4594-a594-abcaa33d4039}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NNObject.h">
@@ -203,7 +203,7 @@
       <Filter>Framework\Renderer\Direct2D</Filter>
     </ClInclude>
     <ClInclude Include="NNSceneDirector.h">
-      <Filter>Framework\SceneDirector</Filter>
+      <Filter>GameObjects\SceneDirector</Filter>
     </ClInclude>
     <ClInclude Include="NNIncludeSet.h">
       <Filter>Framework\Macro</Filter>

@@ -261,7 +261,6 @@ void CBulletManager::AccelBulletLifeTime(CMainMap * Map, CAccelBullet * Bullet)
 void CBulletManager::DestroyBullet( CBullet* Bullet )
 {
 	Bullet->SetDirection();
-	Bullet->SetPosition(0.f, 0.f);
 	Bullet->SetVisible(false);
 }
 
@@ -270,7 +269,6 @@ void CBulletManager::DestroyAccelBullet( CAccelBullet* Bullet )
 	Bullet->SetDirection();
 	Bullet->SetSpeed();
 	Bullet->SetAccelation();
-	Bullet->SetPosition(0.f, 0.f);
 	Bullet->SetVisible(false);
 }
 
