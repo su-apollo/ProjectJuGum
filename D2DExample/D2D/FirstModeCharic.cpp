@@ -21,7 +21,7 @@ void CFirstModeCharic::SkillCasting(CMaincharacter* Player, CMainMap* Map, float
 	case SKILL_KEY_ONE:
 		if ( GetCost() >= SHOTBULLET_COST )
 		{
-			CBulletManager::GetInstance()->ShotBullet(Player);
+			CBulletManager::GetInstance()->ShotTBullet(Player);
 			SetCost( GetCost() - SHOTBULLET_COST );
 		}
 		break;

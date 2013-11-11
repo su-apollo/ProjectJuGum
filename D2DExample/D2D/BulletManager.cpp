@@ -102,6 +102,20 @@ void CBulletManager::ShotCurveBullet( NNObject * Player )
 	pBullet->SetDirection();
 }
 
+void CBulletManager::ShotTBullet( NNObject* Player, float direction, float degree, int n )
+{
+	NNPoint point = Player->GetPosition();
+	
+	for ( int i = 0; i < n; ++i )
+	{
+		CBullet* pBullet = GetBullet();
+		point.SetY( Player->GetPositionY() - SHOT_POINT );
+		pBullet->SetPosition( point );
+
+		pBullet->SetDirection( direction + (degree * (i-1)));
+	}
+}
+
 void CBulletManager::ShotSectorNormalBullets( NNObject* Player, float direction, float degree, int n )
 {
 	NNPoint point = Player->GetPosition();
