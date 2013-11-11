@@ -11,6 +11,7 @@
 #include "ReturnScene.h"
 #include "Bullet.h"
 #include "AccelBullet.h"
+#include "CurveBullet.h"
 #include "Satellite.h"
 
 CPlayScene::CPlayScene(void)
@@ -43,6 +44,13 @@ CPlayScene::CPlayScene(void)
 		CBulletManager::GetInstance()->GetAccelBulletArray()[i] = new CAccelBullet;
 		AddChild( CBulletManager::GetInstance()->GetAccelBulletArray()[i] );
 		CBulletManager::GetInstance()->GetAccelBulletArray()[i]->SetVisible(false);
+	}
+
+	for (int i = 0; i < MAX_CURVEBULLET_NUM; ++i)
+	{
+		CBulletManager::GetInstance()->GetCurveBulletArray()[i] = new CCurveBullet;
+		AddChild( CBulletManager::GetInstance()->GetCurveBulletArray()[i] );
+		CBulletManager::GetInstance()->GetCurveBulletArray()[i]->SetVisible(false);
 	}
 
 	//인공위성 로딩

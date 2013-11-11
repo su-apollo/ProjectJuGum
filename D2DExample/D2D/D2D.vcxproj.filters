@@ -84,6 +84,9 @@
     <ClCompile Include="Asteroid.cpp">
       <Filter>GameObjects\etcObject</Filter>
     </ClCompile>
+    <ClCompile Include="CurveBullet.cpp">
+      <Filter>GameObjects\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -271,6 +274,9 @@
     <ClInclude Include="PrintLog.h" />
     <ClInclude Include="Asteroid.h">
       <Filter>GameObjects\etcObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CurveBullet.h">
+      <Filter>GameObjects\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,7 @@ class CMainMap;
 class CFirstModeCharic;
 class CMaincharacter;
 class CAccelBullet;
+class CCurveBullet;
 
 class CPlayScene : public NNScene
 {
