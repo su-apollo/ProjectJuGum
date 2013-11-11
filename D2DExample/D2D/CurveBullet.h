@@ -17,16 +17,16 @@ public:
 	NNCircle * GetMainCircle(){ return m_Circle; }
 
 	bool CharacterHitCheck(CMaincharacter * Player);
-	float GetAcceleration(){ return m_accelation; }
+	float GetAngularAcceleration(){ return m_AngularAcceleration; }
 
 	void SetSpeed( float new_speed = BULLET_SPEED ){ m_speed = new_speed; }
-	void SetAccelation( float new_accel = 30.f ){ m_accelation = new_accel; }
+	void SetAngularAcceleration( float new_accel = 30.f ){ m_AngularAcceleration = new_accel; }
 	void SetDirection(float new_direction = 270.f){ m_direction = new_direction; }
 
 private:
 	NNCircle*	m_Circle;
 
-	float		m_accelation;
+	float		m_AngularAcceleration;
 	float		m_speed;
 	float		m_direction;
 };

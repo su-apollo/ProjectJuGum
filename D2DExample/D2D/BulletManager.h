@@ -24,6 +24,7 @@ public:
 	void ShotCurveBullet(NNObject * Player);
 	void ShotSectorNormalBullets( NNObject* Player, float direction = 270.f, float degree = 90.f, int n = 7);
 	void ShotSectorMixBullets(NNObject* Player, float direction = 270.f, float degree = 180.f, int n = 20);
+	void ShotTornadoBullets(NNObject* Player, int n);
 	void ShotSetupSatellite(NNObject* Player);
 	void ShotSLSectorNormalBullet();
 
@@ -68,4 +69,5 @@ private:
 	CAccelBullet *	GetAccelBullet();
 	CCurveBullet*	GetCurveBullet();
 	CSatellite *	GetSatellite();
+	
 };

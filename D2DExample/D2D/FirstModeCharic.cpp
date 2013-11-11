@@ -7,7 +7,6 @@
 
 CFirstModeCharic::CFirstModeCharic(void) 
 {
-
 }
 
 CFirstModeCharic::~CFirstModeCharic(void) 
@@ -22,7 +21,7 @@ void CFirstModeCharic::SkillCasting(CMaincharacter* Player, CMainMap* Map, float
 	case SKILL_KEY_ONE:
 		if ( GetCost() >= SHOTBULLET_COST )
 		{
-			CBulletManager::GetInstance()->ShotCurveBullet(Player);
+			CBulletManager::GetInstance()->ShotBullet(Player);
 			SetCost( GetCost() - SHOTBULLET_COST );
 		}
 		break;
@@ -34,17 +33,17 @@ void CFirstModeCharic::SkillCasting(CMaincharacter* Player, CMainMap* Map, float
 		}
 		break;
 	case SKILL_KEY_THREE:
-		if ( GetCost() >= SHOTSECTOR_SINGLE_COST*7 )
+		if ( GetCost() >= SECTOR_SINGLE_COST*20 )
 		{
-			CBulletManager::GetInstance()->ShotSectorNormalBullets(Player);
-			SetCost( GetCost() - SHOTSECTOR_SINGLE_COST*7 );
+			CBulletManager::GetInstance()->ShotSectorMixBullets(Player);
+			SetCost( GetCost() - SECTOR_SINGLE_COST*20 );
 		}
 		break;
 	case SKILL_KEY_FOUR:
-		if ( GetCost() >= SHOTSECTOR_SINGLE_COST*20 )
+		if ( GetCost() >= TORNADO_SINGLE_COST*6 )
 		{
-			CBulletManager::GetInstance()->ShotSectorMixBullets(Player);
-			SetCost( GetCost() - SHOTSECTOR_SINGLE_COST*20 );
+			CBulletManager::GetInstance()->ShotTornadoBullets(Player, 6);
+			SetCost( GetCost() - TORNADO_SINGLE_COST*6 );
 		}
 		break;
 	case SKILL_KEY_FIVE:

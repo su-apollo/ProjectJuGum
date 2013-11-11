@@ -9,8 +9,8 @@ CCurveBullet::CCurveBullet(void)
 	AddChild( m_Circle );
 
 	m_direction = 270.f;
-	m_speed = BULLET_SPEED;
-	m_accelation = 30.f;
+	m_speed = CURVEBULLET_SPEED;
+	m_AngularAcceleration = 30.f;
 }
 
 
@@ -25,7 +25,7 @@ void CCurveBullet::Render()
 
 void CCurveBullet::Update( float dTime )
 {
-	m_direction += m_accelation*dTime;
+	m_direction += m_AngularAcceleration*dTime;
 	float x = m_speed * NNDegreeToX(m_direction);
 	float y = m_speed * NNDegreeToY(m_direction);
 	SetPosition( GetPosition() + NNPoint(x, y) * dTime);

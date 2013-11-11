@@ -96,51 +96,69 @@ void CBulletManager::ShotCurveBullet( NNObject * Player )
 	CCurveBullet* pBullet = GetCurveBullet();
 
 	NNPoint point = Player->GetPosition();
-
 	point.SetY( Player->GetPositionY() - SHOT_POINT );
-	pBullet->SetDirection();
 	pBullet->SetPosition( point );
-}
 
-void CBulletManager::ShotSectorMixBullets( NNObject* Player, float direction, float degree, int n )
-{
-	NNPoint point = Player->GetPosition();
-
-	for (int i=0; i<n; ++i)
-	{
-		if ( i%2 == 0 )
-		{
-			CAccelBullet * pBullet = GetAccelBullet();
-			float radius_of_Bullet = pBullet->GetMainCircle()->GetRadius();
-			point.SetY( Player->GetPositionY() - SHOT_POINT );
-			pBullet->SetPosition( point );
-			pBullet->SetAccelation(ACCELBULLET_ACCELERATION);
-			pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
-		}
-		else
-		{
-			CBullet * pBullet = GetBullet();
-			float radius_of_Bullet = pBullet->GetMainCircle()->GetRadius();
-			point.SetY( Player->GetPositionY() - SHOT_POINT );
-			pBullet->SetPosition( point );
-			pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
-		}
-	}
+	pBullet->SetDirection();
 }
 
 void CBulletManager::ShotSectorNormalBullets( NNObject* Player, float direction, float degree, int n )
 {
 	NNPoint point = Player->GetPosition();
 
-	for (int i=0; i<n; ++i)
+	for ( int i = 0; i < n; ++i )
 	{
 		CBullet* pBullet = GetBullet();
-		float radius_of_Bullet = pBullet->GetMainCircle()->GetRadius();
 		point.SetY( Player->GetPositionY() - SHOT_POINT );
 		pBullet->SetPosition( point );
+
 		pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
 	}
 }
+
+void CBulletManager::ShotSectorMixBullets( NNObject* Player, float direction, float degree, int n )
+{
+	NNPoint point = Player->GetPosition();
+
+	for ( int i = 0; i < n; ++i )
+	{
+		if ( i%2 == 0 )
+		{
+			CAccelBullet * pBullet = GetAccelBullet();
+			point.SetY( Player->GetPositionY() - SHOT_POINT );
+			pBullet->SetPosition( point );
+
+			pBullet->SetAccelation(ACCELBULLET_ACCELERATION);
+			pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
+		}
+		else
+		{
+			CBullet * pBullet = GetBullet();
+			point.SetY( Player->GetPositionY() - SHOT_POINT );
+			pBullet->SetPosition( point );
+
+			pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
+		}
+	}
+}
+
+void CBulletManager::ShotTornadoBullets( NNObject* Player, int n )
+{
+	NNPoint point = Player->GetPosition();
+	float direction = 270;
+	for ( int i = 0; i < n; ++i )
+	{
+		direction += 360/n;
+		CCurveBullet* pBullet = GetCurveBullet();
+
+		point.SetX( Player->GetPositionX() + NNDegreeToX(direction)*SHOT_POINT );
+		point.SetY( Player->GetPositionY() + NNDegreeToY(direction)*SHOT_POINT );
+		pBullet->SetPosition( point );
+
+		pBullet->SetDirection( direction );
+	}
+}
+
 
 
 void CBulletManager::ShotSLSectorNormalBullet()
@@ -334,7 +352,7 @@ void CBulletManager::DestroyCurveBullet( CCurveBullet* Bullet )
 {
 	Bullet->SetDirection();
 	Bullet->SetSpeed();
-	Bullet->SetAccelation();
+	Bullet->SetAngularAcceleration();
 	Bullet->SetVisible(false);
 }
 
@@ -364,5 +382,4 @@ void CBulletManager::ReleaseInstance()
 		m_pInstance = nullptr;
 	}
 }
-
 
