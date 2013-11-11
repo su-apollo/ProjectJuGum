@@ -98,6 +98,7 @@ void CBulletManager::ShotCurveBullet( NNObject * Player )
 	NNPoint point = Player->GetPosition();
 
 	point.SetY( Player->GetPositionY() - SHOT_POINT );
+	pBullet->SetDirection();
 	pBullet->SetPosition( point );
 }
 

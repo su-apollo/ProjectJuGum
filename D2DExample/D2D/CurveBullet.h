@@ -19,8 +19,8 @@ public:
 	bool CharacterHitCheck(CMaincharacter * Player);
 	float GetAcceleration(){ return m_accelation; }
 
-	void SetSpeed( float new_speed = ACCELBULLET_SPEED ){ m_speed = new_speed; }
-	void SetAccelation( float new_accel = 0 ){ m_accelation = new_accel; }
+	void SetSpeed( float new_speed = BULLET_SPEED ){ m_speed = new_speed; }
+	void SetAccelation( float new_accel = 30.f ){ m_accelation = new_accel; }
 	void SetDirection(float new_direction = 270.f){ m_direction = new_direction; }
 
 private:
