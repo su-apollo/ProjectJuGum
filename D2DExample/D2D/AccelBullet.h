@@ -3,6 +3,7 @@
 
 class CMaincharacter;
 
+// agebreak : 각각의 Bullet은 Bullet 클래스에서 상속받는 구조로 만드는것이 더 낫지 않을까??!!
 class CAccelBullet :
 	public NNObject
 {

@@ -3,6 +3,7 @@
 
 class NNLabel;
 
+// agebreak : 클래스 이름 위에, 무슨 클래스인지 간략한 설명을 주석으로 달아놓을것!
 class CReturnScene :
 	public NNScene
 {

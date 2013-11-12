@@ -9,7 +9,7 @@ public:
 
 	void Render();
 	void Update( float dTime );
-	float GetTopLine() { return GetPositionY() - m_MainFrame->GetHeight()/2; }
+	float GetTopLine() { return GetPositionY() - m_MainFrame->GetHeight()/2; }	// agebreak : /2를 * 0.5f로 변경할 것
 	float GetBotLine() { return GetPositionY() + m_MainFrame->GetHeight()/2; }
 	float GetRightLine() { return GetPositionX() + m_MainFrame->GetWidth()/2; }
 	float GetLeftLine() { return GetPositionX() - m_MainFrame->GetWidth()/2; }

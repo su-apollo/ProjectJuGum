@@ -237,6 +237,10 @@ void CBulletManager::UpdateSatellite( float dTime )
 //**************************************************************
 bool CBulletManager::CharacterHitCheck(CMaincharacter * Player)
 {
+	// agebreak : 앞에 헤더파일에서 지적한 것과 같은 문제
+	// 총알의 종류가 계속 추가 되면 모든 코드들에 이렇게 계속 종류를 추가할 것인가? 
+	// 이럴때 사용하라고  C++에서 다형성에 대해서 배우지 않았던가??
+	// BattleShip에서 Ship들의 상속 구조에 대해서 생각해 볼 수 있도록...
 	for (int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
 		if(m_pBulletArray[i]->IsVisible() && m_pBulletArray[i]->CharacterHitCheck(Player))

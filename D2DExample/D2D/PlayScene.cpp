@@ -141,6 +141,7 @@ void CPlayScene::Update( float dTime )
 	CBulletManager::GetInstance()->CheckBulletLifeTime(m_Map);
 }
 
+// agebreak : 헤더의 변수명에 맞게 수정할 것!
 bool CPlayScene::CircleToCircleHitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius) 
 {
 	if((Aradius + Bradius) > Apoint.GetDistance(Bpoint))
@@ -152,6 +153,9 @@ bool CPlayScene::CircleToCircleHitCheck(NNPoint Apoint, float Aradius, NNPoint B
 
 void CPlayScene::SetPlayerMoveArea(CMaincharacter * Player)
 {
+	// agebreak : 나누기보다는 곱하기를 사용할것. (퍼포먼스의 차이)
+	// float leftline = m_Map->GetPositionX() + m_Map->GetMainFrame()->GetWidth() * 0.5f;
+	// 똑같은 내용의 m_Map->GetTopLine() 계열 메소드를 만들어 놓고 왜 사용하지 않는가??
 	float leftline = m_Map->GetPositionX() + m_Map->GetMainFrame()->GetWidth()/2;
 	float rightline = m_Map->GetPositionX() - m_Map->GetMainFrame()->GetWidth()/2;
 	float botline = m_Map->GetPositionY() + m_Map->GetMainFrame()->GetHeight()/2;
