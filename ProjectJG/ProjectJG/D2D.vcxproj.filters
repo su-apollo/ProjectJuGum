@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="NNObject.cpp">
+      <Filter>Framework\Node\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="NNScene.cpp">
+      <Filter>Framework\Node\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="NNApplication.cpp">
+      <Filter>Framework\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="NNPoint.cpp">
+      <Filter>Framework\DataType\Point</Filter>
+    </ClCompile>
+    <ClCompile Include="NNSize.cpp">
+      <Filter>Framework\DataType\Size</Filter>
+    </ClCompile>
+    <ClCompile Include="NNSprite.cpp">
+      <Filter>Framework\Node\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="NND2DRenderer.cpp">
+      <Filter>Framework\Renderer\Direct2D</Filter>
+    </ClCompile>
+    <ClCompile Include="NNSceneDirector.cpp">
+      <Filter>Framework\SceneDirector</Filter>
+    </ClCompile>
+    <ClCompile Include="NNInputSystem.cpp">
+      <Filter>Framework\InputSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="NNAudioSystem.cpp">
+      <Filter>Framework\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="NNSound.cpp">
+      <Filter>Framework\Audio\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="NNLabel.cpp">
+      <Filter>Framework\Node\Label</Filter>
+    </ClCompile>
+    <ClCompile Include="NNResourceManager.cpp">
+      <Filter>Framework\Resource\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="NNTexture.cpp">
+      <Filter>Framework\Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="NNCircle.cpp">
+      <Filter>Framework\Node\Circle</Filter>
+    </ClCompile>
+    <ClCompile Include="ReturnScene.cpp">
+      <Filter>GameObjects\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>GameObjects\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="MainCharacter.cpp">
+      <Filter>GameObjects\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>GameObjects\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>GameObjects\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="NNRect.cpp">
+      <Filter>Framework\Node\Rect</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMap.cpp">
+      <Filter>GameObjects\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletManager.cpp">
+      <Filter>GameObjects\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="FirstModeCharic.cpp">
+      <Filter>GameObjects\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="AccelBullet.cpp">
+      <Filter>GameObjects\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Satellite.cpp">
+      <Filter>GameObjects\etcObject</Filter>
+    </ClCompile>
+    <ClCompile Include="PrintLog.cpp" />
+    <ClCompile Include="Asteroid.cpp">
+      <Filter>GameObjects\etcObject</Filter>
+    </ClCompile>
+    <ClCompile Include="CurveBullet.cpp">
+      <Filter>GameObjects\Bullet</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{3895cce2-3d59-4bc1-8cf5-b9b5637e9d32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Application">
+      <UniqueIdentifier>{53c747df-0f5a-4072-ac49-92ff700726dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Macro">
+      <UniqueIdentifier>{dbf42298-eaae-4813-a6dc-1708861162df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Node">
+      <UniqueIdentifier>{20ab5e4f-123d-4511-9802-4c0ddccdf15b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Node\Object">
+      <UniqueIdentifier>{4b93d09d-cff5-4539-bae0-8cf47452a965}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Node\Scene">
+      <UniqueIdentifier>{0509088d-541f-40fa-97bc-e0bed490724d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Node\Sprite">
+      <UniqueIdentifier>{e6a8902f-8855-4f33-ba3d-5591cb77d8bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Node\Label">
+      <UniqueIdentifier>{5084d7e4-0174-4f29-8687-62efe03ca876}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Node\Circle">
+      <UniqueIdentifier>{a694774a-ea53-4bd1-86aa-4c4d4789dc7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Node\Rect">
+      <UniqueIdentifier>{e9f54d57-8e91-4c85-89c2-12dcbc068ead}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\DataType">
+      <UniqueIdentifier>{6aabf0f0-08cf-4a6d-acc3-220ad8130f3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\DataType\Point">
+      <UniqueIdentifier>{9efdc084-ad2c-4810-b8af-e6fba86ef47b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\DataType\Size">
+      <UniqueIdentifier>{d4582f2a-8c28-40d9-914c-091513a7f907}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Renderer">
+      <UniqueIdentifier>{acd471ca-f238-4a73-8fb8-2e3d7f0d388f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Renderer\Direct2D">
+      <UniqueIdentifier>{c5e35815-de45-4454-ad2e-73a56526f829}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\InputSystem">
+      <UniqueIdentifier>{b0478df7-1d13-40bc-8ea0-61927e587b0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Audio">
+      <UniqueIdentifier>{4ef4b488-ce39-4168-95c2-94aadcdc0a0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Audio\Sound">
+      <UniqueIdentifier>{fe71d093-2962-4aab-8a6a-ca553b1b84fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Resource">
+      <UniqueIdentifier>{6c153ebf-a565-4e18-8116-f19f7a2e9306}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Resource\ResourceManager">
+      <UniqueIdentifier>{68735cf5-613b-4607-b9f7-8152a46fa9b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Resource\Texture">
+      <UniqueIdentifier>{7bcc719b-38e5-4210-a4fb-2ae864fc1f08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects">
+      <UniqueIdentifier>{01f6edb0-bd8c-4edd-bd64-43ddb6cfcf04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Character">
+      <UniqueIdentifier>{4a379c98-1c65-431c-9a76-ac62f73dee08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Bullet">
+      <UniqueIdentifier>{69b58ff3-b5e5-45ef-835e-c98f9105b4cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Map">
+      <UniqueIdentifier>{fa4b1b85-c03b-4bb2-a1d5-f6bd25adba4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Scene">
+      <UniqueIdentifier>{88010d07-81f6-4a33-ab1a-3839994caedf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\etcObject">
+      <UniqueIdentifier>{82e26d28-1799-485f-8875-d01b1f261c68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\SceneDirector">
+      <UniqueIdentifier>{6cc23fc3-d46d-4594-a594-abcaa33d4039}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NNObject.h">
+      <Filter>Framework\Node\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="NNScene.h">
+      <Filter>Framework\Node\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="NNApplication.h">
+      <Filter>Framework\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="NNMacroSet.h">
+      <Filter>Framework\Macro</Filter>
+    </ClInclude>
+    <ClInclude Include="NNPoint.h">
+      <Filter>Framework\DataType\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="NNSize.h">
+      <Filter>Framework\DataType\Size</Filter>
+    </ClInclude>
+    <ClInclude Include="NNSprite.h">
+      <Filter>Framework\Node\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="NNRenderer.h">
+      <Filter>Framework\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="NNLibSet.h">
+      <Filter>Framework\Macro</Filter>
+    </ClInclude>
+    <ClInclude Include="NND2DRenderer.h">
+      <Filter>Framework\Renderer\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="NNSceneDirector.h">
+      <Filter>Framework\SceneDirector</Filter>
+    </ClInclude>
+    <ClInclude Include="NNIncludeSet.h">
+      <Filter>Framework\Macro</Filter>
+    </ClInclude>
+    <ClInclude Include="NNConfig.h">
+      <Filter>Framework\Macro</Filter>
+    </ClInclude>
+    <ClInclude Include="NNInputSystem.h">
+      <Filter>Framework\InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="NNSound.h">
+      <Filter>Framework\Audio\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="NNAudioSystem.h">
+      <Filter>Framework\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="NNLabel.h">
+      <Filter>Framework\Node\Label</Filter>
+    </ClInclude>
+    <ClInclude Include="NNResourceManager.h">
+      <Filter>Framework\Resource\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="NNTexture.h">
+      <Filter>Framework\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="NNCircle.h">
+      <Filter>Framework\Node\Circle</Filter>
+    </ClInclude>
+    <ClInclude Include="ReturnScene.h">
+      <Filter>GameObjects\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>GameObjects\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Maincharacter.h">
+      <Filter>GameObjects\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>GameObjects\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScene.h">
+      <Filter>GameObjects\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="NNRect.h">
+      <Filter>Framework\Node\Rect</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMap.h">
+      <Filter>GameObjects\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
+      <Filter>GameObjects\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="FirstModeCharic.h">
+      <Filter>GameObjects\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="NNGameSetup.h">
+      <Filter>Framework\Macro</Filter>
+    </ClInclude>
+    <ClInclude Include="AccelBullet.h">
+      <Filter>GameObjects\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Satellite.h">
+      <Filter>GameObjects\etcObject</Filter>
+    </ClInclude>
+    <ClInclude Include="PrintLog.h" />
+    <ClInclude Include="Asteroid.h">
+      <Filter>GameObjects\etcObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CurveBullet.h">
+      <Filter>GameObjects\Bullet</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+</Project>
