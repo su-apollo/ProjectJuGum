@@ -40,8 +40,6 @@ class NND2DCircle:
 public:
 	NND2DCircle(void);
 	NND2DCircle( float radius );
-	NND2DCircle(float radius, float startR, float startG, float startB, float endR, float endG, float endB);
-	NND2DCircle(float radius, D2D1::ColorF::Enum startColor, D2D1::ColorF::Enum endColor);
 	virtual ~NND2DCircle(void);
 
 	void Destroy();
@@ -60,8 +58,5 @@ private:
 	NND2DRenderer * m_pD2DRenderer;
 	D2D1_ELLIPSE	m_Ellipse;
 	ID2D1SolidColorBrush * m_Brush;
-	ID2D1RadialGradientBrush *m_pRadialGradientBrush;
-	ID2D1GradientStopCollection *m_pGradientStops;
-	D2D1_GRADIENT_STOP gradientStops[2];
 	
 };

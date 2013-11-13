@@ -117,7 +117,7 @@ InputSetUp NNInputSystem::GetDirectionKeyInput(void)
 		return UP;
 	}
 	else
-		return ELSE;
+		return NONE;
 }
 
 InputSetUp NNInputSystem::GetSkillKeyInput(void)
@@ -151,7 +151,7 @@ InputSetUp NNInputSystem::GetSkillKeyInput(void)
 		return UPGRADE_KEY;
 	}
 	else
-		return ELSE;
+		return NONE;
 }
 
 InputSetUp NNInputSystem::GetChangeSpeedKeyInput(void)
@@ -161,7 +161,7 @@ InputSetUp NNInputSystem::GetChangeSpeedKeyInput(void)
 		return CHANGE_SPEED;
 	}
 	else
-		return ELSE;
+		return NONE;
 };
 
 InputSetUp NNInputSystem::GetMenuKeyInput(void)
@@ -171,5 +171,5 @@ InputSetUp NNInputSystem::GetMenuKeyInput(void)
 		return PAUSE;
 	}
 	else
-		return ELSE;
+		return NONE;
 };

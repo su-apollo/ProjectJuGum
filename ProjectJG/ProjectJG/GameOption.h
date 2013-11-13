@@ -1,9 +1,7 @@
 #pragma once
 
-// agebreak : 계속 CARIC 이라고 사용하는데, Character를 줄인것 같은데, 
-// 다른 사람이 봐도 간명하게 이해할 수 있게 CHAR 이라고 변경할것. CHARIC은 듣도보도 못한 신생 단어. (캐릭은 한국어지!!! ㅡ.ㅡ)
-#define CHARIC_SPEED				200.f
-#define CHARIC_FAST_SPEED		300.f
+#define CHAR_SPEED				200.f
+#define CHAR_FAST_SPEED			300.f
 
 #define MAX_BULLET_NUM			500
 #define MAX_ACCELBULLET_NUM		500
@@ -15,13 +13,13 @@
 #define CURVEBULLET_SPEED		200.f
 
 #define ACCELBULLET_ACCELERATION	300.f
-#define ANGULAR_ACCELERATION	30.f
+#define ANGULAR_ACCELERATION		30.f
 
-#define SHOTBULLET_COST			5
-#define SHOTACCELBULLET_COST		10
+#define SHOT_BULLET_COST			5
+#define SHOT_ACCELBULLET_COST	10
 #define SECTOR_SINGLE_COST		3
 #define TORNADO_SINGLE_COST		3
-#define SETUPSATELLITE_COST		10
+#define SETUP_SATELLITE_COST		10
 #define SL_SECTORNORMAL_COST		10
 
 #define SHOT_POINT				20.f
@@ -29,18 +27,18 @@
 enum Skill
 {
 	NORMAL,
-	SHOTBULLET,
-	SHOTACCELBULLET,
-	SHOTSECTORNORMAL,
-	SHOTSECTORMIX,
-	SHOTTORNADO,
-	SETUPSATELLITE,
+	SHOT_BULLET,
+	SHOT_ACCELBULLET,
+	SHOT_SECTOR_NORMAL,
+	SHOT_SECTOR_MIX,
+	SHOT_TORNADO,
+	SETUP_SATELLITE,
 	SL_SECTORNORMAL,
 };
 
 enum InputSetUp
 {
-	ELSE,
+	NONE,
 	UP,
 	DOWN,
 	LEFT,

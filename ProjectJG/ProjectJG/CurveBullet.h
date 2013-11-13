@@ -1,5 +1,6 @@
 #pragma once
 #include "NNCircle.h"
+#include "GameOption.h"
 
 class CMaincharacter;
 

@@ -3,7 +3,7 @@
 
 class NNLabel;
 class CMainMap;
-class CFirstModeCharic;
+class CFirstModeCharacter;
 class CMaincharacter;
 class CAccelBullet;
 class CCurveBullet;
@@ -17,12 +17,10 @@ public:
 	void Render();
 	void Update( float dTime );
 
-	// agebreak : 변수명이 명확하지 않음. 변수는 소문자로 시작해야함, 아래와 같이 변경
-	//bool CircleToCircleHitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius);
 	bool CircleToCircleHitCheck(NNPoint point_A, float radius_A, NNPoint point_B, float radius_B);
 
 private:
-	CFirstModeCharic * m_Player1;	
+	CFirstModeCharacter * m_Player1;	
 	CMaincharacter * m_Player2;
 	CMainMap *	m_Map;
 

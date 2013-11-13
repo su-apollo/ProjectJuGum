@@ -89,7 +89,8 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="CurveBullet.cpp" />
-    <ClCompile Include="FirstModeCharic.cpp" />
+    <ClCompile Include="FirstModeCharacter.cpp" />
+    <ClCompile Include="GameMoveObj.cpp" />
     <ClCompile Include="MainMap.cpp" />
     <ClCompile Include="NNAudioSystem.cpp" />
     <ClCompile Include="NNCircle.cpp" />
@@ -121,14 +122,15 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="CurveBullet.h" />
-    <ClInclude Include="FirstModeCharic.h" />
+    <ClInclude Include="FirstModeCharacter.h" />
+    <ClInclude Include="GameMoveObj.h" />
     <ClInclude Include="MainMap.h" />
     <ClInclude Include="NNAudioSystem.h" />
     <ClInclude Include="NNApplication.h" />
     <ClInclude Include="NNCircle.h" />
     <ClInclude Include="NNConfig.h" />
     <ClInclude Include="NND2DRenderer.h" />
-    <ClInclude Include="NNGameSetup.h" />
+    <ClInclude Include="GameOption.h" />
     <ClInclude Include="NNIncludeSet.h" />
     <ClInclude Include="NNInputSystem.h" />
     <ClInclude Include="NNLabel.h" />

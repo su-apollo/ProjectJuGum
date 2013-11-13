@@ -1,35 +1,34 @@
 #include "NNInputSystem.h"
 
-#include "FirstModeCharic.h"
+#include "FirstModeCharacter.h"
 #include "BulletManager.h"
 #include "MainMap.h"
 
-
-CFirstModeCharic::CFirstModeCharic(void) 
+CFirstModeCharacter::CFirstModeCharacter(void) 
 {
 }
 
-CFirstModeCharic::~CFirstModeCharic(void) 
+CFirstModeCharacter::~CFirstModeCharacter(void) 
 {
 
 }
 
-void CFirstModeCharic::SkillCasting(CMaincharacter* Player, CMainMap* Map, float dTime)
+void CFirstModeCharacter::SkillCasting(CMaincharacter* Player, CMainMap* Map, float dTime)
 {
 	switch (NNInputSystem::GetInstance()->GetSkillKeyInput())
 	{
 	case SKILL_KEY_ONE:
-		if ( GetCost() >= SHOTBULLET_COST )
+		if ( GetCost() >= SHOT_BULLET_COST )
 		{
 			CBulletManager::GetInstance()->ShotTBullet(Player);
-			SetCost( GetCost() - SHOTBULLET_COST );
+			SetCost( GetCost() - SHOT_BULLET_COST );
 		}
 		break;
 	case SKILL_KEY_TWO:
-		if ( GetCost() >= SHOTACCELBULLET_COST )
+		if ( GetCost() >= SHOT_ACCELBULLET_COST )
 		{
 			CBulletManager::GetInstance()->ShotAccelBullet(Player);
-			SetCost( GetCost() - SHOTACCELBULLET_COST );
+			SetCost( GetCost() - SHOT_ACCELBULLET_COST );
 		}
 		break;
 	case SKILL_KEY_THREE:
@@ -47,10 +46,10 @@ void CFirstModeCharic::SkillCasting(CMaincharacter* Player, CMainMap* Map, float
 		}
 		break;
 	case SKILL_KEY_FIVE:
-		if ( GetCost() >= SETUPSATELLITE_COST )
+		if ( GetCost() >= SETUP_SATELLITE_COST )
 		{
 			CBulletManager::GetInstance()->ShotSetupSatellite(Player);
-			SetCost(GetCost() - SETUPSATELLITE_COST);
+			SetCost(GetCost() - SETUP_SATELLITE_COST);
 		}
 		break;
 	case SKILL_KEY_SIX:

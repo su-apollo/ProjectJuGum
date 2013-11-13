@@ -3,7 +3,7 @@
 #include "NNApplication.h"
 
 #include "PlayScene.h"
-#include "FirstModeCharic.h"
+#include "FirstModeCharacter.h"
 #include "Maincharacter.h"
 #include "BulletManager.h"
 #include "MainMenuScene.h"
@@ -22,7 +22,7 @@ CPlayScene::CPlayScene(void)
 	AddChild(m_Map);
 
 	//플레이어 생성
-	m_Player1 = new CFirstModeCharic;
+	m_Player1 = new CFirstModeCharacter;
 	m_Player2 = new CMaincharacter;
 
 	m_Player1->SetPosition(NNPoint(640.f, 700.f));
@@ -142,9 +142,9 @@ void CPlayScene::Update( float dTime )
 }
 
 // agebreak : 헤더의 변수명에 맞게 수정할 것!
-bool CPlayScene::CircleToCircleHitCheck(NNPoint Apoint, float Aradius, NNPoint Bpoint, float Bradius) 
+bool CPlayScene::CircleToCircleHitCheck(NNPoint point_A, float radius_A, NNPoint point_B, float radius_B) 
 {
-	if((Aradius + Bradius) > Apoint.GetDistance(Bpoint))
+	if((radius_A + radius_B) > point_A.GetDistance(point_B))
 	{
 		return true;
 	}
@@ -153,19 +153,16 @@ bool CPlayScene::CircleToCircleHitCheck(NNPoint Apoint, float Aradius, NNPoint B
 
 void CPlayScene::SetPlayerMoveArea(CMaincharacter * Player)
 {
-	// agebreak : 나누기보다는 곱하기를 사용할것. (퍼포먼스의 차이)
-	// float leftline = m_Map->GetPositionX() + m_Map->GetMainFrame()->GetWidth() * 0.5f;
-	// 똑같은 내용의 m_Map->GetTopLine() 계열 메소드를 만들어 놓고 왜 사용하지 않는가??
-	float leftline = m_Map->GetPositionX() + m_Map->GetMainFrame()->GetWidth()/2;
-	float rightline = m_Map->GetPositionX() - m_Map->GetMainFrame()->GetWidth()/2;
-	float botline = m_Map->GetPositionY() + m_Map->GetMainFrame()->GetHeight()/2;
-	float topline = m_Map->GetPositionY() - m_Map->GetMainFrame()->GetHeight()/2;
+	float leftline = m_Map->GetLeftLine();
+	float rightline = m_Map->GetRightLine();
+	float botline = m_Map->GetBotLine();
+	float topline = m_Map->GetTopLine();
 
-	if (Player->GetPositionX() > leftline )
+	if (Player->GetPositionX() < leftline )
 	{
 		Player->SetPosition(NNPoint(leftline, Player->GetPositionY()));
 	}
-	if (Player->GetPositionX() < rightline)
+	if (Player->GetPositionX() > rightline)
 	{
 		Player->SetPosition(NNPoint(rightline, Player->GetPositionY()));
 	}

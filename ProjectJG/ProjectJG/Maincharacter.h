@@ -1,6 +1,6 @@
 #pragma once
 #include "NNCircle.h"
-
+#include "GameOption.h"
 
 class CMaincharacter : public NNObject
 {
@@ -14,7 +14,7 @@ public:
 	float		GetSpeed(){ return m_speed; }
 	NNCircle *	GetMainCircle(){return m_Circle;}
 
-	void		SetSpeed( float new_speed = CHARIC_SPEED ){ m_speed = new_speed;}
+	void		SetSpeed( float new_speed = CHAR_SPEED ){ m_speed = new_speed;}
 
 	float		GetCost() {return m_Cost;}
 	void		SetCost(float cost) {m_Cost = cost;}

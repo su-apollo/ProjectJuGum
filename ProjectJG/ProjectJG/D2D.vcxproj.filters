@@ -71,9 +71,6 @@
     <ClCompile Include="BulletManager.cpp">
       <Filter>GameObjects\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="FirstModeCharic.cpp">
-      <Filter>GameObjects\Character</Filter>
-    </ClCompile>
     <ClCompile Include="AccelBullet.cpp">
       <Filter>GameObjects\Bullet</Filter>
     </ClCompile>
@@ -86,6 +83,12 @@
     </ClCompile>
     <ClCompile Include="CurveBullet.cpp">
       <Filter>GameObjects\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="FirstModeCharacter.cpp">
+      <Filter>GameObjects\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMoveObj.cpp">
+      <Filter>GameObjects\etcObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +176,9 @@
     <Filter Include="Framework\SceneDirector">
       <UniqueIdentifier>{6cc23fc3-d46d-4594-a594-abcaa33d4039}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObjects\Option">
+      <UniqueIdentifier>{76145d76-2bfb-43ef-be11-66a3fb598c55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NNObject.h">
@@ -259,12 +265,6 @@
     <ClInclude Include="BulletManager.h">
       <Filter>GameObjects\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="FirstModeCharic.h">
-      <Filter>GameObjects\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="NNGameSetup.h">
-      <Filter>Framework\Macro</Filter>
-    </ClInclude>
     <ClInclude Include="AccelBullet.h">
       <Filter>GameObjects\Bullet</Filter>
     </ClInclude>
@@ -277,6 +277,15 @@
     </ClInclude>
     <ClInclude Include="CurveBullet.h">
       <Filter>GameObjects\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="FirstModeCharacter.h">
+      <Filter>GameObjects\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMoveObj.h">
+      <Filter>GameObjects\etcObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOption.h">
+      <Filter>GameObjects\Option</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

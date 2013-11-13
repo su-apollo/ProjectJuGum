@@ -1,6 +1,6 @@
 #include "CurveBullet.h"
 #include "Maincharacter.h"
-
+#include "GameOption.h"
 
 CCurveBullet::CCurveBullet(void)
 {

@@ -1,5 +1,6 @@
 #pragma once
 #include "NNConfig.h"
+#include "GameOption.h"
 
 class CBullet;
 class CMainMap;

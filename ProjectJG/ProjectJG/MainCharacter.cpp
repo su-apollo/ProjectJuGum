@@ -8,7 +8,7 @@ CMaincharacter::CMaincharacter(void)
 	m_Circle->SetPosition(0.f, 0.f);
 	AddChild( m_Circle );
 
-	m_speed = CHARIC_SPEED;
+	m_speed = CHAR_SPEED;
 	m_Cost = 0;
 }
 
@@ -31,11 +31,11 @@ void CMaincharacter::UpdateMotion(float dTime)
 	
 	if (NNInputSystem::GetInstance()->GetChangeSpeedKeyInput() == CHANGE_SPEED)
 	{
-		m_speed = CHARIC_FAST_SPEED;
+		m_speed = CHAR_FAST_SPEED;
 	}
 	else
 	{
-		m_speed = CHARIC_SPEED;
+		m_speed = CHAR_SPEED;
 	}
 
 	//입력에 따른 캐릭터의 이동
