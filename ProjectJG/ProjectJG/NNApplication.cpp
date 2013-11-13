@@ -19,7 +19,6 @@ NNApplication::NNApplication()
 }
 NNApplication::~NNApplication()
 {
-
 }
 
 NNApplication* NNApplication::GetInstance()
@@ -63,9 +62,11 @@ bool NNApplication::Init( wchar_t* const title, int width, int height, RendererS
 bool NNApplication::Release()
 {
 	if ( m_DestroyWindow == true ) {
+		CloseHandle(m_Hwnd);
 		ReleaseInstance();
 		return true;
 	}
+
  	m_pSceneDirector->Release();
 
 	NNSceneDirector::ReleaseInstance();
