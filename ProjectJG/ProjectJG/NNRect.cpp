@@ -1,3 +1,4 @@
+#include "NNConfig.h"
 #include "NNRect.h"
 #include "NNResourceManager.h"
 #include "NNApplication.h"

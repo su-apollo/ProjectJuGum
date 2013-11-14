@@ -90,6 +90,9 @@
     <ClCompile Include="GameMoveObj.cpp">
       <Filter>GameObjects\etcObject</Filter>
     </ClCompile>
+    <ClCompile Include="NNConfigcpp.cpp">
+      <Filter>Framework\Macro</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">

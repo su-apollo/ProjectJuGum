@@ -1,6 +1,5 @@
-
+#include "NNConfig.h"
 #include "NNInputSystem.h"
-#include <windows.h>
 
 NNInputSystem* NNInputSystem::m_pInstance = nullptr;
 

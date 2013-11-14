@@ -1,3 +1,5 @@
+#include "NNConfig.h"
+
 #include "BulletManager.h"
 #include "MainMap.h"
 #include "Bullet.h"

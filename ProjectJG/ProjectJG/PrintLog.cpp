@@ -1,7 +1,5 @@
+#include "NNConfig.h"
 #include "PrintLog.h"
-#include <consoleapi.h>
-#include <stdio.h>
-
 
 PrintLog::PrintLog(void)
 {

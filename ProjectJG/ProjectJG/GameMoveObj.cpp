@@ -1,3 +1,4 @@
+#include "NNConfig.h"
 #include "GameMoveObj.h"
 
 CGameMoveObj::CGameMoveObj(void) : 

@@ -1,3 +1,5 @@
+#include "NNConfig.h"
+
 #include "CurveBullet.h"
 #include "Maincharacter.h"
 #include "GameOption.h"

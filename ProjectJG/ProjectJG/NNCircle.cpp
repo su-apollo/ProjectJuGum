@@ -1,3 +1,4 @@
+#include "NNConfig.h"
 #include "NNCircle.h"
 #include "NNResourceManager.h"
 #include "NNApplication.h"

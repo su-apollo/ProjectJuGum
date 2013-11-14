@@ -1,3 +1,5 @@
+#include "NNConfig.h"
+
 #include "ReturnScene.h"
 #include "MainMenuScene.h"
 #include "NNSceneDirector.h"

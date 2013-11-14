@@ -1,4 +1,4 @@
-
+#include "NNConfig.h"
 #include "NNSprite.h"
 #include "NNResourceManager.h"
 #include "NNApplication.h"

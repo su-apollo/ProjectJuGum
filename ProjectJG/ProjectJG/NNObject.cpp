@@ -1,4 +1,4 @@
-
+#include "NNConfig.h"
 #include "NNObject.h"
 
 

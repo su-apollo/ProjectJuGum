@@ -1,3 +1,5 @@
+#include "NNConfig.h"
+
 #include "AccelBullet.h"
 #include "Maincharacter.h"
 

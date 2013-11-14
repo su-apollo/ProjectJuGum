@@ -1,3 +1,4 @@
+#include "NNConfig.h"
 #include "Maincharacter.h"
 #include "BulletManager.h"
 #include "NNInputSystem.h"

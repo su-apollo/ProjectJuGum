@@ -1,3 +1,4 @@
+#include "NNConfig.h"
 #include "NNInputSystem.h"
 
 #include "FirstModeCharacter.h"

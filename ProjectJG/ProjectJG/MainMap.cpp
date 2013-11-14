@@ -1,3 +1,4 @@
+#include "NNConfig.h"
 #include "MainMap.h"
 
 CMainMap::CMainMap(void)

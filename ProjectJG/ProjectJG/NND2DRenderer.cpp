@@ -1,4 +1,4 @@
-
+#include "NNConfig.h"
 #include "NND2DRenderer.h"
 #include "NNApplication.h"
 

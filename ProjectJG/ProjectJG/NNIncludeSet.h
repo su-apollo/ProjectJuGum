@@ -12,3 +12,7 @@
 #include <list>
 #include <map>
 #include <math.h>
+
+//디버기용
+#include <consoleapi.h>
+#include <stdio.h>

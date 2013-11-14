@@ -1,3 +1,5 @@
+#include "NNConfig.h"
+
 #include "NNLabel.h"
 #include "NNSceneDirector.h"
 #include "NNApplication.h"

@@ -1,3 +1,5 @@
+#include "NNConfig.h"
+
 #include "MainMenuScene.h"
 #include "NNLabel.h"
 #include "NNInputSystem.h"

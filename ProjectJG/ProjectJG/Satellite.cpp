@@ -1,3 +1,4 @@
+#include "NNConfig.h"
 #include "Satellite.h"
 #include "NNCircle.h"
 #include "BulletManager.h"
