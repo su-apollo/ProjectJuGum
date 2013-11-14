@@ -5,7 +5,6 @@
 #include "NNApplication.h"
 
 #include "PlayScene.h"
-#include "FirstModeCharacter.h"
 #include "Maincharacter.h"
 #include "BulletManager.h"
 #include "MainMenuScene.h"
@@ -24,7 +23,7 @@ CPlayScene::CPlayScene(void)
 	AddChild(m_Map);
 
 	//플레이어 생성
-	m_Player1 = new CFirstModeCharacter;
+	m_Player1 = new CMaincharacter;
 	m_Player2 = new CMaincharacter;
 
 	m_Player1->SetPosition(NNPoint(640.f, 700.f));
@@ -114,15 +113,12 @@ void CPlayScene::Update( float dTime )
 	swprintf_s( m_Player2Cost, _countof(m_Player2Cost), L"Player2's Cost : %d", (int)(m_Player2->GetCost()) );
 	m_Player2CostLabel->SetString( m_Player2Cost );
 
-
-	//공격입력
-	m_Player1->SkillCasting(m_Player1, m_Map, dTime);
 	
 	//총알 및 오브젝트의 업데이트
 	CBulletManager::GetInstance()->UpdateObj(dTime);
 
-	//캐릭터의 이동
-	m_Player1->Update(dTime);
+	//캐릭터 업데이트
+	m_Player1->Update(dTime,m_Player1, m_Player2, m_Map);
 	//m_Player2->Update(dTime);
 
 	//맵과 캐릭터의 충돌체크

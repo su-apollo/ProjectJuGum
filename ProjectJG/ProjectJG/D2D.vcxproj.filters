@@ -84,9 +84,6 @@
     <ClCompile Include="CurveBullet.cpp">
       <Filter>GameObjects\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="FirstModeCharacter.cpp">
-      <Filter>GameObjects\Character</Filter>
-    </ClCompile>
     <ClCompile Include="GameMoveObj.cpp">
       <Filter>GameObjects\etcObject</Filter>
     </ClCompile>
@@ -280,9 +277,6 @@
     </ClInclude>
     <ClInclude Include="CurveBullet.h">
       <Filter>GameObjects\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="FirstModeCharacter.h">
-      <Filter>GameObjects\Character</Filter>
     </ClInclude>
     <ClInclude Include="GameMoveObj.h">
       <Filter>GameObjects\etcObject</Filter>

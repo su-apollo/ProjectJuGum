@@ -1,29 +1,35 @@
 #pragma once
-#include "NNCircle.h"
+#include "GameMoveObj.h"
 #include "GameOption.h"
 
-class CMaincharacter : public NNObject
+class NNCircle;
+class CMainMap;
+
+//메인케릭터 펙토리형태로 구성
+class CMaincharacter : public CGameMoveObj
 {
 public:
 	CMaincharacter(void);
 	virtual ~CMaincharacter(void);
 
-	void		Render();
-	void		Update( float dTime );
+	void			Render();
+	void			Update(float dTime , CMaincharacter* player, CMaincharacter* enemy, CMainMap* map);
 
-	float		GetSpeed(){ return m_speed; }
-	NNCircle *	GetMainCircle(){return m_Circle;}
+	NNCircle *		GetMainCircle(){return m_Circle;}
 
-	void		SetSpeed( float new_speed = CHAR_SPEED ){ m_speed = new_speed;}
+	float			GetCost() {return m_Cost;}
+	CHARACTER_STAGE GetStage() {return m_Stage;}
 
-	float		GetCost() {return m_Cost;}
-	void		SetCost(float cost) {m_Cost = cost;}
+	void			SetCost(float cost) {m_Cost = cost;}
+	void			SetStage(CHARACTER_STAGE new_stage) {m_Stage = new_stage;}
+	void			SkillCasting(float dTime , CMaincharacter* player, CMaincharacter* enemy, CMainMap* map);
 
 protected:
-	NNCircle*	m_Circle;
-	float		m_speed;
-	float		m_Cost;
+	NNCircle*		m_Circle;
+	CHARACTER_STAGE m_Stage;
+	float			m_Cost;
 
-	void		UpdateMotion(float dTime);
+	void			UpdateMotion(float dTime);
+	void			FirstStageSkillCasting(float dTime , CMaincharacter* player, CMaincharacter* enemy, CMainMap* map);
 };
 

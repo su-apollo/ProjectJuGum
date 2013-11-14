@@ -24,6 +24,18 @@
 
 #define SHOT_POINT				20.f
 
+enum CHARACTER_STAGE
+{
+	FIRST_STAGE_CHAR,
+};
+
+enum Bullets
+{
+	NORMAL_BULLET,
+	ACCEL_BULLET,
+	CURVE_BULLET
+};
+
 enum Skill
 {
 	NORMAL,

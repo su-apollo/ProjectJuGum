@@ -3,7 +3,6 @@
 
 class NNLabel;
 class CMainMap;
-class CFirstModeCharacter;
 class CMaincharacter;
 class CAccelBullet;
 class CCurveBullet;
@@ -20,7 +19,7 @@ public:
 	bool CircleToCircleHitCheck(NNPoint point_A, float radius_A, NNPoint point_B, float radius_B);
 
 private:
-	CFirstModeCharacter * m_Player1;	
+	CMaincharacter * m_Player1;	
 	CMaincharacter * m_Player2;
 	CMainMap *	m_Map;
 
