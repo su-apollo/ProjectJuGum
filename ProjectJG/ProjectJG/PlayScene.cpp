@@ -99,7 +99,7 @@ void CPlayScene::Update( float dTime )
 
 	
 	//총알 및 오브젝트의 업데이트
-	CBulletManager::GetInstance()->UpdateObj(dTime);
+	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2);
 
 	//캐릭터 업데이트
 	m_Player1->Update(dTime,m_Player1, m_Player2, m_Map);

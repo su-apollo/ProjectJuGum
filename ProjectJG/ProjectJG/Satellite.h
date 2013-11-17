@@ -2,6 +2,7 @@
 #include "GameMoveObj.h"
 
 class NNCircle;
+class CMaincharacter;
 
 class CSatellite 
 	: public CGameMoveObj
@@ -11,7 +12,7 @@ public:
 	virtual ~CSatellite(void);
 
 	void		Render();
-	void		Update( float dTime, CSatellite* Satellite);
+	void		Update(float dTime, CSatellite* Satellite, CMaincharacter* Enemy);
 
 	NNCircle *	GetMainCircle(){return m_Circle;}
 

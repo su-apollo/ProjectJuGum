@@ -28,9 +28,9 @@ public:
 
 	void ShotSLSectorNormalBullet();
 
-	void UpdateObj(float dTime);
+	void UpdateObj(float dTime, CMaincharacter* Enemy);
 	void UpdateBullet(float dTime);
-	void UpdateSatellite(float dTime);
+	void UpdateSatellite(float dTime , CMaincharacter* Enemy);
 
 	bool CharacterHitCheck(CMaincharacter * Player);
 

@@ -2,6 +2,7 @@
 #include "Satellite.h"
 #include "NNCircle.h"
 #include "BulletManager.h"
+#include "Maincharacter.h"
 
 CSatellite::CSatellite(void) : m_dTimeSum(0.f)
 {
@@ -20,8 +21,10 @@ void CSatellite::Render()
 	NNObject::Render();
 }
 
-void CSatellite::Update( float dTime, CSatellite* Satellite)
+void CSatellite::Update( float dTime, CSatellite* Satellite, CMaincharacter* Enemy)
 {
+	UpdateShotDirection(Enemy);
+	UpdateShotPoint();
 	ShotNomalBullet(dTime, Satellite);
 }
  

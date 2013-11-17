@@ -54,10 +54,9 @@ void CGameMoveObj::UpdateShotDirection( CGameMoveObj* Enemy )
 void CGameMoveObj::UpdateShotPoint()
 {
 	m_ShotPoint = GetPosition();
-	float direction = GetShotDirection();
 
-	m_ShotPoint.SetX(GetPositionX() + SHOT_POINT*NNDegreeToX(direction));
-	m_ShotPoint.SetY(GetPositionY() + SHOT_POINT*NNDegreeToY(direction));
+	m_ShotPoint.SetX(GetPositionX() + SHOT_POINT*NNDegreeToX(m_ShotDirection));
+	m_ShotPoint.SetY(GetPositionY() + SHOT_POINT*NNDegreeToY(m_ShotDirection));
 }
 
 bool CGameMoveObj::HitCheck_CircleToCircle( CGameMoveObj * Enemy )

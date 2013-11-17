@@ -161,9 +161,9 @@ void CBulletManager::ShotSLSectorNormalBullet()
 //**************************************************************
 //                          Update
 //**************************************************************
-void CBulletManager::UpdateObj( float dTime )
+void CBulletManager::UpdateObj( float dTime , CMaincharacter* Enemy)
 {
-	UpdateSatellite(dTime);
+	UpdateSatellite(dTime, Enemy);
 	UpdateBullet(dTime);
 }
 
@@ -178,13 +178,13 @@ void CBulletManager::UpdateBullet(float dTime)
 	}
 }
 
-void CBulletManager::UpdateSatellite( float dTime )
+void CBulletManager::UpdateSatellite(float dTime , CMaincharacter* Enemy)
 {
 	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
 	{
 		if (m_pSatelliteArray[i]->IsVisible())
 		{
-			m_pSatelliteArray[i]->Update(dTime, m_pSatelliteArray[i]);
+			m_pSatelliteArray[i]->Update(dTime, m_pSatelliteArray[i], Enemy);
 		}
 	}
 }
