@@ -4,9 +4,9 @@
 #define CHAR_FAST_SPEED					300.f
 #define CHAR_HIT_RADIUS					5.f
 
+#define BULLET_HIT_RADIUS				10.f
+
 #define MAX_BULLET_NUM					500
-#define MAX_ACCELBULLET_NUM				500
-#define MAX_CURVEBULLET_NUM				500
 #define MAX_SATELLITE_NUM				20
 
 #define BULLET_SPEED						200.f

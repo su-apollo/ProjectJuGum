@@ -5,7 +5,7 @@
 
 CBullet::CBullet(void)
 {
-	SetHitRadius(10.f);
+	SetHitRadius(BULLET_HIT_RADIUS);
 	m_Circle = NNCircle::Create(GetHitRadius());
 	m_Circle->SetPosition(0.f, 0.f);
 	AddChild( m_Circle );

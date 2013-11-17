@@ -45,6 +45,7 @@ CBullet * CBulletManager::GetBullet( EBulletType bullet_type )
 	default:
 		break;
 	}
+	return nullptr;
 }
 
 CSatellite * CBulletManager::GetSatellite()
@@ -59,7 +60,7 @@ CSatellite * CBulletManager::GetSatellite()
 //**************************************************************
 //                         Skills
 //**************************************************************
-void CBulletManager::ShotSetupSatellite(NNObject* Player)
+void CBulletManager::ShotSetupSatellite(CGameMoveObj* Player)
 {
 	CSatellite* pSatellite = GetSatellite();
 
@@ -68,17 +69,14 @@ void CBulletManager::ShotSetupSatellite(NNObject* Player)
 	pSatellite->SetPosition(point);
 }
 
-void CBulletManager::ShotBullet(NNObject * Player, EBulletType bullet_type)
+void CBulletManager::ShotBullet(CGameMoveObj * Player, EBulletType bullet_type)
 {
 	CBullet * pBullet = GetBullet(bullet_type);
-
-	NNPoint point = Player->GetPosition();
-
-	point.SetY( Player->GetPositionY() - SHOT_POINT);
-	pBullet->SetPosition( point );
+	pBullet->SetDirection(Player->GetShotDirection());
+	pBullet->SetPosition( Player->GetShotPoint());
 }
 
-void CBulletManager::ShotTBullet( NNObject* Player, float direction, float degree, int n )
+void CBulletManager::ShotTBullet(CGameMoveObj* Player, float direction, float degree, int n )
 {
 	NNPoint point = Player->GetPosition();
 	
@@ -92,7 +90,7 @@ void CBulletManager::ShotTBullet( NNObject* Player, float direction, float degre
 	}
 }
 
-void CBulletManager::ShotSectorNormalBullets( NNObject* Player, float direction, float degree, int n )
+void CBulletManager::ShotSectorNormalBullets(CGameMoveObj* Player, float direction, float degree, int n )
 {
 	NNPoint point = Player->GetPosition();
 
@@ -106,7 +104,7 @@ void CBulletManager::ShotSectorNormalBullets( NNObject* Player, float direction,
 	}
 }
 
-void CBulletManager::ShotSectorMixBullets( NNObject* Player, float direction, float degree, int n )
+void CBulletManager::ShotSectorMixBullets(CGameMoveObj* Player, float direction, float degree, int n )
 {
 	NNPoint point = Player->GetPosition();
 
@@ -131,7 +129,7 @@ void CBulletManager::ShotSectorMixBullets( NNObject* Player, float direction, fl
 	}
 }
 
-void CBulletManager::ShotTornadoBullets( NNObject* Player, int n )
+void CBulletManager::ShotTornadoBullets(CGameMoveObj* Player, int n )
 {
 	NNPoint point = Player->GetPosition();
 	float direction = 270;

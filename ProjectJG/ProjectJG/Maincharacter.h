@@ -1,6 +1,7 @@
 #pragma once
 #include "GameMoveObj.h"
 #include "GameOption.h"
+#include "NNPoint.h"
 
 class NNCircle;
 class CMainMap;

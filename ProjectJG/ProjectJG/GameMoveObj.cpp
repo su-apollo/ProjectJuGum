@@ -13,6 +13,16 @@ CGameMoveObj::~CGameMoveObj(void)
 {
 }
 
+void CGameMoveObj::InitMember()
+{
+	m_ShotDirection = 0.f;
+	m_Speed = 0.f;
+	m_Accel = 0.f;
+	m_Direction = 0.f;
+	m_HitRadius = 0.f;
+	m_AngularAccel = 0.f;
+}
+
 void CGameMoveObj::UpdateShotDirection( CGameMoveObj* Enemy )
 {
 	float x = GetPositionX() - Enemy->GetPositionX();
@@ -41,6 +51,15 @@ void CGameMoveObj::UpdateShotDirection( CGameMoveObj* Enemy )
 	}
 }
 
+void CGameMoveObj::UpdateShotPoint()
+{
+	m_ShotPoint = GetPosition();
+	float direction = GetShotDirection();
+
+	m_ShotPoint.SetX(GetPositionX() + SHOT_POINT*NNDegreeToX(direction));
+	m_ShotPoint.SetY(GetPositionY() + SHOT_POINT*NNDegreeToY(direction));
+}
+
 bool CGameMoveObj::HitCheck_CircleToCircle( CGameMoveObj * Enemy )
 {
 	if (Enemy->GetHitRadius() + GetHitRadius() > GetPosition().GetDistance(Enemy->GetPosition()))
@@ -49,14 +68,4 @@ bool CGameMoveObj::HitCheck_CircleToCircle( CGameMoveObj * Enemy )
 	}
 	
 	return false;
-}
-
-void CGameMoveObj::InitMember()
-{
-	m_ShotDirection = 0.f;
-	m_Speed = 0.f;
-	m_Accel = 0.f;
-	m_Direction = 0.f;
-	m_HitRadius = 0.f;
-	m_AngularAccel = 0.f;
 }

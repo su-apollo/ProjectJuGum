@@ -6,6 +6,7 @@ class CMainMap;
 class CMaincharacter;
 class CSatellite;
 class NNObject;
+class CGameMoveObj;
 
 class CBulletManager
 {
@@ -17,13 +18,13 @@ public:
 	static void ReleaseInstance();
 	
 	//½ºÅ³µé
-	void ShotBullet(NNObject * Player, EBulletType bullet_type);
-	void ShotSectorNormalBullets( NNObject* Player, float direction = 270.f, float degree = 90.f, int n = 7);
-	void ShotSectorMixBullets(NNObject* Player, float direction = 270.f, float degree = 180.f, int n = 20);
-	void ShotTornadoBullets(NNObject* Player, int n);
-	void ShotSetupSatellite(NNObject* Player);
+	void ShotBullet(CGameMoveObj* Player, EBulletType bullet_type);
+	void ShotSectorNormalBullets(CGameMoveObj* Player, float direction = 270.f, float degree = 90.f, int n = 7);
+	void ShotSectorMixBullets(CGameMoveObj* Player, float direction = 270.f, float degree = 180.f, int n = 20);
+	void ShotTornadoBullets(CGameMoveObj* Player, int n);
+	void ShotSetupSatellite(CGameMoveObj* Player);
 
-	void ShotTBullet( NNObject* Player, float direction = 270.f, float degree =  90.f, int n = 3 );
+	void ShotTBullet( CGameMoveObj* Player, float direction = 270.f, float degree =  90.f, int n = 3 );
 
 	void ShotSLSectorNormalBullet();
 

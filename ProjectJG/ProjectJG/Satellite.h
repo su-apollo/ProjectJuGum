@@ -1,10 +1,10 @@
 #pragma once
-#include "NNObject.h"
+#include "GameMoveObj.h"
 
 class NNCircle;
 
 class CSatellite 
-	: public NNObject
+	: public CGameMoveObj
 {
 public:
 	CSatellite(void);
@@ -16,13 +16,9 @@ public:
 	NNCircle *	GetMainCircle(){return m_Circle;}
 
 	void		ShotNomalBullet( float dTime, CSatellite* Satellite);
-	void		ShotSectorNormalBullet();
 
 private:
 	NNCircle*	m_Circle;
-	float		m_speed;
 	float		m_dTimeSum;
-	float		m_direction;
-
 };
 

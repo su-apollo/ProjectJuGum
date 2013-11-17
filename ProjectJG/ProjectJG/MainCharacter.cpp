@@ -6,8 +6,8 @@
 
 CMaincharacter::CMaincharacter(void)
 {
-	m_HitRadius = CHAR_HIT_RADIUS;
-	m_Circle = NNCircle::Create(m_HitRadius);
+	SetHitRadius(CHAR_HIT_RADIUS);
+	m_Circle = NNCircle::Create(GetHitRadius());
 	m_Circle->SetPosition(0.f, 0.f);
 	AddChild( m_Circle );
 
@@ -27,6 +27,7 @@ void CMaincharacter::Render()
 void CMaincharacter::Update(float dTime , CMaincharacter* player, CMaincharacter* enemy, CMainMap* map)
 {
 	UpdateShotDirection(enemy);
+	UpdateShotPoint();
 	UpdateMotion(dTime);
 	SkillCasting(dTime, player, enemy, map);
 }
