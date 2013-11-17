@@ -14,22 +14,27 @@ public:
 
 	float GetShotDirection() {return m_ShotDirection;}
 	float GetSpeed() {return m_Speed;}
-	float GetAccelation() {return m_Accelation;}
+	float GetAccel() {return m_Accel;}
 	float GetDirection() {return m_Direction;}
 	float GetHitRadius() {return m_HitRadius;}
+	float GetAngularAccel() {return m_AngularAccel;}
 
 	void SetShotDirection(float new_shotdirection) {m_ShotDirection = new_shotdirection;}
 	void SetSpeed(float new_speed) {m_Speed = new_speed;}
-	void SetAceelation(float new_accelation) {m_Accelation = new_accelation;}
+	void SetAccel(float new_accel) {m_Accel = new_accel;}
 	void SetDirection(float new_direction) {m_Direction = new_direction;}
 	void SetHitRadius(float new_hitRadius) {m_HitRadius = new_hitRadius;}
+	void SetAngularAccel(float new_accel) {m_AngularAccel = new_accel;}
+
+	void InitMember();
 
 protected:
 	float m_ShotDirection;
 	float m_Speed;
-	float m_Accelation;
+	float m_Accel;
 	float m_Direction;
 	float m_HitRadius;
+	float m_AngularAccel;
 
 };
 

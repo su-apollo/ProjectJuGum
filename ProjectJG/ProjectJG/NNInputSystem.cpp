@@ -81,7 +81,7 @@ KeyState NNInputSystem::GetKeyState( int key )
 	return KEY_NOTPRESSED;
 }
 
-InputSetUp NNInputSystem::GetDirectionKeyInput(void)
+EInputSetUp NNInputSystem::GetDirectionKeyInput(void)
 {
 	if  (GetInstance()->GetKeyState( m_keyup ) == KEY_PRESSED && GetInstance()->GetKeyState( m_keyleft ) == KEY_PRESSED)
 	{
@@ -119,7 +119,7 @@ InputSetUp NNInputSystem::GetDirectionKeyInput(void)
 		return NONE;
 }
 
-InputSetUp NNInputSystem::GetSkillKeyInput(void)
+EInputSetUp NNInputSystem::GetSkillKeyInput(void)
 {
 	if (GetInstance()->GetKeyState(m_skill[0]) == KEY_DOWN)
 	{
@@ -153,7 +153,7 @@ InputSetUp NNInputSystem::GetSkillKeyInput(void)
 		return NONE;
 }
 
-InputSetUp NNInputSystem::GetChangeSpeedKeyInput(void)
+EInputSetUp NNInputSystem::GetChangeSpeedKeyInput(void)
 {
 	if (GetInstance()->GetKeyState(m_changespeedkey) == KEY_PRESSED)
 	{
@@ -163,7 +163,7 @@ InputSetUp NNInputSystem::GetChangeSpeedKeyInput(void)
 		return NONE;
 };
 
-InputSetUp NNInputSystem::GetMenuKeyInput(void)
+EInputSetUp NNInputSystem::GetMenuKeyInput(void)
 {
 	if (GetInstance()->GetKeyState(m_pausekey) == KEY_DOWN)
 	{

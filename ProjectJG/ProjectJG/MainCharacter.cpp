@@ -6,7 +6,8 @@
 
 CMaincharacter::CMaincharacter(void)
 {
-	m_Circle = NNCircle::Create(5.f);
+	m_HitRadius = CHAR_HIT_RADIUS;
+	m_Circle = NNCircle::Create(m_HitRadius);
 	m_Circle->SetPosition(0.f, 0.f);
 	AddChild( m_Circle );
 
@@ -102,7 +103,7 @@ void CMaincharacter::FirstStageSkillCasting(float dTime , CMaincharacter* player
 	case SKILL_KEY_TWO:
 		if ( GetCost() >= SHOT_ACCELBULLET_COST )
 		{
-			CBulletManager::GetInstance()->ShotAccelBullet(player);
+			CBulletManager::GetInstance()->ShotBullet(player, ACCEL_BULLET);
 			SetCost( GetCost() - SHOT_ACCELBULLET_COST );
 		}
 		break;

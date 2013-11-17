@@ -83,11 +83,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AccelBullet.cpp" />
     <ClCompile Include="Asteroid.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
-    <ClCompile Include="CurveBullet.cpp" />
     <ClCompile Include="GameMoveObj.cpp" />
     <ClCompile Include="MainMap.cpp" />
     <ClCompile Include="NNAudioSystem.cpp" />
@@ -116,11 +114,9 @@
     <ClCompile Include="Satellite.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AccelBullet.h" />
     <ClInclude Include="Asteroid.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />
-    <ClInclude Include="CurveBullet.h" />
     <ClInclude Include="GameMoveObj.h" />
     <ClInclude Include="MainMap.h" />
     <ClInclude Include="NNAudioSystem.h" />

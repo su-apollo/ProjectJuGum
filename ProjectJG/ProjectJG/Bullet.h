@@ -1,10 +1,11 @@
 #pragma once
-#include "NNCircle.h"
+#include "GameMoveObj.h"
 #include "GameOption.h"
 
 class CMaincharacter;
+class NNCircle;
 
-class CBullet : public NNObject
+class CBullet : public CGameMoveObj
 {
 public:
 	CBullet(void);
@@ -12,18 +13,17 @@ public:
 
 	void Render();
 	void Update( float dTime );
-	float GetSpeed(){ return m_speed; }
-	NNCircle * GetMainCircle(){return m_Circle;}
 
-	void SetSpeed( float new_speed = BULLET_SPEED ){ m_speed = new_speed;}
-	void SetDirection(float new_direction = 270.f){ m_direction = new_direction; }
+	EBulletType GetBulletType() {return m_Type;}
+	NNCircle *	GetMainCircle() {return m_Circle;}
 
-	bool CharacterHitCheck(CMaincharacter * Player);
+	void		SetBulletType(EBulletType new_type) {m_Type = new_type;}
 
 private:
-	NNCircle* m_Circle;
+	NNCircle*	m_Circle;
+	EBulletType	m_Type;
 
-	float m_speed;
-	float m_direction;
+	float		m_speed;
+	float		m_direction;
 };
 

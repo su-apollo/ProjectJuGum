@@ -1,42 +1,43 @@
 #pragma once
 
-#define CHAR_SPEED				200.f
-#define CHAR_FAST_SPEED			300.f
+#define CHAR_SPEED						200.f
+#define CHAR_FAST_SPEED					300.f
+#define CHAR_HIT_RADIUS					5.f
 
-#define MAX_BULLET_NUM			500
-#define MAX_ACCELBULLET_NUM		500
-#define MAX_CURVEBULLET_NUM		500
-#define MAX_SATELLITE_NUM		20
+#define MAX_BULLET_NUM					500
+#define MAX_ACCELBULLET_NUM				500
+#define MAX_CURVEBULLET_NUM				500
+#define MAX_SATELLITE_NUM				20
 
-#define BULLET_SPEED				200.f
-#define ACCELBULLET_SPEED		100.f
-#define CURVEBULLET_SPEED		200.f
+#define BULLET_SPEED						200.f
+#define ACCELBULLET_SPEED				100.f
+#define CURVEBULLET_SPEED				200.f
 
-#define ACCELBULLET_ACCELERATION	300.f
-#define ANGULAR_ACCELERATION		30.f
+#define ACCELBULLET_ACCEL				300.f
+#define CURVEBULLET_ANGULAR_ACCEL		30.f
 
-#define SHOT_BULLET_COST			5
-#define SHOT_ACCELBULLET_COST	10
-#define SECTOR_SINGLE_COST		3
-#define TORNADO_SINGLE_COST		3
-#define SETUP_SATELLITE_COST		10
-#define SL_SECTORNORMAL_COST		10
+#define SHOT_BULLET_COST					5
+#define SHOT_ACCELBULLET_COST			10
+#define SECTOR_SINGLE_COST				3
+#define TORNADO_SINGLE_COST				3
+#define SETUP_SATELLITE_COST				10
+#define SL_SECTORNORMAL_COST				10
 
-#define SHOT_POINT				20.f
+#define SHOT_POINT						20.f
 
-enum CHARACTER_STAGE
+enum ECharcterStage
 {
 	FIRST_STAGE_CHAR,
 };
 
-enum Bullets
+enum EBulletType
 {
 	NORMAL_BULLET,
 	ACCEL_BULLET,
 	CURVE_BULLET
 };
 
-enum Skill
+enum ESkill
 {
 	NORMAL,
 	SHOT_BULLET,
@@ -48,7 +49,7 @@ enum Skill
 	SL_SECTORNORMAL,
 };
 
-enum InputSetUp
+enum EInputSetUp
 {
 	NONE,
 	UP,
@@ -70,7 +71,7 @@ enum InputSetUp
 	PAUSE
 };
 
-enum MENU_LIST
+enum EMenuList
 {
 	MENU_PLAY,
 	MENU_TEST,

@@ -3,15 +3,13 @@
 #include "BulletManager.h"
 #include "MainMap.h"
 #include "Bullet.h"
-#include "AccelBullet.h"
-#include "CurveBullet.h"
 #include "MainMenuScene.h"
 #include "Maincharacter.h"
 #include "Satellite.h"
 
 CBulletManager* CBulletManager::m_pInstance = nullptr;
 
-CBulletManager::CBulletManager(void) : m_BulletIndex(0), m_AccelBulletIndex(0), m_CurveBulletIndex(0),
+CBulletManager::CBulletManager(void) : m_BulletIndex(0),
 	m_SatelliteIndex(0)
 {
 }
@@ -23,6 +21,32 @@ CBulletManager::~CBulletManager(void)
 //**************************************************************
 //                         GetObj
 //**************************************************************
+
+CBullet * CBulletManager::GetBullet( EBulletType bullet_type )
+{
+	++m_BulletIndex;
+	m_BulletIndex %= MAX_BULLET_NUM;
+	CBullet* new_bullet = m_pBulletArray[m_BulletIndex];
+	new_bullet->SetVisible(true);
+
+	switch (bullet_type)
+	{
+	case NORMAL_BULLET:
+		new_bullet->SetSpeed(BULLET_SPEED);
+		return new_bullet;
+	case ACCEL_BULLET:
+		new_bullet->SetSpeed(ACCELBULLET_SPEED);
+		new_bullet->SetAccel(ACCELBULLET_ACCEL);
+		return new_bullet;
+	case CURVE_BULLET:
+		new_bullet->SetSpeed(CURVEBULLET_SPEED);
+		new_bullet->SetAngularAccel(CURVEBULLET_ANGULAR_ACCEL);
+		return new_bullet;
+	default:
+		break;
+	}
+}
+
 CSatellite * CBulletManager::GetSatellite()
 {
 	++m_SatelliteIndex;
@@ -32,38 +56,10 @@ CSatellite * CBulletManager::GetSatellite()
 	return m_pSatelliteArray[m_SatelliteIndex];
 }
 
-CBullet * CBulletManager::GetBullet()
-{
-	++m_BulletIndex;
-	m_BulletIndex %= MAX_BULLET_NUM;
-	m_pBulletArray[m_BulletIndex]->SetVisible(true);
-
-	return m_pBulletArray[m_BulletIndex];
-}
-
-CAccelBullet * CBulletManager::GetAccelBullet()
-{
-	++m_AccelBulletIndex;
-	m_AccelBulletIndex %= MAX_ACCELBULLET_NUM;
-	m_pAccelBulletArray[m_AccelBulletIndex]->SetVisible(true);
-
-	return m_pAccelBulletArray[m_AccelBulletIndex];
-}
-
-CCurveBullet* CBulletManager::GetCurveBullet()
-{
-	++m_CurveBulletIndex;
-	m_CurveBulletIndex %= MAX_CURVEBULLET_NUM;
-	m_pCurveBulletArray[m_CurveBulletIndex]->SetVisible(true);
-
-	return m_pCurveBulletArray[m_CurveBulletIndex];
-}
-
-
 //**************************************************************
 //                         Skills
 //**************************************************************
-void CBulletManager::ShotSetupSatellite(NNObject* Player )
+void CBulletManager::ShotSetupSatellite(NNObject* Player)
 {
 	CSatellite* pSatellite = GetSatellite();
 
@@ -72,36 +68,14 @@ void CBulletManager::ShotSetupSatellite(NNObject* Player )
 	pSatellite->SetPosition(point);
 }
 
-void CBulletManager::ShotBullet(NNObject * Player)
+void CBulletManager::ShotBullet(NNObject * Player, EBulletType bullet_type)
 {
-	CBullet * pBullet = GetBullet();
+	CBullet * pBullet = GetBullet(bullet_type);
 
 	NNPoint point = Player->GetPosition();
 
 	point.SetY( Player->GetPositionY() - SHOT_POINT);
 	pBullet->SetPosition( point );
-}
-
-void CBulletManager::ShotAccelBullet(NNObject * Player)
-{
- 	CAccelBullet * pAccelBullet = GetAccelBullet();
- 
- 	NNPoint point = Player->GetPosition();
- 
- 	point.SetY( Player->GetPositionY() - SHOT_POINT);
-	pAccelBullet->SetAccelation(ACCELBULLET_ACCELERATION);
- 	pAccelBullet->SetPosition( point );
-}
-
-void CBulletManager::ShotCurveBullet( NNObject * Player )
-{
-	CCurveBullet* pBullet = GetCurveBullet();
-
-	NNPoint point = Player->GetPosition();
-	point.SetY( Player->GetPositionY() - SHOT_POINT );
-	pBullet->SetPosition( point );
-
-	pBullet->SetDirection();
 }
 
 void CBulletManager::ShotTBullet( NNObject* Player, float direction, float degree, int n )
@@ -110,7 +84,7 @@ void CBulletManager::ShotTBullet( NNObject* Player, float direction, float degre
 	
 	for ( int i = 0; i < n; ++i )
 	{
-		CBullet* pBullet = GetBullet();
+		CBullet* pBullet = GetBullet(NORMAL_BULLET);
 		point.SetY( Player->GetPositionY() - SHOT_POINT );
 		pBullet->SetPosition( point );
 
@@ -124,7 +98,7 @@ void CBulletManager::ShotSectorNormalBullets( NNObject* Player, float direction,
 
 	for ( int i = 0; i < n; ++i )
 	{
-		CBullet* pBullet = GetBullet();
+		CBullet* pBullet = GetBullet(NORMAL_BULLET);
 		point.SetY( Player->GetPositionY() - SHOT_POINT );
 		pBullet->SetPosition( point );
 
@@ -140,16 +114,15 @@ void CBulletManager::ShotSectorMixBullets( NNObject* Player, float direction, fl
 	{
 		if ( i%2 == 0 )
 		{
-			CAccelBullet * pBullet = GetAccelBullet();
+			CBullet * pBullet = GetBullet(ACCEL_BULLET);
 			point.SetY( Player->GetPositionY() - SHOT_POINT );
 			pBullet->SetPosition( point );
 
-			pBullet->SetAccelation(ACCELBULLET_ACCELERATION);
 			pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
 		}
 		else
 		{
-			CBullet * pBullet = GetBullet();
+			CBullet * pBullet = GetBullet(NORMAL_BULLET);
 			point.SetY( Player->GetPositionY() - SHOT_POINT );
 			pBullet->SetPosition( point );
 
@@ -165,7 +138,7 @@ void CBulletManager::ShotTornadoBullets( NNObject* Player, int n )
 	for ( int i = 0; i < n; ++i )
 	{
 		direction += 360/n;
-		CCurveBullet* pBullet = GetCurveBullet();
+		CBullet* pBullet = GetBullet(CURVE_BULLET);
 
 		point.SetX( Player->GetPositionX() + NNDegreeToX(direction)*SHOT_POINT );
 		point.SetY( Player->GetPositionY() + NNDegreeToY(direction)*SHOT_POINT );
@@ -174,8 +147,6 @@ void CBulletManager::ShotTornadoBullets( NNObject* Player, int n )
 		pBullet->SetDirection( direction );
 	}
 }
-
-
 
 void CBulletManager::ShotSLSectorNormalBullet()
 {
@@ -207,20 +178,6 @@ void CBulletManager::UpdateBullet(float dTime)
 			m_pBulletArray[i]->Update(dTime);
 		}
 	}
-	for (int i = 0; i < MAX_ACCELBULLET_NUM; ++i)
-	{
-		if (m_pAccelBulletArray[i]->IsVisible())
-		{
-			m_pAccelBulletArray[i]->Update(dTime);
-		}
-	}
-	for (int i = 0; i < MAX_CURVEBULLET_NUM; ++i)
-	{
-		if (m_pCurveBulletArray[i]->IsVisible())
-		{
-			m_pCurveBulletArray[i]->Update(dTime);
-		}
-	}
 }
 
 void CBulletManager::UpdateSatellite( float dTime )
@@ -245,21 +202,7 @@ bool CBulletManager::CharacterHitCheck(CMaincharacter * Player)
 	// BattleShip에서 Ship들의 상속 구조에 대해서 생각해 볼 수 있도록...
 	for (int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
-		if(m_pBulletArray[i]->IsVisible() && m_pBulletArray[i]->CharacterHitCheck(Player))
-		{
-			return true;
-		}
-	}
-	for (int i = 0; i < MAX_ACCELBULLET_NUM; ++i)
-	{
-		if(m_pBulletArray[i]->IsVisible() && m_pAccelBulletArray[i]->CharacterHitCheck(Player))
-		{
-			return true;
-		}
-	}
-	for (int i = 0; i < MAX_CURVEBULLET_NUM; ++i)
-	{
-		if(m_pCurveBulletArray[i]->IsVisible() && m_pCurveBulletArray[i]->CharacterHitCheck(Player))
+		if(m_pBulletArray[i]->IsVisible() && m_pBulletArray[i]->HitCheck_CircleToCircle(Player))
 		{
 			return true;
 		}
@@ -292,28 +235,14 @@ void CBulletManager::CheckBulletLifeTime(CMainMap * Map)
 			BulletLifeTime(Map, m_pBulletArray[i]);
 		}
 	}
-	for (int i = 0; i < MAX_ACCELBULLET_NUM; ++i)
-	{
-		if (m_pAccelBulletArray[i]->IsVisible())
-		{
-			AccelBulletLifeTime(Map, m_pAccelBulletArray[i]);
-		}
-	}
-	for (int i = 0; i < MAX_CURVEBULLET_NUM; ++i)
-	{
-		if (m_pCurveBulletArray[i]->IsVisible())
-		{
-			CurveBulletLifeTime(Map, m_pCurveBulletArray[i]);
-		}
-	}
 }
 
 void CBulletManager::BulletLifeTime(CMainMap * Map, CBullet * Bullet)
 {
-	float leftline = Map->GetLeftLine() - Bullet->GetMainCircle()->GetRadius();
-	float rightline = Map->GetRightLine() + Bullet->GetMainCircle()->GetRadius();
-	float botline = Map->GetBotLine() + Bullet->GetMainCircle()->GetRadius();
-	float topline = Map->GetTopLine() - Bullet->GetMainCircle()->GetRadius();
+	float leftline = Map->GetLeftLine() - Bullet->GetHitRadius();
+	float rightline = Map->GetRightLine() + Bullet->GetHitRadius();
+	float botline = Map->GetBotLine() + Bullet->GetHitRadius();
+	float topline = Map->GetTopLine() - Bullet->GetHitRadius();
 
 	if (Bullet->GetPositionX() < leftline || Bullet->GetPositionX() > rightline
 		|| Bullet->GetPositionY() > botline || Bullet->GetPositionY() < topline)
@@ -322,58 +251,13 @@ void CBulletManager::BulletLifeTime(CMainMap * Map, CBullet * Bullet)
 	}
 }
 
-void CBulletManager::AccelBulletLifeTime(CMainMap * Map, CAccelBullet * Bullet)
-{
-	float leftline = Map->GetLeftLine() - Bullet->GetMainCircle()->GetRadius();
-	float rightline = Map->GetRightLine() + Bullet->GetMainCircle()->GetRadius();
-	float botline = Map->GetBotLine() + Bullet->GetMainCircle()->GetRadius();
-	float topline = Map->GetTopLine() - Bullet->GetMainCircle()->GetRadius();
-
-	if (Bullet->GetPositionX() < leftline || Bullet->GetPositionX() > rightline
-		|| Bullet->GetPositionY() > botline || Bullet->GetPositionY() < topline)
-	{
-		DestroyAccelBullet(Bullet);
-	}
-}
-
-void CBulletManager::CurveBulletLifeTime( CMainMap* Map, CCurveBullet* Bullet )
-{
-	float leftline = Map->GetLeftLine() - Bullet->GetMainCircle()->GetRadius();
-	float rightline = Map->GetRightLine() + Bullet->GetMainCircle()->GetRadius();
-	float botline = Map->GetBotLine() + Bullet->GetMainCircle()->GetRadius();
-	float topline = Map->GetTopLine() - Bullet->GetMainCircle()->GetRadius();
-
-	if (Bullet->GetPositionX() < leftline || Bullet->GetPositionX() > rightline
-		|| Bullet->GetPositionY() > botline || Bullet->GetPositionY() < topline)
-	{
-		DestroyCurveBullet(Bullet);
-	}
-}
-
-
 //**************************************************************
 //							Destroy
 //**************************************************************
 void CBulletManager::DestroyBullet( CBullet* Bullet )
 {
-	Bullet->SetDirection();
 	Bullet->SetVisible(false);
-}
-
-void CBulletManager::DestroyAccelBullet( CAccelBullet* Bullet )
-{
-	Bullet->SetDirection();
-	Bullet->SetSpeed();
-	Bullet->SetAccelation();
-	Bullet->SetVisible(false);
-}
-
-void CBulletManager::DestroyCurveBullet( CCurveBullet* Bullet )
-{
-	Bullet->SetDirection();
-	Bullet->SetSpeed();
-	Bullet->SetAngularAcceleration();
-	Bullet->SetVisible(false);
+	Bullet->InitMember();
 }
 
 void CBulletManager::DestroySatellite( CSatellite* Satellite )

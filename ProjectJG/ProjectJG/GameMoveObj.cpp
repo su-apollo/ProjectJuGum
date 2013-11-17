@@ -3,8 +3,8 @@
 
 CGameMoveObj::CGameMoveObj(void) : 
 	m_ShotDirection(0.f), m_Speed(0.f), 
-	m_Accelation(0.f), m_Direction(0.f),
-	m_HitRadius(0.f)
+	m_Accel(0.f), m_Direction(0.f),
+	m_HitRadius(0.f), m_AngularAccel(0.f)
 {
 }
 
@@ -49,4 +49,14 @@ bool CGameMoveObj::HitCheck_CircleToCircle( CGameMoveObj * Enemy )
 	}
 	
 	return false;
+}
+
+void CGameMoveObj::InitMember()
+{
+	m_ShotDirection = 0.f;
+	m_Speed = 0.f;
+	m_Accel = 0.f;
+	m_Direction = 0.f;
+	m_HitRadius = 0.f;
+	m_AngularAccel = 0.f;
 }

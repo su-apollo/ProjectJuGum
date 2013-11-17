@@ -30,7 +30,7 @@ void CSatellite::ShotNomalBullet( float dTime, CSatellite* Satellite)
 	m_dTimeSum += dTime;
 	if (m_dTimeSum >= 2.f)
 	{
-		CBulletManager::GetInstance()->ShotBullet(Satellite);
+		CBulletManager::GetInstance()->ShotBullet(Satellite, NORMAL_BULLET);
 		m_dTimeSum = 0.f;
 	}
 }

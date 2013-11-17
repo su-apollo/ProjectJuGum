@@ -11,8 +11,6 @@
 #include "MainMap.h"
 #include "ReturnScene.h"
 #include "Bullet.h"
-#include "AccelBullet.h"
-#include "CurveBullet.h"
 #include "Satellite.h"
 
 CPlayScene::CPlayScene(void)
@@ -38,20 +36,6 @@ CPlayScene::CPlayScene(void)
 		CBulletManager::GetInstance()->GetBulletArray()[i] = new CBullet;
 		AddChild( CBulletManager::GetInstance()->GetBulletArray()[i] );
 		CBulletManager::GetInstance()->GetBulletArray()[i]->SetVisible(false);
-	}
-
-	for (int i = 0 ; i < MAX_ACCELBULLET_NUM ; ++i)
-	{
-		CBulletManager::GetInstance()->GetAccelBulletArray()[i] = new CAccelBullet;
-		AddChild( CBulletManager::GetInstance()->GetAccelBulletArray()[i] );
-		CBulletManager::GetInstance()->GetAccelBulletArray()[i]->SetVisible(false);
-	}
-
-	for (int i = 0; i < MAX_CURVEBULLET_NUM; ++i)
-	{
-		CBulletManager::GetInstance()->GetCurveBulletArray()[i] = new CCurveBullet;
-		AddChild( CBulletManager::GetInstance()->GetCurveBulletArray()[i] );
-		CBulletManager::GetInstance()->GetCurveBulletArray()[i]->SetVisible(false);
 	}
 
 	//인공위성 로딩
@@ -130,11 +114,7 @@ void CPlayScene::Update( float dTime )
 	{
 		NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
 	}
-// 	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player2))
-// 	{
-// 		NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
-// 	}
-	
+
 	//총알의 라이프타임 처리
 	CBulletManager::GetInstance()->CheckBulletLifeTime(m_Map);
 }

@@ -33,10 +33,10 @@ public:
 	void UpdateKeyState();
 	KeyState GetKeyState( int key );
 
-	InputSetUp GetDirectionKeyInput(void);
-	InputSetUp GetSkillKeyInput(void);
-	InputSetUp GetChangeSpeedKeyInput(void);
-	InputSetUp GetMenuKeyInput(void);
+	EInputSetUp GetDirectionKeyInput(void);
+	EInputSetUp GetSkillKeyInput(void);
+	EInputSetUp GetChangeSpeedKeyInput(void);
+	EInputSetUp GetMenuKeyInput(void);
 
 private:
 	static NNInputSystem* m_pInstance;

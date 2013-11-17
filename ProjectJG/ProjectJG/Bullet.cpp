@@ -1,5 +1,5 @@
 #include "NNConfig.h"
-
+#include "NNCircle.h"
 #include "Bullet.h"
 #include "Maincharacter.h"
 
@@ -10,7 +10,6 @@ CBullet::CBullet(void)
 	AddChild( m_Circle );
 
 	m_speed = BULLET_SPEED;
-	m_direction = 270.f;
 }
 
 CBullet::~CBullet(void)
@@ -24,17 +23,16 @@ void CBullet::Render()
 
 void CBullet::Update( float dTime )
 {
+	if (!GetAngularAccel())
+	{
+		SetDirection(GetDirection() + GetAngularAccel()*dTime);
+	}
+	if (!GetAccel())
+	{
+		SetSpeed(GetSpeed() + GetAccel()*dTime);
+	}
+
 	float x = m_speed * NNDegreeToX(m_direction);
 	float y = m_speed * NNDegreeToY(m_direction);
 	SetPosition( GetPosition() + NNPoint(x, y) * dTime);
-}
-
-bool CBullet::CharacterHitCheck(CMaincharacter * Player)
-{
-	if((m_Circle->GetRadius() + Player->GetMainCircle()->GetRadius()) 
-					> GetPosition().GetDistance(Player->GetPosition()))
-	{
-		return true;
-	}
-	return false;
 }

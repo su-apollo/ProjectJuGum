@@ -71,18 +71,12 @@
     <ClCompile Include="BulletManager.cpp">
       <Filter>GameObjects\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="AccelBullet.cpp">
-      <Filter>GameObjects\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="Satellite.cpp">
       <Filter>GameObjects\etcObject</Filter>
     </ClCompile>
     <ClCompile Include="PrintLog.cpp" />
     <ClCompile Include="Asteroid.cpp">
       <Filter>GameObjects\etcObject</Filter>
-    </ClCompile>
-    <ClCompile Include="CurveBullet.cpp">
-      <Filter>GameObjects\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="GameMoveObj.cpp">
       <Filter>GameObjects\etcObject</Filter>
@@ -265,18 +259,12 @@
     <ClInclude Include="BulletManager.h">
       <Filter>GameObjects\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="AccelBullet.h">
-      <Filter>GameObjects\Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="Satellite.h">
       <Filter>GameObjects\etcObject</Filter>
     </ClInclude>
     <ClInclude Include="PrintLog.h" />
     <ClInclude Include="Asteroid.h">
       <Filter>GameObjects\etcObject</Filter>
-    </ClInclude>
-    <ClInclude Include="CurveBullet.h">
-      <Filter>GameObjects\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="GameMoveObj.h">
       <Filter>GameObjects\etcObject</Filter>
