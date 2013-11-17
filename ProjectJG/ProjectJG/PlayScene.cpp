@@ -53,7 +53,6 @@ CPlayScene::CPlayScene(void)
 
 	m_SumTime = 0;
 
-
 	// cost
 	m_Player1->SetCost(10000);
 	
