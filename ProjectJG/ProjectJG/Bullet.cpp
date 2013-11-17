@@ -5,11 +5,13 @@
 
 CBullet::CBullet(void)
 {
-	m_Circle = NNCircle::Create(10.f);
+	SetHitRadius(10.f);
+	m_Circle = NNCircle::Create(GetHitRadius());
 	m_Circle->SetPosition(0.f, 0.f);
 	AddChild( m_Circle );
 
-	m_speed = BULLET_SPEED;
+	SetDirection(270.f);
+	SetSpeed(BULLET_SPEED);
 }
 
 CBullet::~CBullet(void)
@@ -23,16 +25,16 @@ void CBullet::Render()
 
 void CBullet::Update( float dTime )
 {
-	if (!GetAngularAccel())
+	if (GetAngularAccel())
 	{
 		SetDirection(GetDirection() + GetAngularAccel()*dTime);
 	}
-	if (!GetAccel())
+	if (GetAccel())
 	{
 		SetSpeed(GetSpeed() + GetAccel()*dTime);
 	}
 
-	float x = m_speed * NNDegreeToX(m_direction);
-	float y = m_speed * NNDegreeToY(m_direction);
+	float x = GetSpeed() * NNDegreeToX(GetDirection());
+	float y = GetSpeed() * NNDegreeToY(GetDirection());
 	SetPosition( GetPosition() + NNPoint(x, y) * dTime);
 }

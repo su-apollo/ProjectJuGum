@@ -22,8 +22,5 @@ public:
 private:
 	NNCircle*	m_Circle;
 	EBulletType	m_Type;
-
-	float		m_speed;
-	float		m_direction;
 };
 
