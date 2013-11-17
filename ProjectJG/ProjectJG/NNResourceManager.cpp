@@ -11,7 +11,13 @@ NNResourceManager::NNResourceManager()
 }
 NNResourceManager::~NNResourceManager()
 {
-	for (auto iter=m_TextureTable.begin(); iter!=m_TextureTable.end(); iter++ )
+	for (auto& iter=m_TextureTable.begin(); iter!=m_TextureTable.end(); iter++ )
+	{
+		SafeDelete( iter->second );
+	}
+	m_TextureTable.clear();
+
+	for (auto& iter=m_SoundTable.begin(); iter!=m_SoundTable.end(); iter++ )
 	{
 		SafeDelete( iter->second );
 	}
@@ -43,4 +49,11 @@ NNTexture* NNResourceManager::LoadTextureFromFile( std::wstring path )
 	return m_TextureTable[path];
 }
 
-
+NNSound* NNResourceManager::LoadSoundFromFile( std::string path, bool isLoop, bool isBackground )
+{
+	if ( !m_SoundTable[path] )
+	{
+		m_SoundTable[path] = NNSound::Create( path, isLoop, isBackground );
+	}
+	return m_SoundTable[path];
+}

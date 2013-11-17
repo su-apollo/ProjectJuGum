@@ -3,6 +3,7 @@
 
 #include "NNConfig.h"
 #include "NNTexture.h"
+#include "NNSound.h"
 
 /* */
 /* NNResourceManager
@@ -12,6 +13,15 @@
 
 class NNResourceManager
 {
+private:
+	static NNResourceManager* m_pInstance;
+
+private:
+	std::map<std::wstring,NNTexture*> m_TextureTable;
+	std::map<std::string,NNSound*> m_SoundTable;
+private:
+	NNResourceManager();
+	~NNResourceManager();
 
 public:
 	static NNResourceManager* GetInstance();
@@ -19,17 +29,8 @@ public:
 
 	//NNTexture* LoadTexture( std::string key );
 	NNTexture* LoadTextureFromFile( std::wstring path );
-
-
-private:
-	static NNResourceManager* m_pInstance;
-
-private:
-	std::map<std::wstring,NNTexture*> m_TextureTable;
-
-private:
-	NNResourceManager();
-	~NNResourceManager();
+	NNSound* LoadSoundFromFile( std::string path, bool isLoop=false, bool isBackground=false );
 };
+
 
 

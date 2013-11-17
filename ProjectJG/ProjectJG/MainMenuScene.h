@@ -3,6 +3,7 @@
 
 class NNSprite;
 class NNLabel;
+class NNSound;
 
 class CMainMenuScene : public NNScene
 {
@@ -15,7 +16,10 @@ public:
 
 private:
 	NNSprite* m_Logo;
+	NNSprite* m_BackGround;
 	NNLabel* m_MenuLabel[3];
+
+	NNSound* m_BackgroundSound;
 
 	unsigned int m_KeyOn;
 };
