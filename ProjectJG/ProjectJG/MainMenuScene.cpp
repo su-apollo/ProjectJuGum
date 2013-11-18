@@ -15,7 +15,7 @@ CMainMenuScene::CMainMenuScene(void)
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 
-	m_BackGround = NNSprite::Create(L"Background.jpg");
+	m_BackGround = NNSprite::Create(L"Sprite/Background.jpg");
 	m_BackGround->SetPosition(NNPoint(width/2, height/2));
 	m_BackGround->SetImageHeight(height);
 	m_BackGround->SetImageWidth(width);
