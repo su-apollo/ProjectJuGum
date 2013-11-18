@@ -14,9 +14,13 @@ public:
 	inline float GetRightLine() { return GetPositionX() + m_MainFrame->GetWidth()*0.5f; }
 	inline float GetLeftLine() { return GetPositionX() - m_MainFrame->GetWidth()*0.5f; }
 
-	NNRect * GetMainFrame() { return m_MainFrame; }
+	NNRect *	GetMainFrame() { return m_MainFrame; }
+	float		GetHeight() {return m_Height;}
+	float		GetWidth() {return m_Width;}
 
 private:
 	NNRect *	m_MainFrame;
+	float		m_Height;
+	float		m_Width;
 };
 

@@ -32,5 +32,5 @@ void CAsteroid::Update( float dTime )
 
 void CAsteroid::SetRandomSpeed()
 {
-	SetSpeed((rand()%10)*100);
+	SetSpeed((rand()%10+1)*50);
 }

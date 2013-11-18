@@ -36,7 +36,8 @@ public:
 	//업데이트
 	void UpdateObj(float dTime, CMaincharacter* Enemy);
 	void UpdateBullet(float dTime);
-	void UpdateSatellite(float dTime , CMaincharacter* Enemy);
+	void UpdateSatellite(float dTime, CMaincharacter* Enemy);
+	void UpdateAsteroid(float dTime);
 
 	//히트채크
 	bool CharacterHitCheck(CMaincharacter * Player);

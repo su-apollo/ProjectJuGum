@@ -12,6 +12,7 @@
 #include "ReturnScene.h"
 #include "Bullet.h"
 #include "Satellite.h"
+#include "Asteroid.h"
 
 CPlayScene::CPlayScene(void)
 {
@@ -36,6 +37,14 @@ CPlayScene::CPlayScene(void)
 		CBulletManager::GetInstance()->GetBulletArray()[i] = new CBullet;
 		AddChild( CBulletManager::GetInstance()->GetBulletArray()[i] );
 		CBulletManager::GetInstance()->GetBulletArray()[i]->SetVisible(false);
+	}
+
+	//운석 로딩
+	for (int i = 0 ; i < MAX_ASTEROID_NUM ; ++i)
+	{
+		CBulletManager::GetInstance()->GetAsteroidArray()[i] = new CAsteroid;
+		AddChild( CBulletManager::GetInstance()->GetAsteroidArray()[i] );
+		CBulletManager::GetInstance()->GetAsteroidArray()[i]->SetVisible(false);
 	}
 
 	//인공위성 로딩
@@ -116,6 +125,13 @@ void CPlayScene::Update( float dTime )
 
 	//오브젝트의 라이프타임 처리
 	CBulletManager::GetInstance()->CheckLifeTime(m_Map);
+
+	//운석 테스트용 코드
+	if(NNInputSystem::GetInstance()->GetKeyState('P') == KEY_DOWN)
+	{
+		CBulletManager::GetInstance()->ShotAsteroid(m_Map);
+	}
+
 }
 
 // agebreak : 헤더의 변수명에 맞게 수정할 것!

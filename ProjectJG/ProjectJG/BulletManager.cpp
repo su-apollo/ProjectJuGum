@@ -64,6 +64,9 @@ CAsteroid* CBulletManager::GetAsteroid()
 	m_AsteroidIndex %= MAX_ASTEROID_NUM;
 	m_pAsteroidArray[m_AsteroidIndex]->SetVisible(true);
 
+	m_pAsteroidArray[m_AsteroidIndex]->SetRandomSpeed();
+	m_pAsteroidArray[m_AsteroidIndex]->SetDirection(135.f);
+
 	return m_pAsteroidArray[m_AsteroidIndex];
 }
 
@@ -156,6 +159,7 @@ void CBulletManager::ShotSLSectorNormalBullet()
 void CBulletManager::UpdateObj( float dTime , CMaincharacter* Enemy)
 {
 	UpdateSatellite(dTime, Enemy);
+	UpdateAsteroid(dTime);
 	UpdateBullet(dTime);
 }
 
@@ -166,6 +170,17 @@ void CBulletManager::UpdateBullet(float dTime)
 		if (m_pBulletArray[i]->IsVisible())
 		{
 			m_pBulletArray[i]->Update(dTime);
+		}
+	}
+}
+
+void CBulletManager::UpdateAsteroid( float dTime )
+{
+	for (int i = 0; i < MAX_ASTEROID_NUM; ++i)
+	{
+		if (m_pAsteroidArray[i]->IsVisible())
+		{
+			m_pAsteroidArray[i]->Update(dTime);
 		}
 	}
 }
@@ -221,6 +236,15 @@ void CBulletManager::CheckLifeTime(CMainMap * Map)
 			CheckLifeTime(Map, m_pBulletArray[i]);
 		}
 	}
+
+	for (int i = 0; i < MAX_ASTEROID_NUM; ++i)
+	{
+		if (m_pAsteroidArray[i]->IsVisible())
+		{
+			CheckLifeTime(Map, m_pAsteroidArray[i]);
+		}
+	}
+
 }
 
 void CBulletManager::CheckLifeTime(CMainMap * Map, CGameMoveObj * Obj)
@@ -270,5 +294,23 @@ void CBulletManager::ReleaseInstance()
 
 void CBulletManager::ShotAsteroid(CMainMap* Map)
 {
+	CAsteroid* asteroid;
+	int	temp;
+
+	for (int i = 0; i < MAX_ASTEROID_NUM; ++i)
+	{
+		asteroid = GetAsteroid();
+
+		if(rand()%2)
+		{
+			temp = rand() % (int)Map->GetHeight();
+			asteroid->SetPosition(Map->GetLeftLine() + (float)temp, Map->GetTopLine());
+		}
+		else
+		{
+			temp = rand() % (int)Map->GetWidth();
+			asteroid->SetPosition(Map->GetRightLine(), Map->GetTopLine() + (float)temp);
+		}
+	}
 }
 

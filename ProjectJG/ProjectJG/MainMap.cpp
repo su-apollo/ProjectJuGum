@@ -3,7 +3,10 @@
 
 CMainMap::CMainMap(void)
 {
-	m_MainFrame = NNRect::Create(750.f, 750.f);
+	m_Height = 750.f;
+	m_Width = 750.f;
+
+	m_MainFrame = NNRect::Create(m_Width, m_Height);
 	m_MainFrame->SetPosition(0.f,0.f);
 	AddChild(m_MainFrame);
 }
