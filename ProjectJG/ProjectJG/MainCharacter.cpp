@@ -8,6 +8,9 @@
 CMaincharacter::CMaincharacter(void)
 {
 	m_Texture =  NNSpriteAtlas::Create(L"Sprite/warrior2_0.png");
+	m_Texture->SetImageHeight(50.f);
+	m_Texture->SetImageWidth(50.f);
+	m_Texture->SetPosition(0.f, 0.f);
 	AddChild( m_Texture );
 
 	SetHitRadius(CHAR_HIT_RADIUS);
@@ -32,6 +35,9 @@ void CMaincharacter::Update(float dTime , CMaincharacter* player, CMaincharacter
 {
 	UpdateShotDirection(enemy);
 	UpdateShotPoint();
+
+	m_Texture->SetRotation(GetShotDirection());
+
 	UpdateMotion(dTime);
 	SkillCasting(dTime, player, enemy, map);
 }
