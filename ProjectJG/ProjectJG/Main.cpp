@@ -20,6 +20,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 
 #endif
 
+	srand(time(NULL));
 
 	NNApplication* Application = NNApplication::GetInstance();
 

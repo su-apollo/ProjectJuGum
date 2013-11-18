@@ -7,7 +7,10 @@ class CMaincharacter;
 class CSatellite;
 class NNObject;
 class CGameMoveObj;
+class CAsteroid;
 
+//총알뿐만아니라 게임상의 모든 이동하는 오브젝트를 관리
+//지금은 스킬도 관리중
 class CBulletManager
 {
 public:
@@ -19,48 +22,50 @@ public:
 	
 	//스킬들
 	void ShotBullet(CGameMoveObj* Player, EBulletType bullet_type);
-	void ShotSectorNormalBullets(CGameMoveObj* Player, float direction = 270.f, float degree = 90.f, int n = 7);
-	void ShotSectorMixBullets(CGameMoveObj* Player, float direction = 270.f, float degree = 180.f, int n = 20);
+	void ShotSectorBullets(CGameMoveObj* Player, EBulletType bullet_type, float degree = 90.f, int n = 7);
+	void ShotSectorMixBullets(CGameMoveObj* Player, EBulletType bullet_type_1, EBulletType bullet_type_2,float degree = 180.f, int n = 20);
 	void ShotTornadoBullets(CGameMoveObj* Player, int n);
 	void ShotSetupSatellite(CGameMoveObj* Player);
 
-	void ShotTBullet( CGameMoveObj* Player, float direction = 270.f, float degree =  90.f, int n = 3 );
-
+	//인공위성 관련 스킬
 	void ShotSLSectorNormalBullet();
 
+	//운석출현 스킬
+	void ShotAsteroid(CMainMap* Map);
+
+	//업데이트
 	void UpdateObj(float dTime, CMaincharacter* Enemy);
 	void UpdateBullet(float dTime);
 	void UpdateSatellite(float dTime , CMaincharacter* Enemy);
 
+	//히트채크
 	bool CharacterHitCheck(CMaincharacter * Player);
 
-	void CheckBulletLifeTime(CMainMap * Map);
+	//라이프타임
+	void CheckLifeTime(CMainMap * Map);
 	void CheckSatelliteLifeTime();
 
-	void DestroyBullet(CBullet* Bullet);
-	void DestroySatellite(CSatellite* Satellite);
+	void DestroyObj(CGameMoveObj* Obj);
 	
 	//생산은 씬에서 해줘야함 불렛메니져는 생산된 불렛을 어레이로 보관하고 관리
-	CBullet **		GetBulletArray() { return m_pBulletArray; }
-	CSatellite **	GetSatelliteArray() { return m_pSatelliteArray; }
-	
+	CBullet**		GetBulletArray() { return m_pBulletArray; }
+	CSatellite**	GetSatelliteArray() { return m_pSatelliteArray; }
+	CAsteroid**		GetAsteroidArray() { return m_pAsteroidArray; }
 
 private:
 	static CBulletManager * m_pInstance;
-
-	// agebreak : 각각의 Bullet들의 부모 클래스를 Bullet으로 만들고, 상속 구조로 만들면 하나의 리스트에서 관리할 수 있지 않을까?!
-	// 이런 구조라면 나중에 새로운 Bullet 타입이 추가될 때 마다, 변수와 함수들이 추가되어야 하는 문제가 있음.
 	
-	CBullet *		m_pBulletArray[MAX_BULLET_NUM];
-	CSatellite *	m_pSatelliteArray[MAX_SATELLITE_NUM];
+	CBullet*		m_pBulletArray[MAX_BULLET_NUM];
+	CSatellite*		m_pSatelliteArray[MAX_SATELLITE_NUM];
+	CAsteroid*		m_pAsteroidArray[MAX_ASTEROID_NUM];
 	int				m_BulletIndex;
 	int				m_SatelliteIndex;
+	int				m_AsteroidIndex;
 
-	// agebreak : 그러면 이런 함수들과 구조도 훨씬 깔끔한 구조로 변경이 가능할 것 같은데?
-	// Bullet 객체에서 상속을 받고, 각각의 Bullet 클래스에 BulletType을 enum 값으로 선언하여 구별하면 훨씬 좋은 구조가 될듯
-	void			BulletLifeTime(CMainMap * Map, CBullet * Bullet);
+	void			CheckLifeTime(CMainMap * Map, CGameMoveObj * Obj);
 
-	CBullet *		GetBullet(EBulletType bullet_type);
-	CSatellite *	GetSatellite();
+	CBullet*		GetBullet(EBulletType bullet_type);
+	CSatellite*		GetSatellite();
+	CAsteroid*		GetAsteroid();
 
 };

@@ -6,11 +6,12 @@
 #include "MainMenuScene.h"
 #include "Maincharacter.h"
 #include "Satellite.h"
+#include "Asteroid.h"
 
 CBulletManager* CBulletManager::m_pInstance = nullptr;
 
 CBulletManager::CBulletManager(void) : m_BulletIndex(0),
-	m_SatelliteIndex(0)
+	m_SatelliteIndex(0), m_AsteroidIndex(0)
 {
 }
 
@@ -57,6 +58,15 @@ CSatellite * CBulletManager::GetSatellite()
 	return m_pSatelliteArray[m_SatelliteIndex];
 }
 
+CAsteroid* CBulletManager::GetAsteroid()
+{
+	++m_AsteroidIndex;
+	m_AsteroidIndex %= MAX_ASTEROID_NUM;
+	m_pAsteroidArray[m_AsteroidIndex]->SetVisible(true);
+
+	return m_pAsteroidArray[m_AsteroidIndex];
+}
+
 //**************************************************************
 //                         Skills
 //**************************************************************
@@ -76,53 +86,35 @@ void CBulletManager::ShotBullet(CGameMoveObj * Player, EBulletType bullet_type)
 	pBullet->SetPosition( Player->GetShotPoint());
 }
 
-void CBulletManager::ShotTBullet(CGameMoveObj* Player, float direction, float degree, int n )
+void CBulletManager::ShotSectorBullets(CGameMoveObj* Player, EBulletType bullet_type, float degree , int n)
 {
-	NNPoint point = Player->GetPosition();
-	
-	for ( int i = 0; i < n; ++i )
-	{
-		CBullet* pBullet = GetBullet(NORMAL_BULLET);
-		point.SetY( Player->GetPositionY() - SHOT_POINT );
-		pBullet->SetPosition( point );
-
-		pBullet->SetDirection( direction + (degree * (i-1)));
-	}
-}
-
-void CBulletManager::ShotSectorNormalBullets(CGameMoveObj* Player, float direction, float degree, int n )
-{
-	NNPoint point = Player->GetPosition();
+	float direction = Player->GetShotDirection();
 
 	for ( int i = 0; i < n; ++i )
 	{
-		CBullet* pBullet = GetBullet(NORMAL_BULLET);
-		point.SetY( Player->GetPositionY() - SHOT_POINT );
-		pBullet->SetPosition( point );
-
+		CBullet* pBullet = GetBullet(bullet_type);
+		pBullet->SetPosition( Player->GetShotPoint());
 		pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
 	}
 }
 
-void CBulletManager::ShotSectorMixBullets(CGameMoveObj* Player, float direction, float degree, int n )
+void CBulletManager::ShotSectorMixBullets(CGameMoveObj* Player, EBulletType bullet_type_1, EBulletType bullet_type_2,float degree, int n )
 {
-	NNPoint point = Player->GetPosition();
+	float direction = Player->GetShotDirection();
 
 	for ( int i = 0; i < n; ++i )
 	{
 		if ( i%2 == 0 )
 		{
-			CBullet * pBullet = GetBullet(ACCEL_BULLET);
-			point.SetY( Player->GetPositionY() - SHOT_POINT );
-			pBullet->SetPosition( point );
+			CBullet * pBullet = GetBullet(bullet_type_1);
+			pBullet->SetPosition( Player->GetShotPoint());
 
 			pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
 		}
 		else
 		{
-			CBullet * pBullet = GetBullet(NORMAL_BULLET);
-			point.SetY( Player->GetPositionY() - SHOT_POINT );
-			pBullet->SetPosition( point );
+			CBullet * pBullet = GetBullet(bullet_type_2);
+			pBullet->SetPosition( Player->GetShotPoint());
 
 			pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
 		}
@@ -152,7 +144,7 @@ void CBulletManager::ShotSLSectorNormalBullet()
 	{
 		if (m_pSatelliteArray[i]->IsVisible())
 		{
-			ShotSectorNormalBullets(m_pSatelliteArray[i]);
+			ShotSectorBullets(m_pSatelliteArray[i], NORMAL_BULLET);
 		}
 	}
 }
@@ -194,10 +186,6 @@ void CBulletManager::UpdateSatellite(float dTime , CMaincharacter* Enemy)
 //**************************************************************
 bool CBulletManager::CharacterHitCheck(CMaincharacter * Player)
 {
-	// agebreak : 앞에 헤더파일에서 지적한 것과 같은 문제
-	// 총알의 종류가 계속 추가 되면 모든 코드들에 이렇게 계속 종류를 추가할 것인가? 
-	// 이럴때 사용하라고  C++에서 다형성에 대해서 배우지 않았던가??
-	// BattleShip에서 Ship들의 상속 구조에 대해서 생각해 볼 수 있도록...
 	for (int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
 		if(m_pBulletArray[i]->IsVisible() && m_pBulletArray[i]->HitCheck_CircleToCircle(Player))
@@ -219,48 +207,43 @@ void CBulletManager::CheckSatelliteLifeTime()
 	{
 		if (m_pSatelliteArray[i]->IsVisible())
 		{
-			DestroySatellite(m_pSatelliteArray[i]);
+			DestroyObj(m_pSatelliteArray[i]);
 		}
 	}
 }
 
-void CBulletManager::CheckBulletLifeTime(CMainMap * Map)
+void CBulletManager::CheckLifeTime(CMainMap * Map)
 {
 	for (int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
 		if (m_pBulletArray[i]->IsVisible())
 		{
-			BulletLifeTime(Map, m_pBulletArray[i]);
+			CheckLifeTime(Map, m_pBulletArray[i]);
 		}
 	}
 }
 
-void CBulletManager::BulletLifeTime(CMainMap * Map, CBullet * Bullet)
+void CBulletManager::CheckLifeTime(CMainMap * Map, CGameMoveObj * Obj)
 {
-	float leftline = Map->GetLeftLine() - Bullet->GetHitRadius();
-	float rightline = Map->GetRightLine() + Bullet->GetHitRadius();
-	float botline = Map->GetBotLine() + Bullet->GetHitRadius();
-	float topline = Map->GetTopLine() - Bullet->GetHitRadius();
+	float leftline = Map->GetLeftLine() - Obj->GetHitRadius();
+	float rightline = Map->GetRightLine() + Obj->GetHitRadius();
+	float botline = Map->GetBotLine() + Obj->GetHitRadius();
+	float topline = Map->GetTopLine() - Obj->GetHitRadius();
 
-	if (Bullet->GetPositionX() < leftline || Bullet->GetPositionX() > rightline
-		|| Bullet->GetPositionY() > botline || Bullet->GetPositionY() < topline)
+	if (Obj->GetPositionX() < leftline || Obj->GetPositionX() > rightline
+		|| Obj->GetPositionY() > botline || Obj->GetPositionY() < topline)
 	{
-		DestroyBullet(Bullet);
+		DestroyObj(Obj);
 	}
 }
 
 //**************************************************************
 //							Destroy
 //**************************************************************
-void CBulletManager::DestroyBullet( CBullet* Bullet )
+void CBulletManager::DestroyObj( CGameMoveObj* Bullet )
 {
 	Bullet->SetVisible(false);
 	Bullet->InitMember();
-}
-
-void CBulletManager::DestroySatellite( CSatellite* Satellite )
-{
-	Satellite->SetVisible(false);
 }
 
 //**************************************************************
@@ -283,5 +266,9 @@ void CBulletManager::ReleaseInstance()
 		delete m_pInstance;
 		m_pInstance = nullptr;
 	}
+}
+
+void CBulletManager::ShotAsteroid(CMainMap* Map)
+{
 }
 

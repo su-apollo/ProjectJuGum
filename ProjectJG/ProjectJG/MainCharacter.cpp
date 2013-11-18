@@ -97,7 +97,7 @@ void CMaincharacter::FirstStageSkillCasting(float dTime , CMaincharacter* player
 	case SKILL_KEY_ONE:
 		if ( GetCost() >= SHOT_BULLET_COST )
 		{
-			CBulletManager::GetInstance()->ShotTBullet(player);
+			CBulletManager::GetInstance()->ShotBullet(player, NORMAL_BULLET);
 			SetCost( GetCost() - SHOT_BULLET_COST );
 		}
 		break;
@@ -111,7 +111,7 @@ void CMaincharacter::FirstStageSkillCasting(float dTime , CMaincharacter* player
 	case SKILL_KEY_THREE:
 		if ( GetCost() >= SECTOR_SINGLE_COST*20 )
 		{
-			CBulletManager::GetInstance()->ShotSectorMixBullets(player);
+			CBulletManager::GetInstance()->ShotSectorMixBullets(player, ACCEL_BULLET, NORMAL_BULLET);
 			SetCost( GetCost() - SECTOR_SINGLE_COST*20 );
 		}
 		break;

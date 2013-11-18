@@ -12,6 +12,7 @@
 #include <list>
 #include <map>
 #include <math.h>
+#include <time.h>
 
 //디버기용
 #include <consoleapi.h>

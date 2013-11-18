@@ -114,8 +114,8 @@ void CPlayScene::Update( float dTime )
 		NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
 	}
 
-	//총알의 라이프타임 처리
-	CBulletManager::GetInstance()->CheckBulletLifeTime(m_Map);
+	//오브젝트의 라이프타임 처리
+	CBulletManager::GetInstance()->CheckLifeTime(m_Map);
 }
 
 // agebreak : 헤더의 변수명에 맞게 수정할 것!

@@ -8,6 +8,7 @@
 
 #define MAX_BULLET_NUM					500
 #define MAX_SATELLITE_NUM				20
+#define MAX_ASTEROID_NUM					10
 
 #define BULLET_SPEED						200.f
 #define ACCELBULLET_SPEED				100.f
@@ -35,6 +36,13 @@ enum EBulletType
 	NORMAL_BULLET,
 	ACCEL_BULLET,
 	CURVE_BULLET
+};
+
+enum ESatelliteType
+{
+	NORMAL_SATELLITE,
+	MOVE_SATELLIE,
+	RUSH_SATELLIE
 };
 
 enum ESkill
