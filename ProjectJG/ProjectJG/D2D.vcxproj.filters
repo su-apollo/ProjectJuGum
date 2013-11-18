@@ -84,6 +84,9 @@
     <ClCompile Include="NNSound.cpp">
       <Filter>Framework\Resource\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="NNSpriteAtlas.cpp">
+      <Filter>Framework\Node\SpriteAtlas</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -172,6 +175,9 @@
     </Filter>
     <Filter Include="Framework\Resource\Sound">
       <UniqueIdentifier>{eaf8e072-7eef-4689-a80c-ac9ed8acedb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Node\SpriteAtlas">
+      <UniqueIdentifier>{243fc6a2-f988-4a4e-be9d-487ce1c282b0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -271,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="NNSound.h">
       <Filter>Framework\Resource\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="NNSpriteAtlas.h">
+      <Filter>Framework\Node\SpriteAtlas</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

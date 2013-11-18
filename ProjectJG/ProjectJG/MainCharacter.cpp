@@ -3,9 +3,13 @@
 #include "BulletManager.h"
 #include "NNInputSystem.h"
 #include "NNCircle.h"
+#include "NNSpriteAtlas.h"
 
 CMaincharacter::CMaincharacter(void)
 {
+	m_Texture =  NNSpriteAtlas::Create(L"Sprite/warrior2_0.png");
+	AddChild( m_Texture );
+
 	SetHitRadius(CHAR_HIT_RADIUS);
 	m_Circle = NNCircle::Create(GetHitRadius());
 	m_Circle->SetPosition(0.f, 0.f);

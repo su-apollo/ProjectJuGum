@@ -5,6 +5,7 @@
 
 class NNCircle;
 class CMainMap;
+class NNSpriteAtlas;
 
 //메인케릭터 펙토리형태로 구성
 class CMaincharacter : public CGameMoveObj
@@ -26,6 +27,7 @@ public:
 	void			SkillCasting(float dTime , CMaincharacter* player, CMaincharacter* enemy, CMainMap* map);
 
 protected:
+	NNSpriteAtlas*	m_Texture;
 	NNCircle*		m_Circle;
 	ECharcterStage  m_Stage;
 	float			m_Cost;
