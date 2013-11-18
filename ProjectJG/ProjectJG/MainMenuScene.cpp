@@ -15,6 +15,9 @@ CMainMenuScene::CMainMenuScene(void)
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 
+	m_BackgroundSound = NNResourceManager::GetInstance()->LoadSoundFromFile( "Sound/Space Sprinkles.mp3", true );
+	NNAudioSystem::GetInstance()->Play( m_BackgroundSound );
+
 	m_BackGround = NNSprite::Create(L"Sprite/Background.jpg");
 	m_BackGround->SetPosition(NNPoint(width/2, height/2));
 	m_BackGround->SetImageHeight(height);
@@ -44,9 +47,6 @@ CMainMenuScene::CMainMenuScene(void)
 	AddChild( m_MenuLabel[MENU_QUIT] );
 
 	m_KeyOn = 0;
-
-	m_BackgroundSound = NNResourceManager::GetInstance()->LoadSoundFromFile( "Resources/Sound/effect1.mp3", true );
-	NNAudioSystem::GetInstance()->Play( m_BackgroundSound );
 }
 
 

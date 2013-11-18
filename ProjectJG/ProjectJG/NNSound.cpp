@@ -27,7 +27,7 @@ NNSound* NNSound::Create( std::string path, bool isLoop, bool isBackground )
 		NNAudioSystem::GetInstance()->GetSystem()->createSound( path.c_str(), (isLoop) ? FMOD_LOOP_NORMAL | FMOD_2D | FMOD_HARDWARE : FMOD_DEFAULT, nullptr, pInstance->GetSoundPointer() );
 	}*/
 
-	NNAudioSystem::GetInstance()->GetSystem()->createSound( path.c_str(), (isLoop) ? FMOD_LOOP_NORMAL | FMOD_2D | FMOD_HARDWARE : FMOD_DEFAULT, nullptr, pInstance->GetSoundPointer() );
+	FMOD_RESULT rs = NNAudioSystem::GetInstance()->GetSystem()->createSound( path.c_str(), (isLoop) ? FMOD_LOOP_NORMAL | FMOD_2D | FMOD_HARDWARE : FMOD_DEFAULT, nullptr, pInstance->GetSoundPointer() );
 
 	return pInstance;
 }
