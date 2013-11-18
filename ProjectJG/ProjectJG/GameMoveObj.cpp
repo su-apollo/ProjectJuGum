@@ -19,7 +19,6 @@ void CGameMoveObj::InitMember()
 	m_Speed = 0.f;
 	m_Accel = 0.f;
 	m_Direction = 0.f;
-	m_HitRadius = 0.f;
 	m_AngularAccel = 0.f;
 }
 
