@@ -1,4 +1,4 @@
-
+ï»¿
 #pragma once
 
 #include "NNScene.h"
@@ -6,28 +6,12 @@
 
 /* */
 /* NNSceneDirector
-/* »ı¼ºµÈ ¾ÀÀ» °ü¸®ÇÏ´Â ½Ì±ÛÅæ Å¬·¡½º
-/* µî·ÏµÈ ¾ÀÀ» Ãâ·Â, Ã³¸®ÇÏ´Â ¿ªÈ°ÀÌ´Ù.
+/* ìƒì„±ëœ ì”¬ì„ ê´€ë¦¬í•˜ëŠ” ì‹±ê¸€í†¤ í´ë˜ìŠ¤
+/* ë“±ë¡ëœ ì”¬ì„ ì¶œë ¥, ì²˜ë¦¬í•˜ëŠ” ì—­í™œì´ë‹¤.
 /* */
 
 class NNSceneDirector
 {
-
-public:
-	static NNSceneDirector* GetInstance();
-	static void ReleaseInstance();
-
-public:
-	bool Init();
-	bool Release();
-
-public:
-	bool ChangeScene( NNScene* scene );
-	bool RenderScene();
-	bool UpdateScene( float dTime );
-	bool BackToPrevScene();
-
-
 private:
 	static NNSceneDirector* m_pInstance;
 
@@ -35,10 +19,21 @@ private:
 	NNSceneDirector();
 	~NNSceneDirector();
 
+public:
+	static NNSceneDirector* GetInstance();
+	static void ReleaseInstance();
 
 private:
 	NNScene* m_NowScene;
-	NNScene* m_PrevScene;
+
+public:
+	bool Init();
+	bool Release();
+
+	NNScene* GetNowScene() { return m_NowScene; }
+
+public:
+	bool ChangeScene( NNScene* scene );
+	bool RenderScene();
+	bool UpdateScene( float dTime );
 };
-
-

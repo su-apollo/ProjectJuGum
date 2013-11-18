@@ -1,12 +1,10 @@
 #include "NNConfig.h"
 #include "NNSceneDirector.h"
 
-
-
 NNSceneDirector* NNSceneDirector::m_pInstance = nullptr;
 
 NNSceneDirector::NNSceneDirector()
-	: m_NowScene(nullptr), m_PrevScene(nullptr)
+	: m_NowScene(nullptr)
 {
 }
 NNSceneDirector::~NNSceneDirector()
@@ -35,36 +33,26 @@ void NNSceneDirector::ReleaseInstance()
 bool NNSceneDirector::Init()
 {
 	m_NowScene = nullptr;
-	m_PrevScene = nullptr;
 	return true;
 }
 
 bool NNSceneDirector::Release()
 {
 	SafeDelete( m_NowScene );
-	SafeDelete( m_PrevScene );
 	return true;
 }
 
 bool NNSceneDirector::ChangeScene( NNScene* scene )
 {
-	SafeDelete( m_PrevScene );
-	m_PrevScene = m_NowScene;
-	m_NowScene = scene;
-
-	return true;
-}
-bool NNSceneDirector::BackToPrevScene()
-{
-	if ( m_PrevScene == nullptr )
+	if ( m_NowScene == nullptr )
 	{
-		return false;
+		m_NowScene = scene;
 	}
-
-	NNScene* temp;
-	temp = m_NowScene;
-	m_NowScene = m_PrevScene;
-	m_PrevScene = temp;
+	else
+	{
+		SafeDelete( m_NowScene );
+		m_NowScene = scene;
+	}
 
 	return true;
 }
@@ -86,5 +74,6 @@ bool NNSceneDirector::UpdateScene( float dTime )
 
 	return true;
 }
+
 
 

@@ -52,6 +52,7 @@ CMainMenuScene::CMainMenuScene(void)
 
 CMainMenuScene::~CMainMenuScene(void)
 {
+	NNAudioSystem::GetInstance()->Stop( m_BackgroundSound );
 }
 
 void CMainMenuScene::Render()

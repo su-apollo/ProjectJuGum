@@ -87,7 +87,7 @@ void CPlayScene::Update( float dTime )
 {
 	if ( NNInputSystem::GetInstance()->GetMenuKeyInput() == PAUSE )
 	{
-		NNSceneDirector::GetInstance()->ChangeScene( new CReturnScene() );
+		//NNSceneDirector::GetInstance()->ChangeScene( new CReturnScene() );
 	}
 
 	// FPS

@@ -67,7 +67,7 @@ void CReturnScene::Update( float dTime )
 		} 
 		else
 		{
-			NNSceneDirector::GetInstance()->BackToPrevScene();
+			//NNSceneDirector::GetInstance()->BackToPrevScene();
 		}
 	}
 }
