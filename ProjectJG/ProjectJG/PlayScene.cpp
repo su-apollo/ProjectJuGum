@@ -121,6 +121,7 @@ void CPlayScene::Update( float dTime )
 	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player1))
 	{
 		NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
+		return;
 	}
 
 	//오브젝트의 라이프타임 처리
