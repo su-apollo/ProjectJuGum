@@ -33,6 +33,8 @@ public:
 	void UpdateKeyState();
 	KeyState GetKeyState( int key );
 
+	EInputSetUp GetMainMenuInput(void);
+
 	EInputSetUp GetDirectionKeyInput(void);
 	EInputSetUp GetSkillKeyInput(void);
 	EInputSetUp GetChangeSpeedKeyInput(void);

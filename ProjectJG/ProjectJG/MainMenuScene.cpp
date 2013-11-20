@@ -9,6 +9,7 @@
 #include "PlayScene.h"
 #include "NNSprite.h"
 #include "NNAudioSystem.h"
+#include "NetSettingScene.h"
 
 CMainMenuScene::CMainMenuScene(void)
 {
@@ -63,20 +64,20 @@ void CMainMenuScene::Render()
 void CMainMenuScene::Update( float dTime )
 {
 	m_MenuLabel[m_KeyOn]->SetColor( 255.f, 255.f, 255.f);
-	if ( NNInputSystem::GetInstance()->GetKeyState( VK_UP ) == KEY_DOWN
-		|| NNInputSystem::GetInstance()->GetKeyState( VK_LEFT ) == KEY_DOWN )
+	if ( NNInputSystem::GetInstance()->GetMainMenuInput() == UP 
+		|| NNInputSystem::GetInstance()->GetMainMenuInput() == LEFT)
 	{
 		--m_KeyOn;
 	}
-	if ( NNInputSystem::GetInstance()->GetKeyState( VK_DOWN ) == KEY_DOWN
-		|| NNInputSystem::GetInstance()->GetKeyState( VK_RIGHT ) == KEY_DOWN )
+	else if ( NNInputSystem::GetInstance()->GetMainMenuInput() == DOWN 
+		|| NNInputSystem::GetInstance()->GetMainMenuInput() == RIGHT )
 	{
 		++m_KeyOn;
 	}
 	m_KeyOn = (m_KeyOn + MENU_LAST) % MENU_LAST;
-	m_MenuLabel[m_KeyOn]->SetColor( 255, 0, 0 );
+	m_MenuLabel[m_KeyOn]->SetColor( 255.f, 0.f, 0.f );
 
-	if ( NNInputSystem::GetInstance()->GetKeyState( VK_RETURN ) == KEY_DOWN )
+	if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE )
 	{
 		switch (m_KeyOn)
 		{
@@ -84,6 +85,7 @@ void CMainMenuScene::Update( float dTime )
 			NNSceneDirector::GetInstance()->ChangeScene( new CPlayScene() );
 			break;
 		case MENU_TEST:
+			NNSceneDirector::GetInstance()->ChangeScene(new CNetSettingScene());
 			break;
 		case MENU_QUIT:
 			PostMessage( NNApplication::GetInstance()->GetHWND(), WM_DESTROY, 0, 0 );

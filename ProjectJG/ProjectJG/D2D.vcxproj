@@ -88,14 +88,17 @@
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="GameMoveObj.cpp" />
     <ClCompile Include="MainMap.cpp" />
+    <ClCompile Include="NetSettingScene.cpp" />
+    <ClCompile Include="NetTestPlay.cpp" />
     <ClCompile Include="NNAudioSystem.cpp" />
     <ClCompile Include="NNCircle.cpp" />
-    <ClCompile Include="NNConfigcpp.cpp" />
+    <ClCompile Include="NNConfig.cpp" />
     <ClCompile Include="NND2DRenderer.cpp" />
     <ClCompile Include="NNApplication.cpp" />
     <ClCompile Include="NNInputSystem.cpp" />
     <ClCompile Include="NNLabel.cpp" />
     <ClCompile Include="NNObject.cpp" />
+    <ClCompile Include="NNP2PNetManager.cpp" />
     <ClCompile Include="NNPoint.cpp" />
     <ClCompile Include="NNRect.cpp" />
     <ClCompile Include="NNScene.cpp" />
@@ -120,6 +123,8 @@
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="GameMoveObj.h" />
     <ClInclude Include="MainMap.h" />
+    <ClInclude Include="NetSettingScene.h" />
+    <ClInclude Include="NetTestPlay.h" />
     <ClInclude Include="NNAudioSystem.h" />
     <ClInclude Include="NNApplication.h" />
     <ClInclude Include="NNCircle.h" />
@@ -130,6 +135,8 @@
     <ClInclude Include="NNInputSystem.h" />
     <ClInclude Include="NNLabel.h" />
     <ClInclude Include="NNLibSet.h" />
+    <ClInclude Include="NNP2PNetManager.h" />
+    <ClInclude Include="NNPacketType.h" />
     <ClInclude Include="NNPoint.h" />
     <ClInclude Include="NNRect.h" />
     <ClInclude Include="NNRenderer.h" />

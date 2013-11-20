@@ -172,3 +172,41 @@ EInputSetUp NNInputSystem::GetMenuKeyInput(void)
 	else
 		return NONE;
 };
+
+EInputSetUp NNInputSystem::GetMainMenuInput( void )
+{
+	if  (GetInstance()->GetKeyState( m_keyup ) == KEY_DOWN && GetInstance()->GetKeyState( m_keyleft ) == KEY_DOWN)
+	{
+		return LEFT_UP;
+	}
+	else if (GetInstance()->GetKeyState( m_keyup ) == KEY_DOWN && GetInstance()->GetKeyState( m_keyright ) == KEY_DOWN )
+	{
+		return RIGHT_UP;
+	}
+	else if (GetInstance()->GetKeyState( m_keydown ) == KEY_DOWN && GetInstance()->GetKeyState( m_keyleft ) == KEY_DOWN )
+	{
+		return LEFT_DOWN;
+	}
+	else if (GetInstance()->GetKeyState( m_keydown ) == KEY_DOWN && GetInstance()->GetKeyState( m_keyright ) == KEY_DOWN )
+	{
+		return RIGHT_DOWN;
+	}
+	else if (GetInstance()->GetKeyState( m_keyleft ) == KEY_DOWN )
+	{
+		return LEFT;
+	}
+	else if (GetInstance()->GetKeyState( m_keyright ) == KEY_DOWN )
+	{
+		return RIGHT;
+	}
+	else if (GetInstance()->GetKeyState( m_keydown ) == KEY_DOWN )
+	{
+		return DOWN;
+	}
+	else if (GetInstance()->GetKeyState( m_keyup ) == KEY_DOWN )
+	{
+		return UP;
+	}
+	else
+		return NONE;
+}

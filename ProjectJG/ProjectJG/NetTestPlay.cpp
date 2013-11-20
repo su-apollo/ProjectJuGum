@@ -1,10 +1,10 @@
 #include "NNConfig.h"
+#include "NetTestPlay.h"
 
 #include "NNLabel.h"
 #include "NNSceneDirector.h"
 #include "NNApplication.h"
 
-#include "PlayScene.h"
 #include "Maincharacter.h"
 #include "BulletManager.h"
 #include "MainMenuScene.h"
@@ -14,7 +14,7 @@
 #include "Satellite.h"
 #include "Asteroid.h"
 
-CPlayScene::CPlayScene(void)
+CNetTestPlay::CNetTestPlay(void)
 {
 	//맵생성
 	m_Map = new CMainMap;
@@ -64,9 +64,9 @@ CPlayScene::CPlayScene(void)
 
 	// cost
 	m_Player1->SetCost(10000);
-	
+
 	m_CostPerSecond = 5.f;
-	
+
 	m_Player1CostLabel = NNLabel::Create( L"Player1's Cost : ", L"맑은 고딕", 20.f );
 	m_Player1CostLabel->SetPosition( 0.f, 700.f );
 	AddChild( m_Player1CostLabel );
@@ -75,15 +75,16 @@ CPlayScene::CPlayScene(void)
 	AddChild( m_Player2CostLabel );
 }
 
-CPlayScene::~CPlayScene(void)
+
+CNetTestPlay::~CNetTestPlay(void)
 {
 }
 
-void CPlayScene::Render()
+void CNetTestPlay::Render()
 {
 	NNScene::Render();
 }
-void CPlayScene::Update( float dTime )
+void CNetTestPlay::Update( float dTime )
 {
 	if ( NNInputSystem::GetInstance()->GetMenuKeyInput() == PAUSE )
 	{
@@ -105,7 +106,7 @@ void CPlayScene::Update( float dTime )
 	swprintf_s( m_Player2Cost, _countof(m_Player2Cost), L"Player2's Cost : %d", (int)(m_Player2->GetCost()) );
 	m_Player2CostLabel->SetString( m_Player2Cost );
 
-	
+
 	//총알 및 오브젝트의 업데이트
 	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2);
 
@@ -114,8 +115,8 @@ void CPlayScene::Update( float dTime )
 	//m_Player2->Update(dTime);
 
 	//맵과 캐릭터의 충돌체크
- 	SetPlayerMoveArea(m_Player1);
- 	SetPlayerMoveArea(m_Player2);
+	SetPlayerMoveArea(m_Player1);
+	SetPlayerMoveArea(m_Player2);
 
 	//총알과 캐릭터의 충돌체크
 	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player1))
@@ -135,7 +136,7 @@ void CPlayScene::Update( float dTime )
 
 }
 
-bool CPlayScene::CircleToCircleHitCheck(NNPoint point_A, float radius_A, NNPoint point_B, float radius_B) 
+bool CNetTestPlay::CircleToCircleHitCheck(NNPoint point_A, float radius_A, NNPoint point_B, float radius_B) 
 {
 	if((radius_A + radius_B) > point_A.GetDistance(point_B))
 	{
@@ -144,7 +145,7 @@ bool CPlayScene::CircleToCircleHitCheck(NNPoint point_A, float radius_A, NNPoint
 	return false;
 }
 
-void CPlayScene::SetPlayerMoveArea(CMaincharacter * Player)
+void CNetTestPlay::SetPlayerMoveArea(CMaincharacter * Player)
 {
 	float leftline = m_Map->GetLeftLine();
 	float rightline = m_Map->GetRightLine();

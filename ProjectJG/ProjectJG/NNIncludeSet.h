@@ -1,6 +1,7 @@
 
 #pragma once 
 
+#include <winsock2.h>
 #include <windows.h>
 
 #include <d2d1.h>
@@ -13,6 +14,8 @@
 #include <map>
 #include <math.h>
 #include <time.h>
+
+
 
 //디버기용
 #include <consoleapi.h>
