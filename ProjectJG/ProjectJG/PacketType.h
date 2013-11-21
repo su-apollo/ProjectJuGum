@@ -1,4 +1,11 @@
 #pragma once
+#include "NNMacroSet.h"
+
+#define MAX_STRING		128
+
+#define BUF_SIZE			32
+#define SERVER_PORT_NUM	9000
+
 
 enum PacketTypes
 {

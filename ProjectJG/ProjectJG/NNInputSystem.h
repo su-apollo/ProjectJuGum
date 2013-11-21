@@ -31,15 +31,14 @@ public:
 	void SetSkillKey(int skillnum, int skillkey) {m_skill[skillnum] = skillkey;}
 
 	void UpdateKeyState();
-	void UpdateKeyStateByPeerInput();
 	KeyState GetKeyState( int key );
 
+	//여기서부터는 게임에 종속되는 부분(EInputSetUp은 프레임워크가아니라 게임에 속해있다.)
 	EInputSetUp GetMainMenuInput(void);
-
 	EInputSetUp GetDirectionKeyInput(void);
 	EInputSetUp GetSkillKeyInput(void);
 	EInputSetUp GetChangeSpeedKeyInput(void);
-	EInputSetUp GetMenuKeyInput(void);
+	EInputSetUp GetGameMenuKeyInput(void);
 
 private:
 	static NNInputSystem* m_pInstance;

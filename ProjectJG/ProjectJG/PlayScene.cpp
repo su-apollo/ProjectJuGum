@@ -85,10 +85,6 @@ void CPlayScene::Render()
 }
 void CPlayScene::Update( float dTime )
 {
-	if ( NNInputSystem::GetInstance()->GetMenuKeyInput() == PAUSE )
-	{
-		//NNSceneDirector::GetInstance()->ChangeScene( new CReturnScene() );
-	}
 
 	// FPS
 	m_SumTime += dTime;

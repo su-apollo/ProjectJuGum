@@ -4,7 +4,7 @@
 #include "NNLabel.h"
 #include "NNSceneDirector.h"
 #include "NNApplication.h"
-#include "NNP2PNetManager.h"
+#include "NetManager.h"
 
 #include "Maincharacter.h"
 #include "BulletManager.h"
@@ -169,11 +169,6 @@ void CNetTestPlay::Update( float dTime )
 	}
 
 	++m_CurrentFrame;
-
-	if ( NNInputSystem::GetInstance()->GetMenuKeyInput() == PAUSE )
-	{
-		//NNSceneDirector::GetInstance()->ChangeScene( new CReturnScene() );
-	}
 
 	// FPS
 	m_SumTime += dTime;

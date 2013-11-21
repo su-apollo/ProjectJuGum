@@ -1,5 +1,5 @@
 #include "NNConfig.h"
-#include "NNP2PNetManager.h"
+#include "NetManager.h"
 
 
 NNP2PNetHelper* GNetHelper = NULL ;

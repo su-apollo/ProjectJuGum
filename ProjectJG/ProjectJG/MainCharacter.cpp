@@ -4,7 +4,7 @@
 #include "NNInputSystem.h"
 #include "NNCircle.h"
 #include "NNSpriteAtlas.h"
-#include "NNP2PNetManager.h"
+#include "NetManager.h"
 
 CMaincharacter::CMaincharacter(void)
 {

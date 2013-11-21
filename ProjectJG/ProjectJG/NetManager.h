@@ -1,7 +1,7 @@
 #pragma once
 
-#include "NNConfig.h"
 #include "GameOption.h"
+#include "PacketType.h"
 
 class NNP2PNetHelper
 {

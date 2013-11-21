@@ -1,6 +1,5 @@
 #include "NNConfig.h"
 #include "NNInputSystem.h"
-#include "NNP2PNetManager.h"
 
 NNInputSystem* NNInputSystem::m_pInstance = nullptr;
 
@@ -164,7 +163,7 @@ EInputSetUp NNInputSystem::GetChangeSpeedKeyInput(void)
 		return NONE;
 };
 
-EInputSetUp NNInputSystem::GetMenuKeyInput(void)
+EInputSetUp NNInputSystem::GetGameMenuKeyInput(void)
 {
 	if (GetInstance()->GetKeyState(m_pausekey) == KEY_DOWN)
 	{

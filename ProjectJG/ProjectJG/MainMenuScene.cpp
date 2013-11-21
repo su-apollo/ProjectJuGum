@@ -9,7 +9,6 @@
 #include "PlayScene.h"
 #include "NNSprite.h"
 #include "NNAudioSystem.h"
-#include "NetSettingScene.h"
 #include "NetTestPlay.h"
 
 CMainMenuScene::CMainMenuScene(void)
