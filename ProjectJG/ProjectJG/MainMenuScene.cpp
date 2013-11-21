@@ -16,16 +16,16 @@ CMainMenuScene::CMainMenuScene(void)
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 
-	m_BackgroundSound = NNResourceManager::GetInstance()->LoadSoundFromFile( "Sound/Space Sprinkles.mp3", true );
+	m_BackgroundSound = NNResourceManager::GetInstance()->LoadSoundFromFile( MAIN_MENU_BACKGROUND_SOUND, true );
 	NNAudioSystem::GetInstance()->Play( m_BackgroundSound );
 
-	m_BackGround = NNSprite::Create(L"Sprite/Background.jpg");
+	m_BackGround = NNSprite::Create( MAIN_MENU_BACKGROUND_IMAGE );
 	m_BackGround->SetPosition(NNPoint(width/2, height/2));
 	m_BackGround->SetImageHeight(height);
 	m_BackGround->SetImageWidth(width);
 	AddChild(m_BackGround);
 
-	m_Logo = NNSprite::Create( L"Sprite/logo.png" );
+	m_Logo = NNSprite::Create( MAIN_MENU_LOGO );
 	float image_ratio = (float)width * 0.5f / m_Logo->GetImageWidth();
 	m_Logo->SetImageWidth(m_Logo->GetImageWidth() * image_ratio);
 	m_Logo->SetImageHeight(m_Logo->GetImageHeight() * image_ratio);
@@ -74,7 +74,7 @@ void CMainMenuScene::Update( float dTime )
 	{
 		++m_KeyOn;
 	}
-	m_KeyOn = (m_KeyOn + MENU_LAST) % MENU_LAST;
+	m_KeyOn = (m_KeyOn + MENU_NUM) % MENU_NUM;
 	m_MenuLabel[m_KeyOn]->SetColor( 255.f, 0.f, 0.f );
 
 	if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE )

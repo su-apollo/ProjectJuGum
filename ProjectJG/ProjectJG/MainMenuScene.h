@@ -5,6 +5,8 @@ class NNSprite;
 class NNLabel;
 class NNSound;
 
+// 게임을 실행하면 처음에 보이는 씬.
+
 class CMainMenuScene : public NNScene
 {
 public:

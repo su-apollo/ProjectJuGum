@@ -107,20 +107,9 @@ void CBulletManager::ShotSectorMixBullets(CGameMoveObj* Player, EBulletType bull
 
 	for ( int i = 0; i < n; ++i )
 	{
-		if ( i%2 == 0 )
-		{
-			CBullet * pBullet = GetBullet(bullet_type_1);
-			pBullet->SetPosition( Player->GetShotPoint());
-
-			pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
-		}
-		else
-		{
-			CBullet * pBullet = GetBullet(bullet_type_2);
-			pBullet->SetPosition( Player->GetShotPoint());
-
-			pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
-		}
+		CBullet * pBullet = ( i%2 == 0 ) ? GetBullet(bullet_type_1) : GetBullet(bullet_type_2);
+		pBullet->SetPosition( Player->GetShotPoint());
+		pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
 	}
 }
 
