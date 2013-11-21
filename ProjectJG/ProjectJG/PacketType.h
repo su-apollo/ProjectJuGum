@@ -33,13 +33,15 @@ struct PacketTest
 
 struct PacketKeyStatus
 {
-	PacketKeyStatus() : mType(PKT_STATUS), mSequence(-1), mKeyStatus(0)
+	PacketKeyStatus() : mType(PKT_STATUS), mSequence(-1), 
+		mDirectionStatus(0), mSkillStatus(0)
 	{
 	}
 
 	short	mType ;
 	int		mSequence ;
-	short	mKeyStatus;
+	short	mDirectionStatus;
+	short	mSkillStatus;
 } ;
 
 #pragma pack(pop)

@@ -149,19 +149,13 @@ EInputSetUp NNInputSystem::GetSkillKeyInput(void)
 	{
 		return UPGRADE_KEY;
 	}
-	else
-		return NONE;
-}
-
-EInputSetUp NNInputSystem::GetChangeSpeedKeyInput(void)
-{
-	if (GetInstance()->GetKeyState(m_changespeedkey) == KEY_PRESSED)
+	else if (GetInstance()->GetKeyState(m_changespeedkey) == KEY_PRESSED)
 	{
 		return CHANGE_SPEED;
 	}
 	else
 		return NONE;
-};
+}
 
 EInputSetUp NNInputSystem::GetGameMenuKeyInput(void)
 {

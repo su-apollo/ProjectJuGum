@@ -106,7 +106,7 @@ void CPlayScene::Update( float dTime )
 	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2, m_Map);
 
 	//캐릭터 업데이트
-	m_Player1->Update(dTime,m_Player1, m_Player2, m_Map);
+	m_Player1->Update(dTime, m_Player2, m_Map);
 	//m_Player2->Update(dTime);
 
 	//맵과 캐릭터의 충돌체크

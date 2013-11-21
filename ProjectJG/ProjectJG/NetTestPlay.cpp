@@ -190,8 +190,8 @@ void CNetTestPlay::Update( float dTime )
 	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2, m_Map);
 
 	//캐릭터 업데이트
-	m_Player1->Update_NetworkMode(dTime, m_Player1, m_Player2, m_Map, m_CurrentFrame);
-	m_Player2->UpdateEnemyMotion_NetworkMode(dTime, m_Player1, m_CurrentFrame);
+	m_Player1->Update(dTime, m_Player2, m_Map, m_CurrentFrame);
+	m_Player2->UpdateByPeer(dTime, m_Player1, m_Map, m_CurrentFrame);
 
 	//맵과 캐릭터의 충돌체크
 	SetPlayerMoveArea(m_Player1);

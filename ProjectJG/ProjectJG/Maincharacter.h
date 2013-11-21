@@ -15,9 +15,14 @@ public:
 	virtual ~CMaincharacter(void);
 
 	void			Render();
-	void			Update(float dTime , CMaincharacter* player, CMaincharacter* enemy, CMainMap* map);
-	void			Update_NetworkMode(float dTime , CMaincharacter* player, CMaincharacter* enemy, CMainMap* map, int framenum);
-	void			UpdateEnemyMotion_NetworkMode(float dTime, CMaincharacter* enemy, int framenum);
+	//임시로 만든 함수
+	void			Update(float dTime, CMaincharacter* enemy, CMainMap* map);
+	
+	void			Update(float dTime, CMaincharacter* enemy, CMainMap* map, int framenum);
+	void			UpdateByPeer(float dTime, CMaincharacter* enemy, CMainMap* map, int framenum);
+
+	void			UpdateMotion(float dTime, EInputSetUp skill_key, EInputSetUp move_key);
+	void			FirstStageSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key);
 
 	NNCircle *		GetMainCircle(){return m_Circle;}
 
@@ -26,15 +31,12 @@ public:
 
 	void			SetCost(float cost) {m_Cost = cost;}
 	void			SetStage(ECharcterStage new_stage) {m_Stage = new_stage;}
-	void			SkillCasting(float dTime , CMaincharacter* player, CMaincharacter* enemy, CMainMap* map);
+	void			SkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key);
 
 protected:
 	NNSpriteAtlas*	m_Texture;
 	NNCircle*		m_Circle;
 	ECharcterStage  m_Stage;
 	float			m_Cost;
-
-	void			UpdateMotion(float dTime);
-	void			FirstStageSkillCasting(float dTime , CMaincharacter* player, CMaincharacter* enemy, CMainMap* map);
 };
 

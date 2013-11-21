@@ -142,30 +142,3 @@ bool NetHelper::RecvKeyStatus(OUT PacketKeyStatus& recvKeys)
 
 	return true ;
 }
-
-EInputSetUp NetHelper::UpdateStateByPeerInput( int frameNum )
-{
-	if ( !GNetHelper->IsPeerLinked() )
-		return NONE;
-
-	/// P2P 데이터 받아서 상태 업데이트
-	PacketKeyStatus recvPkt ;
-	GNetHelper->RecvKeyStatus(recvPkt) ;
-
-	if ( recvPkt.mSequence != frameNum )
-	{
-		/// 여기 걸리면 프레임 빗나간 것이다..
-		assert(false) ;
-	}
-
-	return (EInputSetUp)recvPkt.mKeyStatus;
-}
-
-void NetHelper::SendKeyStateToPeer( int frameNum, EInputSetUp inputsetup )
-{
-	PacketKeyStatus sendPkt ;
-	sendPkt.mSequence = frameNum ;
-	sendPkt.mKeyStatus = (short) inputsetup;
-
-	GNetHelper->SendKeyStatus(sendPkt) ;
-}

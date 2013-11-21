@@ -37,7 +37,6 @@ public:
 	EInputSetUp GetMainMenuInput(void);
 	EInputSetUp GetDirectionKeyInput(void);
 	EInputSetUp GetSkillKeyInput(void);
-	EInputSetUp GetChangeSpeedKeyInput(void);
 	EInputSetUp GetGameMenuKeyInput(void);
 
 private:
