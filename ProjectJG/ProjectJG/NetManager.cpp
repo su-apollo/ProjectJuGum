@@ -2,21 +2,21 @@
 #include "NetManager.h"
 
 
-NNP2PNetHelper* GNetHelper = NULL ;
+NetHelper* GNetHelper = NULL ;
 
-NNP2PNetHelper::NNP2PNetHelper(bool serverMode, char* serverAddr) : m_PeerAddrLen(0), m_Socket(NULL), m_IsServerMode(serverMode), m_IsPeerLinked(false)
+NetHelper::NetHelper(bool serverMode, char* serverAddr) : m_PeerAddrLen(0), m_Socket(NULL), m_IsServerMode(serverMode), m_IsPeerLinked(false)
 {
 	strcpy_s(m_TargetAddr, serverAddr) ;
 }
 
-NNP2PNetHelper::~NNP2PNetHelper()
+NetHelper::~NetHelper()
 {
 	closesocket(m_Socket) ;
 	WSACleanup() ;
 }
 
 
-bool NNP2PNetHelper::Initialize()
+bool NetHelper::Initialize()
 {
 	/// Socket ÃÊ±âÈ­ 
 	WSADATA wsa ;
@@ -31,7 +31,7 @@ bool NNP2PNetHelper::Initialize()
 }
 
 
-bool NNP2PNetHelper::DoHandShake()
+bool NetHelper::DoHandShake()
 {
 	char ioBuf[BUF_SIZE] = {0, } ;
 
@@ -116,7 +116,7 @@ bool NNP2PNetHelper::DoHandShake()
 }
 
 
-bool NNP2PNetHelper::SendKeyStatus(const PacketKeyStatus& sendKeys)
+bool NetHelper::SendKeyStatus(const PacketKeyStatus& sendKeys)
 {
 
 	/// SEND
@@ -130,7 +130,7 @@ bool NNP2PNetHelper::SendKeyStatus(const PacketKeyStatus& sendKeys)
 	return true ;
 }
 
-bool NNP2PNetHelper::RecvKeyStatus(OUT PacketKeyStatus& recvKeys)
+bool NetHelper::RecvKeyStatus(OUT PacketKeyStatus& recvKeys)
 {
 	/// RECEIVE
 	int retval = recvfrom(m_Socket, (char*)&recvKeys, sizeof(PacketKeyStatus), 0, (SOCKADDR*)&m_PeerAddrIn, &m_PeerAddrLen) ;
@@ -143,7 +143,7 @@ bool NNP2PNetHelper::RecvKeyStatus(OUT PacketKeyStatus& recvKeys)
 	return true ;
 }
 
-EInputSetUp NNP2PNetHelper::UpdateStateByPeerInput( int frameNum )
+EInputSetUp NetHelper::UpdateStateByPeerInput( int frameNum )
 {
 	if ( !GNetHelper->IsPeerLinked() )
 		return NONE;
@@ -161,7 +161,7 @@ EInputSetUp NNP2PNetHelper::UpdateStateByPeerInput( int frameNum )
 	return (EInputSetUp)recvPkt.mKeyStatus;
 }
 
-void NNP2PNetHelper::SendKeyStateToPeer( int frameNum, EInputSetUp inputsetup )
+void NetHelper::SendKeyStateToPeer( int frameNum, EInputSetUp inputsetup )
 {
 	PacketKeyStatus sendPkt ;
 	sendPkt.mSequence = frameNum ;

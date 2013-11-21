@@ -124,7 +124,7 @@ void CNetTestPlay::Update( float dTime )
 			switch (m_KeyOn)
 			{
 			case CLIENT_MODE:
-				GNetHelper = new NNP2PNetHelper(false, serverIpAddr) ;
+				GNetHelper = new NetHelper(false, serverIpAddr) ;
 
 				if ( !GNetHelper->Initialize() )
 				{
@@ -143,7 +143,7 @@ void CNetTestPlay::Update( float dTime )
 				return;
 
 			case SERVER_MODE:
-				GNetHelper = new NNP2PNetHelper(true, serverIpAddr) ;
+				GNetHelper = new NetHelper(true, serverIpAddr) ;
 
 				if ( !GNetHelper->Initialize() )
 				{

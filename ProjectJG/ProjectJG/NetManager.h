@@ -3,11 +3,11 @@
 #include "GameOption.h"
 #include "PacketType.h"
 
-class NNP2PNetHelper
+class NetHelper
 {
 public:
-	NNP2PNetHelper(bool serverMode, char* serverAddr) ;
-	~NNP2PNetHelper() ;
+	NetHelper(bool serverMode, char* serverAddr) ;
+	~NetHelper() ;
 
 	bool Initialize() ;
 
@@ -36,5 +36,5 @@ private:
 } ;
 
 
-extern NNP2PNetHelper* GNetHelper ;
+extern NetHelper* GNetHelper ;
 
