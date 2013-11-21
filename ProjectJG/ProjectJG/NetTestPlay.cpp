@@ -4,6 +4,7 @@
 #include "NNLabel.h"
 #include "NNSceneDirector.h"
 #include "NNApplication.h"
+#include "NNP2PNetManager.h"
 
 #include "Maincharacter.h"
 #include "BulletManager.h"
@@ -14,7 +15,7 @@
 #include "Satellite.h"
 #include "Asteroid.h"
 
-CNetTestPlay::CNetTestPlay(ENetworkMode network_mode)
+CNetTestPlay::CNetTestPlay()
 {
 	//맵생성
 	m_Map = new CMainMap;
@@ -24,17 +25,6 @@ CNetTestPlay::CNetTestPlay(ENetworkMode network_mode)
 	//플레이어 생성
 	m_Player1 = new CMaincharacter;
 	m_Player2 = new CMaincharacter;
-
-	if(network_mode == SERVER_MODE)
-	{
-		m_Player1->SetPosition(NNPoint(640.f, 700.f));
-		m_Player2->SetPosition(NNPoint(640.f, 100.f));
-	}
-	else
-	{
-		m_Player1->SetPosition(NNPoint(640.f, 100.f));
-		m_Player2->SetPosition(NNPoint(640.f, 700.f));
-	}
 
 	AddChild( m_Player1 );
 	AddChild( m_Player2 );
@@ -81,6 +71,23 @@ CNetTestPlay::CNetTestPlay(ENetworkMode network_mode)
 	m_Player2CostLabel = NNLabel::Create( L"Player2's Cost : ", L"맑은 고딕", 20.f );
 	m_Player2CostLabel->SetPosition( 0.f, 100.f );
 	AddChild( m_Player2CostLabel );
+
+
+	//netmenu
+	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
+	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
+
+	m_MenuLabel[CLIENT_MODE] = NNLabel::Create( L"CLIENT", L"궁서체", 40.f );
+	m_MenuLabel[CLIENT_MODE]->SetColor(255.0f, 0.0f, 0.0f);
+	m_MenuLabel[CLIENT_MODE]->SetPosition( width/2 + 60.f, height/2 );
+	AddChild( m_MenuLabel[CLIENT_MODE] );
+
+	m_MenuLabel[SERVER_MODE] = NNLabel::Create( L"SERVER", L"궁서체", 40.f );
+	m_MenuLabel[SERVER_MODE]->SetColor(0.0f, 0.0f, 0.0f);
+	m_MenuLabel[SERVER_MODE]->SetPosition( width/2 + 60.f, height/2 + 80.f );
+	AddChild( m_MenuLabel[SERVER_MODE] );
+
+	m_KeyOn = 0;
 }
 
 
@@ -94,6 +101,73 @@ void CNetTestPlay::Render()
 }
 void CNetTestPlay::Update( float dTime )
 {
+	if (m_netsetup)
+	{
+		char* serverIpAddr = "127.0.0.1";
+
+		m_MenuLabel[m_KeyOn]->SetColor( 0.f, 0.f, 0.f);	
+		if ( NNInputSystem::GetInstance()->GetMainMenuInput() == UP 
+			|| NNInputSystem::GetInstance()->GetMainMenuInput() == LEFT )
+		{
+			--m_KeyOn;
+		}
+		else if ( NNInputSystem::GetInstance()->GetMainMenuInput() == DOWN 
+			|| NNInputSystem::GetInstance()->GetMainMenuInput() == RIGHT )
+		{
+			++m_KeyOn;
+		}
+		m_KeyOn = (m_KeyOn + NET_MENU_LAST) % NET_MENU_LAST;
+		m_MenuLabel[m_KeyOn]->SetColor( 255.f, 0.f, 0.f);
+
+		if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE )
+		{
+			switch (m_KeyOn)
+			{
+			case CLIENT_MODE:
+				GNetHelper = new NNP2PNetHelper(false, serverIpAddr) ;
+
+				if ( !GNetHelper->Initialize() )
+				{
+					MessageBox(NULL, L"NetHelper::Initialize()", L"ERROR", MB_OK) ;
+					return;
+				}
+				if ( !GNetHelper->DoHandShake() )
+				{
+					return;
+				}
+
+				m_Player1->SetPosition(NNPoint(640.f, 100.f));
+				m_Player2->SetPosition(NNPoint(640.f, 700.f));
+
+				m_netsetup = false;
+				return;
+
+			case SERVER_MODE:
+				GNetHelper = new NNP2PNetHelper(true, serverIpAddr) ;
+
+				if ( !GNetHelper->Initialize() )
+				{
+					MessageBox(NULL, L"NetHelper::Initialize()", L"ERROR", MB_OK) ;
+					return;
+				}
+
+				if ( !GNetHelper->DoHandShake() )
+				{
+					return;
+				}
+
+				m_Player1->SetPosition(NNPoint(640.f, 700.f));
+				m_Player2->SetPosition(NNPoint(640.f, 100.f));
+
+				m_netsetup = false;
+				return;
+			default:
+				break;
+			}
+		}
+		return;
+	}
+
 	++m_CurrentFrame;
 
 	if ( NNInputSystem::GetInstance()->GetMenuKeyInput() == PAUSE )
@@ -121,12 +195,12 @@ void CNetTestPlay::Update( float dTime )
 	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2, m_Map);
 
 	//캐릭터 업데이트
-	m_Player1->Update_NetworkMode(dTime,m_Player1, m_Player2, m_Map, m_CurrentFrame);
-	m_Player2->UpdateEnemyMotion_NetworkMode(dTime, m_CurrentFrame);
+	m_Player1->Update_NetworkMode(dTime, m_Player1, m_Player2, m_Map, m_CurrentFrame);
+	m_Player2->UpdateEnemyMotion_NetworkMode(dTime, m_Player1, m_CurrentFrame);
 
 	//맵과 캐릭터의 충돌체크
 	SetPlayerMoveArea(m_Player1);
-	//SetPlayerMoveArea(m_Player2);
+	SetPlayerMoveArea(m_Player2);
 
 	//총알과 캐릭터의 충돌체크
 	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player1))

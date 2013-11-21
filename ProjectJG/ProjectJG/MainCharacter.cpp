@@ -94,9 +94,19 @@ void CMaincharacter::Update_NetworkMode( float dTime , CMaincharacter* player, C
 }
 
 
-void CMaincharacter::UpdateEnemyMotion_NetworkMode( float dTime, int framenum)
+void CMaincharacter::UpdateEnemyMotion_NetworkMode( float dTime, CMaincharacter* enemy, int framenum)
 {
-	switch (GNetHelper->UpdateStateByPeerInput(framenum))
+	SetSpeed(CHAR_SPEED);
+	UpdateShotDirection(enemy);
+	UpdateShotPoint();
+
+	m_Texture->SetRotation(GetShotDirection());
+
+	EInputSetUp temp = GNetHelper->UpdateStateByPeerInput(framenum);
+
+	printf_s("%d \n", temp);
+
+	switch (temp)
 	{
 	case UP:
 		SetPosition( GetPosition() + NNPoint(GetSpeed()*NNDegreeToX(270), GetSpeed()*NNDegreeToY(270)) * dTime );

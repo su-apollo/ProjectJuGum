@@ -11,7 +11,7 @@ class CCurveBullet;
 class CNetTestPlay : public NNScene
 {
 public:
-	CNetTestPlay(ENetworkMode network_mode);
+	CNetTestPlay();
 	virtual ~CNetTestPlay(void);
 
 
@@ -41,6 +41,10 @@ private:
 
 	CAccelBullet* m_testbullet;
 
+	//test member
+	bool		m_netsetup;
 	int			m_CurrentFrame;
+	NNLabel*	m_MenuLabel[2];
+	unsigned int m_KeyOn;
 };
 

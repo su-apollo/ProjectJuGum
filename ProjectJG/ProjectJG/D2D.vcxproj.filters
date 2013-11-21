@@ -87,9 +87,6 @@
     <ClCompile Include="NNP2PNetManager.cpp">
       <Filter>Framework\P2PNet</Filter>
     </ClCompile>
-    <ClCompile Include="NetSettingScene.cpp">
-      <Filter>GameObjects\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="NetTestPlay.cpp">
       <Filter>GameObjects\Scene</Filter>
     </ClCompile>
@@ -298,9 +295,6 @@
     </ClInclude>
     <ClInclude Include="NNPacketType.h">
       <Filter>Framework\Macro</Filter>
-    </ClInclude>
-    <ClInclude Include="NetSettingScene.h">
-      <Filter>GameObjects\Scene</Filter>
     </ClInclude>
     <ClInclude Include="NetTestPlay.h">
       <Filter>GameObjects\Scene</Filter>
