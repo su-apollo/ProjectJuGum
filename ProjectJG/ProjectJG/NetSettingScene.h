@@ -1,14 +1,8 @@
 #pragma once
 #include "NNScene.h"
+#include "GameOption.h"
 
 class NNLabel;
-
-enum NetworkMode
-{
-	CLIENT_MODE,
-	SERVER_MODE,
-	NET_MENU_LAST
-};
 
 class CNetSettingScene
 	: public NNScene

@@ -4,6 +4,7 @@
 #include "NNInputSystem.h"
 #include "NNCircle.h"
 #include "NNSpriteAtlas.h"
+#include "NNP2PNetManager.h"
 
 CMaincharacter::CMaincharacter(void)
 {
@@ -84,6 +85,49 @@ void CMaincharacter::UpdateMotion(float dTime)
 		break;
 	}
 }
+
+
+void CMaincharacter::Update_NetworkMode( float dTime , CMaincharacter* player, CMaincharacter* enemy, CMainMap* map, int framenum )
+{
+	Update(dTime, player, enemy, map);
+	GNetHelper->SendKeyStateToPeer(framenum, NNInputSystem::GetInstance()->GetDirectionKeyInput());
+}
+
+
+void CMaincharacter::UpdateEnemyMotion_NetworkMode( float dTime, int framenum)
+{
+	switch (GNetHelper->UpdateStateByPeerInput(framenum))
+	{
+	case UP:
+		SetPosition( GetPosition() + NNPoint(GetSpeed()*NNDegreeToX(270), GetSpeed()*NNDegreeToY(270)) * dTime );
+		break;
+	case DOWN:
+		SetPosition( GetPosition() + NNPoint(GetSpeed()*NNDegreeToX(90), GetSpeed()*NNDegreeToY(90)) * dTime );
+		break;
+	case LEFT:
+		SetPosition( GetPosition() + NNPoint(GetSpeed()*NNDegreeToX(180), GetSpeed()*NNDegreeToY(180)) * dTime );
+		break;
+	case RIGHT:
+		SetPosition( GetPosition() + NNPoint(GetSpeed()*NNDegreeToX(0), GetSpeed()*NNDegreeToY(0)) * dTime );
+		break;
+	case LEFT_UP:
+		SetPosition( GetPosition() + NNPoint(GetSpeed()*NNDegreeToX(225), GetSpeed()*NNDegreeToY(225))*dTime );
+		break;
+	case LEFT_DOWN:
+		SetPosition( GetPosition() + NNPoint(GetSpeed()*NNDegreeToX(135), GetSpeed()*NNDegreeToY(135)) * dTime );
+		break;
+	case RIGHT_UP:
+		SetPosition( GetPosition() + NNPoint(GetSpeed()*NNDegreeToX(315), GetSpeed()*NNDegreeToY(315))* dTime );
+		break;
+	case RIGHT_DOWN:
+		SetPosition( GetPosition() + NNPoint(GetSpeed()*NNDegreeToX(45), GetSpeed()*NNDegreeToY(45)) * dTime );
+		break;
+	default:
+		break;
+	}
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////////
 //								 skillcasting									 //
 ///////////////////////////////////////////////////////////////////////////////////

@@ -156,31 +156,33 @@ void CBulletManager::ShotSLSectorNormalBullet()
 //**************************************************************
 //                          Update
 //**************************************************************
-void CBulletManager::UpdateObj( float dTime , CMaincharacter* Enemy)
+void CBulletManager::UpdateObj(float dTime, CMaincharacter* Enemy, CMainMap* Map)
 {
 	UpdateSatellite(dTime, Enemy);
-	UpdateAsteroid(dTime);
-	UpdateBullet(dTime);
+	UpdateAsteroid(dTime, Map);
+	UpdateBullet(dTime, Map);
 }
 
-void CBulletManager::UpdateBullet(float dTime)
+void CBulletManager::UpdateBullet(float dTime, CMainMap* Map)
 {
 	for (int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
 		if (m_pBulletArray[i]->IsVisible())
 		{
 			m_pBulletArray[i]->Update(dTime);
+			CheckLifeTime(Map, m_pBulletArray[i]);
 		}
 	}
 }
 
-void CBulletManager::UpdateAsteroid( float dTime )
+void CBulletManager::UpdateAsteroid(float dTime, CMainMap* Map )
 {
 	for (int i = 0; i < MAX_ASTEROID_NUM; ++i)
 	{
 		if (m_pAsteroidArray[i]->IsVisible())
 		{
 			m_pAsteroidArray[i]->Update(dTime);
+			CheckLifeTime(Map, m_pAsteroidArray[i]);
 		}
 	}
 }
@@ -191,7 +193,7 @@ void CBulletManager::UpdateSatellite(float dTime , CMaincharacter* Enemy)
 	{
 		if (m_pSatelliteArray[i]->IsVisible())
 		{
-			m_pSatelliteArray[i]->Update(dTime, m_pSatelliteArray[i], Enemy);
+			m_pSatelliteArray[i]->Update(dTime, Enemy);
 		}
 	}
 }
@@ -208,7 +210,6 @@ bool CBulletManager::CharacterHitCheck(CMaincharacter * Player)
 			return true;
 		}
 	}
-
 	return false;
 }
 
@@ -216,7 +217,7 @@ bool CBulletManager::CharacterHitCheck(CMaincharacter * Player)
 //                         LifeTime
 //**************************************************************
 
-void CBulletManager::CheckSatelliteLifeTime()
+void CBulletManager::DestroySatellite()
 {
 	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
 	{
@@ -225,26 +226,6 @@ void CBulletManager::CheckSatelliteLifeTime()
 			DestroyObj(m_pSatelliteArray[i]);
 		}
 	}
-}
-
-void CBulletManager::CheckLifeTime(CMainMap * Map)
-{
-	for (int i = 0; i < MAX_BULLET_NUM; ++i)
-	{
-		if (m_pBulletArray[i]->IsVisible())
-		{
-			CheckLifeTime(Map, m_pBulletArray[i]);
-		}
-	}
-
-	for (int i = 0; i < MAX_ASTEROID_NUM; ++i)
-	{
-		if (m_pAsteroidArray[i]->IsVisible())
-		{
-			CheckLifeTime(Map, m_pAsteroidArray[i]);
-		}
-	}
-
 }
 
 void CBulletManager::CheckLifeTime(CMainMap * Map, CGameMoveObj * Obj)

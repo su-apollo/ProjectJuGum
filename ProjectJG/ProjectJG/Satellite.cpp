@@ -21,19 +21,19 @@ void CSatellite::Render()
 	NNObject::Render();
 }
 
-void CSatellite::Update( float dTime, CSatellite* Satellite, CMaincharacter* Enemy)
+void CSatellite::Update( float dTime, CMaincharacter* Enemy)
 {
 	UpdateShotDirection(Enemy);
 	UpdateShotPoint();
-	ShotNomalBullet(dTime, Satellite);
+	ShotNomalBullet(dTime);
 }
  
-void CSatellite::ShotNomalBullet( float dTime, CSatellite* Satellite)
+void CSatellite::ShotNomalBullet( float dTime)
 {
 	m_dTimeSum += dTime;
 	if (m_dTimeSum >= 2.f)
 	{
-		CBulletManager::GetInstance()->ShotBullet(Satellite, NORMAL_BULLET);
+		CBulletManager::GetInstance()->ShotBullet(this, NORMAL_BULLET);
 		m_dTimeSum = 0.f;
 	}
 }

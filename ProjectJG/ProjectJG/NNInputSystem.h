@@ -31,6 +31,7 @@ public:
 	void SetSkillKey(int skillnum, int skillkey) {m_skill[skillnum] = skillkey;}
 
 	void UpdateKeyState();
+	void UpdateKeyStateByPeerInput();
 	KeyState GetKeyState( int key );
 
 	EInputSetUp GetMainMenuInput(void);
@@ -60,8 +61,6 @@ private:
 
 	bool m_PrevKeyState[256];
 	bool m_NowKeyState[256];
-
-	
 };
 
 

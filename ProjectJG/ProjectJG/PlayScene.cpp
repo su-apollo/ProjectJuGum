@@ -106,8 +106,8 @@ void CPlayScene::Update( float dTime )
 	m_Player2CostLabel->SetString( m_Player2Cost );
 
 	
-	//총알 및 오브젝트의 업데이트
-	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2);
+	//총알 및 오브젝트의 업데이트와 라이프타임 채크
+	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2, m_Map);
 
 	//캐릭터 업데이트
 	m_Player1->Update(dTime,m_Player1, m_Player2, m_Map);
@@ -123,9 +123,6 @@ void CPlayScene::Update( float dTime )
 		NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
 		return;
 	}
-
-	//오브젝트의 라이프타임 처리
-	CBulletManager::GetInstance()->CheckLifeTime(m_Map);
 
 	//운석 테스트용 코드
 	if(NNInputSystem::GetInstance()->GetKeyState('P') == KEY_DOWN)

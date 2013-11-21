@@ -34,18 +34,16 @@ public:
 	void ShotAsteroid(CMainMap* Map);
 
 	//업데이트
-	void UpdateObj(float dTime, CMaincharacter* Enemy);
-	void UpdateBullet(float dTime);
-	void UpdateSatellite(float dTime, CMaincharacter* Enemy);
-	void UpdateAsteroid(float dTime);
+	void UpdateObj(float dTime , CMaincharacter* Enemy, CMainMap* Map);
+	void UpdateBullet(float dTime, CMainMap* Map);
+	void UpdateSatellite(float dTime , CMaincharacter* Enemy);
+	void UpdateAsteroid(float dTime, CMainMap* Map);
 
 	//히트채크
 	bool CharacterHitCheck(CMaincharacter * Player);
 
 	//라이프타임
-	void CheckLifeTime(CMainMap * Map);
-	void CheckSatelliteLifeTime();
-
+	void DestroySatellite();
 	void DestroyObj(CGameMoveObj* Obj);
 	
 	//생산은 씬에서 해줘야함 불렛메니져는 생산된 불렛을 어레이로 보관하고 관리

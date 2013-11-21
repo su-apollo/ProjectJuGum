@@ -1,5 +1,6 @@
 #include "NNConfig.h"
 #include "NNInputSystem.h"
+#include "NNP2PNetManager.h"
 
 NNInputSystem* NNInputSystem::m_pInstance = nullptr;
 

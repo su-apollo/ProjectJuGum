@@ -76,7 +76,7 @@ void CNetSettingScene::Update( float dTime )
 				return;
 			}
 
-			NNSceneDirector::GetInstance()->ChangeScene( new CNetTestPlay );
+			NNSceneDirector::GetInstance()->ChangeScene( new CNetTestPlay(CLIENT_MODE) );
 			break;
 
 		case SERVER_MODE:
@@ -93,7 +93,7 @@ void CNetSettingScene::Update( float dTime )
 				return;
 			}
 
-			NNSceneDirector::GetInstance()->ChangeScene( new CNetTestPlay );
+			NNSceneDirector::GetInstance()->ChangeScene( new CNetTestPlay(SERVER_MODE) );
 			break;
 		default:
 			break;

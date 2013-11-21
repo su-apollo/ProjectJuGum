@@ -1,6 +1,7 @@
 #include "NNConfig.h"
 #include "NNP2PNetManager.h"
 
+
 NNP2PNetHelper* GNetHelper = NULL ;
 
 NNP2PNetHelper::NNP2PNetHelper(bool serverMode, char* serverAddr) : m_PeerAddrLen(0), m_Socket(NULL), m_IsServerMode(serverMode), m_IsPeerLinked(false)
@@ -140,4 +141,31 @@ bool NNP2PNetHelper::RecvKeyStatus(OUT PacketKeyStatus& recvKeys)
 	}
 
 	return true ;
+}
+
+EInputSetUp NNP2PNetHelper::UpdateStateByPeerInput( int frameNum )
+{
+	if ( !GNetHelper->IsPeerLinked() )
+		return NONE;
+
+	/// P2P 데이터 받아서 상태 업데이트
+	PacketKeyStatus recvPkt ;
+	GNetHelper->RecvKeyStatus(recvPkt) ;
+
+	if ( recvPkt.mSequence != frameNum )
+	{
+		/// 여기 걸리면 프레임 빗나간 것이다..
+		assert(false) ;
+	}
+
+	return (EInputSetUp)recvPkt.mKeyStatus;
+}
+
+void NNP2PNetHelper::SendKeyStateToPeer( int frameNum, EInputSetUp inputsetup )
+{
+	PacketKeyStatus sendPkt ;
+	sendPkt.mSequence = frameNum ;
+	sendPkt.mKeyStatus = (short) inputsetup;
+
+	GNetHelper->SendKeyStatus(sendPkt) ;
 }

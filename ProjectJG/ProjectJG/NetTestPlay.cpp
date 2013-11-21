@@ -14,7 +14,7 @@
 #include "Satellite.h"
 #include "Asteroid.h"
 
-CNetTestPlay::CNetTestPlay(void)
+CNetTestPlay::CNetTestPlay(ENetworkMode network_mode)
 {
 	//맵생성
 	m_Map = new CMainMap;
@@ -25,8 +25,16 @@ CNetTestPlay::CNetTestPlay(void)
 	m_Player1 = new CMaincharacter;
 	m_Player2 = new CMaincharacter;
 
-	m_Player1->SetPosition(NNPoint(640.f, 700.f));
-	m_Player2->SetPosition(NNPoint(640.f, 100.f));
+	if(network_mode == SERVER_MODE)
+	{
+		m_Player1->SetPosition(NNPoint(640.f, 700.f));
+		m_Player2->SetPosition(NNPoint(640.f, 100.f));
+	}
+	else
+	{
+		m_Player1->SetPosition(NNPoint(640.f, 100.f));
+		m_Player2->SetPosition(NNPoint(640.f, 700.f));
+	}
 
 	AddChild( m_Player1 );
 	AddChild( m_Player2 );
@@ -86,6 +94,8 @@ void CNetTestPlay::Render()
 }
 void CNetTestPlay::Update( float dTime )
 {
+	++m_CurrentFrame;
+
 	if ( NNInputSystem::GetInstance()->GetMenuKeyInput() == PAUSE )
 	{
 		//NNSceneDirector::GetInstance()->ChangeScene( new CReturnScene() );
@@ -107,16 +117,16 @@ void CNetTestPlay::Update( float dTime )
 	m_Player2CostLabel->SetString( m_Player2Cost );
 
 
-	//총알 및 오브젝트의 업데이트
-	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2);
+	//총알 및 오브젝트의 업데이트와 라이프타임 채크
+	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2, m_Map);
 
 	//캐릭터 업데이트
-	m_Player1->Update(dTime,m_Player1, m_Player2, m_Map);
-	//m_Player2->Update(dTime);
+	m_Player1->Update_NetworkMode(dTime,m_Player1, m_Player2, m_Map, m_CurrentFrame);
+	m_Player2->UpdateEnemyMotion_NetworkMode(dTime, m_CurrentFrame);
 
 	//맵과 캐릭터의 충돌체크
 	SetPlayerMoveArea(m_Player1);
-	SetPlayerMoveArea(m_Player2);
+	//SetPlayerMoveArea(m_Player2);
 
 	//총알과 캐릭터의 충돌체크
 	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player1))
@@ -124,9 +134,6 @@ void CNetTestPlay::Update( float dTime )
 		NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
 		return;
 	}
-
-	//오브젝트의 라이프타임 처리
-	CBulletManager::GetInstance()->CheckLifeTime(m_Map);
 
 	//운석 테스트용 코드
 	if(NNInputSystem::GetInstance()->GetKeyState('P') == KEY_DOWN)

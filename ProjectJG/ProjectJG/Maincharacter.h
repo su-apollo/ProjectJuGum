@@ -16,6 +16,8 @@ public:
 
 	void			Render();
 	void			Update(float dTime , CMaincharacter* player, CMaincharacter* enemy, CMainMap* map);
+	void			Update_NetworkMode(float dTime , CMaincharacter* player, CMaincharacter* enemy, CMainMap* map, int framenum);
+	void			UpdateEnemyMotion_NetworkMode(float dTime, int framenum);
 
 	NNCircle *		GetMainCircle(){return m_Circle;}
 

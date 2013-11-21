@@ -12,11 +12,11 @@ public:
 	virtual ~CSatellite(void);
 
 	void		Render();
-	void		Update(float dTime, CSatellite* Satellite, CMaincharacter* Enemy);
+	void		Update(float dTime, CMaincharacter* Enemy);
 
 	NNCircle *	GetMainCircle(){return m_Circle;}
 
-	void		ShotNomalBullet( float dTime, CSatellite* Satellite);
+	void		ShotNomalBullet( float dTime);
 
 private:
 	NNCircle*	m_Circle;

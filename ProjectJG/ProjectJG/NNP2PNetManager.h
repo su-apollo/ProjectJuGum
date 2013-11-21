@@ -1,6 +1,7 @@
 #pragma once
 
 #include "NNConfig.h"
+#include "GameOption.h"
 
 class NNP2PNetHelper
 {
@@ -18,6 +19,9 @@ public:
 
 	bool SendKeyStatus(const PacketKeyStatus& sendKeys) ;
 	bool RecvKeyStatus(OUT PacketKeyStatus& recvKeys) ;
+
+	EInputSetUp UpdateStateByPeerInput(int frameNum) ;
+	void		SendKeyStateToPeer(int frameNum, EInputSetUp inputsetup);
 
 private:
 

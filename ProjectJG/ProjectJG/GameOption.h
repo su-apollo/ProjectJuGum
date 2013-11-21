@@ -87,3 +87,10 @@ enum EMenuList
 	MENU_LAST,
 };
 
+
+enum ENetworkMode
+{
+	CLIENT_MODE,
+	SERVER_MODE,
+	NET_MENU_LAST
+};

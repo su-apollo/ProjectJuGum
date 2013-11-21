@@ -26,15 +26,13 @@ struct PacketTest
 
 struct PacketKeyStatus
 {
-	PacketKeyStatus() : mType(PKT_STATUS), mSequence(-1)
+	PacketKeyStatus() : mType(PKT_STATUS), mSequence(-1), mKeyStatus(0)
 	{
-		memset(mKeyStatus, false, MAX_KEY_TYPE) ;
 	}
 
 	short	mType ;
 	int		mSequence ;
-	bool	mKeyStatus[MAX_KEY_TYPE] ;
-
+	short	mKeyStatus;
 } ;
 
 #pragma pack(pop)

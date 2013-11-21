@@ -1,5 +1,6 @@
 #pragma once
 #include "NNScene.h"
+#include "GameOption.h"
 
 class NNLabel;
 class CMainMap;
@@ -10,7 +11,7 @@ class CCurveBullet;
 class CNetTestPlay : public NNScene
 {
 public:
-	CNetTestPlay(void);
+	CNetTestPlay(ENetworkMode network_mode);
 	virtual ~CNetTestPlay(void);
 
 
@@ -39,5 +40,7 @@ private:
 	void SetPlayerMoveArea(CMaincharacter * Player);
 
 	CAccelBullet* m_testbullet;
+
+	int			m_CurrentFrame;
 };
 
