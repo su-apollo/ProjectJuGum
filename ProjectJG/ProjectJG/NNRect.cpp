@@ -39,10 +39,10 @@ NND2DRect::NND2DRect( float width, float height )
 	m_pD2DRenderer = static_cast<NND2DRenderer*>(NNApplication::GetInstance()->GetRenderer());
 	m_pD2DRenderer->GetHwndRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(m_ColorR, m_ColorG, m_ColorB), &m_Brush);
 
-	m_Rect.bottom = -width/2;
-	m_Rect.left = -height/2;
+	m_Rect.left = -width/2;
+	m_Rect.top = -height/2;
 	m_Rect.right = width/2;
-	m_Rect.top = height/2;
+	m_Rect.bottom = height/2;
 }
 
 NND2DRect::~NND2DRect()
@@ -57,6 +57,11 @@ void NND2DRect::Destroy()
 
 void NND2DRect::Render()
 {
+	m_Rect.left = -m_width/2;
+	m_Rect.top = -m_height/2;
+	m_Rect.right = m_width/2;
+	m_Rect.bottom = m_height/2;
+
 	NNObject::Render();
 
 	m_pD2DRenderer->GetHwndRenderTarget()->SetTransform( m_Matrix );

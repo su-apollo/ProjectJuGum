@@ -27,6 +27,8 @@ public:
 	virtual void SetBlue( float b ) { m_ColorB = b; }
 	virtual void SetColor( float r, float g, float b ) { m_ColorR = r; m_ColorG = g; m_ColorB = b; }
 
+	void SetWidth( float width ) { m_width = width; }
+	void SetHeight( float height ) { m_height = height; }
 
 protected:
 	float m_ColorR, m_ColorG, m_ColorB;
