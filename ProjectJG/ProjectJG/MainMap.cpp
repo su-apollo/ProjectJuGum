@@ -1,10 +1,11 @@
 #include "NNConfig.h"
 #include "MainMap.h"
+#include "GameOption.h"
 
 CMainMap::CMainMap(void)
 {
-	m_Height = 750.f;
-	m_Width = 750.f;
+	m_Width = MAIN_MAP_WIDTH;
+	m_Height = MAIN_MAP_HEIGHT;
 
 	m_MainFrame = NNRect::Create(m_Width, m_Height);
 	m_MainFrame->SetPosition(0.f,0.f);

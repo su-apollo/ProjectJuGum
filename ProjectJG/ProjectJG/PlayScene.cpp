@@ -3,6 +3,7 @@
 #include "NNLabel.h"
 #include "NNSceneDirector.h"
 #include "NNApplication.h"
+#include "NNSprite.h"
 
 #include "PlayScene.h"
 #include "Maincharacter.h"
@@ -16,10 +17,24 @@
 
 CPlayScene::CPlayScene(void)
 {
+	// ÇÃ·¹ÀÌ ¾À ÀüÃ¼ È­¸é ¹è°æ ÀÌ¹ÌÁö
+	m_BackGround = NNSprite::Create( MAIN_MENU_SCENE_BACKGROUND_IMAGE );
+	m_BackGround->SetPosition(NNPoint( (float)NNApplication::GetInstance()->GetScreenWidth()/2, (float)NNApplication::GetInstance()->GetScreenHeight()/2));
+	m_BackGround->SetImageHeight( (float)NNApplication::GetInstance()->GetScreenHeight());
+	m_BackGround->SetImageWidth( (float)NNApplication::GetInstance()->GetScreenWidth());
+	AddChild(m_BackGround);
+
 	//¸Ê»ý¼º
 	m_Map = new CMainMap;
 	m_Map->SetPosition(NNPoint(640.f, 400.f));
 	AddChild(m_Map);
+
+	// ¸Ê ¹è°æ ÀÌ¹ÌÁö
+	m_BackgroundImg = NNSprite::Create( PLAY_SCENE_BACKGROUND_IMAGE );
+	m_BackgroundImg->SetImageWidth( m_Map->GetWidth() );
+	m_BackgroundImg->SetImageHeight( m_Map->GetHeight() );
+	m_BackgroundImg->SetPosition( m_Map->GetPosition() );
+	AddChild( m_BackgroundImg );
 
 	//ÇÃ·¹ÀÌ¾î »ý¼º
 	m_Player1 = new CMaincharacter;
@@ -58,6 +73,7 @@ CPlayScene::CPlayScene(void)
 	// FPS
 	m_FPSLabel = NNLabel::Create( L"FPS : ", L"¸¼Àº °íµñ", 20.f );
 	m_FPSLabel->SetPosition( 0.f, 0.f );
+	m_FPSLabel->SetColor( 255.f, 255.f, 255.f );
 	AddChild( m_FPSLabel );
 
 	m_SumTime = 0;
@@ -69,9 +85,11 @@ CPlayScene::CPlayScene(void)
 	
 	m_Player1CostLabel = NNLabel::Create( L"Player1's Cost : ", L"¸¼Àº °íµñ", 20.f );
 	m_Player1CostLabel->SetPosition( 0.f, 700.f );
+	m_Player1CostLabel->SetColor( 255.f, 255.f, 255.f );
 	AddChild( m_Player1CostLabel );
 	m_Player2CostLabel = NNLabel::Create( L"Player2's Cost : ", L"¸¼Àº °íµñ", 20.f );
 	m_Player2CostLabel->SetPosition( 0.f, 100.f );
+	m_Player2CostLabel->SetColor( 255.f, 255.f, 255.f );
 	AddChild( m_Player2CostLabel );
 }
 

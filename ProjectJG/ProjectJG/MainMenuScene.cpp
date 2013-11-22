@@ -16,16 +16,16 @@ CMainMenuScene::CMainMenuScene(void)
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 
-	m_BackgroundSound = NNResourceManager::GetInstance()->LoadSoundFromFile( MAIN_MENU_BACKGROUND_SOUND, true );
+	m_BackgroundSound = NNResourceManager::GetInstance()->LoadSoundFromFile( MAIN_MENU_SCENE_BACKGROUND_SOUND, true );
 	NNAudioSystem::GetInstance()->Play( m_BackgroundSound );
 
-	m_BackGround = NNSprite::Create( MAIN_MENU_BACKGROUND_IMAGE );
+	m_BackGround = NNSprite::Create( MAIN_MENU_SCENE_BACKGROUND_IMAGE );
 	m_BackGround->SetPosition(NNPoint(width/2, height/2));
 	m_BackGround->SetImageHeight(height);
 	m_BackGround->SetImageWidth(width);
 	AddChild(m_BackGround);
 
-	m_Logo = NNSprite::Create( MAIN_MENU_LOGO );
+	m_Logo = NNSprite::Create( MAIN_MENU_SCENE_LOGO );
 	float image_ratio = (float)width * 0.5f / m_Logo->GetImageWidth();
 	m_Logo->SetImageWidth(m_Logo->GetImageWidth() * image_ratio);
 	m_Logo->SetImageHeight(m_Logo->GetImageHeight() * image_ratio);

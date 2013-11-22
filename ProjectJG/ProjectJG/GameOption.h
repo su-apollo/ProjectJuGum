@@ -3,6 +3,10 @@
 #define WINDOW_WIDTH					1280
 #define	WINDOW_HEIGHT					800
 
+#define MAIN_MAP_WIDTH					750.f
+#define MAIN_MAP_HEIGHT					750.f
+
+
 #define CHAR_SPEED						200.f
 #define CHAR_FAST_SPEED					300.f
 #define CHAR_HIT_RADIUS					5.f
@@ -32,9 +36,10 @@
 
 
 
-#define MAIN_MENU_BACKGROUND_SOUND		"Sound/Space Sprinkles.mp3"
-#define MAIN_MENU_BACKGROUND_IMAGE		L"Sprite/Background.jpg"
-#define MAIN_MENU_LOGO					L"Sprite/logo.png"
+#define MAIN_MENU_SCENE_BACKGROUND_SOUND		"Sound/Space_Sprinkles.mp3"
+#define MAIN_MENU_SCENE_BACKGROUND_IMAGE		L"Sprite/Background.jpg"
+#define MAIN_MENU_SCENE_LOGO					L"Sprite/logo.png"
+#define PLAY_SCENE_BACKGROUND_IMAGE			L"Sprite/space.jpg"
 
 
 enum ECharcterStage

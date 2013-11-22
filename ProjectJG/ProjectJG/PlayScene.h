@@ -6,6 +6,7 @@ class CMainMap;
 class CMaincharacter;
 class CAccelBullet;
 class CCurveBullet;
+class NNSprite;
 
 class CPlayScene : public NNScene
 {
@@ -38,5 +39,8 @@ private:
 	void SetPlayerMoveArea(CMaincharacter * Player);
 
 	CAccelBullet* m_testbullet;
+
+	NNSprite* m_BackGround;
+	NNSprite*	m_BackgroundImg;
 };
 
