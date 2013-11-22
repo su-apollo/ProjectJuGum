@@ -1,6 +1,13 @@
 
 #pragma once
 
+#ifdef _DEBUG
+#define printf_s( ... );	printf_s( ##__VA_ARGS__ );
+#else
+#define printf_s( ... );	
+#endif // DEBUG
+
+
 template <typename T>
 inline void SafeDelete( T* &p )
 {

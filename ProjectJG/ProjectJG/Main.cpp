@@ -7,11 +7,6 @@
 #include "PlayScene.h"
 #include "ReturnScene.h"
 
-#ifdef _DEBUG
-	#include "PrintLog.h"
-#endif
-
-
 int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nShowCmd )
 {
 #ifdef _DEBUG

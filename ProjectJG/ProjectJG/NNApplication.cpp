@@ -1,6 +1,9 @@
 #include "NNConfig.h"
 #include "NNApplication.h"
 #include "BulletManager.h"
+#ifdef _DEBUG
+#include "PrintLog.h"
+#endif
 
 NNApplication* NNApplication::m_pInstance = nullptr;
 
@@ -56,6 +59,10 @@ bool NNApplication::Init( wchar_t* const title, int width, int height, RendererS
 	m_Renderer->Init();
 	m_pSceneDirector->Init();
 
+#ifdef _DEBUG
+	PrintLog::GetInstance();
+#endif
+
 	return true;
 }
 
@@ -74,8 +81,13 @@ bool NNApplication::Release()
 	NNInputSystem::ReleaseInstance();
 	NNAudioSystem::ReleaseInstance();
 
-	//捞窍 霸烙包访 教臂沛 副府令
+	// 霸烙包访 教臂沛 副府令
 	CBulletManager::ReleaseInstance();
+
+#ifdef _DEBUG
+	// 能贾 教臂沛 副府令
+	PrintLog::ReleaseInstance();
+#endif
 
 	SafeDelete( m_Renderer );
 	ReleaseInstance();
