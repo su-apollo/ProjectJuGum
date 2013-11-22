@@ -14,8 +14,7 @@ class CAsteroid;
 class CBulletManager
 {
 public:
-	CBulletManager(void);
-	virtual ~CBulletManager(void);
+	
 
 	static CBulletManager* GetInstance();
 	static void ReleaseInstance();
@@ -53,6 +52,9 @@ public:
 
 private:
 	static CBulletManager * m_pInstance;
+
+	CBulletManager(void);
+	virtual ~CBulletManager(void);
 	
 	CBullet*		m_pBulletArray[MAX_BULLET_NUM];
 	CSatellite*		m_pSatelliteArray[MAX_SATELLITE_NUM];
