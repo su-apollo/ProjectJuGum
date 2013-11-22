@@ -6,7 +6,7 @@
 #include "NNSpriteAtlas.h"
 #include "NetManager.h"
 
-CMaincharacter::CMaincharacter(void)
+CMaincharacter::CMaincharacter(void) : m_bHit(false)
 {
 	m_Texture =  NNSpriteAtlas::Create(L"Sprite/warrior2_0.png");
 	m_Texture->SetImageHeight(50.f);

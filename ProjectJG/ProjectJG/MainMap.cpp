@@ -92,7 +92,7 @@ void CMainMap::Update( float dTime )
 
 	//총알과 캐릭터의 충돌체크
 	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player1))
-		m_Player1->SetbHit( true );
+		m_Player1->SetHit( true );
 
 	//운석 테스트용 코드
 	if(NNInputSystem::GetInstance()->GetKeyState('P') == KEY_DOWN)
@@ -128,5 +128,5 @@ void CMainMap::SetPlayerMoveArea(CMaincharacter * Player)
 
 bool CMainMap::IsGameEnd()
 {
-	return ( m_Player1->GetbHit() || m_Player2->GetbHit() );
+	return ( m_Player1->IsHit() || m_Player2->IsHit() );
 }
