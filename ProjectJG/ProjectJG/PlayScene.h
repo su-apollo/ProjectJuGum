@@ -1,16 +1,14 @@
 #pragma once
 #include "NNScene.h"
 
-class NNLabel;
 class CMainMap;
-class CMaincharacter;
-class CAccelBullet;
-class CCurveBullet;
 class NNSprite;
+class NNLabel;
 
 class CPlayScene : public NNScene
 {
 public:
+
 	CPlayScene(void);
 	virtual ~CPlayScene(void);
 
@@ -19,28 +17,25 @@ public:
 
 	bool CircleToCircleHitCheck(NNPoint point_A, float radius_A, NNPoint point_B, float radius_B);
 
+	void EndGame();
+
 private:
-	CMaincharacter * m_Player1;	
-	CMaincharacter * m_Player2;
+
 	CMainMap *	m_Map;
+
 
 	// FPS
 	float		m_SumTime;
 	NNLabel*	m_FPSLabel;
-	wchar_t		m_FPS[20];
+	wchar_t		m_FPSBuffer[20];
 
 	// cost
 	float		m_CostPerSecond;
 	NNLabel*	m_Player1CostLabel;
-	wchar_t		m_Player1Cost[100];
+	wchar_t		m_Player1CostBuffer[100];
 	NNLabel*	m_Player2CostLabel;
-	wchar_t		m_Player2Cost[100];
+	wchar_t		m_Player2CostBuffer[100];
 
-	void SetPlayerMoveArea(CMaincharacter * Player);
-
-	CAccelBullet* m_testbullet;
-
-	NNSprite* m_BackGround;
-	NNSprite*	m_BackgroundImg;
+	NNSprite*	m_BackGround;
 };
 

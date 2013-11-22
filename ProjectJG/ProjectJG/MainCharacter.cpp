@@ -21,6 +21,8 @@ CMaincharacter::CMaincharacter(void)
 
 	m_Cost = 0;
 	m_Stage = FIRST_STAGE_CHAR;
+
+	m_bHit = false;
 }
 
 CMaincharacter::~CMaincharacter(void)

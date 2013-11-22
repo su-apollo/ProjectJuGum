@@ -11,9 +11,6 @@
 #include "MainMenuScene.h"
 #include "MainMap.h"
 #include "ReturnScene.h"
-#include "Bullet.h"
-#include "Satellite.h"
-#include "Asteroid.h"
 
 CPlayScene::CPlayScene(void)
 {
@@ -29,47 +26,6 @@ CPlayScene::CPlayScene(void)
 	m_Map->SetPosition(NNPoint(640.f, 400.f));
 	AddChild(m_Map);
 
-	// 맵 배경 이미지
-	m_BackgroundImg = NNSprite::Create( PLAY_SCENE_BACKGROUND_IMAGE );
-	m_BackgroundImg->SetImageWidth( m_Map->GetWidth() );
-	m_BackgroundImg->SetImageHeight( m_Map->GetHeight() );
-	m_BackgroundImg->SetPosition( m_Map->GetPosition() );
-	AddChild( m_BackgroundImg );
-
-	//플레이어 생성
-	m_Player1 = new CMaincharacter;
-	m_Player2 = new CMaincharacter;
-
-	m_Player1->SetPosition(NNPoint(640.f, 700.f));
-	m_Player2->SetPosition(NNPoint(640.f, 100.f));
-
-	AddChild( m_Player1 );
-	AddChild( m_Player2 );
-
-	//총알 장전
-	for (int i = 0 ; i < MAX_BULLET_NUM ; ++i)
-	{
-		CBulletManager::GetInstance()->GetBulletArray()[i] = new CBullet;
-		AddChild( CBulletManager::GetInstance()->GetBulletArray()[i] );
-		CBulletManager::GetInstance()->GetBulletArray()[i]->SetVisible(false);
-	}
-
-	//운석 로딩
-	for (int i = 0 ; i < MAX_ASTEROID_NUM ; ++i)
-	{
-		CBulletManager::GetInstance()->GetAsteroidArray()[i] = new CAsteroid;
-		AddChild( CBulletManager::GetInstance()->GetAsteroidArray()[i] );
-		CBulletManager::GetInstance()->GetAsteroidArray()[i]->SetVisible(false);
-	}
-
-	//인공위성 로딩
-	for (int i = 0; i <MAX_SATELLITE_NUM; ++i)
-	{
-		CBulletManager::GetInstance()->GetSatelliteArray()[i] = new CSatellite;
-		AddChild( CBulletManager::GetInstance()->GetSatelliteArray()[i]);
-		CBulletManager::GetInstance()->GetSatelliteArray()[i]->SetVisible(false);
-	}
-
 	// FPS
 	m_FPSLabel = NNLabel::Create( L"FPS : ", L"맑은 고딕", 20.f );
 	m_FPSLabel->SetPosition( 0.f, 0.f );
@@ -79,7 +35,8 @@ CPlayScene::CPlayScene(void)
 	m_SumTime = 0;
 
 	// cost
-	m_Player1->SetCost(10000);
+	m_Map->GetPlayer1()->SetCost(10000);
+	m_Map->GetPlayer2()->SetCost(0);
 	
 	m_CostPerSecond = 5.f;
 	
@@ -103,47 +60,25 @@ void CPlayScene::Render()
 }
 void CPlayScene::Update( float dTime )
 {
-
 	// FPS
 	m_SumTime += dTime;
-	swprintf_s( m_FPS, _countof(m_FPS), L"FPS : %0.3f", NNApplication::GetInstance()->GetFPS() );
-	m_FPSLabel->SetString( m_FPS );
+	swprintf_s( m_FPSBuffer, _countof(m_FPSBuffer), L"FPS : %0.3f", NNApplication::GetInstance()->GetFPS() );
+	m_FPSLabel->SetString( m_FPSBuffer );
 
 
 	// cost
-	m_Player1->SetCost( m_Player1->GetCost() + m_CostPerSecond*dTime );
-	m_Player2->SetCost( m_Player2->GetCost() + m_CostPerSecond*dTime );
+	m_Map->GetPlayer1()->SetCost( m_Map->GetPlayer1()->GetCost() + m_CostPerSecond*dTime );
+	m_Map->GetPlayer2()->SetCost( m_Map->GetPlayer2()->GetCost() + m_CostPerSecond*dTime );
 
-	swprintf_s( m_Player1Cost, _countof(m_Player1Cost), L"Player1's Cost : %d", (int)(m_Player1->GetCost()) );
-	m_Player1CostLabel->SetString( m_Player1Cost );
-	swprintf_s( m_Player2Cost, _countof(m_Player2Cost), L"Player2's Cost : %d", (int)(m_Player2->GetCost()) );
-	m_Player2CostLabel->SetString( m_Player2Cost );
+	swprintf_s( m_Player1CostBuffer, _countof(m_Player1CostBuffer), L"Player1's Cost : %d", (int)(m_Map->GetPlayer1()->GetCost()) );
+	m_Player1CostLabel->SetString( m_Player1CostBuffer );
+	swprintf_s( m_Player2CostBuffer, _countof(m_Player2CostBuffer), L"Player2's Cost : %d", (int)(m_Map->GetPlayer2()->GetCost()) );
+	m_Player2CostLabel->SetString( m_Player2CostBuffer );
 
-	
-	//총알 및 오브젝트의 업데이트와 라이프타임 채크
-	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2, m_Map);
 
-	//캐릭터 업데이트
-	m_Player1->Update(dTime, m_Player2, m_Map);
-	//m_Player2->Update(dTime);
-
-	//맵과 캐릭터의 충돌체크
- 	SetPlayerMoveArea(m_Player1);
- 	SetPlayerMoveArea(m_Player2);
-
-	//총알과 캐릭터의 충돌체크
-	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player1))
-	{
-		NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
-		return;
-	}
-
-	//운석 테스트용 코드
-	if(NNInputSystem::GetInstance()->GetKeyState('P') == KEY_DOWN)
-	{
-		CBulletManager::GetInstance()->ShotAsteroid(m_Map);
-	}
-
+	// 씬에서 처리하던 모든 처리를 메인 맵으로 넘김.
+	m_Map->Update( dTime );
+	if ( m_Map->IsGameEnd() ) EndGame();
 }
 
 bool CPlayScene::CircleToCircleHitCheck(NNPoint point_A, float radius_A, NNPoint point_B, float radius_B) 
@@ -155,27 +90,8 @@ bool CPlayScene::CircleToCircleHitCheck(NNPoint point_A, float radius_A, NNPoint
 	return false;
 }
 
-void CPlayScene::SetPlayerMoveArea(CMaincharacter * Player)
+void CPlayScene::EndGame()
 {
-	float leftline = m_Map->GetLeftLine();
-	float rightline = m_Map->GetRightLine();
-	float botline = m_Map->GetBotLine();
-	float topline = m_Map->GetTopLine();
-
-	if (Player->GetPositionX() < leftline )
-	{
-		Player->SetPosition(NNPoint(leftline, Player->GetPositionY()));
-	}
-	if (Player->GetPositionX() > rightline)
-	{
-		Player->SetPosition(NNPoint(rightline, Player->GetPositionY()));
-	}
-	if (Player->GetPositionY() > botline)
-	{
-		Player->SetPosition(NNPoint(Player->GetPositionX(), botline));
-	}
-	if (Player->GetPositionY() < topline)
-	{
-		Player->SetPosition(NNPoint(Player->GetPositionX(),topline));
-	}
+	NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
+	return;
 }

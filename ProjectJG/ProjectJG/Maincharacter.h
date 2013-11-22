@@ -33,10 +33,15 @@ public:
 	void			SetStage(ECharcterStage new_stage) {m_Stage = new_stage;}
 	void			SkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key);
 
+	void			SetbHit( bool bHit ) { m_bHit = bHit; }
+	bool			GetbHit() { return m_bHit; }
+
 protected:
 	NNSpriteAtlas*	m_Texture;
 	NNCircle*		m_Circle;
 	ECharcterStage  m_Stage;
 	float			m_Cost;
+
+	bool			m_bHit;
 };
 
