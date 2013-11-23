@@ -35,6 +35,8 @@ private:
 	float		m_Width;
 	NNSprite*	m_BackGround;
 
+	int			m_CurrentFrame;
+
 	CMaincharacter * m_Player1;	
 	CMaincharacter * m_Player2;
 

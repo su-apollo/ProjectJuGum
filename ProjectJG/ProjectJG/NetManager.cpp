@@ -107,6 +107,7 @@ bool NetHelper::DoHandShake()
 		}
 		else
 		{
+			//백신끄고 할것
 			MessageBox(NULL, L"ERROR: INVALID SERVER!!", L"ERROR", MB_OK) ;
 			return false ;
 		}

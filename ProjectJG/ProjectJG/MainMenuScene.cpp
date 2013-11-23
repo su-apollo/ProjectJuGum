@@ -9,7 +9,7 @@
 #include "PlayScene.h"
 #include "NNSprite.h"
 #include "NNAudioSystem.h"
-#include "NetTestPlay.h"
+
 
 CMainMenuScene::CMainMenuScene(void)
 {
@@ -85,7 +85,6 @@ void CMainMenuScene::Update( float dTime )
 			NNSceneDirector::GetInstance()->ChangeScene( new CPlayScene() );
 			break;
 		case MENU_TEST:
-			NNSceneDirector::GetInstance()->ChangeScene(new CNetTestPlay());
 			break;
 		case MENU_QUIT:
 			PostMessage( NNApplication::GetInstance()->GetHWND(), WM_DESTROY, 0, 0 );

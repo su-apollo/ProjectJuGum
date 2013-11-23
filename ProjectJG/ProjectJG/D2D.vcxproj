@@ -88,7 +88,6 @@
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="GameMoveObj.cpp" />
     <ClCompile Include="MainMap.cpp" />
-    <ClCompile Include="NetTestPlay.cpp" />
     <ClCompile Include="NNAudioSystem.cpp" />
     <ClCompile Include="NNCircle.cpp" />
     <ClCompile Include="NNConfig.cpp" />
@@ -122,7 +121,6 @@
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="GameMoveObj.h" />
     <ClInclude Include="MainMap.h" />
-    <ClInclude Include="NetTestPlay.h" />
     <ClInclude Include="NNAudioSystem.h" />
     <ClInclude Include="NNApplication.h" />
     <ClInclude Include="NNCircle.h" />

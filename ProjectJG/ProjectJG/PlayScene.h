@@ -17,6 +17,8 @@ public:
 
 	bool CircleToCircleHitCheck(NNPoint point_A, float radius_A, NNPoint point_B, float radius_B);
 
+	bool NetworkSetMenu();
+
 	void EndGame();
 
 private:
@@ -37,5 +39,9 @@ private:
 	wchar_t		m_Player2CostBuffer[100];
 
 	NNSprite*	m_BackGround;
+
+	bool		m_netsetup;
+	NNLabel*	m_MenuLabel[2];
+	unsigned int m_KeyOn;
 };
 

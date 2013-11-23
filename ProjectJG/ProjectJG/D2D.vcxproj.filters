@@ -84,9 +84,6 @@
     <ClCompile Include="NNSpriteAtlas.cpp">
       <Filter>Framework\Node\SpriteAtlas</Filter>
     </ClCompile>
-    <ClCompile Include="NetTestPlay.cpp">
-      <Filter>GameObjects\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="NNConfig.cpp">
       <Filter>Framework\Macro</Filter>
     </ClCompile>
@@ -289,9 +286,6 @@
     </ClInclude>
     <ClInclude Include="NNSpriteAtlas.h">
       <Filter>Framework\Node\SpriteAtlas</Filter>
-    </ClInclude>
-    <ClInclude Include="NetTestPlay.h">
-      <Filter>GameObjects\Scene</Filter>
     </ClInclude>
     <ClInclude Include="PacketType.h">
       <Filter>GameObjects\P2PNet</Filter>
