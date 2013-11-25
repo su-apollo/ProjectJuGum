@@ -54,6 +54,10 @@ UImanager::UImanager(void)
 
 UImanager::~UImanager(void)
 {
+	for (int i = 0; i < 3; ++i)
+	{
+		delete m_UIList[i];
+	}
 }
 
 void UImanager::Update( float dTime, CMaincharacter* Player1, CMaincharacter* Player2 )

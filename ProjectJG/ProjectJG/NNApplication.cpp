@@ -4,6 +4,7 @@
 #ifdef _DEBUG
 #include "PrintLog.h"
 #endif
+#include "UImanager.h"
 
 NNApplication* NNApplication::m_pInstance = nullptr;
 
@@ -83,6 +84,7 @@ bool NNApplication::Release()
 
 	// 霸烙包访 教臂沛 副府令
 	CBulletManager::ReleaseInstance();
+	UImanager::ReleaseInstance();
 
 #ifdef _DEBUG
 	// 能贾 教臂沛 副府令

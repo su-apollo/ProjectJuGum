@@ -1,7 +1,7 @@
 #pragma once
+#include "NNLabel.h"
 
 class CMaincharacter;
-class NNLabel;
 
 class UImanager
 {
