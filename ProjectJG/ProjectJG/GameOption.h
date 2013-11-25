@@ -3,10 +3,10 @@
 #define WINDOW_WIDTH					1280
 #define	WINDOW_HEIGHT					800
 
-#define MAIN_MAP_WIDTH					900.f
-#define MAIN_MAP_HEIGHT					900.f
-#define FRAME_WIDTH						500.f
-#define FRAME_HEIGHT					500.f
+#define MAIN_MAP_WIDTH					2000.f
+#define MAIN_MAP_HEIGHT					2000.f
+#define FRAME_WIDTH						750.f
+#define FRAME_HEIGHT					750.f
 
 
 #define CHAR_SPEED						200.f

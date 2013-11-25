@@ -91,7 +91,7 @@ void CPlayScene::Update( float dTime )
 	UImanager::GetInstance()->Update( dTime, m_MainMap->GetPlayer1(), m_MainMap->GetPlayer2() );
 
 	// 씬에서 처리하던 모든 처리를 메인 맵으로 넘김.
-	m_MainMap->Update( dTime );
+	m_MainMap->Update( dTime, m_Frame );
 	if ( m_MainMap->IsGameEnd() ) EndGame();
 }
 

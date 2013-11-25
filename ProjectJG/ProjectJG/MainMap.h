@@ -17,7 +17,7 @@ public:
 	virtual ~CMainMap(void);
 
 	void Render();
-	void Update( float dTime );
+	void Update( float dTime, CFrame* frame );
 
 	CMaincharacter* GetPlayer1() { return m_Player1; }
 	CMaincharacter* GetPlayer2() { return m_Player2; }
@@ -36,7 +36,7 @@ private:
 	CMaincharacter * m_Player1;	
 	CMaincharacter * m_Player2;
 
-	void SetPlayerMoveArea(CMaincharacter * Player);
+	void SetPlayerMoveArea(CMaincharacter * Player, CFrame* frame);
 
 	ENetworkMode m_GameMode;
 

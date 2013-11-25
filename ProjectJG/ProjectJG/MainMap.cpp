@@ -102,7 +102,7 @@ void CMainMap::Render()
 	}
 }
 
-void CMainMap::Update( float dTime )
+void CMainMap::Update( float dTime, CFrame* frame )
 {
 	//총알 및 오브젝트의 업데이트와 라이프타임 채크
 	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2, this);
@@ -119,8 +119,8 @@ void CMainMap::Update( float dTime )
 	}
 
 	//맵과 캐릭터의 충돌체크
-	SetPlayerMoveArea(m_Player1);
-	SetPlayerMoveArea(m_Player2);
+	SetPlayerMoveArea(m_Player1, frame);
+	SetPlayerMoveArea(m_Player2, frame);
 
 	//총알과 캐릭터의 충돌체크
 	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player1))
@@ -137,13 +137,15 @@ void CMainMap::Update( float dTime )
 	}
 }
 
-void CMainMap::SetPlayerMoveArea(CMaincharacter * Player)
+void CMainMap::SetPlayerMoveArea( CMaincharacter * Player, CFrame* frame )
 {
-	float leftline = GetLeftLine();
-	float rightline = GetRightLine();
-	float botline = GetBotLine();
-	float topline = GetTopLine();
-
+	printf_s("%.5f - %.5f = %.5f\n", GetLeftLine(), frame->GetLeftLine(), GetLeftLine()-frame->GetLeftLine());
+	
+	float leftline = GetLeftLine() - frame->GetLeftLine();
+	float rightline = GetRightLine() - frame->GetRightLine();
+	float botline = GetBotLine() - frame->GetBotLine();
+	float topline = GetTopLine() - frame->GetTopLine();
+	
 	if (Player->GetPositionX() < leftline)
 	{
 		Player->SetPosition(NNPoint(leftline, Player->GetPositionY()));
