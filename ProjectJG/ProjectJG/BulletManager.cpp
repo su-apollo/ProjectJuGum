@@ -78,7 +78,7 @@ void CBulletManager::ShotSectorBullets(CGameMoveObj* Player, EBulletType bullet_
 	{
 		CBullet* pBullet = GetBullet(bullet_type);
 		pBullet->SetPosition( Player->GetShotPoint());
-		pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
+		pBullet->SetDirection( direction - degree*0.5f + degree/(n-1)*i );
 	}
 }
 
@@ -90,14 +90,15 @@ void CBulletManager::ShotSectorMixBullets(CGameMoveObj* Player, EBulletType bull
 	{
 		CBullet * pBullet = ( i%2 == 0 ) ? GetBullet(bullet_type_1) : GetBullet(bullet_type_2);
 		pBullet->SetPosition( Player->GetShotPoint());
-		pBullet->SetDirection( direction - degree/2 + degree/(n-1)*i );
+		pBullet->SetDirection( direction - degree*0.5f + degree/(n-1)*i );
 	}
 }
 
 void CBulletManager::ShotTornadoBullets(CGameMoveObj* Player, int n )
 {
 	NNPoint point = Player->GetPosition();
-	float direction = 270;
+	float direction = 0.f;
+
 	for ( int i = 0; i < n; ++i )
 	{
 		direction += 360/n;

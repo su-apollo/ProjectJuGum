@@ -10,12 +10,11 @@
 #include "BulletManager.h"
 #include "MainMenuScene.h"
 #include "MainMap.h"
+#include "Frame.h"
+#include "Camera.h"
 #include "UImanager.h"
 
 #include "NetManager.h"
-
-#include "Frame.h"
-#include "Camera.h"
 
 CPlayScene::CPlayScene(void) : m_netsetup(false)
 {
@@ -24,15 +23,21 @@ CPlayScene::CPlayScene(void) : m_netsetup(false)
 
 	// 플레이 씬 전체 화면 배경 이미지
 	m_BackGround = NNSprite::Create( MAIN_MENU_SCENE_BACKGROUND_IMAGE );
-	m_BackGround->SetPosition(NNPoint( width/2, height/2));
-	m_BackGround->SetImageHeight( height);
-	m_BackGround->SetImageWidth( width);
+	m_BackGround->SetPosition( NNPoint(width*0.5f, height*0.5f) );
+	m_BackGround->SetImageHeight( height );
+	m_BackGround->SetImageWidth( width );
 	AddChild(m_BackGround);
 
-	//맵생성
+	// 게임 메인 맵
 	m_MainMap = new CMainMap();
-	m_MainMap->SetPosition(NNPoint(640.f, 400.f));
+	m_MainMap->SetPosition( NNPoint(width *0.5f, height *0.5f) );
 	AddChild(m_MainMap);
+
+	// 카메라 프레임
+	m_Frame = new CFrame();
+	m_Frame->SetPosition( width*0.5f, height*0.5f );
+	m_Frame->SetSize( FRAME_WIDTH, FRAME_HEIGHT );
+	AddChild( m_Frame );
 
 	// cost
 	m_CostPerSecond = 5.f;
@@ -40,27 +45,21 @@ CPlayScene::CPlayScene(void) : m_netsetup(false)
 	//네트워크 설정 메뉴
 	m_MenuLabel[TEST_MODE] = NNLabel::Create( L"TEST", L"궁서체", 40.f );
 	m_MenuLabel[TEST_MODE]->SetColor(255.0f, 0.0f, 0.0f);
-	m_MenuLabel[TEST_MODE]->SetPosition( width/2 + 60.f, height/2 );
+	m_MenuLabel[TEST_MODE]->SetPosition( width*0.5f + 60.f, height*0.5f );
 	AddChild( m_MenuLabel[TEST_MODE] );
 
 
 	m_MenuLabel[CLIENT_MODE] = NNLabel::Create( L"CLIENT", L"궁서체", 40.f );
 	m_MenuLabel[CLIENT_MODE]->SetColor(0.0f, 0.0f, 0.0f);
-	m_MenuLabel[CLIENT_MODE]->SetPosition( width/2 + 60.f, height/2 + 80.f );
+	m_MenuLabel[CLIENT_MODE]->SetPosition( width*0.5f + 60.f, height*0.5f + 80.f );
 	AddChild( m_MenuLabel[CLIENT_MODE] );
 
 	m_MenuLabel[SERVER_MODE] = NNLabel::Create( L"SERVER", L"궁서체", 40.f );
 	m_MenuLabel[SERVER_MODE]->SetColor(0.0f, 0.0f, 0.0f);
-	m_MenuLabel[SERVER_MODE]->SetPosition( width/2 + 60.f, height/2 + 160.f );
+	m_MenuLabel[SERVER_MODE]->SetPosition( width*0.5f + 60.f, height*0.5f + 160.f );
 	AddChild( m_MenuLabel[SERVER_MODE] );
 
 	m_KeyOn = 0;
-
-
-	m_Frame = new CFrame();
-	m_Frame->SetPosition( width*0.5f, height*0.5f );
-	m_Frame->SetSize( FRAME_WIDTH, FRAME_HEIGHT );
-	AddChild( m_Frame );
 }
 
 CPlayScene::~CPlayScene(void)
@@ -90,7 +89,7 @@ void CPlayScene::Update( float dTime )
 	// UI update
 	UImanager::GetInstance()->Update( dTime, m_MainMap->GetPlayer1(), m_MainMap->GetPlayer2() );
 
-	// 씬에서 처리하던 모든 처리를 메인 맵으로 넘김.
+	// 모든 게임 플레이 관련 처리는 메인 맵에서 한다.
 	m_MainMap->Update( dTime, m_Frame );
 	if ( m_MainMap->IsGameEnd() ) EndGame();
 }
@@ -133,8 +132,8 @@ bool CPlayScene::NetworkSetMenu()
 	{
 		++m_KeyOn;
 	}
-	m_KeyOn %= NET_MENU_LAST;
-	m_MenuLabel[m_KeyOn]->SetColor( 255.f, 0.f, 0.f);
+	m_KeyOn = (m_KeyOn + NET_MENU_LAST) % NET_MENU_LAST;
+	m_MenuLabel[m_KeyOn]->SetColor( 255.f, 0.f, 0.f );
 
 
 	if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE )
@@ -189,9 +188,11 @@ bool CPlayScene::NetworkSetMenu()
 		}
 
 		m_netsetup = true;
-		m_MenuLabel[0]->SetVisible(false);
-		m_MenuLabel[1]->SetVisible(false);
-		m_MenuLabel[2]->SetVisible(false);
+
+		for (int i = NET_MENU_FIRST; i < NET_MENU_LAST; ++i)
+		{
+			m_MenuLabel[i]->SetVisible(false);
+		}
 
 		return true;
 	}
@@ -207,12 +208,6 @@ void CPlayScene::CameraMove( CMaincharacter* Player, float dTime )
 	float topline = m_Frame->GetTopLine();
 
 	CCamera* camera = m_MainMap->GetCamera();
-
-	float dX = 0;
-	float dY = 0;
-
-	printf_s("frame : %.3f, %.3f, %.3f, %.3f\n", leftline, topline, rightline, botline);
-	printf_s("player : %.3f, %.3f\ncamera : %.3f, %.3f\n", Player->GetPositionX(), Player->GetPositionY(), camera->GetPositionX(), camera->GetPositionY())
 
 	if (Player->GetPositionX() - camera->GetPositionX() < leftline)
 	{

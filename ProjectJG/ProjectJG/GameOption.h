@@ -108,7 +108,8 @@ enum EMenuList
 
 enum ENetworkMode
 {
-	TEST_MODE,
+	NET_MENU_FIRST = 0,
+	TEST_MODE = 0,
 	CLIENT_MODE,
 	SERVER_MODE,
 	NET_MENU_LAST

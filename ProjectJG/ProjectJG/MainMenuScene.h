@@ -1,5 +1,6 @@
 #pragma once
 #include "NNScene.h"
+#include "GameOption.h"
 
 class NNSprite;
 class NNLabel;
@@ -19,7 +20,7 @@ public:
 private:
 	NNSprite* m_Logo;
 	NNSprite* m_BackGround;
-	NNLabel* m_MenuLabel[3];
+	NNLabel* m_MenuLabel[MENU_NUM];
 
 	NNSound* m_BackgroundSound;
 

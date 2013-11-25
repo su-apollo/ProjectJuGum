@@ -15,7 +15,7 @@
 
 CMainMap::CMainMap(void)
 {
-	++m_CurrentFrame;
+	++m_CurrentFrame;			// 값 초기화도 안 하고 ++ 함????????
 
 	m_Width = MAIN_MAP_WIDTH;
 	m_Height = MAIN_MAP_HEIGHT;
@@ -139,8 +139,6 @@ void CMainMap::Update( float dTime, CFrame* frame )
 
 void CMainMap::SetPlayerMoveArea( CMaincharacter * Player, CFrame* frame )
 {
-	printf_s("%.5f - %.5f = %.5f\n", GetLeftLine(), frame->GetLeftLine(), GetLeftLine()-frame->GetLeftLine());
-	
 	float leftline = GetLeftLine() - frame->GetLeftLine();
 	float rightline = GetRightLine() - frame->GetRightLine();
 	float botline = GetBotLine() - frame->GetBotLine();

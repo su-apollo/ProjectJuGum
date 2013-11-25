@@ -7,6 +7,7 @@ class NNLabel;
 class CFrame;
 class CMaincharacter;
 
+// 게임 플레이 씬. 배치는 씬에서, 게임관련 업데이트는 맵에서 함.
 class CPlayScene : public NNScene
 {
 public:
@@ -36,7 +37,7 @@ private:
 	NNSprite*	m_BackGround;
 
 	bool		m_netsetup;
-	NNLabel*	m_MenuLabel[3];
+	NNLabel*	m_MenuLabel[NET_MENU_LAST];
 	unsigned int m_KeyOn;
 
 	CFrame*		m_Frame;
