@@ -4,6 +4,7 @@
 class CMainMap;
 class NNSprite;
 class NNLabel;
+class CFrame;
 
 class CPlayScene : public NNScene
 {
@@ -34,5 +35,7 @@ private:
 	bool		m_netsetup;
 	NNLabel*	m_MenuLabel[3];
 	unsigned int m_KeyOn;
+
+	CFrame*		m_Frame;
 };
 

@@ -96,6 +96,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>GameObjects\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Frame.cpp">
+      <Filter>GameObjects\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -303,6 +306,9 @@
       <Filter>GameObjects\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
+      <Filter>GameObjects\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
       <Filter>GameObjects\Map</Filter>
     </ClInclude>
   </ItemGroup>

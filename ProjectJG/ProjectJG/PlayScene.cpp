@@ -10,10 +10,11 @@
 #include "BulletManager.h"
 #include "MainMenuScene.h"
 #include "MainMap.h"
-
 #include "UImanager.h"
 
 #include "NetManager.h"
+
+#include "Frame.h"
 
 CPlayScene::CPlayScene(void) : m_netsetup(false)
 {
@@ -28,7 +29,7 @@ CPlayScene::CPlayScene(void) : m_netsetup(false)
 	AddChild(m_BackGround);
 
 	//¸Ê»ý¼º
-	m_Map = new CMainMap;
+	m_Map = new CMainMap();
 	m_Map->SetPosition(NNPoint(640.f, 400.f));
 	AddChild(m_Map);
 
@@ -53,6 +54,12 @@ CPlayScene::CPlayScene(void) : m_netsetup(false)
 	AddChild( m_MenuLabel[SERVER_MODE] );
 
 	m_KeyOn = 0;
+
+
+	m_Frame = new CFrame();
+	m_Frame->SetPosition( width*0.5f, height*0.5f );
+	m_Frame->SetSize( FRAME_WIDTH, FRAME_HEIGHT );
+	AddChild( m_Frame );
 }
 
 CPlayScene::~CPlayScene(void)
