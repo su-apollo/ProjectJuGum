@@ -90,6 +90,9 @@
     <ClCompile Include="NetManager.cpp">
       <Filter>GameObjects\P2PNet</Filter>
     </ClCompile>
+    <ClCompile Include="UImanager.cpp">
+      <Filter>GameObjects\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -292,6 +295,9 @@
     </ClInclude>
     <ClInclude Include="NetManager.h">
       <Filter>GameObjects\P2PNet</Filter>
+    </ClInclude>
+    <ClInclude Include="UImanager.h">
+      <Filter>GameObjects\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

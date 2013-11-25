@@ -26,18 +26,9 @@ private:
 	CMainMap *	m_Map;
 
 
-	// FPS
-	float		m_SumTime;
-	NNLabel*	m_FPSLabel;
-	wchar_t		m_FPSBuffer[20];
-
 	// cost
 	float		m_CostPerSecond;
-	NNLabel*	m_Player1CostLabel;
-	wchar_t		m_Player1CostBuffer[100];
-	NNLabel*	m_Player2CostLabel;
-	wchar_t		m_Player2CostBuffer[100];
-
+	
 	NNSprite*	m_BackGround;
 
 	bool		m_netsetup;

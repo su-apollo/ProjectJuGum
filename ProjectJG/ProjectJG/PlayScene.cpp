@@ -11,6 +11,8 @@
 #include "MainMenuScene.h"
 #include "MainMap.h"
 
+#include "UImanager.h"
+
 #include "NetManager.h"
 
 CPlayScene::CPlayScene(void) : m_netsetup(false)
@@ -30,24 +32,8 @@ CPlayScene::CPlayScene(void) : m_netsetup(false)
 	m_Map->SetPosition(NNPoint(640.f, 400.f));
 	AddChild(m_Map);
 
-	// FPS
-	m_FPSLabel = NNLabel::Create( L"FPS : ", L"¸¼Àº °íµñ", 20.f );
-	m_FPSLabel->SetPosition( 0.f, 0.f );
-	m_FPSLabel->SetColor( 255.f, 255.f, 255.f );
-	AddChild( m_FPSLabel );
-
-	m_SumTime = 0;
-	
+	// cost
 	m_CostPerSecond = 5.f;
-	
-	m_Player1CostLabel = NNLabel::Create( L"Player1's Cost : ", L"¸¼Àº °íµñ", 20.f );
-	m_Player1CostLabel->SetPosition( 0.f, 700.f );
-	m_Player1CostLabel->SetColor( 255.f, 255.f, 255.f );
-	AddChild( m_Player1CostLabel );
-	m_Player2CostLabel = NNLabel::Create( L"Player2's Cost : ", L"¸¼Àº °íµñ", 20.f );
-	m_Player2CostLabel->SetPosition( 0.f, 100.f );
-	m_Player2CostLabel->SetColor( 255.f, 255.f, 255.f );
-	AddChild( m_Player2CostLabel );
 
 	//³×Æ®¿öÅ© ¼³Á¤ ¸Þ´º
 	m_MenuLabel[TEST_MODE] = NNLabel::Create( L"TEST", L"±Ã¼­Ã¼", 40.f );
@@ -77,6 +63,7 @@ CPlayScene::~CPlayScene(void)
 void CPlayScene::Render()
 {
 	NNScene::Render();
+	UImanager::GetInstance()->Render();
 }
 void CPlayScene::Update( float dTime )
 {
@@ -84,22 +71,13 @@ void CPlayScene::Update( float dTime )
 	{
 		return;
 	}
-
-	// FPS
-	m_SumTime += dTime;
-	swprintf_s( m_FPSBuffer, _countof(m_FPSBuffer), L"FPS : %0.3f", NNApplication::GetInstance()->GetFPS() );
-	m_FPSLabel->SetString( m_FPSBuffer );
-
-
+	
 	// cost
 	m_Map->GetPlayer1()->SetCost( m_Map->GetPlayer1()->GetCost() + m_CostPerSecond*dTime );
 	m_Map->GetPlayer2()->SetCost( m_Map->GetPlayer2()->GetCost() + m_CostPerSecond*dTime );
 
-	swprintf_s( m_Player1CostBuffer, _countof(m_Player1CostBuffer), L"Player1's Cost : %d", (int)(m_Map->GetPlayer1()->GetCost()) );
-	m_Player1CostLabel->SetString( m_Player1CostBuffer );
-	swprintf_s( m_Player2CostBuffer, _countof(m_Player2CostBuffer), L"Player2's Cost : %d", (int)(m_Map->GetPlayer2()->GetCost()) );
-	m_Player2CostLabel->SetString( m_Player2CostBuffer );
-
+	// UI update
+	UImanager::GetInstance()->Update( dTime, m_Map->GetPlayer1(), m_Map->GetPlayer2() );
 
 	// ¾À¿¡¼­ Ã³¸®ÇÏ´ø ¸ðµç Ã³¸®¸¦ ¸ÞÀÎ ¸ÊÀ¸·Î ³Ñ±è.
 	m_Map->Update( dTime );

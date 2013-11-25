@@ -114,6 +114,7 @@
     <ClCompile Include="ReturnScene.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="Satellite.cpp" />
+    <ClCompile Include="UImanager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Asteroid.h" />
@@ -152,6 +153,7 @@
     <ClInclude Include="ReturnScene.h" />
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="Satellite.h" />
+    <ClInclude Include="UImanager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
