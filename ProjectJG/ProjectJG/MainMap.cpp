@@ -109,6 +109,10 @@ void CMainMap::Update( float dTime )
 	//총알과 캐릭터의 충돌체크
 	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player1))
 		m_Player1->SetHit( true );
+	//테스트모드상황일때는 적의 충돌채크를 하지 않는다
+	if(m_GameMode && CBulletManager::GetInstance()->CharacterHitCheck(m_Player2))
+		m_Player2->SetHit( true );
+
 
 	//운석 테스트용 코드
 	if(NNInputSystem::GetInstance()->GetKeyState('P') == KEY_DOWN)
