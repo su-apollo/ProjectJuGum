@@ -25,7 +25,7 @@ public:
 	static void ReleaseInstance();
 
 public:
-	bool Init( wchar_t* const title, int width, int height, RendererStatus renderStatus );
+	bool Init( wchar_t* const title, int width, int height, RendererStatus renderStatus, bool fullscreen );
 	static LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam );
 	/* 파라메터에 따라 윈도우 프레임, 렌더러 생성 */
 	bool Release();
@@ -46,7 +46,7 @@ public:
 	inline float GetDeltaTime() const { return m_DeltaTime; }
 
 private:
-	bool _CreateWindow( wchar_t* title, int width, int height );
+	bool _CreateWindow( wchar_t* title, int width, int height, bool fullscreen );
 	bool _CreateRenderer( RendererStatus renderStatus );
 
 private:

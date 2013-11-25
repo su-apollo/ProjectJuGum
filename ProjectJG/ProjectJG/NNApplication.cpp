@@ -43,7 +43,7 @@ void NNApplication::ReleaseInstance()
 	}
 }
 
-bool NNApplication::Init( wchar_t* const title, int width, int height, RendererStatus renderStatus )
+bool NNApplication::Init( wchar_t* const title, int width, int height, RendererStatus renderStatus, bool fullscreen )
 {
 	m_hInstance = GetModuleHandle(0);
 
@@ -52,7 +52,7 @@ bool NNApplication::Init( wchar_t* const title, int width, int height, RendererS
 	m_ScreenHeight = height;
 	m_RendererStatus = renderStatus;
 
-	_CreateWindow( m_Title, m_ScreenWidth, m_ScreenHeight );
+	_CreateWindow( m_Title, m_ScreenWidth, m_ScreenHeight, fullscreen );
 	_CreateRenderer( renderStatus );
 	
 	m_pSceneDirector = NNSceneDirector::GetInstance();
@@ -155,7 +155,7 @@ bool NNApplication::Run()
 	return true;
 }
 
-bool NNApplication::_CreateWindow( wchar_t* title, int width, int height )
+bool NNApplication::_CreateWindow( wchar_t* title, int width, int height, bool fullscreen )
 {
 	WNDCLASSEX wcex;
 	wcex.cbSize = sizeof(WNDCLASSEX);
@@ -181,14 +181,15 @@ bool NNApplication::_CreateWindow( wchar_t* title, int width, int height )
 
 	ShowCursor(false);
 
-	/*
-	// not full screen
-	ShowWindow(m_Hwnd, SW_SHOWDEFAULT);
-	*/
-
-	// full screen
-	SetWindowLong(m_Hwnd, GWL_STYLE, 0);
-	ShowWindow( m_Hwnd, SW_SHOWMAXIMIZED );
+	if ( fullscreen )
+	{
+		SetWindowLong(m_Hwnd, GWL_STYLE, 0);
+		ShowWindow( m_Hwnd, SW_SHOWMAXIMIZED );
+	} 
+	else
+	{
+		ShowWindow(m_Hwnd, SW_SHOWDEFAULT);
+	}	
 	
 	return true;
 }
