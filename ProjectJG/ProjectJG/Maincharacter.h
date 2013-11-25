@@ -6,6 +6,7 @@
 class NNCircle;
 class CMainMap;
 class NNSpriteAtlas;
+class CSatellite;
 
 //메인케릭터 펙토리형태로 구성
 class CMaincharacter : public CGameMoveObj
@@ -36,6 +37,14 @@ public:
 	void			SetHit( bool bHit ) { m_bHit = bHit; }
 	bool			IsHit() { return m_bHit; }
 
+	//인공위성 관련 스킬
+	void			ShotSLSectorNormalBullet();
+	void			SetupSatellite();
+	void			UpdateSatellite(float dTime, CMaincharacter* Enemy);
+	CSatellite**	GetSatelliteArray() { return m_pSatelliteArray; }
+	CSatellite*		GetSatellite();
+	void			DestroySatellite();
+
 protected:
 	NNSpriteAtlas*	m_Texture;
 	NNCircle*		m_Circle;
@@ -43,5 +52,9 @@ protected:
 	float			m_Cost;
 
 	bool			m_bHit;
+
+	CSatellite*		m_pSatelliteArray[MAX_SATELLITE_NUM];
+	int				m_SatelliteIndex;
+
 };
 

@@ -66,4 +66,5 @@ void NND2DCircle::Render()
 
 	m_pD2DRenderer->GetHwndRenderTarget()->SetTransform( m_Matrix );
 	m_pD2DRenderer->GetHwndRenderTarget()->DrawEllipse(m_Ellipse, m_Brush);
+	m_pD2DRenderer->GetHwndRenderTarget()->FillEllipse(m_Ellipse, m_Brush);
 }

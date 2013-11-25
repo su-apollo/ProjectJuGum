@@ -5,13 +5,11 @@
 #include "Bullet.h"
 #include "MainMenuScene.h"
 #include "Maincharacter.h"
-#include "Satellite.h"
 #include "Asteroid.h"
 
 CBulletManager* CBulletManager::m_pInstance = nullptr;
 
-CBulletManager::CBulletManager(void) : m_BulletIndex(0),
-	m_SatelliteIndex(0), m_AsteroidIndex(0)
+CBulletManager::CBulletManager(void) : m_BulletIndex(0), m_AsteroidIndex(0)
 {
 }
 
@@ -49,15 +47,6 @@ CBullet * CBulletManager::GetBullet( EBulletType bullet_type )
 	return nullptr;
 }
 
-CSatellite * CBulletManager::GetSatellite()
-{
-	++m_SatelliteIndex;
-	m_SatelliteIndex %= MAX_SATELLITE_NUM;
-	m_pSatelliteArray[m_SatelliteIndex]->SetVisible(true);
-
-	return m_pSatelliteArray[m_SatelliteIndex];
-}
-
 CAsteroid* CBulletManager::GetAsteroid()
 {
 	++m_AsteroidIndex;
@@ -73,14 +62,6 @@ CAsteroid* CBulletManager::GetAsteroid()
 //**************************************************************
 //                         Skills
 //**************************************************************
-void CBulletManager::ShotSetupSatellite(CGameMoveObj* Player)
-{
-	CSatellite* pSatellite = GetSatellite();
-
-	NNPoint point = Player->GetPosition();
-
-	pSatellite->SetPosition(point);
-}
 
 void CBulletManager::ShotBullet(CGameMoveObj * Player, EBulletType bullet_type)
 {
@@ -130,24 +111,11 @@ void CBulletManager::ShotTornadoBullets(CGameMoveObj* Player, int n )
 	}
 }
 
-void CBulletManager::ShotSLSectorNormalBullet()
-{
-	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
-	{
-		if (m_pSatelliteArray[i]->IsVisible())
-		{
-			ShotSectorBullets(m_pSatelliteArray[i], NORMAL_BULLET);
-		}
-	}
-}
-
-
 //**************************************************************
 //                          Update
 //**************************************************************
 void CBulletManager::UpdateObj(float dTime, CMaincharacter* Enemy, CMainMap* Map)
 {
-	UpdateSatellite(dTime, Enemy);
 	UpdateAsteroid(dTime, Map);
 	UpdateBullet(dTime, Map);
 }
@@ -176,17 +144,6 @@ void CBulletManager::UpdateAsteroid(float dTime, CMainMap* Map )
 	}
 }
 
-void CBulletManager::UpdateSatellite(float dTime , CMaincharacter* Enemy)
-{
-	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
-	{
-		if (m_pSatelliteArray[i]->IsVisible())
-		{
-			m_pSatelliteArray[i]->Update(dTime, Enemy);
-		}
-	}
-}
-
 //**************************************************************
 //                         HitCheck
 //**************************************************************
@@ -205,17 +162,6 @@ bool CBulletManager::CharacterHitCheck(CMaincharacter * Player)
 //**************************************************************
 //                         LifeTime
 //**************************************************************
-
-void CBulletManager::DestroySatellite()
-{
-	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
-	{
-		if (m_pSatelliteArray[i]->IsVisible())
-		{
-			DestroyObj(m_pSatelliteArray[i]);
-		}
-	}
-}
 
 void CBulletManager::CheckLifeTime(CMainMap * Map, CGameMoveObj * Obj)
 {

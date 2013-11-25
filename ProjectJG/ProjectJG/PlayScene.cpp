@@ -75,6 +75,7 @@ CPlayScene::CPlayScene(void) : m_netsetup(false)
 
 CPlayScene::~CPlayScene(void)
 {
+	delete GNetHelper;
 }
 
 void CPlayScene::Render()

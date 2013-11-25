@@ -7,6 +7,7 @@
 #include "Bullet.h"
 #include "Satellite.h"
 #include "Asteroid.h"
+#include "NetManager.h"
 
 #include "NNInputSystem.h"		// for 운석 테스트
 
@@ -20,6 +21,7 @@ CMainMap::CMainMap(void)
 
 	m_MainFrame = NNRect::Create(m_Width, m_Height);
 	m_MainFrame->SetPosition(0.f,0.f);
+	m_MainFrame->SetColor(255.f, 255.f, 255.f);
 	AddChild(m_MainFrame);
 
 	
@@ -61,12 +63,17 @@ CMainMap::CMainMap(void)
 	//인공위성 로딩
 	for (int i = 0; i <MAX_SATELLITE_NUM; ++i)
 	{
-		CBulletManager::GetInstance()->GetSatelliteArray()[i] = new CSatellite;
-		AddChild( CBulletManager::GetInstance()->GetSatelliteArray()[i]);
-		CBulletManager::GetInstance()->GetSatelliteArray()[i]->SetVisible(false);
+		m_Player1->GetSatelliteArray()[i] = new CSatellite;
+		AddChild(m_Player1->GetSatelliteArray()[i]);
+		m_Player1->GetSatelliteArray()[i]->SetVisible(false);
+	}
+	for (int i = 0; i <MAX_SATELLITE_NUM; ++i)
+	{
+		m_Player2->GetSatelliteArray()[i] = new CSatellite;
+		AddChild(m_Player2->GetSatelliteArray()[i]);
+		m_Player2->GetSatelliteArray()[i]->SetVisible(false);
 	}
 
-	
 }
 
 
@@ -137,5 +144,11 @@ void CMainMap::SetPlayerMoveArea(CMaincharacter * Player)
 
 bool CMainMap::IsGameEnd()
 {
+	
+	if (m_GameMode && GNetHelper->IsPeerLinked())
+	{
+		return true;
+	}
+
 	return ( m_Player1->IsHit() || m_Player2->IsHit() );
 }

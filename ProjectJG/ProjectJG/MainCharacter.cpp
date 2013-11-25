@@ -5,8 +5,9 @@
 #include "NNCircle.h"
 #include "NNSpriteAtlas.h"
 #include "NetManager.h"
+#include "Satellite.h"
 
-CMaincharacter::CMaincharacter(void) : m_bHit(false)
+CMaincharacter::CMaincharacter(void) : m_bHit(false), m_SatelliteIndex(0)
 {
 	m_Texture =  NNSpriteAtlas::Create(L"Sprite/warrior2_0.png");
 	m_Texture->SetImageHeight(50.f);
@@ -17,6 +18,7 @@ CMaincharacter::CMaincharacter(void) : m_bHit(false)
 	SetHitRadius(CHAR_HIT_RADIUS);
 	m_Circle = NNCircle::Create(GetHitRadius());
 	m_Circle->SetPosition(0.f, 0.f);
+	m_Circle->SetColor(255.f, 0.f, 0.f);
 	AddChild( m_Circle );
 
 	m_Cost = 0;
@@ -34,11 +36,16 @@ void CMaincharacter::Render()
 	NNObject::Render();
 }
 
-//임시로 만든 함수
+//**************************************************************
+//                         Update
+//**************************************************************
+
+//테스트용 함수
 void CMaincharacter::Update( float dTime, CMaincharacter* enemy, CMainMap* map )
 {
 	UpdateShotDirection(enemy);
 	UpdateShotPoint();
+	UpdateSatellite(dTime, enemy);
 
 	m_Texture->SetRotation(GetShotDirection());
 
@@ -51,6 +58,7 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, i
 	//항상 적을 바라보도록 계산
 	UpdateShotDirection(enemy);
 	UpdateShotPoint();
+	UpdateSatellite(dTime, enemy);
 
 	m_Texture->SetRotation(GetShotDirection());
 
@@ -59,8 +67,8 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, i
 	SkillCasting(dTime, enemy, map, NNInputSystem::GetInstance()->GetSkillKeyInput());
 
 	//패킷 설정
-	if ( !GNetHelper->IsPeerLinked() )
-		return ;
+// 	if ( !GNetHelper->IsPeerLinked() )
+// 		return ;
 
 	PacketKeyStatus sendPkt ;
 	sendPkt.mSequence = framenum ;
@@ -77,8 +85,8 @@ void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap*
 
 	m_Texture->SetRotation(GetShotDirection());
 
-	if ( !GNetHelper->IsPeerLinked() )
-		return ;
+// 	if ( !GNetHelper->IsPeerLinked() )
+// 		return ;
 
 	/// P2P 데이터 받아서 상태 업데이트
 	PacketKeyStatus recvPkt ;
@@ -188,16 +196,68 @@ void CMaincharacter::FirstStageSkillCasting(float dTime, CMaincharacter* enemy, 
 	case SKILL_KEY_FIVE:
 		if ( GetCost() >= SETUP_SATELLITE_COST )
 		{
-			CBulletManager::GetInstance()->ShotSetupSatellite(this);
+			SetupSatellite();
 			SetCost(GetCost() - SETUP_SATELLITE_COST);
 		}
 		break;
 	case SKILL_KEY_SIX:
 		if (GetCost() >= SL_SECTORNORMAL_COST)
 		{
-			CBulletManager::GetInstance()->ShotSLSectorNormalBullet();
+			ShotSLSectorNormalBullet();
 			SetCost(GetCost() - SL_SECTORNORMAL_COST);
 		}
 		break;
+	}
+}
+
+//**************************************************************
+//                         Satellite
+//**************************************************************
+void CMaincharacter::SetupSatellite()
+{
+	CSatellite* pSatellite = GetSatellite();
+	pSatellite->SetPosition(GetPosition());
+}
+
+void CMaincharacter::UpdateSatellite(float dTime , CMaincharacter* Enemy)
+{
+	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
+	{
+		if (m_pSatelliteArray[i]->IsVisible())
+		{
+			m_pSatelliteArray[i]->Update(dTime, Enemy);
+		}
+	}
+}
+
+CSatellite * CMaincharacter::GetSatellite()
+{
+	++m_SatelliteIndex;
+	m_SatelliteIndex %= MAX_SATELLITE_NUM;
+	m_pSatelliteArray[m_SatelliteIndex]->SetVisible(true);
+
+	return m_pSatelliteArray[m_SatelliteIndex];
+}
+
+void CMaincharacter::ShotSLSectorNormalBullet()
+{
+	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
+	{
+		if (m_pSatelliteArray[i]->IsVisible())
+		{
+			CBulletManager::GetInstance()->ShotSectorBullets(m_pSatelliteArray[i], NORMAL_BULLET);
+		}
+	}
+}
+
+void CMaincharacter::DestroySatellite()
+{
+	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
+	{
+		if (m_pSatelliteArray[i]->IsVisible())
+		{
+			m_pSatelliteArray[i]->SetVisible(false);
+			m_pSatelliteArray[i]->InitMember();
+		}
 	}
 }
