@@ -149,7 +149,7 @@ void CMainMap::SetPlayerMoveArea(CMaincharacter * Player)
 bool CMainMap::IsGameEnd()
 {
 	
-	if (m_GameMode && GNetHelper->IsPeerLinked())
+	if (m_GameMode && !GNetHelper->IsPeerLinked())
 	{
 		return true;
 	}

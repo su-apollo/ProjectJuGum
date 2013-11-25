@@ -21,7 +21,7 @@ CMaincharacter::CMaincharacter(void) : m_bHit(false), m_SatelliteIndex(0)
 	m_Circle->SetColor(255.f, 0.f, 0.f);
 	AddChild( m_Circle );
 
-	m_Cost = 0;
+	m_Cost = 10000;
 	m_Stage = FIRST_STAGE_CHAR;
 
 	m_bHit = false;
@@ -67,8 +67,8 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, i
 	SkillCasting(dTime, enemy, map, NNInputSystem::GetInstance()->GetSkillKeyInput());
 
 	//패킷 설정
-// 	if ( !GNetHelper->IsPeerLinked() )
-// 		return ;
+	if ( !GNetHelper->IsPeerLinked() )
+		return ;
 
 	PacketKeyStatus sendPkt ;
 	sendPkt.mSequence = framenum ;
@@ -82,11 +82,12 @@ void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap*
 {
 	UpdateShotDirection(enemy);
 	UpdateShotPoint();
+	UpdateSatellite(dTime, enemy);
 
 	m_Texture->SetRotation(GetShotDirection());
 
-// 	if ( !GNetHelper->IsPeerLinked() )
-// 		return ;
+	if ( !GNetHelper->IsPeerLinked() )
+		return ;
 
 	/// P2P 데이터 받아서 상태 업데이트
 	PacketKeyStatus recvPkt ;

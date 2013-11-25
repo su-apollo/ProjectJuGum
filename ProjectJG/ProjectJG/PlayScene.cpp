@@ -37,10 +37,6 @@ CPlayScene::CPlayScene(void) : m_netsetup(false)
 	AddChild( m_FPSLabel );
 
 	m_SumTime = 0;
-
-	// cost
-	m_Map->GetPlayer1()->SetCost(10000);
-	m_Map->GetPlayer2()->SetCost(0);
 	
 	m_CostPerSecond = 5.f;
 	
