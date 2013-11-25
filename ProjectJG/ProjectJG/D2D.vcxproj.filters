@@ -93,6 +93,9 @@
     <ClCompile Include="UImanager.cpp">
       <Filter>GameObjects\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>GameObjects\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -298,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="UImanager.h">
       <Filter>GameObjects\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>GameObjects\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,7 @@
 #include "Satellite.h"
 #include "Asteroid.h"
 #include "NetManager.h"
+#include "Camera.h"
 
 #include "NNInputSystem.h"		// for 운석 테스트
 
@@ -37,9 +38,6 @@ CMainMap::CMainMap(void)
 
 	m_Player1->SetPosition( 0.f, GetBotLine() *0.5f );
 	m_Player2->SetPosition( 0.f, GetTopLine() *0.5f );
-//	m_Player2->SetPosition( 0.f, 0.f );
-//	m_Player1->SetPosition( GetWidth() *0.5f, GetHeight() *0.25f );
-//	m_Player2->SetPosition( GetWidth() *0.5f, GetHeight() *0.75f );
 
 	AddChild( m_Player1 );
 	AddChild( m_Player2 );
@@ -74,16 +72,34 @@ CMainMap::CMainMap(void)
 		m_Player2->GetSatelliteArray()[i]->SetVisible(false);
 	}
 
+	m_Camera = new CCamera();
 }
 
 
 CMainMap::~CMainMap(void)
 {
+	delete m_Camera;
 }
 
 void CMainMap::Render()
 {
-	NNObject::Render();
+	if ( m_Visible == false ) return;
+
+	m_Matrix = D2D1::Matrix3x2F::Translation( -m_Center.GetX() , -m_Center.GetY() )* 
+		D2D1::Matrix3x2F::Translation( - m_Camera->GetPositionX(), - m_Camera->GetPositionY() ) *
+		D2D1::Matrix3x2F::Rotation( m_Rotation ) *
+		D2D1::Matrix3x2F::Scale( m_ScaleX, m_ScaleY ) *
+		D2D1::Matrix3x2F::Translation( m_Position.GetX(), m_Position.GetY() );
+
+	if( m_pParent )
+	{
+		m_Matrix = m_Matrix * m_pParent->GetMatrix();
+	}
+
+	for (const auto& child : m_ChildList )
+	{
+		child->Render();
+	}
 }
 
 void CMainMap::Update( float dTime )

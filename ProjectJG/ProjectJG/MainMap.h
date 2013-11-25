@@ -6,6 +6,7 @@ class NNSprite;
 class CMaincharacter;
 class CAccelBullet;
 class CCurveBullet;
+class CCamera;
 
 
 class CMainMap : public NNObject
@@ -23,6 +24,8 @@ public:
 
 	CMaincharacter* GetPlayer1() { return m_Player1; }
 	CMaincharacter* GetPlayer2() { return m_Player2; }
+
+	CCamera*	GetCamera() { return m_Camera; }
 
 	NNRect *	GetMainFrame() { return m_MainFrame; }
 	float		GetHeight() {return m_Height;}
@@ -46,5 +49,7 @@ private:
 	void SetPlayerMoveArea(CMaincharacter * Player);
 
 	ENetworkMode m_GameMode;
+
+	CCamera*	m_Camera;
 };
 

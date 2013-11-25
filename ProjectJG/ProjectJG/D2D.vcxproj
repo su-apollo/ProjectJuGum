@@ -86,6 +86,7 @@
     <ClCompile Include="Asteroid.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameMoveObj.cpp" />
     <ClCompile Include="MainMap.cpp" />
     <ClCompile Include="NNAudioSystem.cpp" />
@@ -120,6 +121,7 @@
     <ClInclude Include="Asteroid.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="GameMoveObj.h" />
     <ClInclude Include="MainMap.h" />
     <ClInclude Include="NNAudioSystem.h" />
