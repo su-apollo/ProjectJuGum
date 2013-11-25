@@ -85,11 +85,15 @@ void CMainMap::Update( float dTime )
 	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2, this);
 
 	//캐릭터 업데이트
-	m_Player1->Update(dTime, m_Player2, this);
-
-// 	m_Player1->Update(dTime, m_Player2, this, m_CurrentFrame);
-// 	m_Player2->UpdateByPeer(dTime, m_Player1, this, m_CurrentFrame);
-
+	if (m_GameMode == TEST_MODE)
+	{	
+		m_Player1->Update(dTime, m_Player2, this);
+	}
+	else
+	{
+		m_Player1->Update(dTime, m_Player2, this, m_CurrentFrame);
+		m_Player2->UpdateByPeer(dTime, m_Player1, this, m_CurrentFrame);
+	}
 
 	//맵과 캐릭터의 충돌체크
 	SetPlayerMoveArea(m_Player1);

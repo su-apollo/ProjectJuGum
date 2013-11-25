@@ -51,6 +51,10 @@ void NND2DSprite::Destroy()
 
 void NND2DSprite::Render()
 {
+	if ( m_Visible == false ) {
+		return;
+	}
+
 	NNObject::Render();
 
 	m_pD2DRenderer->GetHwndRenderTarget()->SetTransform( m_Matrix );

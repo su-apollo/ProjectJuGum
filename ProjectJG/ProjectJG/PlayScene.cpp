@@ -54,14 +54,20 @@ CPlayScene::CPlayScene(void) : m_netsetup(false)
 	AddChild( m_Player2CostLabel );
 
 	//네트워크 설정 메뉴
+	m_MenuLabel[TEST_MODE] = NNLabel::Create( L"TEST", L"궁서체", 40.f );
+	m_MenuLabel[TEST_MODE]->SetColor(255.0f, 0.0f, 0.0f);
+	m_MenuLabel[TEST_MODE]->SetPosition( width/2 + 60.f, height/2 );
+	AddChild( m_MenuLabel[TEST_MODE] );
+
+
 	m_MenuLabel[CLIENT_MODE] = NNLabel::Create( L"CLIENT", L"궁서체", 40.f );
-	m_MenuLabel[CLIENT_MODE]->SetColor(255.0f, 0.0f, 0.0f);
-	m_MenuLabel[CLIENT_MODE]->SetPosition( width/2 + 60.f, height/2 );
+	m_MenuLabel[CLIENT_MODE]->SetColor(0.0f, 0.0f, 0.0f);
+	m_MenuLabel[CLIENT_MODE]->SetPosition( width/2 + 60.f, height/2 + 80.f );
 	AddChild( m_MenuLabel[CLIENT_MODE] );
 
 	m_MenuLabel[SERVER_MODE] = NNLabel::Create( L"SERVER", L"궁서체", 40.f );
 	m_MenuLabel[SERVER_MODE]->SetColor(0.0f, 0.0f, 0.0f);
-	m_MenuLabel[SERVER_MODE]->SetPosition( width/2 + 60.f, height/2 + 80.f );
+	m_MenuLabel[SERVER_MODE]->SetPosition( width/2 + 60.f, height/2 + 160.f );
 	AddChild( m_MenuLabel[SERVER_MODE] );
 
 	m_KeyOn = 0;
@@ -77,10 +83,10 @@ void CPlayScene::Render()
 }
 void CPlayScene::Update( float dTime )
 {
-// 	if(!NetworkSetMenu())
-// 	{
-// 		return;
-// 	}
+	if(!NetworkSetMenu())
+	{
+		return;
+	}
 
 	// FPS
 	m_SumTime += dTime;
@@ -125,8 +131,9 @@ bool CPlayScene::NetworkSetMenu()
 		return true;
 	}
 
-	//네트워크 메뉴와 소켓 초기화
+	//ip
 	char* serverIpAddr = "127.0.0.1";
+	//char* serverIpAddr = "10.73.38.244";
 
 	//메뉴
 	m_MenuLabel[m_KeyOn]->SetColor( 0.f, 0.f, 0.f);	
@@ -140,7 +147,7 @@ bool CPlayScene::NetworkSetMenu()
 	{
 		++m_KeyOn;
 	}
-	m_KeyOn = (m_KeyOn + NET_MENU_LAST) % NET_MENU_LAST;
+	m_KeyOn %= NET_MENU_LAST;
 	m_MenuLabel[m_KeyOn]->SetColor( 255.f, 0.f, 0.f);
 
 
@@ -148,6 +155,10 @@ bool CPlayScene::NetworkSetMenu()
 	{
 		switch (m_KeyOn)
 		{
+		case TEST_MODE:
+			m_Map->SetGameMode(TEST_MODE);
+			break;
+
 		case CLIENT_MODE:
 			GNetHelper = new NetHelper(false, serverIpAddr) ;
 
@@ -165,6 +176,7 @@ bool CPlayScene::NetworkSetMenu()
 			m_Map->GetPlayer1()->SetPosition( 0.f, m_Map->GetBotLine() *0.5f );
 			m_Map->GetPlayer2()->SetPosition( 0.f, m_Map->GetTopLine() *0.5f );
 
+			m_Map->SetGameMode(CLIENT_MODE);
 			break;
 
 		case SERVER_MODE:
@@ -184,6 +196,7 @@ bool CPlayScene::NetworkSetMenu()
 			m_Map->GetPlayer1()->SetPosition( 0.f, m_Map->GetTopLine() *0.5f );
 			m_Map->GetPlayer2()->SetPosition( 0.f, m_Map->GetBotLine() *0.5f );
 
+			m_Map->SetGameMode(SERVER_MODE);
 			break;
 		default:
 			break;
@@ -192,6 +205,8 @@ bool CPlayScene::NetworkSetMenu()
 		m_netsetup = true;
 		m_MenuLabel[0]->SetVisible(false);
 		m_MenuLabel[1]->SetVisible(false);
+		m_MenuLabel[2]->SetVisible(false);
+
 		return true;
 	}
 	return false;

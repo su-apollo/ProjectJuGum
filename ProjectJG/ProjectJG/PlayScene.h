@@ -41,7 +41,7 @@ private:
 	NNSprite*	m_BackGround;
 
 	bool		m_netsetup;
-	NNLabel*	m_MenuLabel[2];
+	NNLabel*	m_MenuLabel[3];
 	unsigned int m_KeyOn;
 };
 

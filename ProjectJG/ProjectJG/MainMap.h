@@ -1,5 +1,6 @@
 #pragma once
 #include "NNRect.h"
+#include "GameOption.h"
 
 class NNSprite;
 class CMaincharacter;
@@ -29,6 +30,8 @@ public:
 
 	bool		IsGameEnd();
 
+	void		SetGameMode(ENetworkMode mode) {m_GameMode = mode;}
+
 private:
 	NNRect *	m_MainFrame;
 	float		m_Height;
@@ -42,6 +45,6 @@ private:
 
 	void SetPlayerMoveArea(CMaincharacter * Player);
 
-	CAccelBullet* m_testbullet;
+	ENetworkMode m_GameMode;
 };
 
