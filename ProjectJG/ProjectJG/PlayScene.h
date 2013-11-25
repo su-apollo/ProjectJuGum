@@ -5,6 +5,7 @@ class CMainMap;
 class NNSprite;
 class NNLabel;
 class CFrame;
+class CMaincharacter;
 
 class CPlayScene : public NNScene
 {
@@ -22,9 +23,11 @@ public:
 
 	void EndGame();
 
+	void CameraMove( CMaincharacter* Player, float dTime );
+
 private:
 
-	CMainMap *	m_Map;
+	CMainMap *	m_MainMap;
 
 
 	// cost

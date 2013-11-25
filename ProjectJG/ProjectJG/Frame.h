@@ -21,7 +21,11 @@ public:
 	float		GetWidth()	{ return m_Width; }
 	float		GetHeight()	{ return m_Height; }
 
-	virtual void SetSize( float width, float height ) { m_MainFrame->SetWidth(width); m_MainFrame->SetHeight(height); }
+	virtual void SetSize( float width, float height )
+	{ 
+		m_Width = width; m_Height = height;
+		m_MainFrame->SetWidth(width); m_MainFrame->SetHeight(height);
+	}
 
 protected:
 	NNRect *	m_MainFrame;

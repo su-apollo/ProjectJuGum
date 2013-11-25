@@ -15,6 +15,7 @@
 #include "NetManager.h"
 
 #include "Frame.h"
+#include "Camera.h"
 
 CPlayScene::CPlayScene(void) : m_netsetup(false)
 {
@@ -29,9 +30,9 @@ CPlayScene::CPlayScene(void) : m_netsetup(false)
 	AddChild(m_BackGround);
 
 	//맵생성
-	m_Map = new CMainMap();
-	m_Map->SetPosition(NNPoint(640.f, 400.f));
-	AddChild(m_Map);
+	m_MainMap = new CMainMap();
+	m_MainMap->SetPosition(NNPoint(640.f, 400.f));
+	AddChild(m_MainMap);
 
 	// cost
 	m_CostPerSecond = 5.f;
@@ -80,15 +81,18 @@ void CPlayScene::Update( float dTime )
 	}
 	
 	// cost
-	m_Map->GetPlayer1()->SetCost( m_Map->GetPlayer1()->GetCost() + m_CostPerSecond*dTime );
-	m_Map->GetPlayer2()->SetCost( m_Map->GetPlayer2()->GetCost() + m_CostPerSecond*dTime );
+	m_MainMap->GetPlayer1()->SetCost( m_MainMap->GetPlayer1()->GetCost() + m_CostPerSecond*dTime );
+	m_MainMap->GetPlayer2()->SetCost( m_MainMap->GetPlayer2()->GetCost() + m_CostPerSecond*dTime );
+
+	// camera move
+	CameraMove( m_MainMap->GetPlayer1(), dTime );
 
 	// UI update
-	UImanager::GetInstance()->Update( dTime, m_Map->GetPlayer1(), m_Map->GetPlayer2() );
+	UImanager::GetInstance()->Update( dTime, m_MainMap->GetPlayer1(), m_MainMap->GetPlayer2() );
 
 	// 씬에서 처리하던 모든 처리를 메인 맵으로 넘김.
-	m_Map->Update( dTime );
-	if ( m_Map->IsGameEnd() ) EndGame();
+	m_MainMap->Update( dTime );
+	if ( m_MainMap->IsGameEnd() ) EndGame();
 }
 
 bool CPlayScene::CircleToCircleHitCheck(NNPoint point_A, float radius_A, NNPoint point_B, float radius_B) 
@@ -138,7 +142,7 @@ bool CPlayScene::NetworkSetMenu()
 		switch (m_KeyOn)
 		{
 		case TEST_MODE:
-			m_Map->SetGameMode(TEST_MODE);
+			m_MainMap->SetGameMode(TEST_MODE);
 			break;
 
 		case CLIENT_MODE:
@@ -155,10 +159,10 @@ bool CPlayScene::NetworkSetMenu()
 				return false;
 			}
 
-			m_Map->GetPlayer1()->SetPosition( 0.f, m_Map->GetBotLine() *0.5f );
-			m_Map->GetPlayer2()->SetPosition( 0.f, m_Map->GetTopLine() *0.5f );
+			m_MainMap->GetPlayer1()->SetPosition( 0.f, m_MainMap->GetBotLine() *0.5f );
+			m_MainMap->GetPlayer2()->SetPosition( 0.f, m_MainMap->GetTopLine() *0.5f );
 
-			m_Map->SetGameMode(CLIENT_MODE);
+			m_MainMap->SetGameMode(CLIENT_MODE);
 			break;
 
 		case SERVER_MODE:
@@ -175,10 +179,10 @@ bool CPlayScene::NetworkSetMenu()
 				return false;
 			}
 
-			m_Map->GetPlayer1()->SetPosition( 0.f, m_Map->GetTopLine() *0.5f );
-			m_Map->GetPlayer2()->SetPosition( 0.f, m_Map->GetBotLine() *0.5f );
+			m_MainMap->GetPlayer1()->SetPosition( 0.f, m_MainMap->GetTopLine() *0.5f );
+			m_MainMap->GetPlayer2()->SetPosition( 0.f, m_MainMap->GetBotLine() *0.5f );
 
-			m_Map->SetGameMode(SERVER_MODE);
+			m_MainMap->SetGameMode(SERVER_MODE);
 			break;
 		default:
 			break;
@@ -192,4 +196,38 @@ bool CPlayScene::NetworkSetMenu()
 		return true;
 	}
 	return false;
+}
+
+
+void CPlayScene::CameraMove( CMaincharacter* Player, float dTime )
+{
+	float leftline = m_Frame->GetLeftLine();
+	float rightline = m_Frame->GetRightLine();
+	float botline = m_Frame->GetBotLine();
+	float topline = m_Frame->GetTopLine();
+
+	CCamera* camera = m_MainMap->GetCamera();
+
+	float dX = 0;
+	float dY = 0;
+
+	printf_s("frame : %.3f, %.3f, %.3f, %.3f\n", leftline, topline, rightline, botline);
+	printf_s("player : %.3f, %.3f\ncamera : %.3f, %.3f\n", Player->GetPositionX(), Player->GetPositionY(), camera->GetPositionX(), camera->GetPositionY())
+
+	if (Player->GetPositionX() - camera->GetPositionX() < leftline)
+	{
+		camera->SetPosition( camera->GetPosition() + NNPoint(Player->GetPositionX() - camera->GetPositionX() - leftline, 0) );
+	}
+	if (Player->GetPositionX() - camera->GetPositionX() > rightline)
+	{
+		camera->SetPosition( camera->GetPosition() + NNPoint(Player->GetPositionX() - camera->GetPositionX() - rightline, 0) );
+	}
+	if (Player->GetPositionY() - camera->GetPositionY() > botline)
+	{
+		camera->SetPosition( camera->GetPosition() + NNPoint(0, Player->GetPositionY() - camera->GetPositionY() - botline) );
+	}
+	if (Player->GetPositionY() - camera->GetPositionY() < topline)
+	{
+		camera->SetPosition( camera->GetPosition() + NNPoint(0, Player->GetPositionY() - camera->GetPositionY() - topline) );
+	}
 }
