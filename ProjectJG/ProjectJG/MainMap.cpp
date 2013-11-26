@@ -11,6 +11,7 @@
 #include "Camera.h"
 
 #include "NNInputSystem.h"		// for 운석 테스트
+#include "NNApplication.h"
 
 
 CMainMap::CMainMap(void) : m_CurrentFrame(0)
@@ -26,6 +27,7 @@ CMainMap::CMainMap(void) : m_CurrentFrame(0)
 	
 	// 맵 배경 이미지
 	m_BackGround = NNSprite::Create( MAIN_MAP_BACKGROUND_IMAGE );
+	printf_s( "map : %.3f, %.3f\n", GetWidth(), GetHeight() );
 	m_BackGround->SetImageWidth( GetWidth() );
 	m_BackGround->SetImageHeight( GetHeight() );
 	AddChild( m_BackGround );
@@ -140,10 +142,13 @@ void CMainMap::Update( float dTime, CFrame* frame )
 
 void CMainMap::SetPlayerMoveArea( CMaincharacter * Player, CFrame* frame )
 {
-	float leftline = GetLeftLine() - frame->GetLeftLine();
-	float rightline = GetRightLine() - frame->GetRightLine();
-	float botline = GetBotLine() - frame->GetBotLine();
-	float topline = GetTopLine() - frame->GetTopLine();
+	float leftline = GetLeftLine() - -(float)NNApplication::GetInstance()->GetScreenWidth() *0.5f + frame->GetLeftLine();
+	float rightline = GetRightLine() - (float)NNApplication::GetInstance()->GetScreenWidth() *0.5f + frame->GetRightLine();
+	float botline = GetBotLine() - (float)NNApplication::GetInstance()->GetScreenHeight() *0.5f + frame->GetBotLine();
+	float topline = GetTopLine() - -(float)NNApplication::GetInstance()->GetScreenHeight() *0.5f + frame->GetTopLine();
+
+	printf_s( "char : %.3f, %.3f\n", m_Player1->GetPositionX(), m_Player1->GetPositionY() );
+	printf_s( "line : %.3f, %.3f, %.3f, %.3f\n", leftline, topline, rightline, botline );
 	
 	if (Player->GetPositionX() < leftline)
 	{
