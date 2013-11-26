@@ -13,10 +13,8 @@
 #include "NNInputSystem.h"		// for 운석 테스트
 
 
-CMainMap::CMainMap(void)
+CMainMap::CMainMap(void) : m_CurrentFrame(0)
 {
-	++m_CurrentFrame;			// 값 초기화도 안 하고 ++ 함????????
-
 	m_Width = MAIN_MAP_WIDTH;
 	m_Height = MAIN_MAP_HEIGHT;
 
@@ -83,6 +81,7 @@ CMainMap::~CMainMap(void)
 
 void CMainMap::Render()
 {
+
 	if ( m_Visible == false ) return;
 
 	m_Matrix = D2D1::Matrix3x2F::Translation( -m_Center.GetX() , -m_Center.GetY() )* 
@@ -104,6 +103,8 @@ void CMainMap::Render()
 
 void CMainMap::Update( float dTime, CFrame* frame )
 {
+	++m_CurrentFrame;	
+
 	//총알 및 오브젝트의 업데이트와 라이프타임 채크
 	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2, this);
 
