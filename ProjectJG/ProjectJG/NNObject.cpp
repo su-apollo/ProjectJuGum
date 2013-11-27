@@ -57,7 +57,7 @@ void NNObject::AddChild( NNObject* object )
 	object->SetParent( this );
 
 	m_ChildList.push_back( object );
-	SortingChildByZindex();
+	//SortingChildByZindex();
 }
 void NNObject::AddChild( NNObject* object, int zindex )
 {
