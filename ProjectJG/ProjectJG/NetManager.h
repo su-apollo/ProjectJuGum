@@ -20,6 +20,7 @@ public:
 	bool SendKeyStatus(const PacketKeyStatus& sendKeys) ;
 	bool RecvKeyStatus(OUT PacketKeyStatus& recvKeys) ;
 
+	void GetHostIP();
 
 private:
 

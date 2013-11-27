@@ -63,7 +63,10 @@ CPlayScene::CPlayScene(void) : m_netsetup(false)
 
 CPlayScene::~CPlayScene(void)
 {
-	delete GNetHelper;
+	if(GNetHelper)
+		delete GNetHelper;
+
+	GNetHelper = nullptr;
 }
 
 void CPlayScene::Render()
@@ -116,8 +119,8 @@ bool CPlayScene::NetworkSetMenu()
 	}
 
 	//ip
-	char* serverIpAddr = "127.0.0.1";
-	//char* serverIpAddr = "10.73.38.244";
+	//char* serverIpAddr = "127.0.0.1";
+	char* serverIpAddr = "10.73.42.57";
 
 	//¸Þ´º
 	m_MenuLabel[m_KeyOn]->SetColor( 0.f, 0.f, 0.f);	
@@ -172,6 +175,8 @@ bool CPlayScene::NetworkSetMenu()
 				return false;
 			}
 
+			GNetHelper->GetHostIP();
+
 			if ( !GNetHelper->DoHandShake() )
 			{
 				return false;
@@ -181,6 +186,7 @@ bool CPlayScene::NetworkSetMenu()
 			m_MainMap->GetPlayer2()->SetPosition( 0.f, m_MainMap->GetBotLine() *0.5f );
 
 			m_MainMap->SetGameMode(SERVER_MODE);
+
 			break;
 		default:
 			break;

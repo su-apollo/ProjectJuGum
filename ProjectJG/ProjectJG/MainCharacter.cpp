@@ -43,18 +43,34 @@ void CMaincharacter::Render()
 //테스트용 함수
 void CMaincharacter::Update( float dTime, CMaincharacter* enemy, CMainMap* map )
 {
+	EInputSetUp skill_key_input = NONE;
+	EInputSetUp direct_key_input = NONE;
+
+	skill_key_input = NNInputSystem::GetInstance()->GetSkillKeyInput();
+	direct_key_input = NNInputSystem::GetInstance()->GetDirectionKeyInput();
+
 	UpdateShotDirection(enemy);
 	UpdateShotPoint();
 	UpdateSatellite(dTime, enemy);
 
 	m_Texture->SetRotation(GetShotDirection());
 
-	UpdateMotion(dTime, NNInputSystem::GetInstance()->GetSkillKeyInput(), NNInputSystem::GetInstance()->GetDirectionKeyInput());
-	SkillCasting(dTime, enemy, map, NNInputSystem::GetInstance()->GetSkillKeyInput());
+	printf_s("%d\t", skill_key_input);
+	printf_s("%d\n", direct_key_input);
+
+	UpdateMotion(dTime, skill_key_input, direct_key_input);
+	SkillCasting(dTime, enemy, map, skill_key_input);
+
 }
 
 void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, int framenum)
 {
+	EInputSetUp skill_key_input = NONE;
+	EInputSetUp direct_key_input = NONE;
+
+	skill_key_input = NNInputSystem::GetInstance()->GetSkillKeyInput();
+	direct_key_input = NNInputSystem::GetInstance()->GetDirectionKeyInput();
+
 	//항상 적을 바라보도록 계산
 	UpdateShotDirection(enemy);
 	UpdateShotPoint();
@@ -63,8 +79,8 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, i
 	m_Texture->SetRotation(GetShotDirection());
 
 	//이동과 스킬시전
-	UpdateMotion(dTime, NNInputSystem::GetInstance()->GetSkillKeyInput(), NNInputSystem::GetInstance()->GetDirectionKeyInput());
-	SkillCasting(dTime, enemy, map, NNInputSystem::GetInstance()->GetSkillKeyInput());
+	UpdateMotion(dTime, skill_key_input, direct_key_input);
+	SkillCasting(dTime, enemy, map, skill_key_input);
 
 	//패킷 설정
 	if ( !GNetHelper->IsPeerLinked() )
@@ -92,12 +108,6 @@ void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap*
 	/// P2P 데이터 받아서 상태 업데이트
 	PacketKeyStatus recvPkt ;
 	GNetHelper->RecvKeyStatus(recvPkt) ;
-
-	if ( recvPkt.mSequence != framenum )
-	{
-		/// 여기 걸리면 프레임 빗나간 것이다..
-		assert(false) ;
-	}
 
 	UpdateMotion(dTime, (EInputSetUp)recvPkt.mSkillStatus, (EInputSetUp)recvPkt.mDirectionStatus);
 	SkillCasting(dTime, enemy, map, (EInputSetUp)recvPkt.mSkillStatus);

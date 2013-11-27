@@ -143,3 +143,30 @@ bool NetHelper::RecvKeyStatus(OUT PacketKeyStatus& recvKeys)
 
 	return true ;
 }
+
+void NetHelper::GetHostIP()
+{
+	char myaddr[256];
+	PHOSTENT pHostInfo;
+	char *pTemp;
+
+	IN_ADDR in;
+
+	//로컬pc의 호스트이름을 표준양식으로받아옴(MSDN)
+	gethostname(myaddr, sizeof(myaddr));
+
+	//호스트이름에 대응되는Databas를 PHOSTENT구조체로 리턴
+	pHostInfo = gethostbyname(myaddr); 
+	
+	if( pHostInfo != NULL )     
+	{ 
+		in.s_addr = ( ( LPIN_ADDR ) pHostInfo->h_addr )->s_addr; 
+		pTemp = inet_ntoa( in ); // 문자열로 변환된 IP주소를 얻을수 있다.
+	} 
+	else 
+	{ 
+		MessageBox(NULL, L"ERROR: GetHostIP Error!", L"ERROR", MB_OK) ;
+	}
+
+	printf_s("%s", pTemp);
+}
