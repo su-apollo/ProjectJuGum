@@ -14,7 +14,7 @@ class NNLabel : public NNObject
 public:
 	NNLabel()
 		: m_FontFace(nullptr), m_String(nullptr), m_FontSize(0.f),
-		  m_ColorR(0.f), m_ColorG(0.f), m_ColorB(0.f), m_Opacity(1.f),
+		  m_ColorR(255.f), m_ColorG(255.f), m_ColorB(255.f), m_Opacity(1.f),
 		  m_Bold(false), m_Italic(false)
 	{}
 	virtual ~NNLabel(){}
@@ -69,6 +69,9 @@ public:
 	void Render();
 
 public:
+	float GetWidth(){  return (float)(m_pD2DRenderer->GetHwndRenderTarget()->GetSize().width); }
+	float GetHeight(){  return (float)(m_pD2DRenderer->GetHwndRenderTarget()->GetSize().height); }
+
 	void SetFontSize( float fontsize ) { m_FontSize = fontsize; SetTextFormat(); }
 	void SetFontFace( wchar_t* fontface ) { m_FontFace = fontface; SetTextFormat();}
 	void SetBold( bool bold ) { m_Bold = bold; SetTextFormat(); }

@@ -33,6 +33,8 @@ private:
 
 	int			m_CurrentFrame;
 
+	float		m_CostPerSecond;
+
 	CMaincharacter * m_Player1;	
 	CMaincharacter * m_Player2;
 

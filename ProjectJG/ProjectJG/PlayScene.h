@@ -28,12 +28,8 @@ public:
 
 private:
 
-	NNSprite*	m_BackGround;
-
 	CMainMap *	m_MainMap;
 	CFrame*		m_Frame;
-
-	float		m_CostPerSecond;
 	
 	bool		m_netsetup;
 	NNLabel*	m_MenuLabel[NET_MENU_LAST];

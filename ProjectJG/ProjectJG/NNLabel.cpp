@@ -83,5 +83,3 @@ void NND2DLabel::SetTextFormat()
 		m_Italic ? DWRITE_FONT_STYLE_ITALIC : DWRITE_FONT_STYLE_NORMAL,
 		DWRITE_FONT_STRETCH_NORMAL, m_FontSize, L"ko", &m_TextFormat );
 }
-
-

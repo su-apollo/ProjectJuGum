@@ -38,21 +38,25 @@ CMainMenuScene::CMainMenuScene(void)
 
 	// 메뉴 라벨 생성 및 배치
 	m_MenuLabel[MENU_PLAY] = NNLabel::Create( L"Play", L"궁서체", 40.f );
-	m_MenuLabel[MENU_PLAY]->SetColor(255.0f, 255.0f, 255.0f);
 	m_MenuLabel[MENU_PLAY]->SetPosition( width*0.5f + 60.f, height*0.5f );
 	AddChild( m_MenuLabel[MENU_PLAY] );
 
 	m_MenuLabel[MENU_TEST] = NNLabel::Create( L"Test", L"궁서체", 40.f );
-	m_MenuLabel[MENU_TEST]->SetColor(255.0f, 255.0f, 255.0f);
 	m_MenuLabel[MENU_TEST]->SetPosition( width*0.5f + 60.f, height*0.5f + 80.f );
 	AddChild( m_MenuLabel[MENU_TEST] );
 
 	m_MenuLabel[MENU_QUIT] = NNLabel::Create( L"Quit", L"궁서체", 40.f );
-	m_MenuLabel[MENU_QUIT]->SetColor(255.0f, 255.0f, 255.0f);
 	m_MenuLabel[MENU_QUIT]->SetPosition( width*0.5f + 60.f, height*0.5f + 160.f );
 	AddChild( m_MenuLabel[MENU_QUIT] );
 
 	m_KeyOn = 0;			// 현재 가리키고 있는 메뉴 위치
+
+	m_LoadingLabel = NNLabel::Create(L"Loading...", L"궁서체", 50.f);
+	m_LoadingLabel->SetPosition( m_MenuLabel[MENU_PLAY]->GetPosition() );
+	m_LoadingLabel->SetVisible(false);
+	AddChild( m_LoadingLabel );
+
+	m_bChangeScene = false;
 }
 
 
@@ -68,6 +72,12 @@ void CMainMenuScene::Render()
 
 void CMainMenuScene::Update( float dTime )
 {
+	if (m_bChangeScene)
+	{
+		NNSceneDirector::GetInstance()->ChangeScene( new CPlayScene() );
+		return;
+	}
+	
 	m_MenuLabel[m_KeyOn]->SetColor( 255.f, 255.f, 255.f );
 	if ( NNInputSystem::GetInstance()->GetMainMenuInput() == UP 
 		|| NNInputSystem::GetInstance()->GetMainMenuInput() == LEFT)
@@ -87,7 +97,12 @@ void CMainMenuScene::Update( float dTime )
 		switch (m_KeyOn)
 		{
 		case MENU_PLAY:
-			NNSceneDirector::GetInstance()->ChangeScene( new CPlayScene() );
+			for (int i = 0; i < MENU_NUM; i++)
+			{
+				m_MenuLabel[i]->SetVisible(false);
+			}
+			m_LoadingLabel->SetVisible(true);
+			m_bChangeScene = true;
 			break;
 		case MENU_TEST:
 			break;

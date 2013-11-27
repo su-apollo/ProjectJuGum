@@ -21,13 +21,6 @@ CPlayScene::CPlayScene(void) : m_netsetup(false)
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 
-	// 플레이 씬 전체 화면 배경 이미지
-	m_BackGround = NNSprite::Create( MAIN_MENU_SCENE_BACKGROUND_IMAGE );
-	m_BackGround->SetPosition( NNPoint(width*0.5f, height*0.5f) );
-	m_BackGround->SetImageHeight( height );
-	m_BackGround->SetImageWidth( width );
-	AddChild(m_BackGround);
-
 	// 게임 메인 맵
 	m_MainMap = new CMainMap();
 	m_MainMap->SetPosition( NNPoint(width *0.5f, height *0.5f) );
@@ -38,9 +31,6 @@ CPlayScene::CPlayScene(void) : m_netsetup(false)
 	m_Frame->SetPosition( width*0.5f, height*0.5f );
 	m_Frame->SetSize( FRAME_WIDTH, FRAME_HEIGHT );
 	AddChild( m_Frame );
-
-	// cost
-	m_CostPerSecond = 5.f;
 
 	//네트워크 설정 메뉴
 	m_MenuLabel[TEST_MODE] = NNLabel::Create( L"TEST", L"궁서체", 40.f );
@@ -81,10 +71,6 @@ void CPlayScene::Update( float dTime )
 		return;
 	}
 	
-	// cost
-	m_MainMap->GetPlayer1()->SetCost( m_MainMap->GetPlayer1()->GetCost() + m_CostPerSecond*dTime );
-	m_MainMap->GetPlayer2()->SetCost( m_MainMap->GetPlayer2()->GetCost() + m_CostPerSecond*dTime );
-
 	// camera move. 플레이어가 프레임 경계까지 가면 카메라가 따라서 움직인다.
 	CameraMove( m_MainMap->GetPlayer1(), dTime );
 

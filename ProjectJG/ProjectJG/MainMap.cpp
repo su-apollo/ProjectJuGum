@@ -25,7 +25,6 @@ CMainMap::CMainMap(void) : m_CurrentFrame(0)
 	m_MainFrame->SetColor(255.f, 255.f, 255.f);
 	AddChild(m_MainFrame);
 
-	
 	// 맵 배경 이미지
 	m_BackGround = NNSprite::Create( MAIN_MAP_BACKGROUND_IMAGE );
 	m_BackGround->SetImageWidth( GetWidth() );
@@ -35,6 +34,9 @@ CMainMap::CMainMap(void) : m_CurrentFrame(0)
 	//플레이어 생성
 	m_Player1 = new CMaincharacter;
 	m_Player2 = new CMaincharacter;
+
+	// cost
+	m_CostPerSecond = 5.f;
 
 	// 플레이어 배치
 	// (0,0) 이 맵의 중심. 플레이어 1은 아래 화면의 가운데에, 플레이어 2는 윗 화면의 가운데에 배치한다.
@@ -108,6 +110,10 @@ void CMainMap::Render()
 void CMainMap::Update( float dTime, CFrame* frame )
 {
 	++m_CurrentFrame;	
+
+	// cost
+	GetPlayer1()->SetCost( GetPlayer1()->GetCost() + m_CostPerSecond*dTime );
+	GetPlayer2()->SetCost( GetPlayer2()->GetCost() + m_CostPerSecond*dTime );
 
 	//총알 및 오브젝트의 업데이트와 라이프타임 체크
 	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2, this);
