@@ -29,32 +29,31 @@ void UImanager::ReleaseInstance()
 
 UImanager::UImanager(void)
 {
+	m_UINum = 0;		// UI °³¼ö Ä«¿îÆ®
+
 	// FPS
 	m_FPSLabel = NNLabel::Create( L"FPS : ", L"¸¼Àº °íµñ", 20.f );
 	m_FPSLabel->SetPosition( 0.f, 0.f );
 	m_FPSLabel->SetColor( 255.f, 255.f, 255.f );
-	
-	m_SumTime = 0;
+	m_UIList[m_UINum++] = m_FPSLabel;
 
 	// cost
 	m_Player1CostLabel = NNLabel::Create( L"Player1's Cost : ", L"¸¼Àº °íµñ", 20.f );
 	m_Player1CostLabel->SetPosition( 0.f, 700.f );
 	m_Player1CostLabel->SetColor( 255.f, 255.f, 255.f );
+	m_UIList[m_UINum++] = m_Player1CostLabel;
 	
 	m_Player2CostLabel = NNLabel::Create( L"Player2's Cost : ", L"¸¼Àº °íµñ", 20.f );
 	m_Player2CostLabel->SetPosition( 0.f, 100.f );
 	m_Player2CostLabel->SetColor( 255.f, 255.f, 255.f );
+	m_UIList[m_UINum++] = m_Player2CostLabel;
 
-
-	m_UIList[0] = m_FPSLabel;
-	m_UIList[1] = m_Player1CostLabel;
-	m_UIList[2] = m_Player2CostLabel;
 }
 
 
 UImanager::~UImanager(void)
 {
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < m_UINum; ++i)
 	{
 		delete m_UIList[i];
 	}
@@ -63,7 +62,6 @@ UImanager::~UImanager(void)
 void UImanager::Update( float dTime, CMaincharacter* Player1, CMaincharacter* Player2 )
 {
 	// FPS
-	m_SumTime += dTime;
 	swprintf_s( m_FPSBuffer, _countof(m_FPSBuffer), L"FPS : %0.3f", NNApplication::GetInstance()->GetFPS() );
 	m_FPSLabel->SetString( m_FPSBuffer );
 
@@ -75,7 +73,7 @@ void UImanager::Update( float dTime, CMaincharacter* Player1, CMaincharacter* Pl
 
 void UImanager::SetAllVisible( bool visible )
 {
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < m_UINum; ++i)
 	{
 		m_UIList[i]->SetVisible( visible );
 	}
@@ -83,7 +81,7 @@ void UImanager::SetAllVisible( bool visible )
 
 void UImanager::Render()
 {
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < m_UINum; ++i)
 	{
 		m_UIList[i]->Render();
 	}

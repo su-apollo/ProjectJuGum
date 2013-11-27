@@ -19,6 +19,7 @@ CMainMap::CMainMap(void) : m_CurrentFrame(0)
 	m_Width = MAIN_MAP_WIDTH;
 	m_Height = MAIN_MAP_HEIGHT;
 
+	// 사각형 틀 생성
 	m_MainFrame = NNRect::Create(m_Width, m_Height);
 	m_MainFrame->SetPosition(0.f,0.f);
 	m_MainFrame->SetColor(255.f, 255.f, 255.f);
@@ -27,7 +28,6 @@ CMainMap::CMainMap(void) : m_CurrentFrame(0)
 	
 	// 맵 배경 이미지
 	m_BackGround = NNSprite::Create( MAIN_MAP_BACKGROUND_IMAGE );
-	printf_s( "map : %.3f, %.3f\n", GetWidth(), GetHeight() );
 	m_BackGround->SetImageWidth( GetWidth() );
 	m_BackGround->SetImageHeight( GetHeight() );
 	AddChild( m_BackGround );
@@ -36,6 +36,8 @@ CMainMap::CMainMap(void) : m_CurrentFrame(0)
 	m_Player1 = new CMaincharacter;
 	m_Player2 = new CMaincharacter;
 
+	// 플레이어 배치
+	// (0,0) 이 맵의 중심. 플레이어 1은 아래 화면의 가운데에, 플레이어 2는 윗 화면의 가운데에 배치한다.
 	m_Player1->SetPosition( 0.f, GetBotLine() *0.5f );
 	m_Player2->SetPosition( 0.f, GetTopLine() *0.5f );
 
@@ -87,9 +89,9 @@ void CMainMap::Render()
 	if ( m_Visible == false ) return;
 
 	m_Matrix = D2D1::Matrix3x2F::Translation( -m_Center.GetX() , -m_Center.GetY() )* 
-		D2D1::Matrix3x2F::Translation( - m_Camera->GetPositionX(), - m_Camera->GetPositionY() ) *
-		D2D1::Matrix3x2F::Rotation( m_Rotation ) *
-		D2D1::Matrix3x2F::Scale( m_ScaleX, m_ScaleY ) *
+		D2D1::Matrix3x2F::Translation( -m_Camera->GetPositionX(), -m_Camera->GetPositionY() ) *
+		D2D1::Matrix3x2F::Rotation( m_Camera->GetRotation() ) *
+		D2D1::Matrix3x2F::Scale( m_Camera->GetScaleX(), m_Camera->GetScaleY() ) *
 		D2D1::Matrix3x2F::Translation( m_Position.GetX(), m_Position.GetY() );
 
 	if( m_pParent )
@@ -107,7 +109,7 @@ void CMainMap::Update( float dTime, CFrame* frame )
 {
 	++m_CurrentFrame;	
 
-	//총알 및 오브젝트의 업데이트와 라이프타임 채크
+	//총알 및 오브젝트의 업데이트와 라이프타임 체크
 	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2, this);
 
 	//캐릭터 업데이트
@@ -128,7 +130,7 @@ void CMainMap::Update( float dTime, CFrame* frame )
 	//총알과 캐릭터의 충돌체크
 	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player1))
 		m_Player1->SetHit( true );
-	//테스트모드상황일때는 적의 충돌채크를 하지 않는다
+	//테스트 모드일 때는 적과의 충돌체크를 하지 않는다
 	if(m_GameMode && CBulletManager::GetInstance()->CharacterHitCheck(m_Player2))
 		m_Player2->SetHit( true );
 
@@ -142,13 +144,11 @@ void CMainMap::Update( float dTime, CFrame* frame )
 
 void CMainMap::SetPlayerMoveArea( CMaincharacter * Player, CFrame* frame )
 {
-	float leftline = GetLeftLine() - -(float)NNApplication::GetInstance()->GetScreenWidth() *0.5f + frame->GetLeftLine();
-	float rightline = GetRightLine() - (float)NNApplication::GetInstance()->GetScreenWidth() *0.5f + frame->GetRightLine();
-	float botline = GetBotLine() - (float)NNApplication::GetInstance()->GetScreenHeight() *0.5f + frame->GetBotLine();
-	float topline = GetTopLine() - -(float)NNApplication::GetInstance()->GetScreenHeight() *0.5f + frame->GetTopLine();
-
-	printf_s( "char : %.3f, %.3f\n", m_Player1->GetPositionX(), m_Player1->GetPositionY() );
-	printf_s( "line : %.3f, %.3f, %.3f, %.3f\n", leftline, topline, rightline, botline );
+	// 캐릭터가 움직일 수 있는 범위. 프레임이 화면 끝까지 가지 않도록 한다.
+	float leftline = GetLeftLine() - NNApplication::GetInstance()->GetLeftLine() + frame->GetLeftLine();
+	float rightline = GetRightLine() - NNApplication::GetInstance()->GetRightLine() + frame->GetRightLine();
+	float botline = GetBotLine() - NNApplication::GetInstance()->GetBotLine() + frame->GetBotLine();
+	float topline = GetTopLine() - NNApplication::GetInstance()->GetTopLine() + frame->GetTopLine();
 	
 	if (Player->GetPositionX() < leftline)
 	{
@@ -170,7 +170,6 @@ void CMainMap::SetPlayerMoveArea( CMaincharacter * Player, CFrame* frame )
 
 bool CMainMap::IsGameEnd()
 {
-	
 	if (m_GameMode && !GNetHelper->IsPeerLinked())
 	{
 		return true;

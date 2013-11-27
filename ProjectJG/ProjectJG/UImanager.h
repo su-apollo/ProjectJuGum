@@ -3,6 +3,8 @@
 
 class CMaincharacter;
 
+// UI 관리는 모두 UI manager가 한다.
+// 모든 UI는 부모가 UImanager 이고 Update 및 Render 도 모두 UImanager에서 한다.
 class UImanager
 {
 public:
@@ -31,10 +33,10 @@ private:
 
 	NNObject*	m_UIList[10];
 
+	int			m_UINum;
 
 
 	// FPS
-	float		m_SumTime;
 	NNLabel*	m_FPSLabel;
 	wchar_t		m_FPSBuffer[20];
 

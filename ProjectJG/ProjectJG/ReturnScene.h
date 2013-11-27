@@ -3,7 +3,8 @@
 
 class NNLabel;
 
-// agebreak : 클래스 이름 위에, 무슨 클래스인지 간략한 설명을 주석으로 달아놓을것!
+// 메인 메뉴로 돌아갈건지 묻는 씬 (+pause기능) 이었는데 ... 안 씀 ㅋㅋ
+
 class CReturnScene :
 	public NNScene
 {

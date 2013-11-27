@@ -39,6 +39,10 @@ public:
 	inline const wchar_t* GetTitle() const { return m_Title; }
 	inline int GetScreenWidth() const { return m_ScreenWidth; }
 	inline int GetScreenHeight() const { return m_ScreenHeight; }
+	inline float GetTopLine()	{ return -GetScreenHeight()*0.5f; }
+	inline float GetBotLine()	{ return GetScreenHeight()*0.5f; }
+	inline float GetRightLine()	{ return GetScreenWidth()*0.5f; }
+	inline float GetLeftLine()	{ return -GetScreenWidth()*0.5f; }
 	inline RendererStatus GetRendererStatus() const { return m_RendererStatus; }
 
 	inline float GetFPS() const { return m_Fps; }

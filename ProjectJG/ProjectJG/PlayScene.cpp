@@ -48,7 +48,6 @@ CPlayScene::CPlayScene(void) : m_netsetup(false)
 	m_MenuLabel[TEST_MODE]->SetPosition( width*0.5f + 60.f, height*0.5f );
 	AddChild( m_MenuLabel[TEST_MODE] );
 
-
 	m_MenuLabel[CLIENT_MODE] = NNLabel::Create( L"CLIENT", L"궁서체", 40.f );
 	m_MenuLabel[CLIENT_MODE]->SetColor(0.0f, 0.0f, 0.0f);
 	m_MenuLabel[CLIENT_MODE]->SetPosition( width*0.5f + 60.f, height*0.5f + 80.f );
@@ -83,7 +82,7 @@ void CPlayScene::Update( float dTime )
 	m_MainMap->GetPlayer1()->SetCost( m_MainMap->GetPlayer1()->GetCost() + m_CostPerSecond*dTime );
 	m_MainMap->GetPlayer2()->SetCost( m_MainMap->GetPlayer2()->GetCost() + m_CostPerSecond*dTime );
 
-	// camera move
+	// camera move. 플레이어가 프레임 경계까지 가면 카메라가 따라서 움직인다.
 	CameraMove( m_MainMap->GetPlayer1(), dTime );
 
 	// UI update
@@ -211,18 +210,18 @@ void CPlayScene::CameraMove( CMaincharacter* Player, float dTime )
 
 	if (Player->GetPositionX() - camera->GetPositionX() < leftline)
 	{
-		camera->SetPosition( camera->GetPosition() + NNPoint(Player->GetPositionX() - camera->GetPositionX() - leftline, 0) );
+		camera->SetPosition( Player->GetPositionX() - leftline , camera->GetPositionY() );
 	}
 	if (Player->GetPositionX() - camera->GetPositionX() > rightline)
 	{
-		camera->SetPosition( camera->GetPosition() + NNPoint(Player->GetPositionX() - camera->GetPositionX() - rightline, 0) );
+		camera->SetPosition( Player->GetPositionX() - rightline, camera->GetPositionY() );
 	}
 	if (Player->GetPositionY() - camera->GetPositionY() > botline)
 	{
-		camera->SetPosition( camera->GetPosition() + NNPoint(0, Player->GetPositionY() - camera->GetPositionY() - botline) );
+		camera->SetPosition( camera->GetPositionX(), Player->GetPositionY() - botline );
 	}
 	if (Player->GetPositionY() - camera->GetPositionY() < topline)
 	{
-		camera->SetPosition( camera->GetPosition() + NNPoint(0, Player->GetPositionY() - camera->GetPositionY() - topline) );
+		camera->SetPosition( camera->GetPositionX(), Player->GetPositionY() - topline );
 	}
 }

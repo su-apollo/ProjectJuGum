@@ -16,15 +16,18 @@ CMainMenuScene::CMainMenuScene(void)
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 
+	// BGM
 	m_BackgroundSound = NNResourceManager::GetInstance()->LoadSoundFromFile( MAIN_MENU_SCENE_BACKGROUND_SOUND, true );
 	NNAudioSystem::GetInstance()->Play( m_BackgroundSound );
 
+	// 배경 이미지
 	m_BackGround = NNSprite::Create( MAIN_MENU_SCENE_BACKGROUND_IMAGE );
 	m_BackGround->SetPosition( NNPoint(width*0.5f, height*0.5f) );
 	m_BackGround->SetImageHeight(height);
 	m_BackGround->SetImageWidth(width);
 	AddChild(m_BackGround);
 
+	// 로고 ("JuGums")
 	m_Logo = NNSprite::Create( MAIN_MENU_SCENE_LOGO );
 	float image_ratio = (float)width * 0.5f / m_Logo->GetImageWidth();
 	m_Logo->SetImageWidth(m_Logo->GetImageWidth() * image_ratio);
@@ -32,6 +35,8 @@ CMainMenuScene::CMainMenuScene(void)
 	m_Logo->SetPosition( width*0.5f, height*0.25f );
 	AddChild( m_Logo );
 
+
+	// 메뉴 라벨 생성 및 배치
 	m_MenuLabel[MENU_PLAY] = NNLabel::Create( L"Play", L"궁서체", 40.f );
 	m_MenuLabel[MENU_PLAY]->SetColor(255.0f, 255.0f, 255.0f);
 	m_MenuLabel[MENU_PLAY]->SetPosition( width*0.5f + 60.f, height*0.5f );
@@ -47,7 +52,7 @@ CMainMenuScene::CMainMenuScene(void)
 	m_MenuLabel[MENU_QUIT]->SetPosition( width*0.5f + 60.f, height*0.5f + 160.f );
 	AddChild( m_MenuLabel[MENU_QUIT] );
 
-	m_KeyOn = 0;
+	m_KeyOn = 0;			// 현재 가리키고 있는 메뉴 위치
 }
 
 

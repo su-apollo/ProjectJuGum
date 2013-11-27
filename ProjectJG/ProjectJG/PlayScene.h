@@ -28,18 +28,16 @@ public:
 
 private:
 
-	CMainMap *	m_MainMap;
-
-
-	// cost
-	float		m_CostPerSecond;
-	
 	NNSprite*	m_BackGround;
 
+	CMainMap *	m_MainMap;
+	CFrame*		m_Frame;
+
+	float		m_CostPerSecond;
+	
 	bool		m_netsetup;
 	NNLabel*	m_MenuLabel[NET_MENU_LAST];
 	unsigned int m_KeyOn;
-
-	CFrame*		m_Frame;
+	
 };
 
