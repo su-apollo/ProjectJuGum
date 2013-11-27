@@ -17,10 +17,10 @@ public:
 
 	void			Render();
 	//임시로 만든 함수
-	void			Update(float dTime, CMaincharacter* enemy, CMainMap* map);
+	void			UpdateTest(float dTime, CMaincharacter* enemy, CMainMap* map);
 	
-	void			Update(float dTime, CMaincharacter* enemy, CMainMap* map, int framenum);
-	void			UpdateByPeer(float dTime, CMaincharacter* enemy, CMainMap* map, int framenum);
+	void			Update(float dTime, CMaincharacter* enemy, CMainMap* map);
+	void			UpdateByPeer(float dTime, CMaincharacter* enemy, CMainMap* map);
 
 	void			UpdateMotion(float dTime, EInputSetUp skill_key, EInputSetUp move_key);
 	void			FirstStageSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key);
@@ -55,6 +55,9 @@ protected:
 
 	CSatellite*		m_pSatelliteArray[MAX_SATELLITE_NUM];
 	int				m_SatelliteIndex;
+
+	//동기화를 위한 시간
+	float			m_Syntime;
 
 };
 

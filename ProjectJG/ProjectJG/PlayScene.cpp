@@ -79,7 +79,8 @@ void CPlayScene::Update( float dTime )
 
 	// 모든 게임 플레이 관련 처리는 메인 맵에서 한다.
 	m_MainMap->Update( dTime, m_Frame );
-	if ( m_MainMap->IsGameEnd() ) EndGame();
+	if ( m_MainMap->IsGameEnd() )
+		EndGame();
 }
 
 bool CPlayScene::CircleToCircleHitCheck(NNPoint point_A, float radius_A, NNPoint point_B, float radius_B) 
@@ -93,6 +94,8 @@ bool CPlayScene::CircleToCircleHitCheck(NNPoint point_A, float radius_A, NNPoint
 
 void CPlayScene::EndGame()
 {
+	//동기화를 위한 3초간의 슬립
+	Sleep(3000);
 	NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
 	return;
 }
@@ -105,8 +108,10 @@ bool CPlayScene::NetworkSetMenu()
 	}
 
 	//ip
-	//char* serverIpAddr = "127.0.0.1";
-	char* serverIpAddr = "10.73.42.57";
+	char* serverIpAddr = "127.0.0.1";
+	//char* serverIpAddr = "10.73.42.57";
+	//char* serverIpAddr = "10.73.43.123";
+	//char* serverIpAddr = "10.73.42.217";
 
 	//메뉴
 	m_MenuLabel[m_KeyOn]->SetColor( 0.f, 0.f, 0.f);	

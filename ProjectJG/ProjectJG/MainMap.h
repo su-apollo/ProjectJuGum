@@ -31,8 +31,6 @@ public:
 private:
 	NNSprite*	m_BackGround;
 
-	int			m_CurrentFrame;
-
 	float		m_CostPerSecond;
 
 	CMaincharacter * m_Player1;	

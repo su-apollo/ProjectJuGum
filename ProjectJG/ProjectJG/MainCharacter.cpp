@@ -7,7 +7,7 @@
 #include "NetManager.h"
 #include "Satellite.h"
 
-CMaincharacter::CMaincharacter(void) : m_bHit(false), m_SatelliteIndex(0)
+CMaincharacter::CMaincharacter(void) : m_bHit(false), m_SatelliteIndex(0), m_Syntime(0.f)
 {
 	m_Texture =  NNSpriteAtlas::Create(L"Sprite/warrior2_0.png");
 	m_Texture->SetImageHeight(50.f);
@@ -41,7 +41,7 @@ void CMaincharacter::Render()
 //**************************************************************
 
 //테스트용 함수
-void CMaincharacter::Update( float dTime, CMaincharacter* enemy, CMainMap* map )
+void CMaincharacter::UpdateTest( float dTime, CMaincharacter* enemy, CMainMap* map )
 {
 	EInputSetUp skill_key_input = NONE;
 	EInputSetUp direct_key_input = NONE;
@@ -55,16 +55,22 @@ void CMaincharacter::Update( float dTime, CMaincharacter* enemy, CMainMap* map )
 
 	m_Texture->SetRotation(GetShotDirection());
 
-	printf_s("%d\t", skill_key_input);
-	printf_s("%d\n", direct_key_input);
-
 	UpdateMotion(dTime, skill_key_input, direct_key_input);
 	SkillCasting(dTime, enemy, map, skill_key_input);
 
 }
 
-void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, int framenum)
+void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map)
 {
+	PacketKeyStatus sendPkt;
+	m_Syntime += dTime;
+
+	//만약 맞았다면 맞았다고 송신
+	if (m_bHit == true)
+	{
+		sendPkt.mHitCheck = true;	
+	}
+
 	EInputSetUp skill_key_input = NONE;
 	EInputSetUp direct_key_input = NONE;
 
@@ -84,18 +90,23 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, i
 
 	//패킷 설정
 	if ( !GNetHelper->IsPeerLinked() )
+	{
+		MessageBox(NULL, L"ERROR: Linked Error!", L"ERROR", MB_OK) ;
 		return ;
+	}
 
-	PacketKeyStatus sendPkt ;
-	sendPkt.mSequence = framenum ;
+	
 	sendPkt.mDirectionStatus = (short)NNInputSystem::GetInstance()->GetDirectionKeyInput();
 	sendPkt.mSkillStatus = (short)NNInputSystem::GetInstance()->GetSkillKeyInput();
 
 	GNetHelper->SendKeyStatus(sendPkt) ;
 }
 
-void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap* map, int framenum )
+void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap* map)
 {
+	m_Syntime += dTime;
+	PacketKeyStatus recvPkt ;
+
 	UpdateShotDirection(enemy);
 	UpdateShotPoint();
 	UpdateSatellite(dTime, enemy);
@@ -103,14 +114,21 @@ void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap*
 	m_Texture->SetRotation(GetShotDirection());
 
 	if ( !GNetHelper->IsPeerLinked() )
+	{
+		MessageBox(NULL, L"ERROR: Linked Error!", L"ERROR", MB_OK) ;
 		return ;
+	}
 
 	/// P2P 데이터 받아서 상태 업데이트
-	PacketKeyStatus recvPkt ;
 	GNetHelper->RecvKeyStatus(recvPkt) ;
 
 	UpdateMotion(dTime, (EInputSetUp)recvPkt.mSkillStatus, (EInputSetUp)recvPkt.mDirectionStatus);
 	SkillCasting(dTime, enemy, map, (EInputSetUp)recvPkt.mSkillStatus);
+
+	if (recvPkt.mHitCheck == true)
+	{
+		m_bHit = true;
+	}
 }
 
 void CMaincharacter::UpdateMotion(float dTime, EInputSetUp skill_key, EInputSetUp move_key)
@@ -174,7 +192,7 @@ void CMaincharacter::SkillCasting(float dTime, CMaincharacter* enemy, CMainMap* 
 
 void CMaincharacter::FirstStageSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key)
 {
-	switch (NNInputSystem::GetInstance()->GetSkillKeyInput())
+	switch (skill_key)
 	{
 	case SKILL_KEY_ONE:
 		if ( GetCost() >= SHOT_BULLET_COST )

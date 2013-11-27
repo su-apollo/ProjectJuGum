@@ -33,13 +33,13 @@ struct PacketTest
 
 struct PacketKeyStatus
 {
-	PacketKeyStatus() : mType(PKT_STATUS), mSequence(-1), 
+	PacketKeyStatus() : mType(PKT_STATUS), mHitCheck(false), 
 		mDirectionStatus(0), mSkillStatus(0)
 	{
 	}
 
 	short	mType ;
-	int		mSequence ;
+	bool	mHitCheck ;
 	short	mDirectionStatus;
 	short	mSkillStatus;
 } ;

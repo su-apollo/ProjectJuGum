@@ -14,7 +14,7 @@
 #include "NNApplication.h"
 
 
-CMainMap::CMainMap(void) : m_CurrentFrame(0)
+CMainMap::CMainMap(void)
 {
 	m_Width = MAIN_MAP_WIDTH;
 	m_Height = MAIN_MAP_HEIGHT;
@@ -109,8 +109,6 @@ void CMainMap::Render()
 
 void CMainMap::Update( float dTime, CFrame* frame )
 {
-	++m_CurrentFrame;	
-
 	// cost
 	GetPlayer1()->SetCost( GetPlayer1()->GetCost() + m_CostPerSecond*dTime );
 	GetPlayer2()->SetCost( GetPlayer2()->GetCost() + m_CostPerSecond*dTime );
@@ -118,28 +116,27 @@ void CMainMap::Update( float dTime, CFrame* frame )
 	//총알 및 오브젝트의 업데이트와 라이프타임 체크
 	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2, this);
 
+	//총알과 캐릭터의 충돌체크
+	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player1))
+		m_Player1->SetHit( true );
+	//테스트 모드일 때는 적과의 충돌체크를 하지 않는다
+// 	if(m_GameMode && CBulletManager::GetInstance()->CharacterHitCheck(m_Player2))
+// 		m_Player2->SetHit( true );
+
 	//캐릭터 업데이트
 	if (m_GameMode == TEST_MODE)
 	{	
-		m_Player1->Update(dTime, m_Player2, this);
+		m_Player1->UpdateTest(dTime, m_Player2, this);
 	}
 	else
 	{
-		m_Player1->Update(dTime, m_Player2, this, m_CurrentFrame);
-		m_Player2->UpdateByPeer(dTime, m_Player1, this, m_CurrentFrame);
+		m_Player1->Update(dTime, m_Player2, this);
+		m_Player2->UpdateByPeer(dTime, m_Player1, this);
 	}
 
 	//맵과 캐릭터의 충돌체크
 	SetPlayerMoveArea(m_Player1, frame);
 	SetPlayerMoveArea(m_Player2, frame);
-
-	//총알과 캐릭터의 충돌체크
-	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player1))
-		m_Player1->SetHit( true );
-	//테스트 모드일 때는 적과의 충돌체크를 하지 않는다
-	if(m_GameMode && CBulletManager::GetInstance()->CharacterHitCheck(m_Player2))
-		m_Player2->SetHit( true );
-
 
 	//운석 테스트용 코드
 	if(NNInputSystem::GetInstance()->GetKeyState('P') == KEY_DOWN)
