@@ -12,7 +12,7 @@ class NNSpriteAtlas : public NNObject
 public:
 	NNSpriteAtlas()
 		: m_ImageWidth(0.f), m_ImageHeight(0.f), m_CutImageWidth(0.f), m_CutImageHeight(0.f),
-		m_Num(0), m_RowNum(0), m_ColNum(0),
+		m_ImageIndex(0), m_RowIdx(0), m_ColIdx(0),
 		m_ColorR(0.f), m_ColorG(0.f), m_ColorB(0.f), m_Opacity(1.f){}
 	virtual ~NNSpriteAtlas(){}
 
@@ -35,11 +35,13 @@ public:
 		m_CutImageHeight = m_CutBottomY - m_CutTopY;
 	}
 
+	int GetImageIndex() { return m_ImageIndex; }
 	void SetImageIndex( int n )
 	{
 		int count = (int)(m_ImageWidth/m_CutImageWidth);
-		m_Num = n; m_RowNum = n / count; m_ColNum = n - m_RowNum*count;
+		m_ImageIndex = n; m_RowIdx = n / count; m_ColIdx = n - m_RowIdx*count;
 	}
+	void SetImageNext() { SetImageIndex( GetImageIndex() +1 ); }
 
 protected:
 	float m_ImageWidth;
@@ -50,9 +52,9 @@ protected:
 	float m_Opacity;
 	float m_CutLeftX, m_CutTopY, m_CutRightX, m_CutBottomY;
 
-	int	m_Num;
-	int m_RowNum;
-	int m_ColNum;
+	int	m_ImageIndex;
+	int m_RowIdx;
+	int m_ColIdx;
 };
 
 class NND2DSpriteAtlas : public NNSpriteAtlas
