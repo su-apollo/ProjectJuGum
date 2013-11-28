@@ -82,7 +82,7 @@ CMainMap::CMainMap(void)
 
 CMainMap::~CMainMap(void)
 {
-	delete m_Camera;
+	SafeDelete(m_Camera);
 }
 
 void CMainMap::Render()

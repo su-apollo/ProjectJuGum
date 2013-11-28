@@ -72,10 +72,7 @@ CPlayScene::CPlayScene(void) : m_netsetup(false), m_DoCount(true), m_CountNum(0.
 
 CPlayScene::~CPlayScene(void)
 {
-	if(GNetHelper)
-		delete GNetHelper;
-
-	GNetHelper = nullptr;
+	SafeDelete(GNetHelper);
 }
 
 void CPlayScene::Render()
