@@ -27,6 +27,8 @@ public:
 	inline float GetCutImageWidth() const { return m_CutImageWidth;}
 	inline float GetCutImageHeight() const { return m_CutImageHeight; }
 
+	void SetRenderCutImageWidth( float width ) { m_ScaleX = width / m_CutImageWidth; }
+	void SetRenderCutImageHeight( float height ) { m_ScaleY = height / m_CutImageHeight; }
 	void SetOpacity( float opacity ) { m_Opacity = opacity; }
 	void SetCutSize( float leftX, float topY, float rightX, float bottomY )
 	{ 

@@ -10,8 +10,8 @@
 CMaincharacter::CMaincharacter(void) : m_bHit(false), m_SatelliteIndex(0), m_Syntime(0.f)
 {
 	m_Texture =  NNSpriteAtlas::Create(L"Sprite/warrior2_0.png");
-	m_Texture->SetImageHeight(50.f);
-	m_Texture->SetImageWidth(50.f);
+	m_Texture->SetRenderCutImageHeight(50.f);
+	m_Texture->SetRenderCutImageWidth(50.f);
 	m_Texture->SetPosition(0.f, 0.f);
 	AddChild( m_Texture );
 
