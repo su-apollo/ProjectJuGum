@@ -21,6 +21,7 @@ public:
 	bool CircleToCircleHitCheck(NNPoint point_A, float radius_A, NNPoint point_B, float radius_B);
 
 	bool NetworkSetMenu();
+	void CountDown(float dTime);
 
 	void EndGame();
 
@@ -28,12 +29,18 @@ public:
 
 private:
 
-	CMainMap *	m_MainMap;
+	CMainMap*	m_MainMap;
 	CFrame*		m_Frame;
 	
 	bool		m_netsetup;
 	NNLabel*	m_MenuLabel[NET_MENU_LAST];
 	unsigned int m_KeyOn;
+
+	NNLabel* m_CountNumLabel_3;
+	NNLabel* m_CountNumLabel_2;
+	NNLabel* m_CountNumLabel_1;
+	float m_CountNum;
+	bool m_DoCount;
 	
 };
 

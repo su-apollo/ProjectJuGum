@@ -175,8 +175,15 @@ bool CMainMap::IsGameEnd()
 {
 	if (m_GameMode && !GNetHelper->IsPeerLinked())
 	{
+		MessageBox(NULL, L"ERROR: Linked Error!", L"ERROR", MB_OK) ;
 		return true;
 	}
 
-	return ( m_Player1->IsHit() || m_Player2->IsHit() );
+	if ( m_Player1->IsHit() || m_Player2->IsHit())
+	{
+		MessageBox(NULL, L"Gameover!", L"Gameover", MB_OK) ;
+		return true;
+	}
+
+	return false;
 }

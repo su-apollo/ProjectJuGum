@@ -16,7 +16,7 @@
 
 #include "NetManager.h"
 
-CPlayScene::CPlayScene(void) : m_netsetup(false)
+CPlayScene::CPlayScene(void) : m_netsetup(false), m_DoCount(true), m_CountNum(0.f)
 {
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
@@ -48,6 +48,25 @@ CPlayScene::CPlayScene(void) : m_netsetup(false)
 	m_MenuLabel[SERVER_MODE]->SetPosition( width*0.5f + 60.f, height*0.5f + 160.f );
 	AddChild( m_MenuLabel[SERVER_MODE] );
 
+	//카운트다운을 위한 라벨
+	m_CountNumLabel_3 = NNLabel::Create(L"3", L"궁서체", 40.f);
+	m_CountNumLabel_3->SetColor(255.0f, 0.0f, 0.0f);
+	m_CountNumLabel_3->SetPosition( NNPoint(width *0.5f, height *0.5f) );
+	m_CountNumLabel_3->SetVisible(false);
+	AddChild( m_CountNumLabel_3 );
+
+	m_CountNumLabel_2 = NNLabel::Create(L"2", L"궁서체", 40.f);
+	m_CountNumLabel_2->SetColor(255.0f, 0.0f, 0.0f);
+	m_CountNumLabel_2->SetPosition( NNPoint(width *0.5f, height *0.5f) );
+	m_CountNumLabel_2->SetVisible(false);
+	AddChild( m_CountNumLabel_2 );
+
+	m_CountNumLabel_1 = NNLabel::Create(L"1", L"궁서체", 40.f);
+	m_CountNumLabel_1->SetColor(255.0f, 0.0f, 0.0f);
+	m_CountNumLabel_1->SetPosition( NNPoint(width *0.5f, height *0.5f) );
+	m_CountNumLabel_1->SetVisible(false);
+	AddChild( m_CountNumLabel_1 );
+
 	m_KeyOn = 0;
 }
 
@@ -64,12 +83,27 @@ void CPlayScene::Render()
 	NNScene::Render();
 	UImanager::GetInstance()->Render();
 }
+
 void CPlayScene::Update( float dTime )
 {
-	if(!NetworkSetMenu())
+	//네트워크 세팅메뉴
+	if (!m_netsetup)
 	{
+		if(!NetworkSetMenu())
+		{
+			return;
+		}
+		m_netsetup = true;
+	}
+
+	//3초의 카운트다운 후 게임 시작
+	if (m_DoCount)
+	{
+		//3초의 카운트 다운
+		CountDown(dTime);
 		return;
 	}
+	
 	
 	// camera move. 플레이어가 프레임 경계까지 가면 카메라가 따라서 움직인다.
 	CameraMove( m_MainMap->GetPlayer1(), dTime );
@@ -100,18 +134,42 @@ void CPlayScene::EndGame()
 	return;
 }
 
-bool CPlayScene::NetworkSetMenu()
+void CPlayScene::CountDown(float dTime)
 {
-	if (m_netsetup)
+	m_CountNum += dTime;
+
+	if (m_CountNum <= 1.f)
 	{
-		return true;
+		m_CountNumLabel_3->SetVisible(true);
+	}
+	
+	if (1.f < m_CountNum && m_CountNum <= 2.f)
+	{
+		m_CountNumLabel_3->SetVisible(false);
+		m_CountNumLabel_2->SetVisible(true);
 	}
 
+	if (2.f < m_CountNum && m_CountNum <= 3.f)
+	{
+		m_CountNumLabel_2->SetVisible(false);
+		m_CountNumLabel_1->SetVisible(true);
+	}
+
+	if( m_CountNum > 3.f )
+	{
+		m_CountNumLabel_1->SetVisible(false);
+		m_DoCount = false;
+	}
+}
+
+bool CPlayScene::NetworkSetMenu()
+{
 	//ip
 	char* serverIpAddr = "127.0.0.1";
 	//char* serverIpAddr = "10.73.42.57";
 	//char* serverIpAddr = "10.73.43.123";
 	//char* serverIpAddr = "10.73.42.217";
+	//char* serverIpAddr = "10.73.42.180";
 
 	//메뉴
 	m_MenuLabel[m_KeyOn]->SetColor( 0.f, 0.f, 0.f);	
@@ -138,19 +196,23 @@ bool CPlayScene::NetworkSetMenu()
 			break;
 
 		case CLIENT_MODE:
+
 			GNetHelper = new NetHelper(false, serverIpAddr) ;
 
+			//소켓초기화
 			if ( !GNetHelper->Initialize() )
 			{
 				MessageBox(NULL, L"NetHelper::Initialize()", L"ERROR", MB_OK) ;
 				return false;
 			}
 
+			//연결시도
 			if ( !GNetHelper->DoHandShake() )
 			{
 				return false;
 			}
 
+			//연결 후 캐릭터를 위치에 배치
 			m_MainMap->GetPlayer1()->SetPosition( 0.f, m_MainMap->GetBotLine() *0.5f );
 			m_MainMap->GetPlayer2()->SetPosition( 0.f, m_MainMap->GetTopLine() *0.5f );
 
@@ -160,31 +222,33 @@ bool CPlayScene::NetworkSetMenu()
 		case SERVER_MODE:
 			GNetHelper = new NetHelper(true, serverIpAddr) ;
 
+			//소켓 초기화
 			if ( !GNetHelper->Initialize() )
 			{
 				MessageBox(NULL, L"NetHelper::Initialize()", L"ERROR", MB_OK) ;
 				return false;
 			}
 
+			//편의상 IP주소를 불러온다
 			GNetHelper->GetHostIP();
 
+			//연결시도
 			if ( !GNetHelper->DoHandShake() )
 			{
 				return false;
 			}
 
+			//연결 후 캐릭터를 위치에 배치
 			m_MainMap->GetPlayer1()->SetPosition( 0.f, m_MainMap->GetTopLine() *0.5f );
 			m_MainMap->GetPlayer2()->SetPosition( 0.f, m_MainMap->GetBotLine() *0.5f );
 
 			m_MainMap->SetGameMode(SERVER_MODE);
-
 			break;
 		default:
 			break;
 		}
 
-		m_netsetup = true;
-
+		//메뉴를 안보이도록 가림
 		for (int i = NET_MENU_FIRST; i < NET_MENU_LAST; ++i)
 		{
 			m_MenuLabel[i]->SetVisible(false);
@@ -222,3 +286,5 @@ void CPlayScene::CameraMove( CMaincharacter* Player, float dTime )
 		camera->SetPosition( camera->GetPositionX(), Player->GetPositionY() - topline );
 	}
 }
+
+

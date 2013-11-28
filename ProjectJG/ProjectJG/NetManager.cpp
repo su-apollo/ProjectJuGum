@@ -33,6 +33,9 @@ bool NetHelper::Initialize()
 
 bool NetHelper::DoHandShake()
 {
+	//클라->서버
+	//서버->클라
+	//2handshake
 	char ioBuf[BUF_SIZE] = {0, } ;
 
 	SOCKADDR_IN serveraddr ;
@@ -44,17 +47,21 @@ bool NetHelper::DoHandShake()
 	{
 
 		BOOL on = TRUE ;
+		//소켓을 설정
 		int retval = setsockopt(m_Socket, SOL_SOCKET, SO_REUSEADDR, (char*)&on, sizeof(on)) ;
 		if (retval == SOCKET_ERROR)
 			return false ;
 
+		//순서를 네트워크에 맞게 조정(에디안)
 		serveraddr.sin_addr.s_addr = htonl(INADDR_ANY) ;
+		//소켓에게 ip와 포트번호를 부여
 		retval = bind(m_Socket, (SOCKADDR*)&serveraddr, sizeof(serveraddr)) ;
 		if (retval == SOCKET_ERROR)
 			return false ;
 
 
 		m_PeerAddrLen = sizeof(m_PeerAddrIn) ;
+		//클라이언트의 접속을 기다린다.
 		retval = recvfrom(m_Socket, ioBuf, BUF_SIZE, 0, (SOCKADDR*)&m_PeerAddrIn, &m_PeerAddrLen) ;
 		if (retval == SOCKET_ERROR)
 		{
@@ -62,9 +69,11 @@ bool NetHelper::DoHandShake()
 			return false ;
 		}
 
+		//버퍼에 연결되었는지 확인하는 값이 들어왔는지 확인
 		if (!strncmp(ioBuf, "CONNECT", 7))
 		{
 			sprintf_s(ioBuf, "SUCCESS") ;
+			//확인했음을 클라이언트에게 전송
 			retval = sendto(m_Socket, ioBuf, strlen(ioBuf), 0, (SOCKADDR*)&m_PeerAddrIn, sizeof(m_PeerAddrIn)) ;
 			if (retval == SOCKET_ERROR)
 			{
@@ -85,7 +94,9 @@ bool NetHelper::DoHandShake()
 	{
 		serveraddr.sin_addr.s_addr = inet_addr(m_TargetAddr) ;
 
+		//버퍼에 확인하는 값을 복사
 		sprintf_s(ioBuf, "CONNECT");
+		//서버에게 전송
 		int retval = sendto(m_Socket, ioBuf, strlen(ioBuf), 0, (SOCKADDR*)&serveraddr, sizeof(serveraddr)) ;
 		if (retval == SOCKET_ERROR)
 		{
@@ -94,6 +105,7 @@ bool NetHelper::DoHandShake()
 		}
 
 		m_PeerAddrLen = sizeof(m_PeerAddrIn) ;
+		//서버에서 확인했음을 확인
 		retval = recvfrom(m_Socket, ioBuf, BUF_SIZE, 0, (SOCKADDR*)&m_PeerAddrIn, &m_PeerAddrLen) ;
 		if (retval == SOCKET_ERROR)
 		{
