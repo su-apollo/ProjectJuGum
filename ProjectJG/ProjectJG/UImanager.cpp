@@ -51,7 +51,7 @@ UImanager::~UImanager(void)
 {
 	for (int i = 0; i < m_UINum; ++i)
 	{
-		delete m_UIList[i];
+		SafeDelete(m_UIList[i]);
 	}
 }
 
