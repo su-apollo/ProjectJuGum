@@ -11,8 +11,8 @@ NNApplication* NNApplication::m_pInstance = nullptr;
 NNApplication::NNApplication()
 	: m_Hwnd(nullptr), m_hInstance(nullptr),
 	  m_ScreenHeight(0), m_ScreenWidth(0),
-	  m_Fps(0.f), m_DeltaTime(0.f),
-	  m_ElapsedTime(0.f), 
+	  m_Fps(0.f), m_FpsTimer(0.f), m_DeltaTime(0.f),
+	  m_ElapsedTime(0.f), m_PrevElapsedTime(0.f),
 	  m_DeltaTimeSum(0.f), m_DeltaTimeSum1(0.f),
 	  m_FrameCount(0), m_FrameCount1(0),
 	  m_PrevTime(0), m_NowTime(0),
@@ -116,39 +116,68 @@ bool NNApplication::Run()
 		}
 		else
 		{
+// 			m_NowTime = timeGetTime();
+// 			if ( m_PrevTime == 0.f )
+// 			{
+// 				m_PrevTime = m_NowTime;
+// 			}
+// 
+// 			//DeltaTime을 초단위로 계산
+// 			m_DeltaTime = (float)(m_NowTime - m_PrevTime) / 1000.f;
+// 			m_ElapsedTime += m_DeltaTime;
+// 
+// 			m_DeltaTimeSum += m_DeltaTime;
+// 			++m_FrameCount;
+// 
+// 			if (m_DeltaTimeSum >= 1.f)
+// 			{
+// 				m_Fps = (m_FrameCount + m_FrameCount1) / (m_DeltaTimeSum + m_DeltaTimeSum1);
+// 
+// 				m_DeltaTimeSum1 = m_DeltaTimeSum;
+// 				m_DeltaTimeSum = 0;
+// 				m_FrameCount1 = m_FrameCount;
+// 				m_FrameCount = 0;
+// 			}
+// 
+// 			m_PrevTime = m_NowTime;
+// 
+// 			
+// 			NNInputSystem::GetInstance()->UpdateKeyState();
+// 			m_pSceneDirector->UpdateScene( m_DeltaTime );
+// 
+// 			m_Renderer->Begin();
+// 			m_Renderer->Clear();
+// 			m_pSceneDirector->RenderScene();
+// 			m_Renderer->End();
+			
+
+			m_FrameCount++;
 			m_NowTime = timeGetTime();
 			if ( m_PrevTime == 0.f )
 			{
 				m_PrevTime = m_NowTime;
 			}
 
-			//DeltaTime을 초단위로 계산
-			m_DeltaTime = (float)(m_NowTime - m_PrevTime) / 1000.f;
+			m_DeltaTime = (static_cast<float>(m_NowTime - m_PrevTime)) / 1000.f;
 			m_ElapsedTime += m_DeltaTime;
+			m_FpsTimer += m_DeltaTime;
 
-			m_DeltaTimeSum += m_DeltaTime;
-			++m_FrameCount;
-
-			if (m_DeltaTimeSum >= 1.f)
+			if(m_FpsTimer > 0.1f)
 			{
-				m_Fps = (m_FrameCount + m_FrameCount1) / (m_DeltaTimeSum + m_DeltaTimeSum1);
-
-				m_DeltaTimeSum1 = m_DeltaTimeSum;
-				m_DeltaTimeSum = 0;
-				m_FrameCount1 = m_FrameCount;
+				m_Fps = ((float)m_FrameCount) / m_FpsTimer;
 				m_FrameCount = 0;
+				m_FpsTimer = 0.f;
 			}
-
 			m_PrevTime = m_NowTime;
 
 			NNInputSystem::GetInstance()->UpdateKeyState();
+
 			m_pSceneDirector->UpdateScene( m_DeltaTime );
 
 			m_Renderer->Begin();
 			m_Renderer->Clear();
 			m_pSceneDirector->RenderScene();
 			m_Renderer->End();
-			
 		}
 	}
 

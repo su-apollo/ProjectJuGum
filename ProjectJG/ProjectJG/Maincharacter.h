@@ -2,6 +2,7 @@
 #include "GameMoveObj.h"
 #include "GameOption.h"
 #include "NNPoint.h"
+#include "NetManager.h"
 
 class NNCircle;
 class CMainMap;
@@ -58,6 +59,9 @@ protected:
 
 	//동기화를 위한 시간
 	float			m_Syntime;
+	EInputSetUp		m_StateOfCharater;
+	PacketKeyStatus m_recvPkt;
+	PacketKeyStatus m_sendPkt;
 
 };
 

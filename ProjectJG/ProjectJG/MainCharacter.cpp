@@ -4,7 +4,6 @@
 #include "NNInputSystem.h"
 #include "NNCircle.h"
 #include "NNSpriteAtlas.h"
-#include "NetManager.h"
 #include "Satellite.h"
 
 CMaincharacter::CMaincharacter(void) : m_bHit(false), m_SatelliteIndex(0), m_Syntime(0.f)
@@ -60,15 +59,15 @@ void CMaincharacter::UpdateTest( float dTime, CMaincharacter* enemy, CMainMap* m
 
 }
 
+//송신측의 함수
 void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map)
 {
-	PacketKeyStatus sendPkt;
 	m_Syntime += dTime;
 
 	//만약 맞았다면 맞았다고 송신
 	if (m_bHit == true)
 	{
-		sendPkt.mHitCheck = true;	
+		m_sendPkt.mHitCheck = true;	
 	}
 
 	EInputSetUp skill_key_input = NONE;
@@ -94,18 +93,23 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map)
 		MessageBox(NULL, L"ERROR: Linked Error!", L"ERROR", MB_OK) ;
 		return ;
 	}
-
 	
-	sendPkt.mDirectionStatus = (short)NNInputSystem::GetInstance()->GetDirectionKeyInput();
-	sendPkt.mSkillStatus = (short)NNInputSystem::GetInstance()->GetSkillKeyInput();
+	m_sendPkt.mDirectionStatus = (short)direct_key_input;
+	m_sendPkt.mSkillStatus = (short)skill_key_input;
 
-	GNetHelper->SendKeyStatus(sendPkt) ;
+	// 이거 진짜 바보같은 짓이였음
+// 	if (m_Syntime > SHOT_PACKET_TIME)
+// 	{
+// 		GNetHelper->SendKeyStatus(m_sendPkt);
+// 		m_Syntime = 0.0f;
+// 	}
+	GNetHelper->SendKeyStatus(m_sendPkt);
 }
 
+//수신받은 후 업데이트 하는 함수
 void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap* map)
 {
 	m_Syntime += dTime;
-	PacketKeyStatus recvPkt ;
 
 	UpdateShotDirection(enemy);
 	UpdateShotPoint();
@@ -119,13 +123,19 @@ void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap*
 		return ;
 	}
 
-	/// P2P 데이터 받아서 상태 업데이트
-	GNetHelper->RecvKeyStatus(recvPkt) ;
+	// P2P 데이터 받아서 상태 업데이트
+	// 이거 진짜 바보같은 짓이였음
+// 	if (m_Syntime > SHOT_PACKET_TIME)
+// 	{
+// 		GNetHelper->RecvKeyStatus(m_recvPkt);
+// 		m_Syntime = 0.0f;
+// 	}
+	GNetHelper->RecvKeyStatus(m_recvPkt);
 
-	UpdateMotion(dTime, (EInputSetUp)recvPkt.mSkillStatus, (EInputSetUp)recvPkt.mDirectionStatus);
-	SkillCasting(dTime, enemy, map, (EInputSetUp)recvPkt.mSkillStatus);
+	UpdateMotion(dTime, (EInputSetUp)m_recvPkt.mSkillStatus, (EInputSetUp)m_recvPkt.mDirectionStatus);
+	SkillCasting(dTime, enemy, map, (EInputSetUp)m_recvPkt.mSkillStatus);
 
-	if (recvPkt.mHitCheck == true)
+	if (m_recvPkt.mHitCheck == true)
 	{
 		m_bHit = true;
 	}

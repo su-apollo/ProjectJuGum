@@ -52,7 +52,7 @@ bool NetHelper::DoHandShake()
 		if (retval == SOCKET_ERROR)
 			return false ;
 
-		//순서를 네트워크에 맞게 조정(에디안)
+		//순서를 네트워크에 맞게 조정(빅 에디안)
 		serveraddr.sin_addr.s_addr = htonl(INADDR_ANY) ;
 		//소켓에게 ip와 포트번호를 부여
 		retval = bind(m_Socket, (SOCKADDR*)&serveraddr, sizeof(serveraddr)) ;

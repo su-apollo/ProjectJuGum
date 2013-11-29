@@ -69,7 +69,9 @@ private:
 
 private:
 	float			m_Fps;
+	float			m_FpsTimer;
 	float			m_ElapsedTime;
+	float			m_PrevElapsedTime;
 	float			m_DeltaTimeSum;
 	float			m_DeltaTimeSum1;
 	int				m_FrameCount;

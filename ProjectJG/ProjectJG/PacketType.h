@@ -6,15 +6,16 @@
 #define BUF_SIZE			32
 #define SERVER_PORT_NUM	9000
 
+#define SHOT_PACKET_TIME 0.03f
 
 enum PacketTypes
 {
 	PKT_NONE	= 0,
 	PKT_TEST	= 1,
 	PKT_STATUS	= 2,
-} ;
+};
 
-#define MAX_PAYLOAD		512
+#define MAX_PAYLOAD	512
 #define MAX_KEY_TYPE	256
 
 #pragma pack(push, 1)
@@ -26,8 +27,8 @@ struct PacketTest
 		memset(mPayLoad, 0, MAX_PAYLOAD) ;
 	}
 
-	short	mType ;
-	int		mSequence ;
+	short	mType;
+	int		mSequence;
 	char	mPayLoad[MAX_PAYLOAD] ;
 } ;
 
