@@ -1,12 +1,12 @@
 #pragma once
 
-#define WINDOW_WIDTH					1280
+#define WINDOW_WIDTH						1280
 #define	WINDOW_HEIGHT					800
 
 #define MAIN_MAP_WIDTH					1600.f
 #define MAIN_MAP_HEIGHT					1200.f
 #define FRAME_WIDTH						750.f
-#define FRAME_HEIGHT					750.f
+#define FRAME_HEIGHT						750.f
 
 
 #define CHAR_SPEED						200.f
@@ -17,21 +17,21 @@
 
 #define MAX_BULLET_NUM					500
 #define MAX_SATELLITE_NUM				20
-#define MAX_ASTEROID_NUM				10
+#define MAX_ASTEROID_NUM					10
 
-#define BULLET_SPEED					200.f
+#define BULLET_SPEED						200.f
 #define ACCELBULLET_SPEED				100.f
 #define CURVEBULLET_SPEED				200.f
 
 #define ACCELBULLET_ACCEL				300.f
 #define CURVEBULLET_ANGULAR_ACCEL		30.f
 
-#define SHOT_BULLET_COST				5
-#define SHOT_ACCELBULLET_COST			10
+#define SHOT_BULLET_COST					1
+#define SHOT_ACCELBULLET_COST			2
 #define SECTOR_SINGLE_COST				3
 #define TORNADO_SINGLE_COST				3
-#define SETUP_SATELLITE_COST			10
-#define SL_SECTORNORMAL_COST			10
+#define SETUP_SATELLITE_COST				10
+#define SL_SECTORNORMAL_COST				30
 
 #define SHOT_POINT						20.f
 

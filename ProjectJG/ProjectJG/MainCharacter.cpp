@@ -20,7 +20,7 @@ CMaincharacter::CMaincharacter(void) : m_bHit(false), m_SatelliteIndex(0), m_Syn
 	m_Circle->SetColor(255.f, 0.f, 0.f);
 	AddChild( m_Circle );
 
-	m_Cost = 10000;
+	m_Cost = 50;
 	m_Stage = FIRST_STAGE_CHAR;
 
 	m_bHit = false;
