@@ -12,12 +12,13 @@
 #define CHAR_SPEED						200.f
 #define CHAR_FAST_SPEED					300.f
 #define CHAR_HIT_RADIUS					5.f
+#define ASTEROID_HIT_RADIUS				50.f
 
 #define BULLET_HIT_RADIUS				10.f
 
 #define MAX_BULLET_NUM					1000
-#define MAX_SATELLITE_NUM				20
-#define MAX_ASTEROID_NUM					10
+#define MAX_SATELLITE_NUM				50
+#define MAX_ASTEROID_NUM					30
 
 #define BULLET_SPEED						200.f
 #define ACCELBULLET_SPEED				200.f

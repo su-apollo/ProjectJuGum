@@ -1,14 +1,17 @@
 #include "NNConfig.h"
 #include "Asteroid.h"
-#include "NNCircle.h"
+#include "NNSpriteAtlas.h"
 
 CAsteroid::CAsteroid(void) : 
 	m_HP(0)
 {
-	SetHitRadius(30.f);
-	m_Circle = NNCircle::Create(GetHitRadius());
-	m_Circle->SetPosition(0.f, 0.f);
-	AddChild( m_Circle );
+	SetHitRadius(ASTEROID_HIT_RADIUS);
+
+	m_Texture =  NNSpriteAtlas::Create(L"Sprite/asteroid.png");
+	m_Texture->SetRenderCutImageHeight(ASTEROID_HIT_RADIUS*2);
+	m_Texture->SetRenderCutImageWidth(ASTEROID_HIT_RADIUS*2);
+	m_Texture->SetPosition(0.f, 0.f);
+	AddChild( m_Texture );
 
 	SetDirection(135.f);
 }
