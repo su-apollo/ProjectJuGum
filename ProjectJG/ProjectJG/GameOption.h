@@ -1,7 +1,7 @@
 #pragma once
 
 #define WINDOW_WIDTH						1280
-#define	WINDOW_HEIGHT					800
+#define WINDOW_HEIGHT					800
 
 #define MAIN_MAP_WIDTH					1600.f
 #define MAIN_MAP_HEIGHT					1200.f
@@ -15,15 +15,15 @@
 
 #define BULLET_HIT_RADIUS				10.f
 
-#define MAX_BULLET_NUM					500
+#define MAX_BULLET_NUM					1000
 #define MAX_SATELLITE_NUM				20
 #define MAX_ASTEROID_NUM					10
 
 #define BULLET_SPEED						200.f
-#define ACCELBULLET_SPEED				100.f
+#define ACCELBULLET_SPEED				200.f
 #define CURVEBULLET_SPEED				200.f
 
-#define ACCELBULLET_ACCEL				300.f
+#define ACCELBULLET_ACCEL				200.f
 #define CURVEBULLET_ANGULAR_ACCEL		30.f
 
 #define SHOT_BULLET_COST					1
@@ -42,7 +42,7 @@
 #define MAIN_MENU_SCENE_BACKGROUND_IMAGE		L"Sprite/Background.jpg"
 #define MAIN_MENU_SCENE_LOGO					L"Sprite/logo.png"
 
-#define MAIN_MAP_BACKGROUND_IMAGE				L"Sprite/Space-Background.jpg"
+#define MAIN_MAP_BACKGROUND_IMAGE			L"Sprite/Space-Background.jpg"
 
 
 enum ECharcterStage
