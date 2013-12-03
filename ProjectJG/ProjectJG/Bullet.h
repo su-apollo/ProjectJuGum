@@ -15,14 +15,13 @@ public:
 	void Render();
 	void Update( float dTime );
 
-	EBulletType GetBulletType() {return m_Type;}
-	NNCircle *	GetMainCircle() {return m_Circle;}
+	EBulletType		GetBulletType() {return m_Type;}
+	NNSpriteAtlas*	GetTexture(EBulletType type) { return m_Texture[type]; }
 
-	void		SetBulletType(EBulletType new_type) {m_Type = new_type;}
+	void			SetBulletType(EBulletType new_type) {m_Type = new_type;}
 
 private:
-	NNSpriteAtlas*	m_Texture;
-	NNCircle*	m_Circle;
+	NNSpriteAtlas*	m_Texture[3];
 	EBulletType	m_Type;
 };
 

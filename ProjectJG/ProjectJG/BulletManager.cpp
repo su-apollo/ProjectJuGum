@@ -33,14 +33,17 @@ CBullet * CBulletManager::GetBullet( EBulletType bullet_type )
 	{
 	case NORMAL_BULLET:
 		new_bullet->SetSpeed(BULLET_SPEED);
+		new_bullet->GetTexture(NORMAL_BULLET)->SetVisible(true);
 		return new_bullet;
 	case ACCEL_BULLET:
 		new_bullet->SetSpeed(ACCELBULLET_SPEED);
 		new_bullet->SetAccel(ACCELBULLET_ACCEL);
+		new_bullet->GetTexture(ACCEL_BULLET)->SetVisible(true);
 		return new_bullet;
 	case CURVE_BULLET:
 		new_bullet->SetSpeed(CURVEBULLET_SPEED);
 		new_bullet->SetAngularAccel(CURVEBULLET_ANGULAR_ACCEL);
+		new_bullet->GetTexture(CURVE_BULLET)->SetVisible(true);
 		return new_bullet;
 	default:
 		break;

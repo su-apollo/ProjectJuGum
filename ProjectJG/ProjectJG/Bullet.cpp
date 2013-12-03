@@ -8,11 +8,26 @@
 
 CBullet::CBullet(void)
 {
-	m_Texture = NNSpriteAtlas::Create(L"Sprite/coloredspheres/sphere-04.png");
-	m_Texture->SetRenderCutImageHeight(2*BULLET_HIT_RADIUS);
-	m_Texture->SetRenderCutImageWidth(2*BULLET_HIT_RADIUS);
-	m_Texture->SetPosition(0.f, 0.f);
-	AddChild(m_Texture);
+	m_Texture[NORMAL_BULLET] = NNSpriteAtlas::Create(L"Sprite/coloredspheres/sphere-04.png");
+	m_Texture[NORMAL_BULLET]->SetRenderCutImageHeight(2*BULLET_HIT_RADIUS);
+	m_Texture[NORMAL_BULLET]->SetRenderCutImageWidth(2*BULLET_HIT_RADIUS);
+	m_Texture[NORMAL_BULLET]->SetPosition(0.f, 0.f);
+	m_Texture[NORMAL_BULLET]->SetVisible(false);
+	AddChild(m_Texture[NORMAL_BULLET]);
+
+	m_Texture[ACCEL_BULLET] = NNSpriteAtlas::Create(L"Sprite/coloredspheres/sphere-16.png");
+	m_Texture[ACCEL_BULLET]->SetRenderCutImageHeight(2*BULLET_HIT_RADIUS);
+	m_Texture[ACCEL_BULLET]->SetRenderCutImageWidth(2*BULLET_HIT_RADIUS);
+	m_Texture[ACCEL_BULLET]->SetPosition(0.f, 0.f);
+	m_Texture[ACCEL_BULLET]->SetVisible(false);
+	AddChild(m_Texture[ACCEL_BULLET]);
+
+	m_Texture[CURVE_BULLET] = NNSpriteAtlas::Create(L"Sprite/coloredspheres/sphere-14.png");
+	m_Texture[CURVE_BULLET]->SetRenderCutImageHeight(2*BULLET_HIT_RADIUS);
+	m_Texture[CURVE_BULLET]->SetRenderCutImageWidth(2*BULLET_HIT_RADIUS);
+	m_Texture[CURVE_BULLET]->SetPosition(0.f, 0.f);
+	m_Texture[CURVE_BULLET]->SetVisible(false);
+	AddChild(m_Texture[CURVE_BULLET]);
 
 	SetDirection(270.f);
 	SetSpeed(BULLET_SPEED);

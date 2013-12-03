@@ -110,12 +110,6 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map)
 	m_sendPkt.mDirectionStatus = (short)direct_key_input;
 	m_sendPkt.mSkillStatus = (short)skill_key_input;
 
-	// 이거 진짜 바보같은 짓이였음
-// 	if (m_Syntime > SHOT_PACKET_TIME)
-// 	{
-// 		GNetHelper->SendKeyStatus(m_sendPkt);
-// 		m_Syntime = 0.0f;
-// 	}
 	GNetHelper->SendKeyStatus(m_sendPkt);
 }
 
@@ -137,12 +131,6 @@ void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap*
 	}
 
 	// P2P 데이터 받아서 상태 업데이트
-	// 이거 진짜 바보같은 짓이였음
-// 	if (m_Syntime > SHOT_PACKET_TIME)
-// 	{
-// 		GNetHelper->RecvKeyStatus(m_recvPkt);
-// 		m_Syntime = 0.0f;
-// 	}
 	GNetHelper->RecvKeyStatus(m_recvPkt);
 
 	UpdateMotion(dTime, (EInputSetUp)m_recvPkt.mSkillStatus, (EInputSetUp)m_recvPkt.mDirectionStatus);
