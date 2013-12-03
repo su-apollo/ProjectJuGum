@@ -1,4 +1,5 @@
 #include "NNConfig.h"
+#include "NNSpriteAtlas.h"
 
 #include "BulletManager.h"
 #include "MainMap.h"

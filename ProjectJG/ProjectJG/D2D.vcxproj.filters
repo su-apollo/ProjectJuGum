@@ -194,6 +194,9 @@
     <Filter Include="GameObjects\P2PNet">
       <UniqueIdentifier>{dfc40561-1151-4839-88b5-938e8824e272}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObjects\Tool">
+      <UniqueIdentifier>{2c68ab2f-d1d8-4b07-8970-8e4119aa7277}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NNObject.h">

@@ -46,14 +46,6 @@ CMainMap::CMainMap(void)
 	AddChild( m_Player1 );
 	AddChild( m_Player2 );
 
-	//총알 장전
-	for (int i = 0 ; i < MAX_BULLET_NUM ; ++i)
-	{
-		CBulletManager::GetInstance()->GetBulletArray()[i] = new CBullet;
-		AddChild( CBulletManager::GetInstance()->GetBulletArray()[i] );
-		CBulletManager::GetInstance()->GetBulletArray()[i]->SetVisible(false);
-	}
-
 	//운석 로딩
 	for (int i = 0 ; i < MAX_ASTEROID_NUM ; ++i)
 	{
@@ -74,6 +66,14 @@ CMainMap::CMainMap(void)
 		m_Player2->GetSatelliteArray()[i] = new CSatellite;
 		AddChild(m_Player2->GetSatelliteArray()[i]);
 		m_Player2->GetSatelliteArray()[i]->SetVisible(false);
+	}
+
+	//총알 장전
+	for (int i = 0 ; i < MAX_BULLET_NUM ; ++i)
+	{
+		CBulletManager::GetInstance()->GetBulletArray()[i] = new CBullet;
+		AddChild( CBulletManager::GetInstance()->GetBulletArray()[i] );
+		CBulletManager::GetInstance()->GetBulletArray()[i]->SetVisible(false);
 	}
 
 	m_Camera = new CCamera();

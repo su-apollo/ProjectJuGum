@@ -3,12 +3,15 @@
 #include "NNCircle.h"
 #include "BulletManager.h"
 #include "Maincharacter.h"
+#include "NNSpriteAtlas.h"
 
 CSatellite::CSatellite(void) : m_dTimeSum(0.f)
 {
-	m_Circle = NNCircle::Create(40.f);
-	m_Circle->SetPosition(0.f, 0.f);
-	AddChild( m_Circle );
+	m_Texture =  NNSpriteAtlas::Create(L"Sprite/warrior1_0.png");
+	m_Texture->SetRenderCutImageHeight(70.f);
+	m_Texture->SetRenderCutImageWidth(70.f);
+	m_Texture->SetPosition(0.f, 0.f);
+	AddChild( m_Texture );
 }
 
 
@@ -26,6 +29,8 @@ void CSatellite::Update( float dTime, CMaincharacter* Enemy)
 	UpdateShotDirection(Enemy);
 	UpdateShotPoint();
 	ShotNomalBullet(dTime);
+
+	m_Texture->SetRotation(GetShotDirection());
 }
  
 void CSatellite::ShotNomalBullet( float dTime)

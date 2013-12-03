@@ -1,7 +1,7 @@
 #pragma once
 #include "GameMoveObj.h"
 
-class NNCircle;
+class NNSpriteAtlas;
 class CMaincharacter;
 
 class CSatellite 
@@ -14,12 +14,10 @@ public:
 	void		Render();
 	void		Update(float dTime, CMaincharacter* Enemy);
 
-	NNCircle *	GetMainCircle(){return m_Circle;}
-
 	void		ShotNomalBullet( float dTime);
 
 private:
-	NNCircle*	m_Circle;
+	NNSpriteAtlas*	m_Texture;
 	float		m_dTimeSum;
 };
 

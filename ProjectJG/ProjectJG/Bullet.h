@@ -4,6 +4,7 @@
 
 class CMaincharacter;
 class NNCircle;
+class NNSpriteAtlas;
 
 class CBullet : public CGameMoveObj
 {
@@ -20,6 +21,7 @@ public:
 	void		SetBulletType(EBulletType new_type) {m_Type = new_type;}
 
 private:
+	NNSpriteAtlas*	m_Texture;
 	NNCircle*	m_Circle;
 	EBulletType	m_Type;
 };
