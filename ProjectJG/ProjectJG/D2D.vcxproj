@@ -90,6 +90,7 @@
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="GameMoveObj.cpp" />
     <ClCompile Include="MainMap.cpp" />
+    <ClCompile Include="NNAnimation.cpp" />
     <ClCompile Include="NNAudioSystem.cpp" />
     <ClCompile Include="NNCircle.cpp" />
     <ClCompile Include="NNConfig.cpp" />
@@ -108,6 +109,7 @@
     <ClCompile Include="NNSprite.cpp" />
     <ClCompile Include="NNSceneDirector.cpp" />
     <ClCompile Include="NNSpriteAtlas.cpp" />
+    <ClCompile Include="NNSpriteNode.cpp" />
     <ClCompile Include="NNTexture.cpp" />
     <ClCompile Include="NNResourceManager.cpp" />
     <ClCompile Include="MainCharacter.cpp" />
@@ -126,6 +128,7 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="GameMoveObj.h" />
     <ClInclude Include="MainMap.h" />
+    <ClInclude Include="NNAnimation.h" />
     <ClInclude Include="NNAudioSystem.h" />
     <ClInclude Include="NNApplication.h" />
     <ClInclude Include="NNCircle.h" />
@@ -137,6 +140,7 @@
     <ClInclude Include="NNLabel.h" />
     <ClInclude Include="NNLibSet.h" />
     <ClInclude Include="NetManager.h" />
+    <ClInclude Include="NNSpriteNode.h" />
     <ClInclude Include="PacketType.h" />
     <ClInclude Include="NNPoint.h" />
     <ClInclude Include="NNRect.h" />

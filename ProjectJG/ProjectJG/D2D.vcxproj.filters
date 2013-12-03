@@ -99,6 +99,12 @@
     <ClCompile Include="Frame.cpp">
       <Filter>GameObjects\Map</Filter>
     </ClCompile>
+    <ClCompile Include="NNAnimation.cpp">
+      <Filter>Framework\Node\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="NNSpriteNode.cpp">
+      <Filter>Framework\Node\Animation\SpriteNode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -196,6 +202,12 @@
     </Filter>
     <Filter Include="GameObjects\Tool">
       <UniqueIdentifier>{2c68ab2f-d1d8-4b07-8970-8e4119aa7277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Node\Animation">
+      <UniqueIdentifier>{693d8103-097f-44e6-9656-9be2904aee84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Node\Animation\SpriteNode">
+      <UniqueIdentifier>{d421c999-f973-45c8-9042-35126469ca1c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -313,6 +325,12 @@
     </ClInclude>
     <ClInclude Include="Frame.h">
       <Filter>GameObjects\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="NNAnimation.h">
+      <Filter>Framework\Node\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="NNSpriteNode.h">
+      <Filter>Framework\Node\Animation\SpriteNode</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -120,7 +120,9 @@ void CMainMap::Update( float dTime, CFrame* frame )
 
 	//총알과 캐릭터의 충돌체크
 	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player1))
+	{
 		m_Player1->SetHit( true );
+	}
 	//테스트 모드일 때는 적과의 충돌체크를 하지 않는다
 // 	if(m_GameMode && CBulletManager::GetInstance()->CharacterHitCheck(m_Player2))
 // 		m_Player2->SetHit( true );
@@ -183,7 +185,6 @@ bool CMainMap::IsGameEnd()
 
 	if ( m_Player1->IsHit() || m_Player2->IsHit())
 	{
-		MessageBox(NULL, L"Gameover!", L"Gameover", MB_OK) ;
 		return true;
 	}
 

@@ -5,6 +5,8 @@
 #include "NNCircle.h"
 #include "NNSpriteAtlas.h"
 #include "Satellite.h"
+#include "NNAnimation.h"
+
 
 CMaincharacter::CMaincharacter(void) : m_bHit(false), m_SatelliteIndex(0), m_Syntime(0.f)
 {
@@ -19,6 +21,17 @@ CMaincharacter::CMaincharacter(void) : m_bHit(false), m_SatelliteIndex(0), m_Syn
 	m_Circle->SetPosition(0.f, 0.f);
 	m_Circle->SetColor(255.f, 0.f, 0.f);
 	AddChild( m_Circle );
+
+	m_Animation = NNAnimation::Create( 5,	L"Sprite/animation/explosion_10011.png",
+											L"Sprite/animation/explosion_10012.png", 
+											L"Sprite/animation/explosion_10013.png",
+											L"Sprite/animation/explosion_10014.png",
+											L"Sprite/animation/explosion_10015.png");
+
+	m_Animation->SetLoop(false);
+	m_Animation->SetVisible(false);
+	AddChild( m_Animation );
+
 
 	m_Cost = 50;
 	m_Stage = FIRST_STAGE_CHAR;
@@ -299,4 +312,17 @@ void CMaincharacter::DestroySatellite()
 			m_pSatelliteArray[i]->InitMember();
 		}
 	}
+}
+
+//**************************************************************
+//                         Animation
+//**************************************************************
+bool CMaincharacter::UpdateExplosionAnimation( float dTime )
+{
+	//애니메이션
+	m_Animation->SetVisible(true);
+	m_Animation->Update(dTime);
+
+	//애니메이션이 끝나면 끝났다고 알려준다.
+	return m_Animation->IsAnimationEnd();
 }

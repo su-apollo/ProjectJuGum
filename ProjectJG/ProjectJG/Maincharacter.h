@@ -8,6 +8,7 @@ class NNCircle;
 class CMainMap;
 class NNSpriteAtlas;
 class CSatellite;
+class NNAnimation;
 
 //메인케릭터 펙토리형태로 구성
 class CMaincharacter : public CGameMoveObj
@@ -25,6 +26,7 @@ public:
 
 	void			UpdateMotion(float dTime, EInputSetUp skill_key, EInputSetUp move_key);
 	void			FirstStageSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key);
+	bool			UpdateExplosionAnimation(float dTime);
 
 	NNCircle *		GetMainCircle(){return m_Circle;}
 
@@ -51,6 +53,8 @@ protected:
 	NNCircle*		m_Circle;
 	ECharcterStage  m_Stage;
 	float			m_Cost;
+
+	NNAnimation*	m_Animation;
 
 	bool			m_bHit;
 

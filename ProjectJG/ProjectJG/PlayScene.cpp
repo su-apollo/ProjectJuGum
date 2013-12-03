@@ -112,7 +112,13 @@ void CPlayScene::Update( float dTime )
 	// 모든 게임 플레이 관련 처리는 메인 맵에서 한다.
 	m_MainMap->Update( dTime, m_Frame );
 	if ( m_MainMap->IsGameEnd() )
-		EndGame();
+	{
+		if (m_MainMap->GetPlayer1()->UpdateExplosionAnimation(dTime))
+		{
+			MessageBox(NULL, L"Gameover!", L"Gameover", MB_OK) ;
+			EndGame();
+		}
+	}
 }
 
 bool CPlayScene::CircleToCircleHitCheck(NNPoint point_A, float radius_A, NNPoint point_B, float radius_B) 
