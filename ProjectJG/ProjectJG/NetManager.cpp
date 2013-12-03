@@ -94,10 +94,16 @@ bool NetHelper::DoHandShake()
 	{
 		serveraddr.sin_addr.s_addr = inet_addr(m_TargetAddr) ;
 
+		BOOL on = TRUE ;
+		//소캣설정을 타임아웃으로 설정
+		int retval = setsockopt(m_Socket, SOL_SOCKET, SO_RCVTIMEO, (char*)&on, sizeof(on)) ;
+		if (retval == SOCKET_ERROR)
+			return false ;
+
 		//버퍼에 확인하는 값을 복사
 		sprintf_s(ioBuf, "CONNECT");
 		//서버에게 전송
-		int retval = sendto(m_Socket, ioBuf, strlen(ioBuf), 0, (SOCKADDR*)&serveraddr, sizeof(serveraddr)) ;
+		retval = sendto(m_Socket, ioBuf, strlen(ioBuf), 0, (SOCKADDR*)&serveraddr, sizeof(serveraddr)) ;
 		if (retval == SOCKET_ERROR)
 		{
 			MessageBox(NULL, L"ERROR: first sendto(CONNECT)", L"ERROR", MB_OK) ;

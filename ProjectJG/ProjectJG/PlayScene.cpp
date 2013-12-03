@@ -91,6 +91,7 @@ void CPlayScene::Update( float dTime )
 			return;
 		}
 		m_netsetup = true;
+		return;
 	}
 
 	//3초의 카운트다운 후 게임 시작
