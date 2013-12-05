@@ -2,7 +2,7 @@
 #include "PacketHandler.h"
 
 
-CPacketHandler::CPacketHandler(void)
+CPacketHandler::CPacketHandler(void) : m_IsPacketrecv(false)
 {
 }
 
@@ -21,6 +21,8 @@ void CPacketHandler::HandlingPacket( short packetType, NNCircularBuffer* circula
 			{
 				assert(false) ;
 			}
+
+			m_IsPacketrecv = true;
 		}
 		break;
 	}

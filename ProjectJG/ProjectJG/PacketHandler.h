@@ -12,4 +12,5 @@ public:
 	void HandlingPacket( short packetType, NNCircularBuffer* circularBuffer, NNPacketHeader* header );
 
 	PacketKeyStatus m_PacketKeyStatus;
+	bool			m_IsPacketrecv;
 };

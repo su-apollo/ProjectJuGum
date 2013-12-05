@@ -95,21 +95,18 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, E
 	default:
 		//만약 스킬키와 이동키에 변화가 있다면 패킷전송
 		if ((m_skill_key_input != NONE) || 
-			(m_StateOfDirectionKey != m_direct_key_input))
+			(m_StateOfDirectionKey != m_direct_key_input) ||
+			(m_StateOfSpeedKey != m_speed_key_input))
 		{
 			m_PacketHandler->m_PacketKeyStatus.mSkillStatus = (short)m_skill_key_input;
 			m_PacketHandler->m_PacketKeyStatus.mDirectionStatus = (short)m_direct_key_input;
+			m_PacketHandler->m_PacketKeyStatus.mSpeedStatus = (short)m_speed_key_input;
 			printf_s("***********************send!************************\n");
 			NNNetworkSystem::GetInstance()->Write( (const char*)&m_PacketHandler->m_PacketKeyStatus, m_PacketHandler->m_PacketKeyStatus.m_Size );
 
 			m_StateOfDirectionKey = m_direct_key_input;
+			m_StateOfSpeedKey = m_speed_key_input;
 		}
-
-		// 		printf_s("send : %d\n", m_direct_key_input);
-		// 		m_PacketHandler->m_PacketKeyStatus.mSkillStatus = (short)m_skill_key_input;
-		// 		m_PacketHandler->m_PacketKeyStatus.mDirectionStatus = (short)m_direct_key_input;
-		// 		NNNetworkSystem::GetInstance()->Write( (const char*)&m_PacketHandler->m_PacketKeyStatus, m_PacketHandler->m_PacketKeyStatus.m_Size );
-
 		break;
 	}
 
@@ -126,8 +123,23 @@ void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap*
 
 	m_Texture->SetRotation(GetShotDirection());
 
+	printf_s("recv : %d\n", m_direct_key_input);
+
+	//전송된 패킷에 변화가 있다면 상태변화 및 스킬시전
+	if (m_PacketHandler->m_IsPacketrecv == true)
+	{
+		m_StateOfDirectionKey = (EInputSetUp)m_PacketHandler->m_PacketKeyStatus.mDirectionStatus;
+		m_StateOfSkillKey = (EInputSetUp)m_PacketHandler->m_PacketKeyStatus.mSkillStatus;
+		m_StateOfSpeedKey = (EInputSetUp)m_PacketHandler->m_PacketKeyStatus.mSpeedStatus;
+
+		SkillCasting(dTime, enemy, map, m_StateOfSkillKey);
+
+		//패킷을 꺼내읽었다고 표시
+		m_PacketHandler->m_IsPacketrecv = false;
+	}
+
 	//스피드키 입력에 따른 스피드 조정
-	if (m_speed_key_input == CHANGE_SPEED)
+	if (m_StateOfSpeedKey == CHANGE_SPEED)
 	{
 		SetSpeed(CHAR_FAST_SPEED);
 	}
@@ -136,16 +148,9 @@ void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap*
 		SetSpeed(CHAR_SPEED);
 	}
 
-	// 	UpdateMotion(dTime, m_StateOfDirectionKey);
-	// 	SkillCasting(dTime, enemy, map, m_StateOfSkillKey);
-
-	printf_s("recv : %d\n", (EInputSetUp)m_PacketHandler->m_PacketKeyStatus.mDirectionStatus);
-
-	UpdateMotion(dTime, (EInputSetUp)m_PacketHandler->m_PacketKeyStatus.mDirectionStatus);
-	SkillCasting(dTime, enemy, map, (EInputSetUp)m_PacketHandler->m_PacketKeyStatus.mSkillStatus);
-
-
+	UpdateMotion(dTime, m_StateOfDirectionKey);
 }
+
 void CMaincharacter::UpdateMotion(float dTime, EInputSetUp move_key)
 {
 	//입력에 따른 캐릭터의 이동

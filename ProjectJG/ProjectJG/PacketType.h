@@ -45,6 +45,7 @@ struct PacketKeyStatus : public NNPacketHeader
 	bool	mHitCheck ;
 	short	mDirectionStatus;
 	short	mSkillStatus;
+	short	mSpeedStatus;
 } ;
 
 #pragma pack(pop)

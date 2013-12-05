@@ -93,16 +93,15 @@ void CPlayScene::Update( float dTime )
 			return;
 		}
 		m_netsetup = true;
-		dTime = 0;
 	}
 
 	//3초의 카운트다운 후 게임 시작
-	if (m_DoCount)
-	{
-		//3초의 카운트 다운
-		CountDown(dTime);
-		return;
-	}
+// 	if (m_DoCount)
+// 	{
+// 		//3초의 카운트 다운
+// 		CountDown(dTime);
+// 		return;
+// 	}
 	
 	
 	// camera move. 플레이어가 프레임 경계까지 가면 카메라가 따라서 움직인다.
