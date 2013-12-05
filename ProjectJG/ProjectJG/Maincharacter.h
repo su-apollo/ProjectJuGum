@@ -2,13 +2,13 @@
 #include "GameMoveObj.h"
 #include "GameOption.h"
 #include "NNPoint.h"
-#include "NetManager.h"
 
 class NNCircle;
 class CMainMap;
 class NNSpriteAtlas;
 class CSatellite;
 class NNAnimation;
+class CPacketHandler;
 
 //메인케릭터 펙토리형태로 구성
 class CMaincharacter : public CGameMoveObj
@@ -18,13 +18,11 @@ public:
 	virtual ~CMaincharacter(void);
 
 	void			Render();
-	//임시로 만든 함수
-	void			UpdateTest(float dTime, CMaincharacter* enemy, CMainMap* map);
 	
-	void			Update(float dTime, CMaincharacter* enemy, CMainMap* map);
-	void			UpdateByPeer(float dTime, CMaincharacter* enemy, CMainMap* map);
+	void			Update(float dTime, CMaincharacter* enemy, CMainMap* map, ENetworkMode gamemode);
+	void			UpdateByPeer(float dTime, CMaincharacter* enemy, CMainMap* map, ENetworkMode gamemode);
 
-	void			UpdateMotion(float dTime, EInputSetUp skill_key, EInputSetUp move_key);
+	void			UpdateMotion(float dTime, EInputSetUp move_key);
 	void			FirstStageSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key);
 	bool			UpdateExplosionAnimation(float dTime);
 
@@ -48,6 +46,9 @@ public:
 	CSatellite*		GetSatellite();
 	void			DestroySatellite();
 
+	//네트워크 관련 함수
+	CPacketHandler* GetPacketHandler() { return m_PacketHandler; }
+
 protected:
 	NNSpriteAtlas*	m_Texture;
 	NNCircle*		m_Circle;
@@ -63,9 +64,14 @@ protected:
 
 	//동기화를 위한 시간
 	float			m_Syntime;
-	EInputSetUp		m_StateOfCharater;
-	PacketKeyStatus m_recvPkt;
-	PacketKeyStatus m_sendPkt;
+	EInputSetUp		m_skill_key_input;
+	EInputSetUp		m_direct_key_input;
+	EInputSetUp		m_speed_key_input;
 
+	EInputSetUp		m_StateOfDirectionKey;
+	EInputSetUp		m_StateOfSpeedKey;
+	EInputSetUp		m_StateOfSkillKey;
+
+	CPacketHandler* m_PacketHandler;
 };
 

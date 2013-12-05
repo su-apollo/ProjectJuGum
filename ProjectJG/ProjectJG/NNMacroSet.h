@@ -83,3 +83,6 @@ inline float NNDegreeToY( float angle )
 #define SINGLETON(type) \
 	public: \
 	static type* GetInstance() {static type s; return &s;}
+
+
+#define WM_SOCKET 104

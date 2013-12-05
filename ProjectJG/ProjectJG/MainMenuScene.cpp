@@ -37,21 +37,21 @@ CMainMenuScene::CMainMenuScene(void)
 
 
 	// 메뉴 라벨 생성 및 배치
-	m_MenuLabel[MENU_PLAY] = NNLabel::Create( L"Play", L"궁서체", 40.f );
+	m_MenuLabel[MENU_PLAY] = NNLabel::Create( L"Play", GAME_FONT, 40.f );
 	m_MenuLabel[MENU_PLAY]->SetPosition( width*0.5f + 60.f, height*0.5f );
 	AddChild( m_MenuLabel[MENU_PLAY] );
 
-	m_MenuLabel[MENU_TEST] = NNLabel::Create( L"Test", L"궁서체", 40.f );
+	m_MenuLabel[MENU_TEST] = NNLabel::Create( L"Test", GAME_FONT, 40.f );
 	m_MenuLabel[MENU_TEST]->SetPosition( width*0.5f + 60.f, height*0.5f + 80.f );
 	AddChild( m_MenuLabel[MENU_TEST] );
 
-	m_MenuLabel[MENU_QUIT] = NNLabel::Create( L"Quit", L"궁서체", 40.f );
+	m_MenuLabel[MENU_QUIT] = NNLabel::Create( L"Quit", GAME_FONT, 40.f );
 	m_MenuLabel[MENU_QUIT]->SetPosition( width*0.5f + 60.f, height*0.5f + 160.f );
 	AddChild( m_MenuLabel[MENU_QUIT] );
 
 	m_KeyOn = 0;			// 현재 가리키고 있는 메뉴 위치
 
-	m_LoadingLabel = NNLabel::Create(L"Loading...", L"궁서체", 50.f);
+	m_LoadingLabel = NNLabel::Create(L"Loading...", GAME_FONT, 50.f);
 	m_LoadingLabel->SetPosition( m_MenuLabel[MENU_PLAY]->GetPosition() );
 	m_LoadingLabel->SetVisible(false);
 	AddChild( m_LoadingLabel );

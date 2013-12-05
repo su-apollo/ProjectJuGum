@@ -87,9 +87,6 @@
     <ClCompile Include="NNConfig.cpp">
       <Filter>Framework\Macro</Filter>
     </ClCompile>
-    <ClCompile Include="NetManager.cpp">
-      <Filter>GameObjects\P2PNet</Filter>
-    </ClCompile>
     <ClCompile Include="UImanager.cpp">
       <Filter>GameObjects\Scene</Filter>
     </ClCompile>
@@ -104,6 +101,15 @@
     </ClCompile>
     <ClCompile Include="NNSpriteNode.cpp">
       <Filter>Framework\Node\Animation\SpriteNode</Filter>
+    </ClCompile>
+    <ClCompile Include="NNCircularBuffer.cpp">
+      <Filter>Framework\NNNetworkSystem\CircularBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="NNNetworkSystem.cpp">
+      <Filter>Framework\NNNetworkSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketHandler.cpp">
+      <Filter>GameObjects\P2PNet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +214,18 @@
     </Filter>
     <Filter Include="Framework\Node\Animation\SpriteNode">
       <UniqueIdentifier>{d421c999-f973-45c8-9042-35126469ca1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\NNNetworkSystem">
+      <UniqueIdentifier>{450f511b-44c9-4258-8c07-f353df110743}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\NNNetworkSystem\BaseHandler">
+      <UniqueIdentifier>{15133e26-5d1d-459a-bf8d-18a5b09b06c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\NNNetworkSystem\CircularBuffer">
+      <UniqueIdentifier>{dce1eed5-399a-4c4a-b6bd-f711e194e65e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\NNNetworkSystem\PacketHeader">
+      <UniqueIdentifier>{aee625a7-b66c-4a4a-9c1c-bd3fa5aa125e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -314,9 +332,6 @@
     <ClInclude Include="PacketType.h">
       <Filter>GameObjects\P2PNet</Filter>
     </ClInclude>
-    <ClInclude Include="NetManager.h">
-      <Filter>GameObjects\P2PNet</Filter>
-    </ClInclude>
     <ClInclude Include="UImanager.h">
       <Filter>GameObjects\Scene</Filter>
     </ClInclude>
@@ -331,6 +346,21 @@
     </ClInclude>
     <ClInclude Include="NNSpriteNode.h">
       <Filter>Framework\Node\Animation\SpriteNode</Filter>
+    </ClInclude>
+    <ClInclude Include="NNBaseHandler.h">
+      <Filter>Framework\NNNetworkSystem\BaseHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="NNCircularBuffer.h">
+      <Filter>Framework\NNNetworkSystem\CircularBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="NNNetworkSystem.h">
+      <Filter>Framework\NNNetworkSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="NNPacketHeader.h">
+      <Filter>Framework\NNNetworkSystem\PacketHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketHandler.h">
+      <Filter>GameObjects\P2PNet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

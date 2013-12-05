@@ -29,6 +29,7 @@ CBullet::CBullet(void)
 	m_Texture[CURVE_BULLET]->SetVisible(false);
 	AddChild(m_Texture[CURVE_BULLET]);
 
+	SetHitRadius(BULLET_HIT_RADIUS);
 	SetDirection(270.f);
 	SetSpeed(BULLET_SPEED);
 }

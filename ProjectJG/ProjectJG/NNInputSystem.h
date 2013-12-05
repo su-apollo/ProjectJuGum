@@ -38,6 +38,7 @@ public:
 	EInputSetUp GetDirectionKeyInput(void);
 	EInputSetUp GetSkillKeyInput(void);
 	EInputSetUp GetGameMenuKeyInput(void);
+	EInputSetUp GetChangeSpeedKeyInput(void);
 
 private:
 	static NNInputSystem* m_pInstance;
@@ -46,7 +47,7 @@ private:
 	int m_keydown;
 	int m_keyleft;
 	int m_keyright;
-	
+
 	int m_skill[6];
 
 	int m_upgradekey;

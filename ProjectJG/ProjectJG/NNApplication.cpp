@@ -6,23 +6,29 @@
 #endif
 #include "UImanager.h"
 
+
+#include "NNApplication.h"
+#include "NNInputSystem.h"
+#include "NNAudioSystem.h"
+#include "NNResourceManager.h"
+#include "NNNetworkSystem.h"
+
+#include "NND2DRenderer.h"
+
 NNApplication* NNApplication::m_pInstance = nullptr;
 
 NNApplication::NNApplication()
 	: m_Hwnd(nullptr), m_hInstance(nullptr),
-	  m_ScreenHeight(0), m_ScreenWidth(0),
-	  m_Fps(0.f), m_FpsTimer(0.f), m_DeltaTime(0.f),
-	  m_ElapsedTime(0.f), m_PrevElapsedTime(0.f),
-	  m_DeltaTimeSum(0.f), m_DeltaTimeSum1(0.f),
-	  m_FrameCount(0), m_FrameCount1(0),
-	  m_PrevTime(0), m_NowTime(0),
-	  m_Renderer(nullptr), m_pSceneDirector(nullptr),
-	  m_RendererStatus(UNKNOWN), m_DestroyWindow(false)
+	m_ScreenHeight(0), m_ScreenWidth(0),
+	m_Fps(0.f), m_ElapsedTime(0.f), m_DeltaTime(0.f),m_FpsTimer(0.f),
+	m_PrevTime(0), m_NowTime(0),
+	m_Renderer(nullptr), m_pSceneDirector(nullptr),
+	m_RendererStatus(UNKNOWN),m_DestroyWindow(false)
 {
-
 }
 NNApplication::~NNApplication()
 {
+	// Release();
 }
 
 NNApplication* NNApplication::GetInstance()
@@ -52,13 +58,15 @@ bool NNApplication::Init( wchar_t* const title, int width, int height, RendererS
 	m_ScreenHeight = height;
 	m_RendererStatus = renderStatus;
 
-	_CreateWindow( m_Title, m_ScreenWidth, m_ScreenHeight, fullscreen );
+	_CreateWindow( m_Title, m_ScreenWidth, m_ScreenHeight, fullscreen);
 	_CreateRenderer( renderStatus );
-	
+
 	m_pSceneDirector = NNSceneDirector::GetInstance();
 
 	m_Renderer->Init();
 	m_pSceneDirector->Init();
+
+	srand( (unsigned)time(NULL) ) ;
 
 #ifdef _DEBUG
 	PrintLog::GetInstance();
@@ -69,22 +77,21 @@ bool NNApplication::Init( wchar_t* const title, int width, int height, RendererS
 
 bool NNApplication::Release()
 {
-	if ( m_DestroyWindow == true ) {
-		CloseHandle(m_Hwnd);
+	if ( m_DestroyWindow ) {
 		ReleaseInstance();
 		return true;
 	}
-
- 	m_pSceneDirector->Release();
+	m_pSceneDirector->Release();
 
 	NNSceneDirector::ReleaseInstance();
 	NNResourceManager::ReleaseInstance();
 	NNInputSystem::ReleaseInstance();
 	NNAudioSystem::ReleaseInstance();
+	NNNetworkSystem::ReleaseInstance();
 
-	// 게임관련 싱글톤 릴리즈
-	CBulletManager::ReleaseInstance();
+	//게임관련 싱글톤
 	UImanager::ReleaseInstance();
+	CBulletManager::ReleaseInstance();
 
 #ifdef _DEBUG
 	// 콘솔 싱글톤 릴리즈
@@ -99,7 +106,6 @@ bool NNApplication::Release()
 
 bool NNApplication::Run()
 {
-	//메세지 처리 루프
 	MSG msg;
 	ZeroMemory( &msg, sizeof(msg) );
 
@@ -114,54 +120,18 @@ bool NNApplication::Run()
 			TranslateMessage( &msg );
 			DispatchMessage( &msg );
 		}
-		else
-		{
-// 			m_NowTime = timeGetTime();
-// 			if ( m_PrevTime == 0.f )
-// 			{
-// 				m_PrevTime = m_NowTime;
-// 			}
-// 
-// 			//DeltaTime을 초단위로 계산
-// 			m_DeltaTime = (float)(m_NowTime - m_PrevTime) / 1000.f;
-// 			m_ElapsedTime += m_DeltaTime;
-// 
-// 			m_DeltaTimeSum += m_DeltaTime;
-// 			++m_FrameCount;
-// 
-// 			if (m_DeltaTimeSum >= 1.f)
-// 			{
-// 				m_Fps = (m_FrameCount + m_FrameCount1) / (m_DeltaTimeSum + m_DeltaTimeSum1);
-// 
-// 				m_DeltaTimeSum1 = m_DeltaTimeSum;
-// 				m_DeltaTimeSum = 0;
-// 				m_FrameCount1 = m_FrameCount;
-// 				m_FrameCount = 0;
-// 			}
-// 
-// 			m_PrevTime = m_NowTime;
-// 
-// 			
-// 			NNInputSystem::GetInstance()->UpdateKeyState();
-// 			m_pSceneDirector->UpdateScene( m_DeltaTime );
-// 
-// 			m_Renderer->Begin();
-// 			m_Renderer->Clear();
-// 			m_pSceneDirector->RenderScene();
-// 			m_Renderer->End();
-			
-
+		else{
 			m_FrameCount++;
 			m_NowTime = timeGetTime();
 			if ( m_PrevTime == 0.f )
 			{
 				m_PrevTime = m_NowTime;
 			}
-
 			m_DeltaTime = (static_cast<float>(m_NowTime - m_PrevTime)) / 1000.f;
 			m_ElapsedTime += m_DeltaTime;
 			m_FpsTimer += m_DeltaTime;
 
+			//0.1초 간격으로 fps계산
 			if(m_FpsTimer > 0.1f)
 			{
 				m_Fps = ((float)m_FrameCount) / m_FpsTimer;
@@ -178,13 +148,18 @@ bool NNApplication::Run()
 			m_Renderer->Clear();
 			m_pSceneDirector->RenderScene();
 			m_Renderer->End();
+
+			if ( NNInputSystem::GetInstance()->GetKeyState( VK_ESCAPE ) == KEY_DOWN )
+			{
+				PostQuitMessage(0);
+			}
 		}
 	}
 
 	return true;
 }
 
-bool NNApplication::_CreateWindow( wchar_t* title, int width, int height, bool fullscreen )
+bool NNApplication::_CreateWindow( wchar_t* title, int width, int height, bool fullscreen)
 {
 	WNDCLASSEX wcex;
 	wcex.cbSize = sizeof(WNDCLASSEX);
@@ -204,11 +179,11 @@ bool NNApplication::_CreateWindow( wchar_t* title, int width, int height, bool f
 	RegisterClassEx( &wcex );
 
 	DWORD style = WS_OVERLAPPED;
-	
+
 	m_Hwnd = CreateWindow( L"NNApplication", title, style, CW_USEDEFAULT, CW_USEDEFAULT,
 		width, height, NULL, NULL, m_hInstance, NULL);
 
-	ShowCursor(false);
+	//ShowCursor(false);
 
 	if ( fullscreen )
 	{
@@ -218,8 +193,8 @@ bool NNApplication::_CreateWindow( wchar_t* title, int width, int height, bool f
 	else
 	{
 		ShowWindow(m_Hwnd, SW_SHOWDEFAULT);
-	}	
-	
+	}        
+
 	return true;
 }
 bool NNApplication::_CreateRenderer( RendererStatus renderStatus )
@@ -227,8 +202,10 @@ bool NNApplication::_CreateRenderer( RendererStatus renderStatus )
 	switch( renderStatus )
 	{
 	case D2D:
-		m_Renderer = new NND2DRenderer();
-		break;
+		{
+			m_Renderer = new NND2DRenderer();
+			break;
+		}
 	default:
 		return false;
 	}
@@ -236,18 +213,131 @@ bool NNApplication::_CreateRenderer( RendererStatus renderStatus )
 	return true;
 }
 
+
 LRESULT CALLBACK NNApplication::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 {
-	//메세지 처리
 	switch( message )
 	{
+	case WM_CREATE:
+		{
+			break;
+		}
 	case WM_DESTROY:
-		NNApplication::GetInstance()->Release();
-		NNApplication::GetInstance()->m_DestroyWindow = true;
-		PostQuitMessage(0);
-		return 0;
+		{
+			NNApplication::GetInstance()->Release();
+			NNApplication::GetInstance()->m_DestroyWindow = true;
+			PostQuitMessage(0);
+			break;
+		}
+	case WM_PAINT:
+		{
+			PAINTSTRUCT ps;
+			HDC hdc = BeginPaint( hWnd, &ps );
+			EndPaint( hWnd, &ps );
+			break;
+		}
+
+	case WM_SOCKET:
+		{
+			if (WSAGETSELECTERROR(lParam))
+			{	
+				MessageBox(hWnd,L"WSAGETSELECTERROR",	L"Error", MB_OK|MB_ICONERROR);
+				SendMessage(hWnd,WM_DESTROY,NULL,NULL);
+				break;
+			}
+
+			switch (WSAGETSELECTEVENT(lParam))
+			{
+			case FD_ACCEPT:
+				{
+					printf_s("FD_ACCEPT\n");
+
+					int opt = 1 ;
+					::setsockopt(NNNetworkSystem::GetInstance()->m_Socket, IPPROTO_TCP, TCP_NODELAY, (const char*)&opt, sizeof(int)) ;
+
+					int nResult = WSAAsyncSelect(NNNetworkSystem::GetInstance()->m_Socket, hWnd, WM_SOCKET, (FD_CLOSE|FD_READ|FD_WRITE) ) ;
+					if (nResult)
+					{
+						assert(false) ;
+						break;
+					}
+				}
+				break;
+
+			case FD_CONNECT:
+				{
+					/// NAGLE 끈다
+					/// NAGLE Algorithm
+					/// http://en.wikipedia.org/wiki/Nagle's_algorithm
+					int opt = 1 ;
+					::setsockopt(NNNetworkSystem::GetInstance()->m_Socket, IPPROTO_TCP, TCP_NODELAY, (const char*)&opt, sizeof(int)) ;
+
+					int nResult = WSAAsyncSelect(NNNetworkSystem::GetInstance()->m_Socket, hWnd, WM_SOCKET, (FD_CLOSE|FD_READ|FD_WRITE) ) ;
+					if (nResult)
+					{
+						assert(false) ;
+						break;
+					}
+				}
+				break ;
+
+			case FD_READ:
+				{
+					char inBuf[4096] = {0, } ;
+
+					int recvLen = recv(NNNetworkSystem::GetInstance()->m_Socket, inBuf, 4096, 0) ;
+
+					if (recvLen == -1)
+					{
+						printf_s("recv error!\n");
+						break;
+					}
+
+					if ( !NNNetworkSystem::GetInstance()->m_RecvBuffer.Write(inBuf, recvLen) )
+					{
+						/// 버퍼 꽉찼다. 
+						assert(false) ;
+					}
+
+					NNNetworkSystem::GetInstance()->ProcessPacket() ;
+
+				}
+				break;
+
+			case FD_WRITE:
+				{
+					/// 실제로 버퍼에 있는것들 꺼내서 보내기
+					int size = NNNetworkSystem::GetInstance()->m_SendBuffer.GetCurrentSize() ;
+					if ( size > 0 )
+					{
+						char* data = new char[size] ;
+						NNNetworkSystem::GetInstance()->m_SendBuffer.Peek(data) ;
+
+						int sent = send(NNNetworkSystem::GetInstance()->m_Socket, data, size, 0) ;
+
+						/// 다를수 있다
+						if ( sent != size )
+							OutputDebugStringA("sent != request\n") ;
+
+						NNNetworkSystem::GetInstance()->m_SendBuffer.Consume(sent) ;
+
+						delete [] data ;
+					}
+
+				}
+				break ;
+
+			case FD_CLOSE:
+				{
+					MessageBox(hWnd, L"Server closed connection", L"Connection closed!", MB_ICONINFORMATION|MB_OK);
+					closesocket(NNNetworkSystem::GetInstance()->m_Socket);
+					SendMessage(hWnd,WM_DESTROY,NULL,NULL);
+				}
+				break;
+			}
+		} 
+		break ;
 	}
 
 	return(DefWindowProc(hWnd,message,wParam,lParam));
 }
-

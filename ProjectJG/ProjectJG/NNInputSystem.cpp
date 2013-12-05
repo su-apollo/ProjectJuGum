@@ -77,7 +77,7 @@ KeyState NNInputSystem::GetKeyState( int key )
 	{
 		return KEY_UP;
 	}
-	
+
 	return KEY_NOTPRESSED;
 }
 
@@ -149,10 +149,6 @@ EInputSetUp NNInputSystem::GetSkillKeyInput(void)
 	{
 		return UPGRADE_KEY;
 	}
-	else if (GetInstance()->GetKeyState(m_changespeedkey) == KEY_PRESSED)
-	{
-		return CHANGE_SPEED;
-	}
 	else
 		return NONE;
 }
@@ -204,3 +200,12 @@ EInputSetUp NNInputSystem::GetMainMenuInput( void )
 	else
 		return NONE;
 }
+
+EInputSetUp NNInputSystem::GetChangeSpeedKeyInput( void )
+{
+	if (GetInstance()->GetKeyState(m_changespeedkey) == KEY_PRESSED)
+	{
+		return CHANGE_SPEED;
+	}
+}
+

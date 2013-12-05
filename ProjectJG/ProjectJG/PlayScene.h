@@ -1,5 +1,6 @@
 #pragma once
 #include "NNScene.h"
+#include "GameOption.h"
 
 class CMainMap;
 class NNSprite;
@@ -17,8 +18,6 @@ public:
 
 	void Render();
 	void Update( float dTime );
-
-	bool CircleToCircleHitCheck(NNPoint point_A, float radius_A, NNPoint point_B, float radius_B);
 
 	bool NetworkSetMenu();
 	void CountDown(float dTime);

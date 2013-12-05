@@ -4,6 +4,9 @@
 #include "NNSceneDirector.h"
 #include "NNApplication.h"
 #include "NNSprite.h"
+#include "NNInputSystem.h"
+#include "NNNetworkSystem.h"
+#include "PacketType.h"
 
 #include "PlayScene.h"
 #include "Maincharacter.h"
@@ -13,8 +16,8 @@
 #include "Frame.h"
 #include "Camera.h"
 #include "UImanager.h"
+#include "PacketHandler.h"
 
-#include "NetManager.h"
 
 CPlayScene::CPlayScene(void) : m_netsetup(false), m_DoCount(true), m_CountNum(0.f)
 {
@@ -33,17 +36,17 @@ CPlayScene::CPlayScene(void) : m_netsetup(false), m_DoCount(true), m_CountNum(0.
 	AddChild( m_Frame );
 
 	//네트워크 설정 메뉴
-	m_MenuLabel[TEST_MODE] = NNLabel::Create( L"TEST", L"궁서체", 40.f );
+	m_MenuLabel[TEST_MODE] = NNLabel::Create( L"TEST", GAME_FONT, 40.f );
 	m_MenuLabel[TEST_MODE]->SetColor(255.0f, 0.0f, 0.0f);
 	m_MenuLabel[TEST_MODE]->SetPosition( width*0.5f + 60.f, height*0.5f );
 	AddChild( m_MenuLabel[TEST_MODE] );
 
-	m_MenuLabel[CLIENT_MODE] = NNLabel::Create( L"CLIENT", L"궁서체", 40.f );
+	m_MenuLabel[CLIENT_MODE] = NNLabel::Create( L"CLIENT", GAME_FONT, 40.f );
 	m_MenuLabel[CLIENT_MODE]->SetColor(0.0f, 0.0f, 0.0f);
 	m_MenuLabel[CLIENT_MODE]->SetPosition( width*0.5f + 60.f, height*0.5f + 80.f );
 	AddChild( m_MenuLabel[CLIENT_MODE] );
 
-	m_MenuLabel[SERVER_MODE] = NNLabel::Create( L"SERVER", L"궁서체", 40.f );
+	m_MenuLabel[SERVER_MODE] = NNLabel::Create( L"SERVER", GAME_FONT, 40.f );
 	m_MenuLabel[SERVER_MODE]->SetColor(0.0f, 0.0f, 0.0f);
 	m_MenuLabel[SERVER_MODE]->SetPosition( width*0.5f + 60.f, height*0.5f + 160.f );
 	AddChild( m_MenuLabel[SERVER_MODE] );
@@ -72,7 +75,6 @@ CPlayScene::CPlayScene(void) : m_netsetup(false), m_DoCount(true), m_CountNum(0.
 
 CPlayScene::~CPlayScene(void)
 {
-	SafeDelete(GNetHelper);
 }
 
 void CPlayScene::Render()
@@ -121,15 +123,6 @@ void CPlayScene::Update( float dTime )
 	}
 }
 
-bool CPlayScene::CircleToCircleHitCheck(NNPoint point_A, float radius_A, NNPoint point_B, float radius_B) 
-{
-	if((radius_A + radius_B) > point_A.GetDistance(point_B))
-	{
-		return true;
-	}
-	return false;
-}
-
 void CPlayScene::EndGame()
 {
 	//동기화를 위한 3초간의 슬립
@@ -170,10 +163,6 @@ bool CPlayScene::NetworkSetMenu()
 {
 	//ip
 	char* serverIpAddr = "127.0.0.1";
-	//char* serverIpAddr = "10.73.42.57";
-	//char* serverIpAddr = "10.73.43.123";
-	//char* serverIpAddr = "10.73.42.217";
-	//char* serverIpAddr = "10.73.42.180";
 
 	//메뉴
 	m_MenuLabel[m_KeyOn]->SetColor( 0.f, 0.f, 0.f);	
@@ -201,52 +190,34 @@ bool CPlayScene::NetworkSetMenu()
 
 		case CLIENT_MODE:
 
-			GNetHelper = new NetHelper(false, serverIpAddr) ;
+			m_MainMap->SetGameMode(CLIENT_MODE);
 
-			//소켓초기화
-			if ( !GNetHelper->Initialize() )
-			{
-				MessageBox(NULL, L"NetHelper::Initialize()", L"ERROR", MB_OK) ;
-				return false;
-			}
+			NNNetworkSystem::GetInstance()->Init();
+			NNNetworkSystem::GetInstance()->Connect(serverIpAddr, SERVER_PORT_NUM);
+			NNNetworkSystem::GetInstance()->SetPacketHandler(PKT_STATUS, m_MainMap->GetPlayer1()->GetPacketHandler());
+			NNNetworkSystem::GetInstance()->SetPacketHandler(PKT_STATUS, m_MainMap->GetPlayer2()->GetPacketHandler());
 
-			//연결시도
-			if ( !GNetHelper->DoHandShake() )
-			{
-				return false;
-			}
-
-			//연결 후 캐릭터를 위치에 배치
+			//캐릭터를 위치에 배치
 			m_MainMap->GetPlayer1()->SetPosition( 0.f, m_MainMap->GetBotLine() *0.5f );
 			m_MainMap->GetPlayer2()->SetPosition( 0.f, m_MainMap->GetTopLine() *0.5f );
 
-			m_MainMap->SetGameMode(CLIENT_MODE);
+
 			break;
 
 		case SERVER_MODE:
-			GNetHelper = new NetHelper(true, serverIpAddr) ;
 
-			//소켓 초기화
-			if ( !GNetHelper->Initialize() )
-			{
-				MessageBox(NULL, L"NetHelper::Initialize()", L"ERROR", MB_OK) ;
-				return false;
-			}
+			m_MainMap->SetGameMode(SERVER_MODE);
 
-			//편의상 IP주소를 불러온다
-			GNetHelper->GetHostIP();
-
-			//연결시도
-			if ( !GNetHelper->DoHandShake() )
-			{
-				return false;
-			}
+			NNNetworkSystem::GetInstance()->Init();
+			NNNetworkSystem::GetInstance()->Listen(SERVER_PORT_NUM);
+			NNNetworkSystem::GetInstance()->SetPacketHandler(PKT_STATUS, m_MainMap->GetPlayer1()->GetPacketHandler());
+			NNNetworkSystem::GetInstance()->SetPacketHandler(PKT_STATUS, m_MainMap->GetPlayer2()->GetPacketHandler());
 
 			//연결 후 캐릭터를 위치에 배치
 			m_MainMap->GetPlayer1()->SetPosition( 0.f, m_MainMap->GetTopLine() *0.5f );
 			m_MainMap->GetPlayer2()->SetPosition( 0.f, m_MainMap->GetBotLine() *0.5f );
 
-			m_MainMap->SetGameMode(SERVER_MODE);
+
 			break;
 		default:
 			break;

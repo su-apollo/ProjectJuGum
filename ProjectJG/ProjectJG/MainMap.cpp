@@ -7,7 +7,6 @@
 #include "Bullet.h"
 #include "Satellite.h"
 #include "Asteroid.h"
-#include "NetManager.h"
 #include "Camera.h"
 
 #include "NNInputSystem.h"		// for 운석 테스트
@@ -128,15 +127,8 @@ void CMainMap::Update( float dTime, CFrame* frame )
 // 		m_Player2->SetHit( true );
 
 	//캐릭터 업데이트
-	if (m_GameMode == TEST_MODE)
-	{	
-		m_Player1->UpdateTest(dTime, m_Player2, this);
-	}
-	else
-	{
-		m_Player1->Update(dTime, m_Player2, this);
-		m_Player2->UpdateByPeer(dTime, m_Player1, this);
-	}
+	m_Player1->Update(dTime, m_Player2, this, m_GameMode);
+	m_Player2->UpdateByPeer(dTime, m_Player1, this, m_GameMode);
 
 	//맵과 캐릭터의 충돌체크
 	SetPlayerMoveArea(m_Player1, frame);
@@ -177,12 +169,6 @@ void CMainMap::SetPlayerMoveArea( CMaincharacter * Player, CFrame* frame )
 
 bool CMainMap::IsGameEnd()
 {
-	if (m_GameMode && !GNetHelper->IsPeerLinked())
-	{
-		MessageBox(NULL, L"ERROR: Linked Error!", L"ERROR", MB_OK) ;
-		return true;
-	}
-
 	if ( m_Player1->IsHit() || m_Player2->IsHit())
 	{
 		return true;

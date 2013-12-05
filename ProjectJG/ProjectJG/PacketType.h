@@ -1,10 +1,11 @@
 #pragma once
-#include "NNMacroSet.h"
+#include "NNConfig.h"
+#include "NNPacketHeader.h"
 
 #define MAX_STRING		128
 
 #define BUF_SIZE			32
-#define SERVER_PORT_NUM	9000
+#define SERVER_PORT_NUM	9001
 
 #define SHOT_PACKET_TIME 0.03f
 
@@ -32,14 +33,15 @@ struct PacketTest
 	char	mPayLoad[MAX_PAYLOAD] ;
 } ;
 
-struct PacketKeyStatus
+struct PacketKeyStatus : public NNPacketHeader
 {
-	PacketKeyStatus() : mType(PKT_STATUS), mHitCheck(false), 
+	PacketKeyStatus() : mHitCheck(false), 
 		mDirectionStatus(0), mSkillStatus(0)
 	{
+		m_Type = PKT_STATUS; 
+		m_Size = sizeof(PacketKeyStatus);
 	}
 
-	short	mType ;
 	bool	mHitCheck ;
 	short	mDirectionStatus;
 	short	mSkillStatus;

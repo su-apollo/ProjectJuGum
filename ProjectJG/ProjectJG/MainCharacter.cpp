@@ -1,10 +1,13 @@
 #include "NNConfig.h"
+#include "NNNetworkSystem.h"
+#include "NNApplication.h"
 #include "Maincharacter.h"
 #include "BulletManager.h"
 #include "NNInputSystem.h"
 #include "NNCircle.h"
 #include "NNSpriteAtlas.h"
 #include "Satellite.h"
+#include "PacketHandler.h"
 #include "NNAnimation.h"
 
 
@@ -37,10 +40,14 @@ CMaincharacter::CMaincharacter(void) : m_bHit(false), m_SatelliteIndex(0), m_Syn
 	m_Stage = FIRST_STAGE_CHAR;
 
 	m_bHit = false;
+
+	m_PacketHandler = new CPacketHandler;
 }
 
 CMaincharacter::~CMaincharacter(void)
 {
+	//핸들러를 해제
+	//SafeDelete(m_PacketHandler);
 }
 
 void CMaincharacter::Render()
@@ -52,99 +59,17 @@ void CMaincharacter::Render()
 //                         Update
 //**************************************************************
 
-//테스트용 함수
-void CMaincharacter::UpdateTest( float dTime, CMaincharacter* enemy, CMainMap* map )
-{
-	EInputSetUp skill_key_input = NONE;
-	EInputSetUp direct_key_input = NONE;
-
-	skill_key_input = NNInputSystem::GetInstance()->GetSkillKeyInput();
-	direct_key_input = NNInputSystem::GetInstance()->GetDirectionKeyInput();
-
-	UpdateShotDirection(enemy);
-	UpdateShotPoint();
-	UpdateSatellite(dTime, enemy);
-
-	m_Texture->SetRotation(GetShotDirection());
-
-	UpdateMotion(dTime, skill_key_input, direct_key_input);
-	SkillCasting(dTime, enemy, map, skill_key_input);
-
-}
-
 //송신측의 함수
-void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map)
+void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, ENetworkMode gamemode)
 {
 	m_Syntime += dTime;
 
-	//만약 맞았다면 맞았다고 송신
-	if (m_bHit == true)
-	{
-		m_sendPkt.mHitCheck = true;	
-	}
+	m_skill_key_input = NNInputSystem::GetInstance()->GetSkillKeyInput();
+	m_direct_key_input = NNInputSystem::GetInstance()->GetDirectionKeyInput();
+	m_speed_key_input = NNInputSystem::GetInstance()->GetChangeSpeedKeyInput();
 
-	EInputSetUp skill_key_input = NONE;
-	EInputSetUp direct_key_input = NONE;
-
-	skill_key_input = NNInputSystem::GetInstance()->GetSkillKeyInput();
-	direct_key_input = NNInputSystem::GetInstance()->GetDirectionKeyInput();
-
-	//항상 적을 바라보도록 계산
-	UpdateShotDirection(enemy);
-	UpdateShotPoint();
-	UpdateSatellite(dTime, enemy);
-
-	m_Texture->SetRotation(GetShotDirection());
-
-	//이동과 스킬시전
-	UpdateMotion(dTime, skill_key_input, direct_key_input);
-	SkillCasting(dTime, enemy, map, skill_key_input);
-
-	//패킷 설정
-	if ( !GNetHelper->IsPeerLinked() )
-	{
-		MessageBox(NULL, L"ERROR: Linked Error!", L"ERROR", MB_OK) ;
-		return ;
-	}
-	
-	m_sendPkt.mDirectionStatus = (short)direct_key_input;
-	m_sendPkt.mSkillStatus = (short)skill_key_input;
-
-	GNetHelper->SendKeyStatus(m_sendPkt);
-}
-
-//수신받은 후 업데이트 하는 함수
-void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap* map)
-{
-	m_Syntime += dTime;
-
-	UpdateShotDirection(enemy);
-	UpdateShotPoint();
-	UpdateSatellite(dTime, enemy);
-
-	m_Texture->SetRotation(GetShotDirection());
-
-	if ( !GNetHelper->IsPeerLinked() )
-	{
-		MessageBox(NULL, L"ERROR: Linked Error!", L"ERROR", MB_OK) ;
-		return ;
-	}
-
-	// P2P 데이터 받아서 상태 업데이트
-	GNetHelper->RecvKeyStatus(m_recvPkt);
-
-	UpdateMotion(dTime, (EInputSetUp)m_recvPkt.mSkillStatus, (EInputSetUp)m_recvPkt.mDirectionStatus);
-	SkillCasting(dTime, enemy, map, (EInputSetUp)m_recvPkt.mSkillStatus);
-
-	if (m_recvPkt.mHitCheck == true)
-	{
-		m_bHit = true;
-	}
-}
-
-void CMaincharacter::UpdateMotion(float dTime, EInputSetUp skill_key, EInputSetUp move_key)
-{
-	if (skill_key == CHANGE_SPEED)
+	//스피드키 입력에 따른 스피드 조정
+	if (m_speed_key_input == CHANGE_SPEED)
 	{
 		SetSpeed(CHAR_FAST_SPEED);
 	}
@@ -153,6 +78,76 @@ void CMaincharacter::UpdateMotion(float dTime, EInputSetUp skill_key, EInputSetU
 		SetSpeed(CHAR_SPEED);
 	}
 
+	//항상 적을 바라보도록 계산
+	UpdateShotDirection(enemy);
+	UpdateShotPoint();
+	UpdateSatellite(dTime, enemy);
+	m_Texture->SetRotation(GetShotDirection());
+
+	//이동과 스킬시전
+	UpdateMotion(dTime, m_direct_key_input);
+	SkillCasting(dTime, enemy, map, m_skill_key_input);
+
+	switch (gamemode)
+	{
+	case TEST_MODE:
+		break;
+	default:
+		//만약 스킬키와 이동키에 변화가 있다면 패킷전송
+		if ((m_skill_key_input != NONE) || 
+			(m_StateOfDirectionKey != m_direct_key_input))
+		{
+			m_PacketHandler->m_PacketKeyStatus.mSkillStatus = (short)m_skill_key_input;
+			m_PacketHandler->m_PacketKeyStatus.mDirectionStatus = (short)m_direct_key_input;
+			printf_s("***********************send!************************\n");
+			NNNetworkSystem::GetInstance()->Write( (const char*)&m_PacketHandler->m_PacketKeyStatus, m_PacketHandler->m_PacketKeyStatus.m_Size );
+
+			m_StateOfDirectionKey = m_direct_key_input;
+		}
+
+		// 		printf_s("send : %d\n", m_direct_key_input);
+		// 		m_PacketHandler->m_PacketKeyStatus.mSkillStatus = (short)m_skill_key_input;
+		// 		m_PacketHandler->m_PacketKeyStatus.mDirectionStatus = (short)m_direct_key_input;
+		// 		NNNetworkSystem::GetInstance()->Write( (const char*)&m_PacketHandler->m_PacketKeyStatus, m_PacketHandler->m_PacketKeyStatus.m_Size );
+
+		break;
+	}
+
+}
+
+//수신받은 후 업데이트 하는 함수
+void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap* map, ENetworkMode gamemode)
+{
+	m_Syntime += dTime;
+
+	UpdateShotDirection(enemy);
+	UpdateShotPoint();
+	UpdateSatellite(dTime, enemy);
+
+	m_Texture->SetRotation(GetShotDirection());
+
+	//스피드키 입력에 따른 스피드 조정
+	if (m_speed_key_input == CHANGE_SPEED)
+	{
+		SetSpeed(CHAR_FAST_SPEED);
+	}
+	else
+	{
+		SetSpeed(CHAR_SPEED);
+	}
+
+	// 	UpdateMotion(dTime, m_StateOfDirectionKey);
+	// 	SkillCasting(dTime, enemy, map, m_StateOfSkillKey);
+
+	printf_s("recv : %d\n", (EInputSetUp)m_PacketHandler->m_PacketKeyStatus.mDirectionStatus);
+
+	UpdateMotion(dTime, (EInputSetUp)m_PacketHandler->m_PacketKeyStatus.mDirectionStatus);
+	SkillCasting(dTime, enemy, map, (EInputSetUp)m_PacketHandler->m_PacketKeyStatus.mSkillStatus);
+
+
+}
+void CMaincharacter::UpdateMotion(float dTime, EInputSetUp move_key)
+{
 	//입력에 따른 캐릭터의 이동
 	switch (move_key)
 	{
