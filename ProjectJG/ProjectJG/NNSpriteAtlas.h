@@ -37,6 +37,7 @@ public:
 		m_CutImageHeight = m_CutBottomY - m_CutTopY;
 	}
 
+	// 각 텍스쳐들 크기가 같고, 좌우로 꽉 차 있다는 가정하에 만든 함수..ㅜㅜ
 	int GetImageIndex() { return m_ImageIndex; }
 	void SetImageIndex( int n )
 	{
@@ -44,6 +45,7 @@ public:
 		m_ImageIndex = n; m_RowIdx = n / count; m_ColIdx = n - m_RowIdx*count;
 	}
 	void SetImageNext() { SetImageIndex( GetImageIndex() +1 ); }
+	void SetImagePrev() { SetImageIndex( GetImageIndex() -1 ); }
 
 protected:
 	float m_ImageWidth;

@@ -63,7 +63,7 @@ void NND2DSpriteAtlas::Render()
 
 	m_pD2DRenderer->GetHwndRenderTarget()->SetTransform( m_Matrix );
 	m_pD2DRenderer->GetHwndRenderTarget()->DrawBitmap( 
-		m_pD2DTexture->GetD2DBitmap(), D2D1::RectF(-m_CutImageWidth*0.5f,-m_CutImageHeight*0.5f,m_CutImageWidth*0.5f,m_CutImageHeight*0.5f),
+		m_pD2DTexture->GetD2DBitmap(), D2D1::RectF(0.f, 0.f, m_CutImageWidth,m_CutImageHeight),
 		m_Opacity, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, D2D1::RectF( m_CutImageWidth*m_ColIdx + m_CutLeftX, m_CutImageHeight*m_RowIdx + m_CutTopY, m_CutImageWidth*m_ColIdx + m_CutRightX, m_CutImageHeight*m_RowIdx + m_CutBottomY ) );
 }
 

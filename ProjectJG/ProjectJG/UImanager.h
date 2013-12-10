@@ -1,10 +1,13 @@
 #pragma once
 #include "NNLabel.h"
+#include "FontNode.h"
 
 class CMaincharacter;
 
 // UI 관리는 모두 UI manager가 한다.
 // 모든 UI는 부모가 UImanager 이고 Update 및 Render 도 모두 UImanager에서 한다.
+
+// 코드리뷰가 꼭 필요함 ㅜㅜ 너무 더럽다 흑 (생성자, Update 쪽)
 class UImanager
 {
 public:
@@ -12,14 +15,10 @@ public:
 	static void ReleaseInstance();
 
 	void SetAllVisible( bool visible );
-	void SetFPSLabelVisible( bool visible )			{ m_FPSLabel->SetVisible( visible ); }
-	void SetPlayer1CostLabelVisible( bool visible )	{ m_Player1CostLabel->SetVisible( visible ); }
-	void SetPlayer2CostLabelVisible( bool visible )	{ m_Player2CostLabel->SetVisible( visible ); }
+	void SetFPSLabelVisible( bool visible ){m_FPSLabel->SetVisible(visible);m_FPSValue->SetVisible(visible);}
+	void SetPlayer1CostLabelVisible( bool visible ){m_Player1CostLabel->SetVisible(visible);m_Player1CostValue->SetVisible(visible);}
+	void SetPlayer2CostLabelVisible( bool visible ){m_Player2CostLabel->SetVisible(visible);m_Player2CostValue->SetVisible(visible);}
 
-	NNLabel* GetFPSLabel() { return m_FPSLabel; }
-	NNLabel* GetPlayer1CostLabel() { return m_Player1CostLabel; }
-	NNLabel* GetPlayer2CostLabel() { return m_Player2CostLabel; }
-	
 	void Update( float dTime, CMaincharacter* Player1, CMaincharacter* Player2 );
 	void Render();
 
@@ -29,24 +28,17 @@ private:
 	UImanager(void);
 	virtual ~UImanager(void);
 
-	
-
 	NNObject*	m_UIList[10];
-
 	int			m_UINum;
 
-
 	// FPS
-	NNLabel*	m_FPSLabel;
-	wchar_t		m_FPSBuffer[20];
+	CFontNode*	m_FPSLabel;
+	CFontNode*	m_FPSValue;
 
 	// cost
-	NNLabel*	m_Player1CostLabel;
-	wchar_t		m_Player1CostBuffer[100];
-	NNLabel*	m_Player2CostLabel;
-	wchar_t		m_Player2CostBuffer[100];
-
-	
-	
+	CFontNode*	m_Player1CostLabel;
+	CFontNode*	m_Player1CostValue;
+	CFontNode*	m_Player2CostLabel;
+	CFontNode*	m_Player2CostValue;
 };
 
