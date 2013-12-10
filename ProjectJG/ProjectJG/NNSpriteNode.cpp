@@ -23,8 +23,6 @@ NNSpriteNode* NNSpriteNode::Create( wchar_t* path )
 void NNSpriteNode::Render()
 {
 	NNObject::Render();
-
-	m_Sprite->Render();
 }
 void NNSpriteNode::Update( float dTime )
 {
