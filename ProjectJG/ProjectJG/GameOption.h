@@ -42,9 +42,8 @@
 #define MAIN_MENU_SCENE_BACKGROUND_SOUND		"Sound/Space_Sprinkles.mp3"
 #define MAIN_MENU_SCENE_BACKGROUND_IMAGE		L"Sprite/Background.jpg"
 #define MAIN_MENU_SCENE_LOGO					L"Sprite/logo.png"
-#define MAIN_MAP_BACKGROUND_IMAGE				L"Sprite/Space-Background.jpg"
-#define GAME_FONT_RESOURCE						L"Font/모리스-9.ttf"
-#define GAME_FONT								L"모리스-9"
+#define MAIN_MAP_BACKGROUND_IMAGE			L"Sprite/Space-Background.jpg"
+#define GAME_FONT							L"Font/모리스-9"
 
 
 enum ECharcterStage
@@ -115,6 +114,5 @@ enum ENetworkMode
 	TEST_MODE = 0,
 	CLIENT_MODE,
 	SERVER_MODE,
-	NET_MENU_LAST,
-	NET_MENU_NONE,
+	NET_MENU_LAST
 };
