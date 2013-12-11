@@ -32,8 +32,6 @@ private:
 	CFrame*		m_Frame;
 	
 	bool		m_netsetup;
-	NNLabel*	m_MenuLabel[NET_MENU_LAST];
-	unsigned int m_KeyOn;
 
 	NNLabel* m_CountNumLabel_3;
 	NNLabel* m_CountNumLabel_2;

@@ -184,6 +184,11 @@ bool NNApplication::_CreateWindow( wchar_t* title, int width, int height, bool f
 		width, height, NULL, NULL, m_hInstance, NULL);
 
 	//ShowCursor(false);
+	
+	// for font change.
+// 	int res_font = AddFontResource(GAME_FONT_RESOURCE);
+// 	SendMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
+// 	printf_s("font : %d\n", res_font);
 
 	if ( fullscreen )
 	{
