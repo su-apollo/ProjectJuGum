@@ -8,8 +8,8 @@
 CSatellite::CSatellite(void) : m_dTimeSum(0.f)
 {
 	m_Texture =  NNSpriteAtlas::Create(L"Sprite/warrior1_0.png");
-	m_Texture->SetRenderCutImageHeight(70.f);
-	m_Texture->SetRenderCutImageWidth(70.f);
+	m_Texture->SetImageHeight(70.f);
+	m_Texture->SetImageWidth(70.f);
 	m_Texture->SetPosition(0.f, 0.f);
 	AddChild( m_Texture );
 }

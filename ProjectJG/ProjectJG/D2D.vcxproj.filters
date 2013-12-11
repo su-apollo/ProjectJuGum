@@ -87,6 +87,9 @@
     <ClCompile Include="NNConfig.cpp">
       <Filter>Framework\Macro</Filter>
     </ClCompile>
+    <ClCompile Include="UImanager.cpp">
+      <Filter>GameObjects\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>GameObjects\Map</Filter>
     </ClCompile>
@@ -107,12 +110,6 @@
     </ClCompile>
     <ClCompile Include="PacketHandler.cpp">
       <Filter>GameObjects\P2PNet</Filter>
-    </ClCompile>
-    <ClCompile Include="UImanager.cpp">
-      <Filter>GameObjects\Scene\UImanager</Filter>
-    </ClCompile>
-    <ClCompile Include="FontNode.cpp">
-      <Filter>GameObjects\Scene\UImanager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -230,9 +227,6 @@
     <Filter Include="Framework\NetworkSystem\CircularBuffer">
       <UniqueIdentifier>{dce1eed5-399a-4c4a-b6bd-f711e194e65e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObjects\Scene\UImanager">
-      <UniqueIdentifier>{3f3c1616-58eb-45eb-9df4-d4eed28d061b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NNObject.h">
@@ -338,6 +332,9 @@
     <ClInclude Include="PacketType.h">
       <Filter>GameObjects\P2PNet</Filter>
     </ClInclude>
+    <ClInclude Include="UImanager.h">
+      <Filter>GameObjects\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>GameObjects\Map</Filter>
     </ClInclude>
@@ -364,12 +361,6 @@
     </ClInclude>
     <ClInclude Include="PacketHandler.h">
       <Filter>GameObjects\P2PNet</Filter>
-    </ClInclude>
-    <ClInclude Include="UImanager.h">
-      <Filter>GameObjects\Scene\UImanager</Filter>
-    </ClInclude>
-    <ClInclude Include="FontNode.h">
-      <Filter>GameObjects\Scene\UImanager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

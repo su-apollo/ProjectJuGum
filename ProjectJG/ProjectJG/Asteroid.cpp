@@ -8,8 +8,8 @@ CAsteroid::CAsteroid(void) :
 	SetHitRadius(ASTEROID_HIT_RADIUS);
 
 	m_Texture =  NNSpriteAtlas::Create(L"Sprite/asteroid.png");
-	m_Texture->SetRenderCutImageHeight(ASTEROID_HIT_RADIUS*2);
-	m_Texture->SetRenderCutImageWidth(ASTEROID_HIT_RADIUS*2);
+	m_Texture->SetImageHeight(ASTEROID_HIT_RADIUS*2);
+	m_Texture->SetImageWidth(ASTEROID_HIT_RADIUS*2);
 	m_Texture->SetPosition(0.f, 0.f);
 	AddChild( m_Texture );
 
