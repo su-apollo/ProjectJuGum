@@ -9,6 +9,7 @@
 #include "Asteroid.h"
 #include "Camera.h"
 
+#include "NNAnimation.h"
 #include "NNInputSystem.h"		// for 운석 테스트
 #include "NNApplication.h"
 
@@ -25,7 +26,34 @@ CMainMap::CMainMap(void)
 	AddChild(m_MainFrame);
 
 	// 맵 배경 이미지
-	m_BackGround = NNSprite::Create( MAIN_MAP_BACKGROUND_IMAGE );
+	//문자열 배열로 만들어서 관리해야함
+	m_BackGround = NNAnimation::Create( 25,	L"Sprite/background/IMG00000.jpg",
+											L"Sprite/background/IMG00001.jpg",
+											L"Sprite/background/IMG00002.jpg",
+											L"Sprite/background/IMG00003.jpg",
+											L"Sprite/background/IMG00004.jpg",
+											L"Sprite/background/IMG00005.jpg",
+											L"Sprite/background/IMG00006.jpg",
+											L"Sprite/background/IMG00007.jpg",
+											L"Sprite/background/IMG00008.jpg",
+											L"Sprite/background/IMG00009.jpg",
+											L"Sprite/background/IMG00010.jpg",
+											L"Sprite/background/IMG00011.jpg",
+											L"Sprite/background/IMG00012.jpg",
+											L"Sprite/background/IMG00013.jpg",
+											L"Sprite/background/IMG00014.jpg",
+											L"Sprite/background/IMG00015.jpg",
+											L"Sprite/background/IMG00016.jpg",
+											L"Sprite/background/IMG00017.jpg",
+											L"Sprite/background/IMG00018.jpg",
+											L"Sprite/background/IMG00019.jpg",
+											L"Sprite/background/IMG00020.jpg",
+											L"Sprite/background/IMG00021.jpg",
+											L"Sprite/background/IMG00022.jpg",
+											L"Sprite/background/IMG00023.jpg",
+											L"Sprite/background/IMG00024.jpg"
+												);
+
 	m_BackGround->SetImageWidth( GetWidth() );
 	m_BackGround->SetImageHeight( GetHeight() );
 	AddChild( m_BackGround );
@@ -110,6 +138,8 @@ void CMainMap::Render()
 
 void CMainMap::Update( float dTime, CFrame* frame )
 {
+	m_BackGround->Update(dTime);
+
 	// cost
 	GetPlayer1()->SetCost( GetPlayer1()->GetCost() + m_CostPerSecond*dTime );
 	GetPlayer2()->SetCost( GetPlayer2()->GetCost() + m_CostPerSecond*dTime );

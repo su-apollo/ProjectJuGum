@@ -56,11 +56,14 @@ void NND2DSpriteAtlas::Destroy()
 
 void NND2DSpriteAtlas::Render()
 {
+// 	m_ImageHeight = m_CutBottomY - m_CutTopY;
+// 	m_ImageWidth =  m_CutRightX - m_CutLeftX;
+
 	NNObject::Render();
 
 	m_pD2DRenderer->GetHwndRenderTarget()->SetTransform( m_Matrix );
 	m_pD2DRenderer->GetHwndRenderTarget()->DrawBitmap( 
-		m_pD2DTexture->GetD2DBitmap(), D2D1::RectF(-m_ImageWidth/2,-m_ImageHeight/2,m_ImageWidth/2,m_ImageHeight/2),
+		m_pD2DTexture->GetD2DBitmap(), D2D1::RectF(-m_ImageWidth/2, -m_ImageHeight/2, m_ImageWidth/2, m_ImageHeight/2),
 		m_Opacity, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, D2D1::RectF(m_CutLeftX,m_CutTopY,m_CutRightX,m_CutBottomY) );
 }
 

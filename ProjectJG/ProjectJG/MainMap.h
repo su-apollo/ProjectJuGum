@@ -3,6 +3,7 @@
 #include "NNRect.h"
 #include "GameOption.h"
 
+class NNAnimation;
 class NNSprite;
 class CMaincharacter;
 class CAccelBullet;
@@ -29,7 +30,7 @@ public:
 	void		SetGameMode(ENetworkMode mode) {m_GameMode = mode;}
 
 private:
-	NNSprite*	m_BackGround;
+	NNAnimation* m_BackGround;
 
 	float		m_CostPerSecond;
 

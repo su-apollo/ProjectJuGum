@@ -2,7 +2,8 @@
 #include "NNSpriteNode.h"
 
 NNSpriteNode::NNSpriteNode()
-	: m_Sprite(nullptr), m_FrameTime(0.f)
+	: m_Sprite(nullptr), m_FrameTime(0.f),
+	m_ImageHeight(0.f), m_ImageWidth(0.f)
 {
 }
 NNSpriteNode::~NNSpriteNode()
@@ -22,6 +23,9 @@ NNSpriteNode* NNSpriteNode::Create( wchar_t* path )
 
 void NNSpriteNode::Render()
 {
+	m_Sprite->SetImageHeight(m_ImageHeight);
+	m_Sprite->SetImageWidth(m_ImageWidth);
+
 	NNObject::Render();
 }
 void NNSpriteNode::Update( float dTime )

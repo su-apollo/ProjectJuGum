@@ -50,12 +50,11 @@ public:
 	CPacketHandler* GetPacketHandler() { return m_PacketHandler; }
 
 protected:
-	NNSpriteAtlas*	m_Texture;
 	NNCircle*		m_Circle;
 	ECharcterStage  m_Stage;
 	float			m_Cost;
 
-	NNAnimation*	m_Animation;
+	NNAnimation*	m_FlyMotion;
 
 	bool			m_bHit;
 

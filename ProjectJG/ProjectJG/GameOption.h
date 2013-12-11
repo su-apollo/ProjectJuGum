@@ -40,9 +40,9 @@
 
 
 #define MAIN_MENU_SCENE_BACKGROUND_SOUND		"Sound/Space_Sprinkles.mp3"
-#define MAIN_MENU_SCENE_BACKGROUND_IMAGE		L"Sprite/Background.jpg"
+#define MAIN_MENU_SCENE_BACKGROUND_IMAGE		L"Sprite/background/IMG00000.jpg"
 #define MAIN_MENU_SCENE_LOGO					L"Sprite/logo.png"
-#define MAIN_MAP_BACKGROUND_IMAGE			L"Sprite/Space-Background.jpg"
+#define MAIN_MAP_BACKGROUND_IMAGE			L"Sprite/background/IMG00000.jpg"
 #define GAME_FONT							L"Font/¸ð¸®½º-9"
 
 

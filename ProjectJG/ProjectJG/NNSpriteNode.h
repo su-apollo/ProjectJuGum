@@ -10,6 +10,8 @@ public:
 
 	void Render();
 	void Update( float dTime );
+	void SetImageWidth( float width ) { m_ImageWidth = width; }
+	void SetImageHeight( float height ) { m_ImageHeight = height; }
 
 	//NNCREATE_FUNC(NNSpriteNode);
 
@@ -24,4 +26,7 @@ public:
 private:
 	NNSprite* m_Sprite;
 	float m_FrameTime;
+
+	float m_ImageWidth;
+	float m_ImageHeight;
 };

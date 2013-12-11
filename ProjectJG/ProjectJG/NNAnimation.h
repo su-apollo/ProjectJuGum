@@ -16,6 +16,8 @@ public:
 
 	int GetFrameCount() const { return m_FrameCount; }
 	int GetNowFrame() const { return m_Frame; }
+	void SetImageWidth( float width ) { m_ImageWidth = width; }
+	void SetImageHeight( float height ) { m_ImageHeight = height; }
 	bool IsLoop() const { return m_Loop; }
 
 	void AddSpriteNode( wchar_t* path );
@@ -31,4 +33,6 @@ private:
 	float m_Time;
 	bool m_Loop;
 	bool m_AnimationEnd;
+	float m_ImageWidth;
+	float m_ImageHeight;
 };

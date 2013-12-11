@@ -2,7 +2,8 @@
 #include "NNAnimation.h"
 
 NNAnimation::NNAnimation()
-	: m_FrameCount(0), m_Frame(0), m_Time(0.f), m_Loop(true), m_AnimationEnd(false)
+	: m_FrameCount(0), m_Frame(0), m_Time(0.f), m_Loop(true), m_AnimationEnd(false),
+	m_ImageHeight(0.f), m_ImageWidth(0.f)
 {
 
 }
@@ -55,6 +56,9 @@ void NNAnimation::AddSpriteNode( wchar_t* path )
 void NNAnimation::Render()
 {
 	if ( m_AnimationEnd == true || m_Visible == false ) return;
+
+	m_SpriteList[m_Frame]->SetImageHeight(m_ImageHeight);
+	m_SpriteList[m_Frame]->SetImageWidth(m_ImageWidth);
 
 	NNObject::Render();
 

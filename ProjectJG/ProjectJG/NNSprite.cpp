@@ -57,6 +57,12 @@ void NND2DSprite::Render()
 
 	NNObject::Render();
 
+	if (m_ImageHeight == 0.f)
+		m_ImageHeight = m_pD2DTexture->GetD2DBitmap()->GetSize().height;
+
+	if (m_ImageWidth == 0.f)
+		m_ImageWidth = m_pD2DTexture->GetD2DBitmap()->GetSize().width;
+
 	m_pD2DRenderer->GetHwndRenderTarget()->SetTransform( m_Matrix );
 	m_pD2DRenderer->GetHwndRenderTarget()->DrawBitmap( 
 		m_pD2DTexture->GetD2DBitmap(), D2D1::RectF(-m_ImageWidth/2,-m_ImageHeight/2,m_ImageWidth/2,m_ImageHeight/2),

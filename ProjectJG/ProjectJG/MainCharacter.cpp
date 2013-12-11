@@ -13,28 +13,23 @@
 
 CMaincharacter::CMaincharacter(void) : m_bHit(false), m_SatelliteIndex(0), m_Syntime(0.f)
 {
-	m_Texture =  NNSpriteAtlas::Create(L"Sprite/warrior2_0.png");
-	m_Texture->SetImageHeight(50.f);
-	m_Texture->SetImageWidth(50.f);
-	m_Texture->SetPosition(0.f, 0.f);
-	AddChild( m_Texture );
-
 	SetHitRadius(CHAR_HIT_RADIUS);
-	m_Circle = NNCircle::Create(GetHitRadius());
-	m_Circle->SetPosition(0.f, 0.f);
-	m_Circle->SetColor(255.f, 0.f, 0.f);
-	AddChild( m_Circle );
 
-	m_Animation = NNAnimation::Create( 5,	L"Sprite/animation/explosion_10011.png",
-											L"Sprite/animation/explosion_10012.png", 
-											L"Sprite/animation/explosion_10013.png",
-											L"Sprite/animation/explosion_10014.png",
-											L"Sprite/animation/explosion_10015.png");
+// 	m_Circle = NNCircle::Create(GetHitRadius());
+// 	m_Circle->SetPosition(0.f, 0.f);
+// 	m_Circle->SetColor(255.f, 0.f, 0.f);
+// 	AddChild( m_Circle );
 
-	m_Animation->SetLoop(false);
-	m_Animation->SetVisible(false);
-	AddChild( m_Animation );
-
+	m_FlyMotion = NNAnimation::Create( 8,	L"Sprite/CharR1.png",
+											L"Sprite/CharR2.png",
+											L"Sprite/CharR3.png",
+											L"Sprite/CharR4.png",
+											L"Sprite/CharR5.png",
+											L"Sprite/CharR6.png",
+											L"Sprite/CharR7.png",
+											L"Sprite/CharR8.png");
+	m_FlyMotion->SetScale(1.5f, 1.5f);
+	AddChild( m_FlyMotion );
 
 	m_Cost = 50;
 	m_Stage = FIRST_STAGE_CHAR;
@@ -82,7 +77,10 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, E
 	UpdateShotDirection(enemy);
 	UpdateShotPoint();
 	UpdateSatellite(dTime, enemy);
-	m_Texture->SetRotation(GetShotDirection());
+
+	m_FlyMotion->Update(dTime);
+	m_FlyMotion->SetRotation(GetShotDirection() + 90.f);
+	
 
 	//이동과 스킬시전
 	UpdateMotion(dTime, m_direct_key_input);
@@ -121,7 +119,8 @@ void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap*
 	UpdateShotPoint();
 	UpdateSatellite(dTime, enemy);
 
-	m_Texture->SetRotation(GetShotDirection());
+	m_FlyMotion->Update(dTime);
+	m_FlyMotion->SetRotation(GetShotDirection() + 90.f);
 
 	printf_s("recv : %d\n", m_direct_key_input);
 
@@ -307,10 +306,5 @@ void CMaincharacter::DestroySatellite()
 //**************************************************************
 bool CMaincharacter::UpdateExplosionAnimation( float dTime )
 {
-	//애니메이션
-	m_Animation->SetVisible(true);
-	m_Animation->Update(dTime);
-
-	//애니메이션이 끝나면 끝났다고 알려준다.
-	return m_Animation->IsAnimationEnd();
+	return true;
 }
