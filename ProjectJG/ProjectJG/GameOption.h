@@ -101,8 +101,9 @@ enum EInputSetUp
 
 enum EMenuList
 {
-	MENU_PLAY,
 	MENU_TEST,
+	MENU_SERVER,
+	MENU_CLIENT,
 	MENU_QUIT,
 	MENU_NUM,
 };
@@ -110,9 +111,7 @@ enum EMenuList
 
 enum ENetworkMode
 {
-	NET_MENU_FIRST = 0,
-	TEST_MODE = 0,
+	TEST_MODE,
 	CLIENT_MODE,
 	SERVER_MODE,
-	NET_MENU_LAST
 };

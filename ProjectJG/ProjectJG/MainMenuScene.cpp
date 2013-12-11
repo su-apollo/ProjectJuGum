@@ -37,22 +37,26 @@ CMainMenuScene::CMainMenuScene(void)
 
 
 	// 메뉴 라벨 생성 및 배치
-	m_MenuLabel[MENU_PLAY] = NNLabel::Create( L"Play", GAME_FONT, 40.f );
-	m_MenuLabel[MENU_PLAY]->SetPosition( width*0.5f + 60.f, height*0.5f );
-	AddChild( m_MenuLabel[MENU_PLAY] );
-
 	m_MenuLabel[MENU_TEST] = NNLabel::Create( L"Test", GAME_FONT, 40.f );
-	m_MenuLabel[MENU_TEST]->SetPosition( width*0.5f + 60.f, height*0.5f + 80.f );
+	m_MenuLabel[MENU_TEST]->SetPosition( width*0.5f + 60.f, height*0.5f - 60.f );
 	AddChild( m_MenuLabel[MENU_TEST] );
 
+	m_MenuLabel[MENU_SERVER] = NNLabel::Create( L"Server", GAME_FONT, 40.f );
+	m_MenuLabel[MENU_SERVER]->SetPosition( width*0.5f + 60.f, height*0.5f + 20.f );
+	AddChild( m_MenuLabel[MENU_SERVER] );
+
+	m_MenuLabel[MENU_CLIENT] = NNLabel::Create( L"Client", GAME_FONT, 40.f );
+	m_MenuLabel[MENU_CLIENT]->SetPosition( width*0.5f + 60.f, height*0.5f + 100.f );
+	AddChild( m_MenuLabel[MENU_CLIENT] );
+
 	m_MenuLabel[MENU_QUIT] = NNLabel::Create( L"Quit", GAME_FONT, 40.f );
-	m_MenuLabel[MENU_QUIT]->SetPosition( width*0.5f + 60.f, height*0.5f + 160.f );
+	m_MenuLabel[MENU_QUIT]->SetPosition( width*0.5f + 60.f, height*0.5f + 180.f );
 	AddChild( m_MenuLabel[MENU_QUIT] );
 
 	m_KeyOn = 0;			// 현재 가리키고 있는 메뉴 위치
 
 	m_LoadingLabel = NNLabel::Create(L"Loading...", GAME_FONT, 50.f);
-	m_LoadingLabel->SetPosition( m_MenuLabel[MENU_PLAY]->GetPosition() );
+	m_LoadingLabel->SetPosition( m_MenuLabel[MENU_TEST]->GetPosition() );
 	m_LoadingLabel->SetVisible(false);
 	AddChild( m_LoadingLabel );
 
@@ -74,7 +78,7 @@ void CMainMenuScene::Update( float dTime )
 {
 	if (m_bChangeScene)
 	{
-		NNSceneDirector::GetInstance()->ChangeScene( new CPlayScene() );
+		NNSceneDirector::GetInstance()->ChangeScene( new CPlayScene(m_GameMode) );
 		return;
 	}
 	
@@ -94,17 +98,25 @@ void CMainMenuScene::Update( float dTime )
 
 	if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE )
 	{
-		switch (m_KeyOn)
+		if (m_KeyOn != MENU_QUIT)
 		{
-		case MENU_PLAY:
 			for (int i = 0; i < MENU_NUM; i++)
 			{
 				m_MenuLabel[i]->SetVisible(false);
 			}
 			m_LoadingLabel->SetVisible(true);
 			m_bChangeScene = true;
-			break;
+		}
+		switch (m_KeyOn)
+		{
 		case MENU_TEST:
+			m_GameMode = TEST_MODE;
+			break;
+		case MENU_CLIENT:
+			m_GameMode = CLIENT_MODE;
+			break;
+		case MENU_SERVER:
+			m_GameMode = SERVER_MODE;
 			break;
 		case MENU_QUIT:
 			PostMessage( NNApplication::GetInstance()->GetHWND(), WM_DESTROY, 0, 0 );

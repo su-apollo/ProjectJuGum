@@ -19,7 +19,7 @@
 #include "PacketHandler.h"
 
 
-CPlayScene::CPlayScene(void) : m_netsetup(false), m_DoCount(true), m_CountNum(0.f)
+CPlayScene::CPlayScene( ENetworkMode GameMode ) : m_netsetup(false), m_DoCount(true), m_CountNum(0.f)
 {
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
@@ -34,22 +34,6 @@ CPlayScene::CPlayScene(void) : m_netsetup(false), m_DoCount(true), m_CountNum(0.
 	m_Frame->SetPosition( width*0.5f, height*0.5f );
 	m_Frame->SetSize( FRAME_WIDTH, FRAME_HEIGHT );
 	AddChild( m_Frame );
-
-	//네트워크 설정 메뉴
-	m_MenuLabel[TEST_MODE] = NNLabel::Create( L"TEST", GAME_FONT, 40.f );
-	m_MenuLabel[TEST_MODE]->SetColor(255.0f, 0.0f, 0.0f);
-	m_MenuLabel[TEST_MODE]->SetPosition( width*0.5f + 60.f, height*0.5f );
-	AddChild( m_MenuLabel[TEST_MODE] );
-
-	m_MenuLabel[CLIENT_MODE] = NNLabel::Create( L"CLIENT", GAME_FONT, 40.f );
-	m_MenuLabel[CLIENT_MODE]->SetColor(0.0f, 0.0f, 0.0f);
-	m_MenuLabel[CLIENT_MODE]->SetPosition( width*0.5f + 60.f, height*0.5f + 80.f );
-	AddChild( m_MenuLabel[CLIENT_MODE] );
-
-	m_MenuLabel[SERVER_MODE] = NNLabel::Create( L"SERVER", GAME_FONT, 40.f );
-	m_MenuLabel[SERVER_MODE]->SetColor(0.0f, 0.0f, 0.0f);
-	m_MenuLabel[SERVER_MODE]->SetPosition( width*0.5f + 60.f, height*0.5f + 160.f );
-	AddChild( m_MenuLabel[SERVER_MODE] );
 
 	//카운트다운을 위한 라벨
 	m_CountNumLabel_3 = NNLabel::Create(L"3", L"궁서체", 40.f);
@@ -70,7 +54,7 @@ CPlayScene::CPlayScene(void) : m_netsetup(false), m_DoCount(true), m_CountNum(0.
 	m_CountNumLabel_1->SetVisible(false);
 	AddChild( m_CountNumLabel_1 );
 
-	m_KeyOn = 0;
+	NetworkSetMenu(GameMode);
 }
 
 CPlayScene::~CPlayScene(void)
@@ -85,15 +69,6 @@ void CPlayScene::Render()
 
 void CPlayScene::Update( float dTime )
 {
-	//네트워크 세팅메뉴
-	if (!m_netsetup)
-	{
-		if(!NetworkSetMenu())
-		{
-			return;
-		}
-		m_netsetup = true;
-	}
 
 	//3초의 카운트다운 후 게임 시작
 // 	if (m_DoCount)
@@ -158,79 +133,52 @@ void CPlayScene::CountDown(float dTime)
 	}
 }
 
-bool CPlayScene::NetworkSetMenu()
+void CPlayScene::NetworkSetMenu( ENetworkMode GameMode )
 {
 	//ip
-	char* serverIpAddr = "127.0.0.1";
+	char* serverIpAddr = "10.73.43.123";
 
-	//메뉴
-	m_MenuLabel[m_KeyOn]->SetColor( 0.f, 0.f, 0.f);	
-	if ( NNInputSystem::GetInstance()->GetMainMenuInput() == UP 
-		|| NNInputSystem::GetInstance()->GetMainMenuInput() == LEFT )
+	switch (GameMode)
 	{
-		--m_KeyOn;
+	case TEST_MODE:
+		m_MainMap->SetGameMode(TEST_MODE);
+		break;
+
+	case CLIENT_MODE:
+
+		m_MainMap->SetGameMode(CLIENT_MODE);
+
+		NNNetworkSystem::GetInstance()->Init();
+		NNNetworkSystem::GetInstance()->Connect(serverIpAddr, SERVER_PORT_NUM);
+		NNNetworkSystem::GetInstance()->SetPacketHandler(PKT_STATUS, m_MainMap->GetPlayer1()->GetPacketHandler());
+		NNNetworkSystem::GetInstance()->SetPacketHandler(PKT_STATUS, m_MainMap->GetPlayer2()->GetPacketHandler());
+
+		//캐릭터를 위치에 배치
+		m_MainMap->GetPlayer1()->SetPosition( 0.f, m_MainMap->GetBotLine() *0.5f );
+		m_MainMap->GetPlayer2()->SetPosition( 0.f, m_MainMap->GetTopLine() *0.5f );
+
+
+		break;
+
+	case SERVER_MODE:
+
+		m_MainMap->SetGameMode(SERVER_MODE);
+
+		NNNetworkSystem::GetInstance()->Init();
+		NNNetworkSystem::GetInstance()->Listen(SERVER_PORT_NUM);
+		NNNetworkSystem::GetInstance()->SetPacketHandler(PKT_STATUS, m_MainMap->GetPlayer1()->GetPacketHandler());
+		NNNetworkSystem::GetInstance()->SetPacketHandler(PKT_STATUS, m_MainMap->GetPlayer2()->GetPacketHandler());
+
+		//연결 후 캐릭터를 위치에 배치
+		m_MainMap->GetPlayer1()->SetPosition( 0.f, m_MainMap->GetTopLine() *0.5f );
+		m_MainMap->GetPlayer2()->SetPosition( 0.f, m_MainMap->GetBotLine() *0.5f );
+
+
+		break;
+	default:
+		break;
 	}
-	else if ( NNInputSystem::GetInstance()->GetMainMenuInput() == DOWN 
-		|| NNInputSystem::GetInstance()->GetMainMenuInput() == RIGHT )
-	{
-		++m_KeyOn;
-	}
-	m_KeyOn = (m_KeyOn + NET_MENU_LAST) % NET_MENU_LAST;
-	m_MenuLabel[m_KeyOn]->SetColor( 255.f, 0.f, 0.f );
 
-
-	if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE )
-	{
-		switch (m_KeyOn)
-		{
-		case TEST_MODE:
-			m_MainMap->SetGameMode(TEST_MODE);
-			break;
-
-		case CLIENT_MODE:
-
-			m_MainMap->SetGameMode(CLIENT_MODE);
-
-			NNNetworkSystem::GetInstance()->Init();
-			NNNetworkSystem::GetInstance()->Connect(serverIpAddr, SERVER_PORT_NUM);
-			NNNetworkSystem::GetInstance()->SetPacketHandler(PKT_STATUS, m_MainMap->GetPlayer1()->GetPacketHandler());
-			NNNetworkSystem::GetInstance()->SetPacketHandler(PKT_STATUS, m_MainMap->GetPlayer2()->GetPacketHandler());
-
-			//캐릭터를 위치에 배치
-			m_MainMap->GetPlayer1()->SetPosition( 0.f, m_MainMap->GetBotLine() *0.5f );
-			m_MainMap->GetPlayer2()->SetPosition( 0.f, m_MainMap->GetTopLine() *0.5f );
-
-
-			break;
-
-		case SERVER_MODE:
-
-			m_MainMap->SetGameMode(SERVER_MODE);
-
-			NNNetworkSystem::GetInstance()->Init();
-			NNNetworkSystem::GetInstance()->Listen(SERVER_PORT_NUM);
-			NNNetworkSystem::GetInstance()->SetPacketHandler(PKT_STATUS, m_MainMap->GetPlayer1()->GetPacketHandler());
-			NNNetworkSystem::GetInstance()->SetPacketHandler(PKT_STATUS, m_MainMap->GetPlayer2()->GetPacketHandler());
-
-			//연결 후 캐릭터를 위치에 배치
-			m_MainMap->GetPlayer1()->SetPosition( 0.f, m_MainMap->GetTopLine() *0.5f );
-			m_MainMap->GetPlayer2()->SetPosition( 0.f, m_MainMap->GetBotLine() *0.5f );
-
-
-			break;
-		default:
-			break;
-		}
-
-		//메뉴를 안보이도록 가림
-		for (int i = NET_MENU_FIRST; i < NET_MENU_LAST; ++i)
-		{
-			m_MenuLabel[i]->SetVisible(false);
-		}
-
-		return true;
-	}
-	return false;
 }
 
 

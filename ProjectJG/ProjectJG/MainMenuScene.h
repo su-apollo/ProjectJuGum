@@ -26,6 +26,7 @@ private:
 	NNSound* m_BackgroundSound;
 
 	bool	m_bChangeScene;
+	ENetworkMode m_GameMode;
 
 	unsigned int m_KeyOn;
 };
