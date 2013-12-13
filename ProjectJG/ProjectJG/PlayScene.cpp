@@ -19,7 +19,7 @@
 #include "PacketHandler.h"
 
 
-CPlayScene::CPlayScene( ENetworkMode GameMode ) : m_netsetup(false), m_DoCount(true), m_CountNum(0.f)
+CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : m_netsetup(false), m_DoCount(true), m_CountNum(0.f)
 {
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
@@ -54,7 +54,7 @@ CPlayScene::CPlayScene( ENetworkMode GameMode ) : m_netsetup(false), m_DoCount(t
 	m_CountNumLabel_1->SetVisible(false);
 	AddChild( m_CountNumLabel_1 );
 
-	NetworkSetMenu(GameMode);
+	NetworkSetMenu(GameMode, serverIP);
 }
 
 CPlayScene::~CPlayScene(void)
@@ -133,10 +133,11 @@ void CPlayScene::CountDown(float dTime)
 	}
 }
 
-void CPlayScene::NetworkSetMenu( ENetworkMode GameMode )
+void CPlayScene::NetworkSetMenu( ENetworkMode GameMode, char* serverIP )
 {
 	//ip
-	char* serverIpAddr = "10.73.43.123";
+	/*char* serverIpAddr = "127.0.0.1";*/
+	char* serverIpAddr = serverIP;
 
 	switch (GameMode)
 	{

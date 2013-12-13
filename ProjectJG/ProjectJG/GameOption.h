@@ -108,10 +108,17 @@ enum EMenuList
 	MENU_NUM,
 };
 
+enum ENetMenuList
+{
+	NET_MENU_COMMAND,
+	NET_MENU_IP_ADDR,
+	NET_MENU_NUM,
+};
 
 enum ENetworkMode
 {
 	TEST_MODE,
 	CLIENT_MODE,
 	SERVER_MODE,
+	MODE_NONE,
 };

@@ -13,13 +13,13 @@ class CPlayScene : public NNScene
 {
 public:
 
-	CPlayScene( ENetworkMode GameMode );
+	CPlayScene( ENetworkMode GameMode, char* serverIP );
 	virtual ~CPlayScene(void);
 
 	void Render();
 	void Update( float dTime );
 
-	void NetworkSetMenu( ENetworkMode GameMode );
+	void NetworkSetMenu( ENetworkMode GameMode, char* serverIP );
 	void CountDown(float dTime);
 
 	void EndGame();

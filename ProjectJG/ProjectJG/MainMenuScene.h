@@ -2,6 +2,9 @@
 #include "NNScene.h"
 #include "GameOption.h"
 
+#define LABEL_HEIGHT 80.f
+#define LABEL_FONT_SIZE 40.f
+
 class NNSprite;
 class NNLabel;
 class NNSound;
@@ -17,17 +20,29 @@ public:
 	void Render();
 	void Update( float dTime );
 
+	void SetUpGameMode();
+	void ChangeScene();
+	void CancelModeSelection();
+
+	void ShowCommand(int MenuIndex, wchar_t* command);
+	void GetIPInput();
+	void GetCurrentIP();
+
 private:
 	NNSprite* m_Logo;
 	NNSprite* m_BackGround;
-	NNLabel* m_MenuLabel[MENU_NUM];
-	NNLabel* m_LoadingLabel;
-
 	NNSound* m_BackgroundSound;
+
+	NNLabel* m_MenuLabel[MENU_NUM];
+	unsigned int m_KeyOn;
+
+	NNLabel* m_LoadingLabel;
 
 	bool	m_bChangeScene;
 	ENetworkMode m_GameMode;
 
-	unsigned int m_KeyOn;
+	NNLabel* m_NetMenuLabel[NET_MENU_NUM];
+	wchar_t m_NetMenuBuffer[NET_MENU_NUM][30];
+	char	m_serverIP[20];
 };
 
