@@ -59,10 +59,11 @@ CMainMenuScene::CMainMenuScene(void)
 
 	m_KeyOn = 0;			// 현재 가리키고 있는 메뉴 위치
 
-	m_LoadingLabel = NNLabel::Create(L"Loading...", GAME_FONT, 50.f);
-	m_LoadingLabel->SetPosition( m_MenuLabel[MENU_TEST]->GetPosition() );
-	m_LoadingLabel->SetVisible(false);
-	AddChild( m_LoadingLabel );
+	// 설명 라벨
+	swprintf(m_InstructionBuffer, _countof(m_InstructionBuffer), L"%s\n%s", L"Press", L"Z to select");
+	m_InstructionLabel = NNLabel::Create(m_InstructionBuffer, GAME_FONT, LABEL_FONT_SIZE * 0.5f);
+	m_InstructionLabel->SetPosition( width*0.5f - 150.f, height*0.5f );
+	AddChild(m_InstructionLabel);
 
 	// 네트워크 메뉴 라벨 초기화
 	for (int i = 0; i < NET_MENU_NUM; i++)
@@ -148,11 +149,11 @@ void CMainMenuScene::SetUpGameMode()
 			break;
 		case MENU_CLIENT:
 			m_GameMode = CLIENT_MODE;
-			ShowCommand(MENU_CLIENT, L"Input Server IP : ");
+			ShowCommand(MENU_CLIENT, L"Input Server IP : ", L"Input Server IP\n  and\npress Z to start\n\n  or\npress X to cancel.");
 			break;
 		case MENU_SERVER:
 			m_GameMode = SERVER_MODE;
-			ShowCommand(MENU_SERVER, L"Your IP : ");
+			ShowCommand(MENU_SERVER, L"Your IP : ", L"Press\nZ to start,\nX to cancel");
 			GetCurrentIP();
 			break;
 		case MENU_QUIT:
@@ -195,8 +196,11 @@ void CMainMenuScene::GetIPInput()
 	swprintf(m_NetMenuBuffer[NET_MENU_IP_ADDR], _countof(m_NetMenuBuffer[NET_MENU_IP_ADDR]), L"%hs", m_serverIP);
 }
 
-void CMainMenuScene::ShowCommand( int MenuIndex, wchar_t* command )
+void CMainMenuScene::ShowCommand( int MenuIndex, wchar_t* command, wchar_t* instruction )
 {
+	// 메뉴 선택 설명
+	swprintf(m_InstructionBuffer, _countof(m_InstructionBuffer), instruction);
+
 	// 이미 나와있던 메뉴 라벨을 한 칸씩 내리고,
 	for (int i = MenuIndex+1; i < MENU_NUM; i++)
 	{
@@ -224,8 +228,9 @@ void CMainMenuScene::ChangeScene()
 	{
 		m_NetMenuLabel[i]->SetVisible(false);
 	}
-	// 로딩 라벨 보여줌.
-	m_LoadingLabel->SetVisible(true);
+	// 로딩 중
+	swprintf(m_InstructionBuffer, _countof(m_InstructionBuffer), L"Loading...");
+	m_InstructionLabel->SetFontSize(LABEL_FONT_SIZE);
 
 	m_bChangeScene = true;
 }
@@ -236,6 +241,9 @@ void CMainMenuScene::CancelModeSelection()
 
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
+
+	// 설명 라벨 초기화
+	swprintf(m_InstructionBuffer, _countof(m_InstructionBuffer), L"%s\n%s", L"Press", L"Z to select");
 
 	// 네트워크 관련 라벨 모두 숨기고,
 	for (int i = 0; i < NET_MENU_NUM; i++)

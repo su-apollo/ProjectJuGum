@@ -24,25 +24,32 @@ public:
 	void ChangeScene();
 	void CancelModeSelection();
 
-	void ShowCommand(int MenuIndex, wchar_t* command);
+	void ShowCommand(int MenuIndex, wchar_t* command, wchar_t* instruction);
 	void GetIPInput();
 	void GetCurrentIP();
 
 private:
+	// 배경
 	NNSprite* m_Logo;
 	NNSprite* m_BackGround;
 	NNSound* m_BackgroundSound;
 
+	// 씬 전환시 넘길 parameter
+	bool	m_bChangeScene;
+	ENetworkMode m_GameMode;
+	char	m_serverIP[20];
+
+	// 라벨들
+	NNLabel* m_LoadingLabel;
+
+	NNLabel* m_InstructionLabel;
+	wchar_t m_InstructionBuffer[100];
+
 	NNLabel* m_MenuLabel[MENU_NUM];
 	unsigned int m_KeyOn;
 
-	NNLabel* m_LoadingLabel;
-
-	bool	m_bChangeScene;
-	ENetworkMode m_GameMode;
-
 	NNLabel* m_NetMenuLabel[NET_MENU_NUM];
 	wchar_t m_NetMenuBuffer[NET_MENU_NUM][30];
-	char	m_serverIP[20];
+	
 };
 
