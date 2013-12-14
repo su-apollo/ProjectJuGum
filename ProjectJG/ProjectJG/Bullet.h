@@ -21,7 +21,7 @@ public:
 	void			SetBulletType(EBulletType new_type) {m_Type = new_type;}
 
 private:
-	NNSpriteAtlas*	m_Texture[3];
+	NNSpriteAtlas*	m_Texture[BULLET_TYPE_NUM];
 	EBulletType	m_Type;
 };
 

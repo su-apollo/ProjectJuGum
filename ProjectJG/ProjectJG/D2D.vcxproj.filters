@@ -68,9 +68,6 @@
     <ClCompile Include="BulletManager.cpp">
       <Filter>GameObjects\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="Satellite.cpp">
-      <Filter>GameObjects\etcObject</Filter>
-    </ClCompile>
     <ClCompile Include="PrintLog.cpp" />
     <ClCompile Include="Asteroid.cpp">
       <Filter>GameObjects\etcObject</Filter>
@@ -110,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="PacketHandler.cpp">
       <Filter>GameObjects\P2PNet</Filter>
+    </ClCompile>
+    <ClCompile Include="Fairy.cpp">
+      <Filter>GameObjects\etcObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -310,9 +310,6 @@
     <ClInclude Include="BulletManager.h">
       <Filter>GameObjects\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Satellite.h">
-      <Filter>GameObjects\etcObject</Filter>
-    </ClInclude>
     <ClInclude Include="PrintLog.h" />
     <ClInclude Include="Asteroid.h">
       <Filter>GameObjects\etcObject</Filter>
@@ -361,6 +358,9 @@
     </ClInclude>
     <ClInclude Include="PacketHandler.h">
       <Filter>GameObjects\P2PNet</Filter>
+    </ClInclude>
+    <ClInclude Include="Fairy.h">
+      <Filter>GameObjects\etcObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

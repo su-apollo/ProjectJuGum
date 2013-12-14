@@ -2,22 +2,25 @@
 #include "GameMoveObj.h"
 
 class NNSpriteAtlas;
+class NNAnimation;
 class CMaincharacter;
 
-class CSatellite 
+class CFairy
 	: public CGameMoveObj
 {
 public:
-	CSatellite(void);
-	virtual ~CSatellite(void);
+	CFairy(void);
+	virtual ~CFairy(void);
 
 	void		Render();
 	void		Update(float dTime, CMaincharacter* Enemy);
 
-	void		ShotNomalBullet( float dTime);
+	void		NomalAttack( float dTime );
 
 private:
-	NNSpriteAtlas*	m_Texture;
-	float		m_dTimeSum;
+	NNSpriteAtlas*	m_FairyTexture;
+	NNAnimation*	m_FairyMotion;
+	float			m_dTimeSum;
+	
 };
 

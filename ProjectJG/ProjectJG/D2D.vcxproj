@@ -119,7 +119,7 @@
     <ClCompile Include="PrintLog.cpp" />
     <ClCompile Include="ReturnScene.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
-    <ClCompile Include="Satellite.cpp" />
+    <ClCompile Include="Fairy.cpp" />
     <ClCompile Include="UImanager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -166,7 +166,7 @@
     <ClInclude Include="PrintLog.h" />
     <ClInclude Include="ReturnScene.h" />
     <ClInclude Include="MainMenuScene.h" />
-    <ClInclude Include="Satellite.h" />
+    <ClInclude Include="Fairy.h" />
     <ClInclude Include="UImanager.h" />
   </ItemGroup>
   <ItemGroup>

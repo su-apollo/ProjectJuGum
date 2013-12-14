@@ -6,7 +6,7 @@
 class NNCircle;
 class CMainMap;
 class NNSpriteAtlas;
-class CSatellite;
+class CFairy;
 class NNAnimation;
 class CPacketHandler;
 
@@ -14,7 +14,9 @@ class CPacketHandler;
 class CMaincharacter : public CGameMoveObj
 {
 public:
-	CMaincharacter(void);
+	//디폴트 캐릭터 타입
+	CMaincharacter();
+	CMaincharacter(ECharcterType type_of_char);
 	virtual ~CMaincharacter(void);
 
 	void			Render();
@@ -23,43 +25,45 @@ public:
 	void			UpdateByPeer(float dTime, CMaincharacter* enemy, CMainMap* map, ENetworkMode gamemode);
 
 	void			UpdateMotion(float dTime, EInputSetUp move_key);
-	void			FirstStageSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key);
 	bool			UpdateExplosionAnimation(float dTime);
 
 	NNCircle *		GetMainCircle(){return m_Circle;}
 
 	float			GetCost() {return m_Cost;}
-	ECharcterStage  GetStage() {return m_Stage;}
-
 	void			SetCost(float cost) {m_Cost = cost;}
-	void			SetStage(ECharcterStage new_stage) {m_Stage = new_stage;}
+
+	ECharcterType	GetType() {return m_Type;}
+
+	//스킬시전
 	void			SkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key);
+	void			RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key);
+	void			RaymuNomalShot();
 
 	void			SetHit( bool bHit ) { m_bHit = bHit; }
 	bool			IsHit() { return m_bHit; }
 
-	//인공위성 관련 스킬
-	void			ShotSLSectorNormalBullet();
-	void			SetupSatellite();
-	void			UpdateSatellite(float dTime, CMaincharacter* Enemy);
-	CSatellite**	GetSatelliteArray() { return m_pSatelliteArray; }
-	CSatellite*		GetSatellite();
-	void			DestroySatellite();
+	//요정관련스킬
+	void			FairySkill_1();
+	void			SummonFairy();
+	void			UpdateFairy(float dTime, CMaincharacter* Enemy);
+	CFairy**		GetFairyArray() { return m_pFairyArray; }
+	CFairy*			GetFairy();
+	void			DestroyFairy();
 
 	//네트워크 관련 함수
 	CPacketHandler* GetPacketHandler() { return m_PacketHandler; }
 
 protected:
 	NNCircle*		m_Circle;
-	ECharcterStage  m_Stage;
+	ECharcterType   m_Type;
 	float			m_Cost;
 
 	NNAnimation*	m_FlyMotion;
 
 	bool			m_bHit;
 
-	CSatellite*		m_pSatelliteArray[MAX_SATELLITE_NUM];
-	int				m_SatelliteIndex;
+	CFairy*			m_pFairyArray[MAX_FAIRY_NUM];
+	int				m_FairyIndex;
 
 	//동기화를 위한 시간
 	float			m_Syntime;

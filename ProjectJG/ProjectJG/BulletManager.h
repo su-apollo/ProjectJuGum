@@ -17,10 +17,17 @@ public:
 	static void ReleaseInstance();
 	
 	//스킬들
-	void ShotBullet(CGameMoveObj* Player, EBulletType bullet_type);
-	void ShotSectorBullets(CGameMoveObj* Player, EBulletType bullet_type, float degree = 90.f, int n = 7);
-	void ShotSectorMixBullets(CGameMoveObj* Player, EBulletType bullet_type_1, EBulletType bullet_type_2,float degree = 180.f, int n = 20);
-	void ShotTornadoBullets(CGameMoveObj* Player, int n);
+// 	void ShotBullet(CGameMoveObj* Player, EBulletType bullet_type);
+// 	void ShotSectorBullets(CGameMoveObj* Player, EBulletType bullet_type, float degree = 90.f, int n = 7);
+// 	void ShotSectorMixBullets(CGameMoveObj* Player, EBulletType bullet_type_1, EBulletType bullet_type_2,float degree = 180.f, int n = 20);
+// 	void ShotTornadoBullets(CGameMoveObj* Player, int n);
+
+	//탄환이 맵밖으로 나갔는지 확인
+	void			CheckLifeTime(CMainMap * Map, CGameMoveObj * Obj);
+
+	//메니져에게서 탄환을 받아오는 함수들
+	CBullet*		GetBullet( EBulletType bullet_type, float speed, float direction );
+	CAsteroid*		GetAsteroid();
 
 	//운석출현 스킬
 	void ShotAsteroid(CMainMap* Map);
@@ -51,9 +58,6 @@ private:
 	int				m_BulletIndex;
 	int				m_AsteroidIndex;
 
-	void			CheckLifeTime(CMainMap * Map, CGameMoveObj * Obj);
-
-	CBullet*		GetBullet(EBulletType bullet_type);
-	CAsteroid*		GetAsteroid();
+	
 
 };

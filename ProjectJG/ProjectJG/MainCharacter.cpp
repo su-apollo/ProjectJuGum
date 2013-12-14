@@ -6,36 +6,56 @@
 #include "NNInputSystem.h"
 #include "NNCircle.h"
 #include "NNSpriteAtlas.h"
-#include "Satellite.h"
+#include "Fairy.h"
 #include "PacketHandler.h"
 #include "NNAnimation.h"
+#include "Bullet.h"
 
+CMaincharacter::CMaincharacter()
+	: m_bHit(false), m_FairyIndex(0), m_Syntime(0.f)
+{
+}
 
-CMaincharacter::CMaincharacter(void) : m_bHit(false), m_SatelliteIndex(0), m_Syntime(0.f)
+CMaincharacter::CMaincharacter(ECharcterType type_of_char) 
 {
 	SetHitRadius(CHAR_HIT_RADIUS);
-
+	
 // 	m_Circle = NNCircle::Create(GetHitRadius());
 // 	m_Circle->SetPosition(0.f, 0.f);
 // 	m_Circle->SetColor(255.f, 0.f, 0.f);
 // 	AddChild( m_Circle );
 
-	m_FlyMotion = NNAnimation::Create( 8,	L"Sprite/CharR1.png",
-											L"Sprite/CharR2.png",
-											L"Sprite/CharR3.png",
-											L"Sprite/CharR4.png",
-											L"Sprite/CharR5.png",
-											L"Sprite/CharR6.png",
-											L"Sprite/CharR7.png",
-											L"Sprite/CharR8.png");
+	if ( type_of_char == RAYMU )
+	{
+		m_FlyMotion = NNAnimation::Create( 8, 0.2f,	
+			L"Sprite/CharR1.png",
+			L"Sprite/CharR2.png",
+			L"Sprite/CharR3.png",
+			L"Sprite/CharR4.png",
+			L"Sprite/CharR5.png",
+			L"Sprite/CharR6.png",
+			L"Sprite/CharR7.png",
+			L"Sprite/CharR8.png");
+	}
+	else if ( type_of_char == MARISA )
+	{
+		m_FlyMotion = NNAnimation::Create( 8, 0.2f,	
+			L"Sprite/CharB1.png",
+			L"Sprite/CharB2.png",
+			L"Sprite/CharB3.png",
+			L"Sprite/CharB4.png",
+			L"Sprite/CharB5.png",
+			L"Sprite/CharB6.png",
+			L"Sprite/CharB7.png",
+			L"Sprite/CharB8.png");
+	}
+	
 	m_FlyMotion->SetScale(1.5f, 1.5f);
 	AddChild( m_FlyMotion );
 
+	m_Type = type_of_char;
 	m_Cost = 50;
-	m_Stage = FIRST_STAGE_CHAR;
-
 	m_bHit = false;
-
 	m_PacketHandler = new CPacketHandler;
 }
 
@@ -66,7 +86,7 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, E
 	//스피드키 입력에 따른 스피드 조정
 	if (m_speed_key_input == CHANGE_SPEED)
 	{
-		SetSpeed(CHAR_FAST_SPEED);
+		SetSpeed(CHAR_SLOW_SPEED);
 	}
 	else
 	{
@@ -76,7 +96,7 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, E
 	//항상 적을 바라보도록 계산
 	UpdateShotDirection(enemy);
 	UpdateShotPoint();
-	UpdateSatellite(dTime, enemy);
+	UpdateFairy(dTime, enemy);
 
 	m_FlyMotion->Update(dTime);
 	m_FlyMotion->SetRotation(GetShotDirection() + 90.f);
@@ -99,7 +119,9 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, E
 			m_PacketHandler->m_PacketKeyStatus.mSkillStatus = (short)m_skill_key_input;
 			m_PacketHandler->m_PacketKeyStatus.mDirectionStatus = (short)m_direct_key_input;
 			m_PacketHandler->m_PacketKeyStatus.mSpeedStatus = (short)m_speed_key_input;
+
 			printf_s("***********************send!************************\n");
+			
 			NNNetworkSystem::GetInstance()->Write( (const char*)&m_PacketHandler->m_PacketKeyStatus, m_PacketHandler->m_PacketKeyStatus.m_Size );
 
 			m_StateOfDirectionKey = m_direct_key_input;
@@ -117,7 +139,7 @@ void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap*
 
 	UpdateShotDirection(enemy);
 	UpdateShotPoint();
-	UpdateSatellite(dTime, enemy);
+	UpdateFairy(dTime, enemy);
 
 	m_FlyMotion->Update(dTime);
 	m_FlyMotion->SetRotation(GetShotDirection() + 90.f);
@@ -140,7 +162,7 @@ void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap*
 	//스피드키 입력에 따른 스피드 조정
 	if (m_StateOfSpeedKey == CHANGE_SPEED)
 	{
-		SetSpeed(CHAR_FAST_SPEED);
+		SetSpeed(CHAR_SLOW_SPEED);
 	}
 	else
 	{
@@ -190,113 +212,119 @@ void CMaincharacter::UpdateMotion(float dTime, EInputSetUp move_key)
 
 void CMaincharacter::SkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key)
 {
-	switch (GetStage())
+	switch (GetType())
 	{
-	case FIRST_STAGE_CHAR:
-		FirstStageSkillCasting(dTime, enemy, map, skill_key);
+	case RAYMU:
+	case MARISA:
+		RaymuSkillCasting(dTime, enemy, map, skill_key);
 		break;
 	default:
 		break;
 	}
 }
 
-void CMaincharacter::FirstStageSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key)
+//스킬을 사용할 수 있는지 코스트를 확인 사용후 코스트를 소모
+void CMaincharacter::RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key)
 {
 	switch (skill_key)
 	{
 	case SKILL_KEY_ONE:
-		if ( GetCost() >= SHOT_BULLET_COST )
+		if ( GetCost() >= RAYMU_NORMAL_ATTACK_COST )
 		{
-			CBulletManager::GetInstance()->ShotBullet(this, NORMAL_BULLET);
-			SetCost( GetCost() - SHOT_BULLET_COST );
+			RaymuNomalShot();
+			SetCost( GetCost() - RAYMU_NORMAL_ATTACK_COST );
 		}
 		break;
 	case SKILL_KEY_TWO:
-		if ( GetCost() >= SHOT_ACCELBULLET_COST )
+		if ( GetCost() >= SUMMON_FAIRY_COST )
 		{
-			CBulletManager::GetInstance()->ShotBullet(this, ACCEL_BULLET);
-			SetCost( GetCost() - SHOT_ACCELBULLET_COST );
+			SummonFairy();
+			SetCost( GetCost() - SUMMON_FAIRY_COST );
 		}
 		break;
 	case SKILL_KEY_THREE:
-		if ( GetCost() >= SECTOR_SINGLE_COST*20 )
+		if ( GetCost() >= FAIRY_SKILL_1_COST  )
 		{
-			CBulletManager::GetInstance()->ShotSectorMixBullets(this, ACCEL_BULLET, NORMAL_BULLET);
-			SetCost( GetCost() - SECTOR_SINGLE_COST*20 );
+			FairySkill_1();
+			SetCost( GetCost() - FAIRY_SKILL_1_COST  );
 		}
 		break;
 	case SKILL_KEY_FOUR:
-		if ( GetCost() >= TORNADO_SINGLE_COST*6 )
-		{
-			CBulletManager::GetInstance()->ShotTornadoBullets(this, 6);
-			SetCost( GetCost() - TORNADO_SINGLE_COST*6 );
-		}
 		break;
 	case SKILL_KEY_FIVE:
-		if ( GetCost() >= SETUP_SATELLITE_COST )
-		{
-			SetupSatellite();
-			SetCost(GetCost() - SETUP_SATELLITE_COST);
-		}
 		break;
 	case SKILL_KEY_SIX:
-		if (GetCost() >= SL_SECTORNORMAL_COST)
-		{
-			ShotSLSectorNormalBullet();
-			SetCost(GetCost() - SL_SECTORNORMAL_COST);
-		}
 		break;
 	}
 }
 
 //**************************************************************
-//                         Satellite
+//                         Skills
 //**************************************************************
-void CMaincharacter::SetupSatellite()
+
+void CMaincharacter::RaymuNomalShot()
 {
-	CSatellite* pSatellite = GetSatellite();
-	pSatellite->SetPosition(GetPosition());
+	CBullet * pBullet = CBulletManager::GetInstance()->GetBullet(RAYMU_NORMAL_BULLET, GetSpeed(), GetShotDirection());
+	pBullet->SetDirection(GetShotDirection());
+	pBullet->SetPosition(GetShotPoint());
 }
 
-void CMaincharacter::UpdateSatellite(float dTime , CMaincharacter* Enemy)
+void CMaincharacter::FairySkill_1()
 {
-	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
+	for (int i = 0; i < MAX_FAIRY_NUM; ++i)
 	{
-		if (m_pSatelliteArray[i]->IsVisible())
+		if (m_pFairyArray[i]->IsVisible())
 		{
-			m_pSatelliteArray[i]->Update(dTime, Enemy);
+			for ( int j = 0; j < 6; ++j )
+			{
+				float direction = m_pFairyArray[i]->GetShotDirection() - 120*0.5f + 120/5*j ;
+
+			 	CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(FAIRY_NORMAL_BULLET, 0, direction);
+			 	pBullet->SetPosition(m_pFairyArray[i]->GetShotPoint());
+			 	pBullet->SetDirection(direction);
+			}
 		}
 	}
 }
 
-CSatellite * CMaincharacter::GetSatellite()
+//**************************************************************
+//						   Fairy
+//**************************************************************
+void CMaincharacter::SummonFairy()
 {
-	++m_SatelliteIndex;
-	m_SatelliteIndex %= MAX_SATELLITE_NUM;
-	m_pSatelliteArray[m_SatelliteIndex]->SetVisible(true);
-
-	return m_pSatelliteArray[m_SatelliteIndex];
+	CFairy* pFairy = GetFairy();
+	pFairy->SetPosition(GetPosition());
 }
 
-void CMaincharacter::ShotSLSectorNormalBullet()
+void CMaincharacter::UpdateFairy(float dTime , CMaincharacter* Enemy)
 {
-	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
+	for (int i = 0; i < MAX_FAIRY_NUM; ++i)
 	{
-		if (m_pSatelliteArray[i]->IsVisible())
+		if (m_pFairyArray[i]->IsVisible())
 		{
-			CBulletManager::GetInstance()->ShotSectorBullets(m_pSatelliteArray[i], NORMAL_BULLET);
+			m_pFairyArray[i]->Update(dTime, Enemy);
 		}
 	}
 }
 
-void CMaincharacter::DestroySatellite()
+CFairy * CMaincharacter::GetFairy()
 {
-	for (int i = 0; i < MAX_SATELLITE_NUM; ++i)
+	++m_FairyIndex;
+	m_FairyIndex %= MAX_FAIRY_NUM;
+	CFairy* new_Fairy = m_pFairyArray[m_FairyIndex];
+	new_Fairy->SetVisible(true);
+
+	return m_pFairyArray[m_FairyIndex];
+}
+
+void CMaincharacter::DestroyFairy()
+{
+	for (int i = 0; i < MAX_FAIRY_NUM; ++i)
 	{
-		if (m_pSatelliteArray[i]->IsVisible())
+		if (m_pFairyArray[i]->IsVisible())
 		{
-			m_pSatelliteArray[i]->SetVisible(false);
-			m_pSatelliteArray[i]->InitMember();
+			m_pFairyArray[i]->SetVisible(false);
+			m_pFairyArray[i]->InitMember();
 		}
 	}
 }
@@ -306,5 +334,10 @@ void CMaincharacter::DestroySatellite()
 //**************************************************************
 bool CMaincharacter::UpdateExplosionAnimation( float dTime )
 {
+	//죽는모션(추가예정)
 	return true;
 }
+
+
+
+

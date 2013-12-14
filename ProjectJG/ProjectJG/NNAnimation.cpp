@@ -5,8 +5,8 @@ NNAnimation::NNAnimation()
 	: m_FrameCount(0), m_Frame(0), m_Time(0.f), m_Loop(true), m_AnimationEnd(false),
 	m_ImageHeight(0.f), m_ImageWidth(0.f)
 {
-
 }
+
 NNAnimation::~NNAnimation()
 {
 	for (auto& iter=m_SpriteList.begin(); iter!=m_SpriteList.end(); iter++ )
@@ -16,18 +16,20 @@ NNAnimation::~NNAnimation()
 	m_SpriteList.clear();
 }
 
-NNAnimation* NNAnimation::Create( int count, ... )
+NNAnimation* NNAnimation::Create( int count, float frameTime, ... )
 {
 	NNAnimation* pInstance = new NNAnimation();
 
 	va_list ap;
-	va_start( ap, count );
+	//뭐하는건지알아보자(vector)
+	va_start( ap, frameTime );
+	//va_start( ap, count );
 
 	for (int i=0; i<count; i++ )
 	{
 		NNSpriteNode* spriteInstance = NNSpriteNode::Create( va_arg( ap, wchar_t* ) );
 		pInstance->m_SpriteList.push_back( spriteInstance );
-		pInstance->m_SpriteList[i]->SetFrameTime( 0.2f );
+		pInstance->m_SpriteList[i]->SetFrameTime( frameTime );
 		spriteInstance->SetParent( pInstance );
 		//pInstance->AddChild( spriteInstance );
 	}

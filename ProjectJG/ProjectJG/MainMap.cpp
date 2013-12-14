@@ -5,7 +5,7 @@
 #include "Maincharacter.h"
 #include "BulletManager.h"
 #include "Bullet.h"
-#include "Satellite.h"
+#include "Fairy.h"
 #include "Asteroid.h"
 #include "Camera.h"
 
@@ -26,41 +26,56 @@ CMainMap::CMainMap(void)
 	AddChild(m_MainFrame);
 
 	// 맵 배경 이미지
-	//문자열 배열로 만들어서 관리해야함
-	m_BackGround = NNAnimation::Create( 25,	L"Sprite/background/IMG00000.jpg",
-											L"Sprite/background/IMG00001.jpg",
-											L"Sprite/background/IMG00002.jpg",
-											L"Sprite/background/IMG00003.jpg",
-											L"Sprite/background/IMG00004.jpg",
-											L"Sprite/background/IMG00005.jpg",
-											L"Sprite/background/IMG00006.jpg",
-											L"Sprite/background/IMG00007.jpg",
-											L"Sprite/background/IMG00008.jpg",
-											L"Sprite/background/IMG00009.jpg",
-											L"Sprite/background/IMG00010.jpg",
-											L"Sprite/background/IMG00011.jpg",
-											L"Sprite/background/IMG00012.jpg",
-											L"Sprite/background/IMG00013.jpg",
-											L"Sprite/background/IMG00014.jpg",
-											L"Sprite/background/IMG00015.jpg",
-											L"Sprite/background/IMG00016.jpg",
-											L"Sprite/background/IMG00017.jpg",
-											L"Sprite/background/IMG00018.jpg",
-											L"Sprite/background/IMG00019.jpg",
-											L"Sprite/background/IMG00020.jpg",
-											L"Sprite/background/IMG00021.jpg",
-											L"Sprite/background/IMG00022.jpg",
-											L"Sprite/background/IMG00023.jpg",
-											L"Sprite/background/IMG00024.jpg"
-												);
-
+	// 문자열 배열로 만들어서 관리해야함
+	m_BackGround = NNAnimation::Create( 40,	0.3f,	
+		L"Sprite/background/IMG00000.jpg",
+		L"Sprite/background/IMG00001.jpg",
+		L"Sprite/background/IMG00002.jpg",
+		L"Sprite/background/IMG00003.jpg",
+		L"Sprite/background/IMG00004.jpg",
+		L"Sprite/background/IMG00005.jpg",
+		L"Sprite/background/IMG00006.jpg",
+		L"Sprite/background/IMG00007.jpg",
+		L"Sprite/background/IMG00008.jpg",
+		L"Sprite/background/IMG00009.jpg",
+		L"Sprite/background/IMG00010.jpg",
+		L"Sprite/background/IMG00011.jpg",
+		L"Sprite/background/IMG00012.jpg",
+		L"Sprite/background/IMG00013.jpg",
+		L"Sprite/background/IMG00014.jpg",
+		L"Sprite/background/IMG00015.jpg",
+		L"Sprite/background/IMG00016.jpg",
+		L"Sprite/background/IMG00017.jpg",
+		L"Sprite/background/IMG00018.jpg",
+		L"Sprite/background/IMG00019.jpg",
+		L"Sprite/background/IMG00020.jpg",
+		L"Sprite/background/IMG00021.jpg",
+		L"Sprite/background/IMG00022.jpg",
+		L"Sprite/background/IMG00023.jpg",
+		L"Sprite/background/IMG00024.jpg",
+		L"Sprite/background/IMG00025.jpg",
+		L"Sprite/background/IMG00026.jpg",
+		L"Sprite/background/IMG00027.jpg",
+		L"Sprite/background/IMG00028.jpg",
+		L"Sprite/background/IMG00029.jpg",
+		L"Sprite/background/IMG00030.jpg",
+		L"Sprite/background/IMG00031.jpg",
+		L"Sprite/background/IMG00032.jpg",
+		L"Sprite/background/IMG00033.jpg",
+		L"Sprite/background/IMG00034.jpg",
+		L"Sprite/background/IMG00035.jpg",
+		L"Sprite/background/IMG00036.jpg",
+		L"Sprite/background/IMG00037.jpg",
+		L"Sprite/background/IMG00038.jpg",
+		L"Sprite/background/IMG00039.jpg");
+	
 	m_BackGround->SetImageWidth( GetWidth() );
 	m_BackGround->SetImageHeight( GetHeight() );
 	AddChild( m_BackGround );
 
-	//플레이어 생성
-	m_Player1 = new CMaincharacter;
-	m_Player2 = new CMaincharacter;
+	// 플레이어 생성
+	m_Player1 = new CMaincharacter(RAYMU);
+	m_Player2 = new CMaincharacter(RAYMU);
 
 	// cost
 	m_CostPerSecond = 5.f;
@@ -73,7 +88,7 @@ CMainMap::CMainMap(void)
 	AddChild( m_Player1 );
 	AddChild( m_Player2 );
 
-	//운석 로딩
+	// 운석 로딩
 	for (int i = 0 ; i < MAX_ASTEROID_NUM ; ++i)
 	{
 		CBulletManager::GetInstance()->GetAsteroidArray()[i] = new CAsteroid;
@@ -81,21 +96,21 @@ CMainMap::CMainMap(void)
 		CBulletManager::GetInstance()->GetAsteroidArray()[i]->SetVisible(false);
 	}
 
-	//인공위성 로딩
-	for (int i = 0; i <MAX_SATELLITE_NUM; ++i)
+	// 인공위성 로딩
+	for (int i = 0; i <MAX_FAIRY_NUM; ++i)
 	{
-		m_Player1->GetSatelliteArray()[i] = new CSatellite;
-		AddChild(m_Player1->GetSatelliteArray()[i]);
-		m_Player1->GetSatelliteArray()[i]->SetVisible(false);
+		m_Player1->GetFairyArray()[i] = new CFairy;
+		AddChild(m_Player1->GetFairyArray()[i]);
+		m_Player1->GetFairyArray()[i]->SetVisible(false);
 	}
-	for (int i = 0; i <MAX_SATELLITE_NUM; ++i)
+	for (int i = 0; i <MAX_FAIRY_NUM; ++i)
 	{
-		m_Player2->GetSatelliteArray()[i] = new CSatellite;
-		AddChild(m_Player2->GetSatelliteArray()[i]);
-		m_Player2->GetSatelliteArray()[i]->SetVisible(false);
+		m_Player2->GetFairyArray()[i] = new CFairy;
+		AddChild(m_Player2->GetFairyArray()[i]);
+		m_Player2->GetFairyArray()[i]->SetVisible(false);
 	}
 
-	//총알 장전
+	// 총알 장전
 	for (int i = 0 ; i < MAX_BULLET_NUM ; ++i)
 	{
 		CBulletManager::GetInstance()->GetBulletArray()[i] = new CBullet;
@@ -152,7 +167,7 @@ void CMainMap::Update( float dTime, CFrame* frame )
 	{
 		m_Player1->SetHit( true );
 	}
-	//테스트 모드일 때는 적과의 충돌체크를 하지 않는다
+	
 // 	if(m_GameMode && CBulletManager::GetInstance()->CharacterHitCheck(m_Player2))
 // 		m_Player2->SetHit( true );
 

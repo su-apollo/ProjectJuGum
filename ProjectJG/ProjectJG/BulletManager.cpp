@@ -22,7 +22,7 @@ CBulletManager::~CBulletManager(void)
 //                         GetObj
 //**************************************************************
 
-CBullet * CBulletManager::GetBullet( EBulletType bullet_type )
+CBullet * CBulletManager::GetBullet( EBulletType bullet_type, float speed, float direction )
 {
 	++m_BulletIndex;
 	m_BulletIndex %= MAX_BULLET_NUM;
@@ -31,19 +31,25 @@ CBullet * CBulletManager::GetBullet( EBulletType bullet_type )
 
 	switch (bullet_type)
 	{
-	case NORMAL_BULLET:
-		new_bullet->SetSpeed(BULLET_SPEED);
-		new_bullet->GetTexture(NORMAL_BULLET)->SetVisible(true);
+	case RAYMU_NORMAL_BULLET:
+		new_bullet->SetSpeed(speed);
+		new_bullet->GetTexture(RAYMU_NORMAL_BULLET)->SetVisible(true);
+		new_bullet->GetTexture(RAYMU_NORMAL_BULLET)->SetRotation(direction + 90.f);
 		return new_bullet;
-	case ACCEL_BULLET:
-		new_bullet->SetSpeed(ACCELBULLET_SPEED);
-		new_bullet->SetAccel(ACCELBULLET_ACCEL);
-		new_bullet->GetTexture(ACCEL_BULLET)->SetVisible(true);
-		return new_bullet;
-	case CURVE_BULLET:
-		new_bullet->SetSpeed(CURVEBULLET_SPEED);
-		new_bullet->SetAngularAccel(CURVEBULLET_ANGULAR_ACCEL);
-		new_bullet->GetTexture(CURVE_BULLET)->SetVisible(true);
+	case MARISA_NORMAL_BULLET:
+		new_bullet->SetSpeed(speed);
+		new_bullet->GetTexture(MARISA_NORMAL_BULLET)->SetVisible(true);
+	case FAIRY_NORMAL_BULLET:
+		if (speed == 0)
+		{
+			new_bullet->SetSpeed(FAIRY_NORMAL_BULLET_SPEED);
+		}
+		else
+		{
+			new_bullet->SetSpeed(speed);
+		}
+		new_bullet->GetTexture(FAIRY_NORMAL_BULLET)->SetVisible(true);
+		new_bullet->GetTexture(FAIRY_NORMAL_BULLET)->SetRotation(direction + 90.f);
 		return new_bullet;
 	default:
 		break;
@@ -67,54 +73,54 @@ CAsteroid* CBulletManager::GetAsteroid()
 //                         Skills
 //**************************************************************
 
-void CBulletManager::ShotBullet(CGameMoveObj * Player, EBulletType bullet_type)
-{
-	CBullet * pBullet = GetBullet(bullet_type);
-	pBullet->SetDirection(Player->GetShotDirection());
-	pBullet->SetPosition( Player->GetShotPoint());
-}
-
-void CBulletManager::ShotSectorBullets(CGameMoveObj* Player, EBulletType bullet_type, float degree , int n)
-{
-	float direction = Player->GetShotDirection();
-
-	for ( int i = 0; i < n; ++i )
-	{
-		CBullet* pBullet = GetBullet(bullet_type);
-		pBullet->SetPosition( Player->GetShotPoint());
-		pBullet->SetDirection( direction - degree*0.5f + degree/(n-1)*i );
-	}
-}
-
-void CBulletManager::ShotSectorMixBullets(CGameMoveObj* Player, EBulletType bullet_type_1, EBulletType bullet_type_2,float degree, int n )
-{
-	float direction = Player->GetShotDirection();
-
-	for ( int i = 0; i < n; ++i )
-	{
-		CBullet * pBullet = ( i%2 == 0 ) ? GetBullet(bullet_type_1) : GetBullet(bullet_type_2);
-		pBullet->SetPosition( Player->GetShotPoint());
-		pBullet->SetDirection( direction - degree*0.5f + degree/(n-1)*i );
-	}
-}
-
-void CBulletManager::ShotTornadoBullets(CGameMoveObj* Player, int n )
-{
-	NNPoint point = Player->GetPosition();
-	float direction = 0.f;
-
-	for ( int i = 0; i < n; ++i )
-	{
-		direction += 360/n;
-		CBullet* pBullet = GetBullet(CURVE_BULLET);
-
-		point.SetX( Player->GetPositionX() + NNDegreeToX(direction)*SHOT_POINT );
-		point.SetY( Player->GetPositionY() + NNDegreeToY(direction)*SHOT_POINT );
-		pBullet->SetPosition( point );
-
-		pBullet->SetDirection( direction );
-	}
-}
+// void CBulletManager::ShotBullet(CGameMoveObj * Player, EBulletType bullet_type)
+// {
+// 	CBullet * pBullet = GetBullet(bullet_type, Player);
+// 	pBullet->SetDirection(Player->GetShotDirection());
+// 	pBullet->SetPosition( Player->GetShotPoint());
+// }
+// 
+// void CBulletManager::ShotSectorBullets(CGameMoveObj* Player, EBulletType bullet_type, float degree , int n)
+// {
+// 	float direction = Player->GetShotDirection();
+// 
+// 	for ( int i = 0; i < n; ++i )
+// 	{
+// 		CBullet* pBullet = GetBullet(bullet_type);
+// 		pBullet->SetPosition( Player->GetShotPoint());
+// 		pBullet->SetDirection( direction - degree*0.5f + degree/(n-1)*i );
+// 	}
+// }
+// 
+// void CBulletManager::ShotSectorMixBullets(CGameMoveObj* Player, EBulletType bullet_type_1, EBulletType bullet_type_2,float degree, int n )
+// {
+// 	float direction = Player->GetShotDirection();
+// 
+// 	for ( int i = 0; i < n; ++i )
+// 	{
+// 		CBullet * pBullet = ( i%2 == 0 ) ? GetBullet(bullet_type_1) : GetBullet(bullet_type_2);
+// 		pBullet->SetPosition( Player->GetShotPoint());
+// 		pBullet->SetDirection( direction - degree*0.5f + degree/(n-1)*i );
+// 	}
+// }
+// 
+// void CBulletManager::ShotTornadoBullets(CGameMoveObj* Player, int n )
+// {
+// 	NNPoint point = Player->GetPosition();
+// 	float direction = 0.f;
+// 
+// 	for ( int i = 0; i < n; ++i )
+// 	{
+// 		direction += 360/n;
+// 		CBullet* pBullet = GetBullet(CURVE_BULLET);
+// 
+// 		point.SetX( Player->GetPositionX() + NNDegreeToX(direction)*SHOT_POINT );
+// 		point.SetY( Player->GetPositionY() + NNDegreeToY(direction)*SHOT_POINT );
+// 		pBullet->SetPosition( point );
+// 
+// 		pBullet->SetDirection( direction );
+// 	}
+// }
 
 //**************************************************************
 //                          Update

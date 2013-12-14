@@ -207,5 +207,7 @@ EInputSetUp NNInputSystem::GetChangeSpeedKeyInput( void )
 	{
 		return CHANGE_SPEED;
 	}
+	else
+		return NONE;
 }
 

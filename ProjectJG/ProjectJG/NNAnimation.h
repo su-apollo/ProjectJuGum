@@ -11,7 +11,7 @@ public:
 	void Render();
 	void Update( float dTime );
 
-	static NNAnimation* Create( int count, ... );
+	static NNAnimation* Create( int count, float frameTime, ... );
 	static NNAnimation* Create();
 
 	int GetFrameCount() const { return m_FrameCount; }
