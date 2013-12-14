@@ -5,8 +5,7 @@
 #include "Bullet.h"
 #include "Maincharacter.h"
 
-
-CBullet::CBullet(void)
+CBullet::CBullet()
 {
 	m_Texture[RAYMU_NORMAL_BULLET] = NNSpriteAtlas::Create(L"Sprite/BulletR1.png");
 	m_Texture[RAYMU_NORMAL_BULLET]->SetImageHeight(2*BULLET_HIT_RADIUS*1.5f);
@@ -48,6 +47,7 @@ void CBullet::Update( float dTime )
 	{
 		SetDirection(GetDirection() + GetAngularAccel()*dTime);
 	}
+
 	if (GetAccel())
 	{
 		SetSpeed(GetSpeed() + GetAccel()*dTime);

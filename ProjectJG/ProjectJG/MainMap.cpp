@@ -8,13 +8,14 @@
 #include "Fairy.h"
 #include "Asteroid.h"
 #include "Camera.h"
+#include "SubChar.h"
 
 #include "NNAnimation.h"
 #include "NNInputSystem.h"		// for 운석 테스트
 #include "NNApplication.h"
 
 
-CMainMap::CMainMap(void)
+CMainMap::CMainMap(ENetworkMode GameMode)
 {
 	m_Width = MAIN_MAP_WIDTH;
 	m_Height = MAIN_MAP_HEIGHT;
@@ -73,9 +74,39 @@ CMainMap::CMainMap(void)
 	m_BackGround->SetImageHeight( GetHeight() );
 	AddChild( m_BackGround );
 
-	// 플레이어 생성
-	m_Player1 = new CMaincharacter(RAYMU);
-	m_Player2 = new CMaincharacter(RAYMU);
+	// 플레이어 생성 및 서브캐릭터 생성
+	CSubChar* subchar_1;
+	CSubChar* subchar_2;
+	if (GameMode == SERVER_MODE || GameMode == TEST_MODE)
+	{
+		subchar_1 = new CSubChar(YUKARI);
+		m_Player1 = new CMaincharacter(RAYMU);
+		m_Player1->SetSubChar(subchar_1);
+
+		subchar_2 = new CSubChar(ALICE);
+		m_Player2 = new CMaincharacter(MARISA);
+		m_Player2->SetSubChar(subchar_2);
+	}
+	else
+	{
+		subchar_1 = new CSubChar(ALICE);
+		m_Player1 = new CMaincharacter(MARISA);
+		m_Player1->SetSubChar(subchar_1);
+
+		subchar_2 = new CSubChar(YUKARI);
+		m_Player2 = new CMaincharacter(RAYMU);
+		m_Player2->SetSubChar(subchar_2);
+	}
+
+	subchar_1->SetVisible(false);
+	subchar_2->SetVisible(false);
+
+	AddChild( m_Player1 );
+	AddChild( m_Player2 );
+	AddChild( subchar_1 );
+	AddChild( subchar_2 );
+	
+	
 
 	// cost
 	m_CostPerSecond = 5.f;
@@ -84,9 +115,6 @@ CMainMap::CMainMap(void)
 	// (0,0) 이 맵의 중심. 플레이어 1은 아래 화면의 가운데에, 플레이어 2는 윗 화면의 가운데에 배치한다.
 	m_Player1->SetPosition( 0.f, GetBotLine() *0.5f );
 	m_Player2->SetPosition( 0.f, GetTopLine() *0.5f );
-
-	AddChild( m_Player1 );
-	AddChild( m_Player2 );
 
 	// 운석 로딩
 	for (int i = 0 ; i < MAX_ASTEROID_NUM ; ++i)

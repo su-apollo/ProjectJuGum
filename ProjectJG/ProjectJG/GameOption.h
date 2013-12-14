@@ -3,7 +3,7 @@
 #define WINDOW_WIDTH						1280
 #define WINDOW_HEIGHT					800
 
-#define MAIN_MAP_WIDTH					1600.f
+#define MAIN_MAP_WIDTH					2000.f
 #define MAIN_MAP_HEIGHT					1200.f
 #define FRAME_WIDTH						750.f
 #define FRAME_HEIGHT						750.f
@@ -28,6 +28,11 @@ enum ECharcterType
 {
 	RAYMU,
 	MARISA
+};
+enum ESubCharType
+{
+	YUKARI,
+	ALICE
 };
 #define CHAR_SPEED						300.f
 #define CHAR_SLOW_SPEED					200.f

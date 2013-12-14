@@ -9,13 +9,13 @@ class NNSpriteAtlas;
 class CFairy;
 class NNAnimation;
 class CPacketHandler;
+class CSubChar;
 
 //메인케릭터 펙토리형태로 구성
 class CMaincharacter : public CGameMoveObj
 {
 public:
 	//디폴트 캐릭터 타입
-	CMaincharacter();
 	CMaincharacter(ECharcterType type_of_char);
 	virtual ~CMaincharacter(void);
 
@@ -46,9 +46,12 @@ public:
 	void			FairySkill_1();
 	void			SummonFairy();
 	void			UpdateFairy(float dTime, CMaincharacter* Enemy);
+
 	CFairy**		GetFairyArray() { return m_pFairyArray; }
 	CFairy*			GetFairy();
 	void			DestroyFairy();
+
+	void			SetSubChar(CSubChar* setsubchar){ m_SubChar = setsubchar; }
 
 	//네트워크 관련 함수
 	CPacketHandler* GetPacketHandler() { return m_PacketHandler; }
@@ -62,6 +65,7 @@ protected:
 
 	bool			m_bHit;
 
+	CSubChar*		m_SubChar;
 	CFairy*			m_pFairyArray[MAX_FAIRY_NUM];
 	int				m_FairyIndex;
 

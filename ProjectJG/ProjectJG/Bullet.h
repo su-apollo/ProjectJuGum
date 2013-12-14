@@ -10,6 +10,7 @@ class CBullet : public CGameMoveObj
 {
 public:
 	CBullet(void);
+	CBullet(EBulletType type);
 	virtual ~CBullet(void);
 
 	void Render();
@@ -22,6 +23,7 @@ public:
 
 private:
 	NNSpriteAtlas*	m_Texture[BULLET_TYPE_NUM];
-	EBulletType	m_Type;
+	EBulletType		m_Type;
+	bool			m_IsSpin;
 };
 

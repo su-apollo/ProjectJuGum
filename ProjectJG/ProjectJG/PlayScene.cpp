@@ -25,7 +25,7 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : m_netsetup(fal
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 
 	// °ÔÀÓ ¸ÞÀÎ ¸Ê
-	m_MainMap = new CMainMap();
+	m_MainMap = new CMainMap(GameMode);
 	m_MainMap->SetPosition( NNPoint(width *0.5f, height *0.5f) );
 	AddChild(m_MainMap);
 

@@ -14,7 +14,7 @@ class CCamera;
 class CMainMap : public CFrame
 {
 public:
-	CMainMap(void);
+	CMainMap(ENetworkMode GameMode);
 	virtual ~CMainMap(void);
 
 	void Render();

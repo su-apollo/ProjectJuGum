@@ -10,13 +10,10 @@
 #include "PacketHandler.h"
 #include "NNAnimation.h"
 #include "Bullet.h"
-
-CMaincharacter::CMaincharacter()
-	: m_bHit(false), m_FairyIndex(0), m_Syntime(0.f)
-{
-}
+#include "SubChar.h"
 
 CMaincharacter::CMaincharacter(ECharcterType type_of_char) 
+	: m_bHit(false), m_FairyIndex(0), m_Syntime(0.f)
 {
 	SetHitRadius(CHAR_HIT_RADIUS);
 	

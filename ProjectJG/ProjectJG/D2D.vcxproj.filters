@@ -111,6 +111,9 @@
     <ClCompile Include="Fairy.cpp">
       <Filter>GameObjects\etcObject</Filter>
     </ClCompile>
+    <ClCompile Include="SubChar.cpp">
+      <Filter>GameObjects\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -361,6 +364,9 @@
     </ClInclude>
     <ClInclude Include="Fairy.h">
       <Filter>GameObjects\etcObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SubChar.h">
+      <Filter>GameObjects\Character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
