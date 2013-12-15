@@ -17,12 +17,16 @@
 #include "Camera.h"
 #include "UImanager.h"
 #include "PacketHandler.h"
-
+#include "NNAudioSystem.h"
+#include "NNResourceManager.h"
 
 CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : m_netsetup(false), m_DoCount(true), m_CountNum(0.f)
 {
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
+
+	m_BackgroundSound = NNResourceManager::GetInstance()->LoadSoundFromFile( GAME_BACKGROUND_SOUND, true );
+	NNAudioSystem::GetInstance()->Play( m_BackgroundSound );
 
 	// 게임 메인 맵
 	m_MainMap = new CMainMap(GameMode);

@@ -49,7 +49,7 @@ CMaincharacter::CMaincharacter(ECharcterType type_of_char)
 	
 	m_FlyMotion->SetScale(1.5f, 1.5f);
 	AddChild( m_FlyMotion );
-
+	
 	m_Type = type_of_char;
 	m_Cost = 50;
 	m_bHit = false;
@@ -80,15 +80,8 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, E
 	m_direct_key_input = NNInputSystem::GetInstance()->GetDirectionKeyInput();
 	m_speed_key_input = NNInputSystem::GetInstance()->GetChangeSpeedKeyInput();
 
-	//스피드키 입력에 따른 스피드 조정
-	if (m_speed_key_input == CHANGE_SPEED)
-	{
-		SetSpeed(CHAR_SLOW_SPEED);
-	}
-	else
-	{
-		SetSpeed(CHAR_SPEED);
-	}
+	//스피드키 입력에 따른 스피드 조정과 서브캐릭터 소환
+	SummonSubChar(dTime, enemy, m_speed_key_input);
 
 	//항상 적을 바라보도록 계산
 	UpdateShotDirection(enemy);
@@ -138,12 +131,12 @@ void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap*
 	UpdateShotPoint();
 	UpdateFairy(dTime, enemy);
 
-	m_FlyMotion->Update(dTime);
 	m_FlyMotion->SetRotation(GetShotDirection() + 90.f);
+	m_FlyMotion->Update(dTime);
 
 	printf_s("recv : %d\n", m_direct_key_input);
 
-	//전송된 패킷에 변화가 있다면 상태변화 및 스킬시전
+	//받은 패킷에 변화가 있다면 상태변화 및 스킬시전
 	if (m_PacketHandler->m_IsPacketrecv == true)
 	{
 		m_StateOfDirectionKey = (EInputSetUp)m_PacketHandler->m_PacketKeyStatus.mDirectionStatus;
@@ -156,15 +149,8 @@ void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap*
 		m_PacketHandler->m_IsPacketrecv = false;
 	}
 
-	//스피드키 입력에 따른 스피드 조정
-	if (m_StateOfSpeedKey == CHANGE_SPEED)
-	{
-		SetSpeed(CHAR_SLOW_SPEED);
-	}
-	else
-	{
-		SetSpeed(CHAR_SPEED);
-	}
+	//스피드키 입력에 따른 스피드 조정과 서브캐릭터 소환
+	SummonSubChar(dTime, enemy, m_StateOfSpeedKey);
 
 	UpdateMotion(dTime, m_StateOfDirectionKey);
 }
@@ -255,6 +241,30 @@ void CMaincharacter::RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMain
 	}
 }
 
+void CMaincharacter::SummonSubChar( float dTime, CMaincharacter* enemy, EInputSetUp speed_key)
+{
+	if (speed_key == CHANGE_SPEED)
+	{
+		SetSpeed(CHAR_SLOW_SPEED);
+		
+		if (m_SubChar->GetState() == NONE_STATE)
+		{
+			m_SubChar->SetPosition(GetPosition());
+			m_SubChar->SetState(SUMMON_STATE);
+		}
+
+		m_SubChar->SetVisible(true);
+		m_SubChar->Update(dTime, enemy);
+	}
+	else
+	{
+		SetSpeed(CHAR_SPEED);
+
+		m_SubChar->SetVisible(false);
+		m_SubChar->SetState(NONE_STATE);
+	}
+}
+
 //**************************************************************
 //                         Skills
 //**************************************************************
@@ -334,7 +344,6 @@ bool CMaincharacter::UpdateExplosionAnimation( float dTime )
 	//죽는모션(추가예정)
 	return true;
 }
-
 
 
 

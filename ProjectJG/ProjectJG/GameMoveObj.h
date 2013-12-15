@@ -21,6 +21,7 @@ public:
 	float	GetDirection() {return m_Direction;}
 	float	GetHitRadius() {return m_HitRadius;}
 	float	GetAngularAccel() {return m_AngularAccel;}
+	float	GetLifeTime() const { return m_LifeTime; }
 	NNPoint	GetShotPoint() {return m_ShotPoint;}
 
 	void	SetShotDirection(float new_shotdirection) {m_ShotDirection = new_shotdirection;}
@@ -29,6 +30,7 @@ public:
 	void	SetDirection(float new_direction) {m_Direction = new_direction;}
 	void	SetHitRadius(float new_hitRadius) {m_HitRadius = new_hitRadius;}
 	void	SetAngularAccel(float new_accel) {m_AngularAccel = new_accel;}
+	void	SetLifeTime(float val) { m_LifeTime = val; }
 
 	void	UpdateShotPoint();
 
@@ -39,6 +41,9 @@ protected:
 	float	m_Direction;
 	float	m_HitRadius;
 	float	m_AngularAccel;
+	float	m_LifeTime;
+	
+	
 	NNPoint	m_ShotPoint;
 
 };

@@ -17,11 +17,13 @@
 
 
 
-#define MAIN_MENU_SCENE_BACKGROUND_SOUND		"Sound/Space_Sprinkles.mp3"
+#define MAIN_MENU_SCENE_BACKGROUND_SOUND		"Sound/Eternal Dream.mp3"
 #define MAIN_MENU_SCENE_BACKGROUND_IMAGE		L"Sprite/background/IMG00000.jpg"
 #define MAIN_MENU_SCENE_LOGO					L"Sprite/logo.png"
 #define MAIN_MAP_BACKGROUND_IMAGE			L"Sprite/background/IMG00000.jpg"
 #define GAME_FONT							L"Font/¸ð¸®½º-9"
+
+#define GAME_BACKGROUND_SOUND				"Sound/the Mooned Incects.mp3"
 
 
 enum ECharcterType
@@ -34,16 +36,26 @@ enum ESubCharType
 	YUKARI,
 	ALICE
 };
+enum ECharState
+{
+	NONE_STATE,
+	SUMMON_STATE,
+	SKILL_STATE
+};
 #define CHAR_SPEED						300.f
 #define CHAR_SLOW_SPEED					200.f
 #define CHAR_HIT_RADIUS					5.f
 
 
-#define BULLET_TYPE_NUM	3
+#define BULLET_TYPE_NUM	7
 enum EBulletType
 {
 	RAYMU_NORMAL_BULLET,
+	RAYMU_ACCEL_BULLET,
+	RAYMU_CURVE_BULLET,
 	MARISA_NORMAL_BULLET,
+	MARISA_BIG_BULLET,
+	MARISA_RETAR_BULLET,
 	FAIRY_NORMAL_BULLET,
 };
 #define FAIRY_NORMAL_BULLET_SPEED		100.f

@@ -1,6 +1,7 @@
 #include "NNConfig.h"
 #include "SubChar.h"
 #include "NNAnimation.h"
+#include "Maincharacter.h"
 
 CSubChar::CSubChar(ESubCharType type_of_char)
 {
@@ -25,6 +26,7 @@ CSubChar::CSubChar(ESubCharType type_of_char)
 	AddChild( m_FlyMotion );
 
 	m_Type = type_of_char;
+	m_State = NONE_STATE;
 }
 
 
@@ -37,7 +39,12 @@ void CSubChar::Render()
 	NNObject::Render();
 }
 
-void CSubChar::Update( float dTime, CMaincharacter* Enemy )
+void CSubChar::Update( float dTime, CMaincharacter* enemy )
 {
+	UpdateShotDirection(enemy);
+	UpdateShotPoint();
+
+	m_FlyMotion->SetRotation(GetShotDirection() + 90.f);
+
 	m_FlyMotion->Update(dTime);
 }

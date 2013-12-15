@@ -7,6 +7,7 @@ class NNSprite;
 class NNLabel;
 class CFrame;
 class CMaincharacter;
+class NNSound;
 
 // 게임 플레이 씬. 배치는 씬에서, 게임관련 업데이트는 맵에서 함.
 class CPlayScene : public NNScene
@@ -39,5 +40,6 @@ private:
 	float m_CountNum;
 	bool m_DoCount;
 	
+	NNSound* m_BackgroundSound;
 };
 

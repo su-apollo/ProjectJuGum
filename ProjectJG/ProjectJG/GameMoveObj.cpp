@@ -20,6 +20,7 @@ void CGameMoveObj::InitMember()
 	m_Accel = 0.f;
 	m_Direction = 0.f;
 	m_AngularAccel = 0.f;
+	m_LifeTime = 0.f;
 }
 
 void CGameMoveObj::UpdateShotDirection( CGameMoveObj* Enemy )

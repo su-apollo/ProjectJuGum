@@ -36,6 +36,7 @@ public:
 
 	//스킬시전
 	void			SkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key);
+	void			SummonSubChar(float dTime, CMaincharacter* enemy, EInputSetUp speed_key);
 	void			RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key);
 	void			RaymuNomalShot();
 
