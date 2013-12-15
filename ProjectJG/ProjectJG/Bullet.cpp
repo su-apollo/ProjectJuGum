@@ -78,6 +78,14 @@ void CBullet::Render()
 
 void CBullet::Update( float dTime )
 {
+	SetLifeTime(dTime + GetLifeTime());
+
+	if (m_Type == MARISA_NORMAL_BULLET)
+	{
+		printf_s("%f\n",GetLifeTime());
+		m_Texture[m_Type]->SetRotation(100.f*GetLifeTime());
+	}
+
 	if (GetAngularAccel())
 	{
 		SetDirection(GetDirection() + GetAngularAccel()*dTime);
