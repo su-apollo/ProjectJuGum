@@ -74,6 +74,7 @@ void CFairy::SectorAttack( float dTime )
 		CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(FAIRY_NORMAL_BULLET, 0, GetShotDirection());
 		pBullet->SetPosition(GetShotPoint());
 		pBullet->SetDirection(direction);
+		pBullet->GetTexture(FAIRY_NORMAL_BULLET)->SetRotation(direction + 90.f);
 	}
 	m_ShotTimeSum = 0.f;
 }

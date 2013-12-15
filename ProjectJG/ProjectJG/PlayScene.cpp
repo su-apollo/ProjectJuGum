@@ -63,6 +63,7 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : m_netsetup(fal
 
 CPlayScene::~CPlayScene(void)
 {
+	NNAudioSystem::GetInstance()->Stop( m_BackgroundSound );
 }
 
 void CPlayScene::Render()
@@ -91,11 +92,10 @@ void CPlayScene::Update( float dTime )
 
 	// 모든 게임 플레이 관련 처리는 메인 맵에서 한다.
 	m_MainMap->Update( dTime, m_Frame );
-	if ( m_MainMap->IsGameEnd() )
+	if ( m_MainMap->IsGameEnd(dTime) )
 	{
 		if (m_MainMap->GetPlayer1()->UpdateExplosionAnimation(dTime))
 		{
-			MessageBox(NULL, L"Gameover!", L"Gameover", MB_OK) ;
 			EndGame();
 		}
 	}

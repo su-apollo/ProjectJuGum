@@ -9,6 +9,7 @@
 #include "Asteroid.h"
 #include "Camera.h"
 #include "SubChar.h"
+#include "PacketHandler.h"
 
 #include "NNAnimation.h"
 #include "NNInputSystem.h"		// for 운석 테스트
@@ -77,7 +78,7 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 	// 플레이어 생성 및 서브캐릭터 생성
 	CSubChar* subchar_1;
 	CSubChar* subchar_2;
-	if (GameMode == SERVER_MODE /*|| GameMode == TEST_MODE*/)
+	if (GameMode == SERVER_MODE || GameMode == TEST_MODE)
 	{
 		subchar_1 = new CSubChar(YUKARI);
 		m_Player1 = new CMaincharacter(RAYMU);
@@ -147,6 +148,8 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 	}
 
 	m_Camera = new CCamera();
+
+	m_TimeToHitCheckWait = 0.f;
 }
 
 
@@ -190,18 +193,21 @@ void CMainMap::Update( float dTime, CFrame* frame )
 	//총알 및 오브젝트의 업데이트와 라이프타임 체크
 	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2, this);
 
+	//캐릭터 업데이트
+	m_Player1->Update(dTime, m_Player2, this, m_GameMode);
+	m_Player2->UpdateByPeer(dTime, m_Player1, this, m_GameMode);
+
 	//총알과 캐릭터의 충돌체크
 	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player1))
 	{
 		m_Player1->SetHit( true );
+		//맏으면 패킷에 맞았다고 알려줌
+		if (m_GameMode)
+			m_Player1->GetPacketHandler()->m_PacketKeyStatus.mHitCheck = true;
 	}
 	
 // 	if(m_GameMode && CBulletManager::GetInstance()->CharacterHitCheck(m_Player2))
 // 		m_Player2->SetHit( true );
-
-	//캐릭터 업데이트
-	m_Player1->Update(dTime, m_Player2, this, m_GameMode);
-	m_Player2->UpdateByPeer(dTime, m_Player1, this, m_GameMode);
 
 	//맵과 캐릭터의 충돌체크
 	SetPlayerMoveArea(m_Player1, frame);
@@ -211,6 +217,11 @@ void CMainMap::Update( float dTime, CFrame* frame )
 	if(NNInputSystem::GetInstance()->GetKeyState('P') == KEY_DOWN)
 	{
 		CBulletManager::GetInstance()->ShotAsteroid(this);
+	}
+
+	if (m_GameMode && m_Player2->GetPacketHandler()->m_PacketKeyStatus.mHitCheck == true)
+	{
+		m_Player2->SetHit(true);
 	}
 }
 
@@ -240,10 +251,30 @@ void CMainMap::SetPlayerMoveArea( CMaincharacter * Player, CFrame* frame )
 	}
 }
 
-bool CMainMap::IsGameEnd()
+bool CMainMap::IsGameEnd(float dTime)
 {
-	if ( m_Player1->IsHit() || m_Player2->IsHit())
+	//둘중하나라도 히트되었다고 뜨면
+	if ((m_TimeToHitCheckWait < 0.5f)&&(m_Player1->IsHit() || m_Player2->IsHit()))
 	{
+		m_TimeToHitCheckWait += dTime;
+		return false;
+	}
+
+	if ( m_Player1->IsHit() && m_Player2->IsHit())
+	{
+		MessageBox(NULL, L"Draw!", L"Gameover", MB_OK) ;
+		return true;
+	}
+
+	if ( m_Player1->IsHit())
+	{
+		MessageBox(NULL, L"You Lose!", L"Gameover", MB_OK) ;
+		return true;
+	}
+
+	if (m_Player2->IsHit())
+	{
+		MessageBox(NULL, L"You Win!", L"Gameover", MB_OK) ;
 		return true;
 	}
 

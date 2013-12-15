@@ -25,7 +25,7 @@ public:
 
 	CCamera*	GetCamera() { return m_Camera; }
 
-	bool		IsGameEnd();
+	bool		IsGameEnd(float dTime);
 
 	void		SetGameMode(ENetworkMode mode) {m_GameMode = mode;}
 
@@ -33,6 +33,7 @@ private:
 	NNAnimation* m_BackGround;
 
 	float		m_CostPerSecond;
+	float		m_TimeToHitCheckWait;
 
 	CMaincharacter * m_Player1;	
 	CMaincharacter * m_Player2;

@@ -103,7 +103,9 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, E
 		//만약 스킬키와 이동키에 변화가 있다면 패킷전송
 		if ((m_skill_key_input != NONE) || 
 			(m_StateOfDirectionKey != m_direct_key_input) ||
-			(m_StateOfSpeedKey != m_speed_key_input))
+			(m_StateOfSpeedKey != m_speed_key_input) ||
+			(m_bHit == true)
+			) 
 		{
 			m_PacketHandler->m_PacketKeyStatus.mSkillStatus = (short)m_skill_key_input;
 			m_PacketHandler->m_PacketKeyStatus.mDirectionStatus = (short)m_direct_key_input;
