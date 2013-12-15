@@ -63,7 +63,6 @@ CBullet::CBullet()
 	m_Texture[FAIRY_NORMAL_BULLET]->SetVisible(false);
 	AddChild(m_Texture[FAIRY_NORMAL_BULLET]);
 
-	SetHitRadius(BULLET_HIT_RADIUS);
 	SetDirection(270.f);
 }
 
@@ -82,7 +81,6 @@ void CBullet::Update( float dTime )
 
 	if (m_Type == MARISA_NORMAL_BULLET)
 	{
-		printf_s("%f\n",GetLifeTime());
 		m_Texture[m_Type]->SetRotation(100.f*GetLifeTime());
 	}
 

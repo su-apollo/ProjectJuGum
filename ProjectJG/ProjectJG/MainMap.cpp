@@ -102,15 +102,26 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 	subchar_1->SetVisible(false);
 	subchar_2->SetVisible(false);
 
-	AddChild( m_Player1 );
-	AddChild( m_Player2 );
+	// addchild순서에 따라 랜더링 순서 결정
+	// 요정 로딩
+	for (int i = 0; i <MAX_FAIRY_NUM; ++i)
+	{
+		m_Player1->GetFairyArray()[i] = new CFairy;
+		AddChild(m_Player1->GetFairyArray()[i]);
+		m_Player1->GetFairyArray()[i]->SetVisible(false);
+	}
+	for (int i = 0; i <MAX_FAIRY_NUM; ++i)
+	{
+		m_Player2->GetFairyArray()[i] = new CFairy;
+		AddChild(m_Player2->GetFairyArray()[i]);
+		m_Player2->GetFairyArray()[i]->SetVisible(false);
+	}
+
 	AddChild( subchar_1 );
 	AddChild( subchar_2 );
-	
-	
+	AddChild( m_Player1 );
+	AddChild( m_Player2 );
 
-	// cost
-	m_CostPerSecond = 5.f;
 
 	// 플레이어 배치
 	// (0,0) 이 맵의 중심. 플레이어 1은 아래 화면의 가운데에, 플레이어 2는 윗 화면의 가운데에 배치한다.
@@ -125,20 +136,6 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 		CBulletManager::GetInstance()->GetAsteroidArray()[i]->SetVisible(false);
 	}
 
-	// 인공위성 로딩
-	for (int i = 0; i <MAX_FAIRY_NUM; ++i)
-	{
-		m_Player1->GetFairyArray()[i] = new CFairy;
-		AddChild(m_Player1->GetFairyArray()[i]);
-		m_Player1->GetFairyArray()[i]->SetVisible(false);
-	}
-	for (int i = 0; i <MAX_FAIRY_NUM; ++i)
-	{
-		m_Player2->GetFairyArray()[i] = new CFairy;
-		AddChild(m_Player2->GetFairyArray()[i]);
-		m_Player2->GetFairyArray()[i]->SetVisible(false);
-	}
-
 	// 총알 장전
 	for (int i = 0 ; i < MAX_BULLET_NUM ; ++i)
 	{
@@ -148,6 +145,9 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 	}
 
 	m_Camera = new CCamera();
+
+	// cost
+	m_CostPerSecond = 5.f;
 
 	m_TimeToHitCheckWait = 0.f;
 }
@@ -205,9 +205,6 @@ void CMainMap::Update( float dTime, CFrame* frame )
 		if (m_GameMode)
 			m_Player1->GetPacketHandler()->m_PacketKeyStatus.mHitCheck = true;
 	}
-	
-// 	if(m_GameMode && CBulletManager::GetInstance()->CharacterHitCheck(m_Player2))
-// 		m_Player2->SetHit( true );
 
 	//맵과 캐릭터의 충돌체크
 	SetPlayerMoveArea(m_Player1, frame);

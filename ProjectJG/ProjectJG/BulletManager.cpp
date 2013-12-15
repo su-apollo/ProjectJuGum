@@ -34,6 +34,7 @@ CBullet * CBulletManager::GetBullet( EBulletType bullet_type, float speed, float
 	{
 	case RAYMU_NORMAL_BULLET:
 		new_bullet->SetBulletType(RAYMU_NORMAL_BULLET);
+		new_bullet->SetHitRadius(BULLET_HIT_RADIUS);
 		new_bullet->SetSpeed(speed);
 		new_bullet->GetTexture(RAYMU_NORMAL_BULLET)->SetRotation(direction);
 		new_bullet->GetTexture(RAYMU_NORMAL_BULLET)->SetVisible(true);
@@ -41,6 +42,7 @@ CBullet * CBulletManager::GetBullet( EBulletType bullet_type, float speed, float
 
 	case RAYMU_ACCEL_BULLET:
 		new_bullet->SetBulletType(RAYMU_ACCEL_BULLET);
+		new_bullet->SetHitRadius(BULLET_HIT_RADIUS);
 		new_bullet->SetSpeed(RAYMU_ACCEL_BULLET_SPEED);
 		new_bullet->SetAccel(RAYMU_ACCEL_BULLET_ACCEL);
 		new_bullet->GetTexture(RAYMU_ACCEL_BULLET)->SetRotation(direction);
@@ -49,6 +51,7 @@ CBullet * CBulletManager::GetBullet( EBulletType bullet_type, float speed, float
 
 	case RAYMU_CURVE_BULLET:
 		new_bullet->SetBulletType(RAYMU_CURVE_BULLET);
+		new_bullet->SetHitRadius(BULLET_HIT_RADIUS);
 		new_bullet->SetSpeed(RAYMU_CURVE_BULLET_SPEED);
 		new_bullet->SetAngularAccel(RAYMU_CURVE_BULLET_ANGULAR);
 		new_bullet->GetTexture(RAYMU_CURVE_BULLET)->SetVisible(true);
@@ -56,18 +59,21 @@ CBullet * CBulletManager::GetBullet( EBulletType bullet_type, float speed, float
 
 	case MARISA_NORMAL_BULLET:
 		new_bullet->SetBulletType(MARISA_NORMAL_BULLET);
+		new_bullet->SetHitRadius(BULLET_HIT_RADIUS);
 		new_bullet->SetSpeed(speed);
 		new_bullet->GetTexture(MARISA_NORMAL_BULLET)->SetVisible(true);
 		return new_bullet;
 
 	case MARISA_BIG_BULLET:
 		new_bullet->SetBulletType(MARISA_BIG_BULLET);
+		new_bullet->SetHitRadius(BULLET_BIG_HIT_RADIUS);
 		new_bullet->SetSpeed(MARISA_BIG_BULLET_SPEED);
 		new_bullet->GetTexture(MARISA_BIG_BULLET)->SetVisible(true);
 		return new_bullet;
 
 	case MARISA_RETAR_BULLET:
 		new_bullet->SetBulletType(MARISA_RETAR_BULLET);
+		new_bullet->SetHitRadius(BULLET_HIT_RADIUS);
 		new_bullet->SetSpeed(MARISA_RETAR_BULLET_SPEED);
 		new_bullet->SetSpeed(MARISA_RETAR_BULLET_ACCEL);
 		new_bullet->GetTexture(MARISA_RETAR_BULLET)->SetVisible(true);
@@ -75,6 +81,7 @@ CBullet * CBulletManager::GetBullet( EBulletType bullet_type, float speed, float
 
 	case FAIRY_NORMAL_BULLET:
 		new_bullet->SetBulletType(FAIRY_NORMAL_BULLET);
+		new_bullet->SetHitRadius(BULLET_HIT_RADIUS);
 		new_bullet->SetSpeed(FAIRY_NORMAL_BULLET_SPEED);
 		new_bullet->GetTexture(FAIRY_NORMAL_BULLET)->SetVisible(true);
 		new_bullet->GetTexture(FAIRY_NORMAL_BULLET)->SetRotation(direction + 90.f);

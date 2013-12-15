@@ -4,11 +4,13 @@
 #include "Maincharacter.h"
 #include "BulletManager.h"
 #include "Bullet.h"
+#include "NNSpriteAtlas.h"
 
 CSubChar::CSubChar(ESubCharType type_of_char)
 {
 	if ( type_of_char == YUKARI )
 	{
+		m_BackgroundEffect = NNSpriteAtlas::Create(L"Sprite/BackgroundEffect1.png");
 		m_FlyMotion = NNAnimation::Create( 4, 0.2f,	
 			L"Sprite/SubCharR1.png",
 			L"Sprite/SubCharR2.png",
@@ -17,6 +19,7 @@ CSubChar::CSubChar(ESubCharType type_of_char)
 	}
 	else if ( type_of_char == ALICE )
 	{
+		m_BackgroundEffect = NNSpriteAtlas::Create(L"Sprite/BackgroundEffect2.png");
 		m_FlyMotion = NNAnimation::Create( 4, 0.2f,	
 			L"Sprite/SubCharB1.png",
 			L"Sprite/SubCharB2.png",
@@ -24,7 +27,9 @@ CSubChar::CSubChar(ESubCharType type_of_char)
 			L"Sprite/SubCharB4.png");
 	}
 
+	m_BackgroundEffect->SetScale(1.5f, 1.5f);
 	m_FlyMotion->SetScale(1.5f, 1.5f);
+	AddChild( m_BackgroundEffect );
 	AddChild( m_FlyMotion );
 
 	m_Type = type_of_char;
@@ -44,6 +49,10 @@ void CSubChar::Render()
 
 void CSubChar::Update( float dTime, CMaincharacter* enemy )
 {
+	//백그라운드 이펙트 회전
+	SetLifeTime(dTime + GetLifeTime());
+	m_BackgroundEffect->SetRotation(100.f*GetLifeTime());
+
 	UpdateShotDirection(enemy);
 	UpdateShotPoint();
 

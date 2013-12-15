@@ -3,6 +3,7 @@
 
 class CMaincharacter;
 class NNAnimation;
+class NNSpriteAtlas;
 
 class CSubChar :
 	public CGameMoveObj
@@ -26,5 +27,6 @@ protected:
 	float			m_ShotTimeSum;
 
 	NNAnimation*	m_FlyMotion;
+	NNSpriteAtlas*	m_BackgroundEffect;
 };
 
