@@ -8,7 +8,7 @@
 #include "Maincharacter.h"
 #include "NNSpriteAtlas.h"
 
-CFairy::CFairy(void) : m_dTimeSum(0.f)
+CFairy::CFairy(void) : m_ShotTimeSum(0.f)
 {
 // 	m_Texture =  NNSpriteAtlas::Create(L"Sprite/warrior1_0.png");
 // 	m_Texture->SetImageHeight(70.f);
@@ -44,22 +44,38 @@ void CFairy::Update( float dTime, CMaincharacter* Enemy)
 	UpdateShotDirection(Enemy);
 	UpdateShotPoint();
 
-	NomalAttack(dTime);
+	NormalAttack(dTime);
 
 	m_FairyMotion->Update(dTime);
 	m_FairyMotion->SetRotation(GetShotDirection() + 90.f);
 }
 
-void CFairy::NomalAttack( float dTime )
+void CFairy::NormalAttack( float dTime )
 {	
-	m_dTimeSum += dTime;
-	if (m_dTimeSum >= 2.f)
+	m_ShotTimeSum += dTime;
+	if (m_ShotTimeSum >= 2.f)
 	{
-		CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(FAIRY_NORMAL_BULLET, 0, GetShotDirection());
+		CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(FAIRY_NORMAL_BULLET, FAIRY_NORMAL_BULLET_SPEED, GetShotDirection());
 		pBullet->SetDirection(GetShotDirection());
 		pBullet->SetPosition(GetShotPoint());
-		m_dTimeSum = 0.f;
+		m_ShotTimeSum = 0.f;
 	}
+}
+
+void CFairy::SectorAttack( float dTime )
+{
+	float degree = 120.f;
+	int n = 6;
+
+	for (int i = 0; i < n; ++i)
+	{
+		float direction = GetShotDirection() - degree*0.5f + degree/(n-1)*i;
+
+		CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(FAIRY_NORMAL_BULLET, 0, GetShotDirection());
+		pBullet->SetPosition(GetShotPoint());
+		pBullet->SetDirection(direction);
+	}
+	m_ShotTimeSum = 0.f;
 }
 
 

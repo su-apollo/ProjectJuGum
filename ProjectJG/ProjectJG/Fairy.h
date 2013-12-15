@@ -15,12 +15,13 @@ public:
 	void		Render();
 	void		Update(float dTime, CMaincharacter* Enemy);
 
-	void		NomalAttack( float dTime );
+	void		NormalAttack( float dTime );
+	void		SectorAttack( float dTime );
 
 private:
 	NNSpriteAtlas*	m_FairyTexture;
 	NNAnimation*	m_FairyMotion;
-	float			m_dTimeSum;
+	float			m_ShotTimeSum;
 	
 };
 

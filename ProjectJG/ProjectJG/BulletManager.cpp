@@ -22,6 +22,7 @@ CBulletManager::~CBulletManager(void)
 //                         GetObj
 //**************************************************************
 
+//총알의 속성을 입력받은후 알맞은 속성으로 총알을 제작한다.
 CBullet * CBulletManager::GetBullet( EBulletType bullet_type, float speed, float direction )
 {
 	++m_BulletIndex;
@@ -32,22 +33,49 @@ CBullet * CBulletManager::GetBullet( EBulletType bullet_type, float speed, float
 	switch (bullet_type)
 	{
 	case RAYMU_NORMAL_BULLET:
+		new_bullet->SetBulletType(RAYMU_NORMAL_BULLET);
 		new_bullet->SetSpeed(speed);
+		new_bullet->GetTexture(RAYMU_NORMAL_BULLET)->SetRotation(direction);
 		new_bullet->GetTexture(RAYMU_NORMAL_BULLET)->SetVisible(true);
-		new_bullet->GetTexture(RAYMU_NORMAL_BULLET)->SetRotation(direction + 90.f);
 		return new_bullet;
+
+	case RAYMU_ACCEL_BULLET:
+		new_bullet->SetBulletType(RAYMU_ACCEL_BULLET);
+		new_bullet->SetSpeed(RAYMU_ACCEL_BULLET_SPEED);
+		new_bullet->SetAccel(RAYMU_ACCEL_BULLET_ACCEL);
+		new_bullet->GetTexture(RAYMU_ACCEL_BULLET)->SetRotation(direction);
+		new_bullet->GetTexture(RAYMU_ACCEL_BULLET)->SetVisible(true);
+		return new_bullet;
+
+	case RAYMU_CURVE_BULLET:
+		new_bullet->SetBulletType(RAYMU_CURVE_BULLET);
+		new_bullet->SetSpeed(RAYMU_CURVE_BULLET_SPEED);
+		new_bullet->SetAngularAccel(RAYMU_CURVE_BULLET_ANGULAR);
+		new_bullet->GetTexture(RAYMU_CURVE_BULLET)->SetVisible(true);
+		return new_bullet;
+
 	case MARISA_NORMAL_BULLET:
+		new_bullet->SetBulletType(MARISA_NORMAL_BULLET);
 		new_bullet->SetSpeed(speed);
 		new_bullet->GetTexture(MARISA_NORMAL_BULLET)->SetVisible(true);
+		return new_bullet;
+
+	case MARISA_BIG_BULLET:
+		new_bullet->SetBulletType(MARISA_BIG_BULLET);
+		new_bullet->SetSpeed(MARISA_BIG_BULLET_SPEED);
+		new_bullet->GetTexture(MARISA_BIG_BULLET)->SetVisible(true);
+		return new_bullet;
+
+	case MARISA_RETAR_BULLET:
+		new_bullet->SetBulletType(MARISA_RETAR_BULLET);
+		new_bullet->SetSpeed(MARISA_RETAR_BULLET_SPEED);
+		new_bullet->SetSpeed(MARISA_RETAR_BULLET_ACCEL);
+		new_bullet->GetTexture(MARISA_RETAR_BULLET)->SetVisible(true);
+		return new_bullet;
+
 	case FAIRY_NORMAL_BULLET:
-		if (speed == 0)
-		{
-			new_bullet->SetSpeed(FAIRY_NORMAL_BULLET_SPEED);
-		}
-		else
-		{
-			new_bullet->SetSpeed(speed);
-		}
+		new_bullet->SetBulletType(FAIRY_NORMAL_BULLET);
+		new_bullet->SetSpeed(FAIRY_NORMAL_BULLET_SPEED);
 		new_bullet->GetTexture(FAIRY_NORMAL_BULLET)->SetVisible(true);
 		new_bullet->GetTexture(FAIRY_NORMAL_BULLET)->SetRotation(direction + 90.f);
 		return new_bullet;
@@ -138,7 +166,10 @@ void CBulletManager::UpdateBullet(float dTime, CMainMap* Map)
 		if (m_pBulletArray[i]->IsVisible())
 		{
 			m_pBulletArray[i]->Update(dTime);
-			CheckLifeTime(Map, m_pBulletArray[i]);
+			if(CheckLifeTime(Map, m_pBulletArray[i]))
+			{
+				DestroyBullet(m_pBulletArray[i]);
+			}
 		}
 	}
 }
@@ -150,7 +181,10 @@ void CBulletManager::UpdateAsteroid(float dTime, CMainMap* Map )
 		if (m_pAsteroidArray[i]->IsVisible())
 		{
 			m_pAsteroidArray[i]->Update(dTime);
-			CheckLifeTime(Map, m_pAsteroidArray[i]);
+			if(CheckLifeTime(Map, m_pAsteroidArray[i]))
+			{
+				DestroyObj(m_pAsteroidArray[i]);
+			}
 		}
 	}
 }
@@ -174,7 +208,7 @@ bool CBulletManager::CharacterHitCheck(CMaincharacter * Player)
 //                         LifeTime
 //**************************************************************
 
-void CBulletManager::CheckLifeTime(CMainMap * Map, CGameMoveObj * Obj)
+bool CBulletManager::CheckLifeTime(CMainMap * Map, CGameMoveObj * Obj)
 {
 	float leftline = Map->GetLeftLine() - Obj->GetHitRadius();
 	float rightline = Map->GetRightLine() + Obj->GetHitRadius();
@@ -184,17 +218,26 @@ void CBulletManager::CheckLifeTime(CMainMap * Map, CGameMoveObj * Obj)
 	if (Obj->GetPositionX() < leftline || Obj->GetPositionX() > rightline
 		|| Obj->GetPositionY() > botline || Obj->GetPositionY() < topline)
 	{
-		DestroyObj(Obj);
+		return true;
 	}
+	return false;
 }
 
 //**************************************************************
 //							Destroy
 //**************************************************************
-void CBulletManager::DestroyObj( CGameMoveObj* Bullet )
+void CBulletManager::DestroyObj( CGameMoveObj* Obj )
 {
-	Bullet->SetVisible(false);
-	Bullet->InitMember();
+	Obj->SetVisible(false);
+	Obj->InitMember();
+}
+
+//총알을 파괴한다. 총알의 종류에 해당하는 텍스쳐를 안보이게 가린다.
+void CBulletManager::DestroyBullet( CBullet* bullet )
+{
+	bullet->SetVisible(false);
+	bullet->InitMember();
+	bullet->GetTexture(bullet->GetBulletType())->SetVisible(false);
 }
 
 //**************************************************************

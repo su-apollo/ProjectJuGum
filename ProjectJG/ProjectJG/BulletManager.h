@@ -23,25 +23,26 @@ public:
 // 	void ShotTornadoBullets(CGameMoveObj* Player, int n);
 
 	//탄환이 맵밖으로 나갔는지 확인
-	void			CheckLifeTime(CMainMap * Map, CGameMoveObj * Obj);
+	bool			CheckLifeTime(CMainMap * Map, CGameMoveObj * Obj);
 
 	//메니져에게서 탄환을 받아오는 함수들
 	CBullet*		GetBullet( EBulletType bullet_type, float speed, float direction );
 	CAsteroid*		GetAsteroid();
 
 	//운석출현 스킬
-	void ShotAsteroid(CMainMap* Map);
+	void			ShotAsteroid(CMainMap* Map);
 
 	//업데이트
-	void UpdateObj(float dTime , CMaincharacter* Enemy, CMainMap* Map);
-	void UpdateBullet(float dTime, CMainMap* Map);
-	void UpdateAsteroid(float dTime, CMainMap* Map);
+	void			UpdateObj(float dTime , CMaincharacter* Enemy, CMainMap* Map);
+	void			UpdateBullet(float dTime, CMainMap* Map);
+	void			UpdateAsteroid(float dTime, CMainMap* Map);
 
 	//히트채크
-	bool CharacterHitCheck(CMaincharacter * Player);
+	bool			CharacterHitCheck(CMaincharacter * Player);
 
 	//라이프타임
-	void DestroyObj(CGameMoveObj* Obj);
+	void			DestroyObj(CGameMoveObj* Obj);
+	void			DestroyBullet(CBullet* bullet);
 	
 	//생산은 씬에서 해줘야함 불렛메니져는 생산된 불렛을 어레이로 보관하고 관리
 	CBullet**		GetBulletArray() { return m_pBulletArray; }

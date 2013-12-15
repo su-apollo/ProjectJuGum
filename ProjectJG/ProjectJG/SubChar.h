@@ -14,13 +14,17 @@ public:
 	void			Render();
 	void			Update(float dTime, CMaincharacter* enemy);
 	
-	ECharState		GetState() const { return m_State; }
-	void			SetState(ECharState val) { m_State = val; }
+	ESubCharState	GetState() const { return m_State; }
+	void			SetState(ESubCharState val) { m_State = val; }
+
+	void			YukariNormalAttack( float dTime );
+	void			AliceNormalAttack( float dTime );
 
 protected:
 	ESubCharType	m_Type;
-	ECharState		m_State;
-	
+	ESubCharState	m_State;
+	float			m_ShotTimeSum;
+
 	NNAnimation*	m_FlyMotion;
 };
 

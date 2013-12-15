@@ -25,9 +25,6 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : m_netsetup(fal
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 
-	m_BackgroundSound = NNResourceManager::GetInstance()->LoadSoundFromFile( GAME_BACKGROUND_SOUND, true );
-	NNAudioSystem::GetInstance()->Play( m_BackgroundSound );
-
 	// °ÔÀÓ ¸ÞÀÎ ¸Ê
 	m_MainMap = new CMainMap(GameMode);
 	m_MainMap->SetPosition( NNPoint(width *0.5f, height *0.5f) );
@@ -59,6 +56,9 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : m_netsetup(fal
 	AddChild( m_CountNumLabel_1 );
 
 	NetworkSetMenu(GameMode, serverIP);
+
+	m_BackgroundSound = NNResourceManager::GetInstance()->LoadSoundFromFile( GAME_BACKGROUND_SOUND, true );
+	NNAudioSystem::GetInstance()->Play( m_BackgroundSound );
 }
 
 CPlayScene::~CPlayScene(void)

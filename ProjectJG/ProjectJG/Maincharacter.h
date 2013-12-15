@@ -38,13 +38,15 @@ public:
 	void			SkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key);
 	void			SummonSubChar(float dTime, CMaincharacter* enemy, EInputSetUp speed_key);
 	void			RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key);
-	void			RaymuNomalShot();
+	void			MarisaSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key);
+	void			RaymuNormalShot();
+	void			MarisaNormalShot();
 
 	void			SetHit( bool bHit ) { m_bHit = bHit; }
 	bool			IsHit() { return m_bHit; }
 
 	//요정관련스킬
-	void			FairySkill_1();
+	void			FairySkill_1(float dTime);
 	void			SummonFairy();
 	void			UpdateFairy(float dTime, CMaincharacter* Enemy);
 

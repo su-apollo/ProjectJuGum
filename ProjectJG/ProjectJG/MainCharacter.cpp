@@ -51,7 +51,7 @@ CMaincharacter::CMaincharacter(ECharcterType type_of_char)
 	AddChild( m_FlyMotion );
 	
 	m_Type = type_of_char;
-	m_Cost = 50;
+	m_Cost = BASIC_COST;
 	m_bHit = false;
 	m_PacketHandler = new CPacketHandler;
 }
@@ -91,7 +91,6 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, E
 	m_FlyMotion->Update(dTime);
 	m_FlyMotion->SetRotation(GetShotDirection() + 90.f);
 	
-
 	//이동과 스킬시전
 	UpdateMotion(dTime, m_direct_key_input);
 	SkillCasting(dTime, enemy, map, m_skill_key_input);
@@ -198,10 +197,14 @@ void CMaincharacter::SkillCasting(float dTime, CMaincharacter* enemy, CMainMap* 
 	switch (GetType())
 	{
 	case RAYMU:
-	case MARISA:
 		RaymuSkillCasting(dTime, enemy, map, skill_key);
 		break;
+
+	case MARISA:
+		MarisaSkillCasting(dTime, enemy, map, skill_key);
+		break;
 	default:
+		
 		break;
 	}
 }
@@ -214,7 +217,7 @@ void CMaincharacter::RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMain
 	case SKILL_KEY_ONE:
 		if ( GetCost() >= RAYMU_NORMAL_ATTACK_COST )
 		{
-			RaymuNomalShot();
+			RaymuNormalShot();
 			SetCost( GetCost() - RAYMU_NORMAL_ATTACK_COST );
 		}
 		break;
@@ -228,7 +231,42 @@ void CMaincharacter::RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMain
 	case SKILL_KEY_THREE:
 		if ( GetCost() >= FAIRY_SKILL_1_COST  )
 		{
-			FairySkill_1();
+			FairySkill_1(dTime);
+			SetCost( GetCost() - FAIRY_SKILL_1_COST  );
+		}
+		break;
+	case SKILL_KEY_FOUR:
+		break;
+	case SKILL_KEY_FIVE:
+		break;
+	case SKILL_KEY_SIX:
+		break;
+	}
+}
+
+
+void CMaincharacter::MarisaSkillCasting( float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key )
+{
+	switch (skill_key)
+	{
+	case SKILL_KEY_ONE:
+		if ( GetCost() >= MARISA_NORMAL_ATTACK_COST )
+		{
+			MarisaNormalShot();
+			SetCost( GetCost() - MARISA_NORMAL_ATTACK_COST );
+		}
+		break;
+	case SKILL_KEY_TWO:
+		if ( GetCost() >= SUMMON_FAIRY_COST )
+		{
+			SummonFairy();
+			SetCost( GetCost() - SUMMON_FAIRY_COST );
+		}
+		break;
+	case SKILL_KEY_THREE:
+		if ( GetCost() >= FAIRY_SKILL_1_COST  )
+		{
+			FairySkill_1(dTime);
 			SetCost( GetCost() - FAIRY_SKILL_1_COST  );
 		}
 		break;
@@ -269,27 +307,28 @@ void CMaincharacter::SummonSubChar( float dTime, CMaincharacter* enemy, EInputSe
 //                         Skills
 //**************************************************************
 
-void CMaincharacter::RaymuNomalShot()
+void CMaincharacter::RaymuNormalShot()
 {
 	CBullet * pBullet = CBulletManager::GetInstance()->GetBullet(RAYMU_NORMAL_BULLET, GetSpeed(), GetShotDirection());
 	pBullet->SetDirection(GetShotDirection());
 	pBullet->SetPosition(GetShotPoint());
 }
 
-void CMaincharacter::FairySkill_1()
+
+void CMaincharacter::MarisaNormalShot()
+{
+	CBullet * pBullet = CBulletManager::GetInstance()->GetBullet(MARISA_NORMAL_BULLET, GetSpeed(), GetShotDirection());
+	pBullet->SetDirection(GetShotDirection());
+	pBullet->SetPosition(GetShotPoint());
+}
+
+void CMaincharacter::FairySkill_1(float dTime)
 {
 	for (int i = 0; i < MAX_FAIRY_NUM; ++i)
 	{
 		if (m_pFairyArray[i]->IsVisible())
 		{
-			for ( int j = 0; j < 6; ++j )
-			{
-				float direction = m_pFairyArray[i]->GetShotDirection() - 120*0.5f + 120/5*j ;
-
-			 	CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(FAIRY_NORMAL_BULLET, 0, direction);
-			 	pBullet->SetPosition(m_pFairyArray[i]->GetShotPoint());
-			 	pBullet->SetDirection(direction);
-			}
+			m_pFairyArray[i]->SectorAttack(dTime);
 		}
 	}
 }

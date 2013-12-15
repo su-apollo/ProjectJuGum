@@ -14,7 +14,7 @@
 
 #define SHOT_POINT						20.f
 
-
+#define BASIC_COST						50000
 
 
 #define MAIN_MENU_SCENE_BACKGROUND_SOUND		"Sound/Eternal Dream.mp3"
@@ -36,7 +36,7 @@ enum ESubCharType
 	YUKARI,
 	ALICE
 };
-enum ECharState
+enum ESubCharState
 {
 	NONE_STATE,
 	SUMMON_STATE,
@@ -59,10 +59,21 @@ enum EBulletType
 	FAIRY_NORMAL_BULLET,
 };
 #define FAIRY_NORMAL_BULLET_SPEED		100.f
-// #define ACCELBULLET_ACCEL				200.f
-// #define CURVEBULLET_ANGULAR_ACCEL		30.f
+
+#define RAYMU_ACCEL_BULLET_SPEED			20.f
+#define RAYMU_ACCEL_BULLET_ACCEL			150.f
+
+#define RAYMU_CURVE_BULLET_SPEED			50.f
+#define RAYMU_CURVE_BULLET_ANGULAR		30.f
+
+#define MARISA_BIG_BULLET_SPEED			50.f
+
+#define MARISA_RETAR_BULLET_SPEED		200.f
+#define MARISA_RETAR_BULLET_ACCEL		-10.f
 
 #define BULLET_HIT_RADIUS				7.f
+#define BULLET_BIG_HIT_RADIUS			50.f
+
 #define ASTEROID_HIT_RADIUS				50.f
 
 
