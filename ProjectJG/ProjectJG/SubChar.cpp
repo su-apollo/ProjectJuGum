@@ -86,6 +86,7 @@ void CSubChar::YukariNormalAttack( float dTime )
 
 			CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(RAYMU_ACCEL_BULLET, 0, GetShotDirection());
 			pBullet->SetPosition(GetShotPoint());
+			pBullet->GetTexture(RAYMU_ACCEL_BULLET)->SetRotation(direction);
 			pBullet->SetDirection(direction);
 		}
 		m_ShotTimeSum = 0.f;
