@@ -30,26 +30,30 @@ public:
 
 private:
 	// 배경
-	NNSprite* m_Logo;
-	NNSprite* m_BackGround;
-	NNSound* m_BackgroundSound;
-
+	NNSprite*		m_Logo;
+	NNSprite*		m_BackGround;
+	
 	// 씬 전환시 넘길 parameter
-	bool	m_bChangeScene;
-	ENetworkMode m_GameMode;
-	char	m_serverIP[20];
+	bool			m_bChangeScene;
+	ENetworkMode	m_GameMode;
+	char			m_serverIP[20];
 
 	// 라벨들
-	NNLabel* m_LoadingLabel;
+	NNLabel*		m_LoadingLabel;
 
-	NNLabel* m_InstructionLabel;
-	wchar_t m_InstructionBuffer[100];
+	NNLabel*		m_InstructionLabel;
+	wchar_t			m_InstructionBuffer[100];
 
-	NNLabel* m_MenuLabel[MENU_NUM];
-	unsigned int m_KeyOn;
+	NNLabel*		m_MenuLabel[MENU_NUM];
+	unsigned int	m_KeyOn;
 
-	NNLabel* m_NetMenuLabel[NET_MENU_NUM];
-	wchar_t m_NetMenuBuffer[NET_MENU_NUM][30];
+	NNLabel*		m_NetMenuLabel[NET_MENU_NUM];
+	wchar_t			m_NetMenuBuffer[NET_MENU_NUM][30];
+
+	NNSound*		m_BackgroundSound;
+	NNSound*		m_OkSound;
+	NNSound*		m_CancelSound;
+	NNSound*		m_SelectSound;
 	
 };
 

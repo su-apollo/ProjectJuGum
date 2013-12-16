@@ -16,15 +16,16 @@
 
 #define BASIC_COST						50000
 
-
-#define MAIN_MENU_SCENE_BACKGROUND_SOUND		"Sound/Eternal Dream.mp3"
 #define MAIN_MENU_SCENE_BACKGROUND_IMAGE		L"Sprite/background/IMG00000.jpg"
 #define MAIN_MENU_SCENE_LOGO					L"Sprite/logo.png"
 #define MAIN_MAP_BACKGROUND_IMAGE			L"Sprite/background/IMG00000.jpg"
 #define GAME_FONT							L"Font/¸ð¸®½º-9"
 
+#define MAIN_MENU_SCENE_BACKGROUND_SOUND		"Sound/Eternal Dream.mp3"
 #define GAME_BACKGROUND_SOUND				"Sound/the Mooned Incects.mp3"
-
+#define EFFECT_SOUND_OK						"Sound/se_ok00.wav"
+#define EFFECT_SOUND_CANCEL					"Sound/se_cancel00.wav"
+#define EFFECT_SOUND_SELECT					"Sound/se_select00.wav"
 
 enum ECharcterType
 {

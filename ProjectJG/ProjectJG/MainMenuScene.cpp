@@ -20,6 +20,11 @@ CMainMenuScene::CMainMenuScene(void)
 	m_BackgroundSound = NNResourceManager::GetInstance()->LoadSoundFromFile( MAIN_MENU_SCENE_BACKGROUND_SOUND, true );
 	NNAudioSystem::GetInstance()->Play( m_BackgroundSound );
 
+	//effectsound
+	m_OkSound = NNResourceManager::GetInstance()->LoadSoundFromFile( EFFECT_SOUND_OK, false );
+	m_CancelSound = NNResourceManager::GetInstance()->LoadSoundFromFile( EFFECT_SOUND_CANCEL, false );
+	m_SelectSound = NNResourceManager::GetInstance()->LoadSoundFromFile( EFFECT_SOUND_SELECT, false );
+
 	// 배경 이미지
 	m_BackGround = NNSprite::Create( MAIN_MENU_SCENE_BACKGROUND_IMAGE );
 	m_BackGround->SetPosition( NNPoint(width*0.5f, height*0.5f) );
@@ -104,12 +109,28 @@ void CMainMenuScene::Update( float dTime )
 	case TEST_MODE:
 		break;
 	case SERVER_MODE:
-		if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE ) ChangeScene();
-		if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_TWO ) CancelModeSelection();
+		if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE ) 
+		{
+			NNAudioSystem::GetInstance()->Play( m_OkSound );
+			ChangeScene();
+		}
+		if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_TWO ) 
+		{
+			NNAudioSystem::GetInstance()->Play( m_CancelSound );
+			CancelModeSelection();
+		}
 		break;
 	case CLIENT_MODE:
-		if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE ) ChangeScene();
-		if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_TWO ) CancelModeSelection();
+		if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE ) 
+		{
+			NNAudioSystem::GetInstance()->Play( m_OkSound );
+			ChangeScene();
+		}
+		if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_TWO ) 
+		{
+			NNAudioSystem::GetInstance()->Play( m_CancelSound );
+			CancelModeSelection();
+		}
 		GetIPInput();
 		break;
 	case MODE_NONE:
@@ -128,11 +149,13 @@ void CMainMenuScene::SetUpGameMode()
 	if ( NNInputSystem::GetInstance()->GetMainMenuInput() == UP 
 		|| NNInputSystem::GetInstance()->GetMainMenuInput() == LEFT)
 	{
+		NNAudioSystem::GetInstance()->Play( m_SelectSound );
 		--m_KeyOn;
 	}
 	else if ( NNInputSystem::GetInstance()->GetMainMenuInput() == DOWN 
 		|| NNInputSystem::GetInstance()->GetMainMenuInput() == RIGHT )
 	{
+		NNAudioSystem::GetInstance()->Play( m_SelectSound );
 		++m_KeyOn;
 	}
 	m_KeyOn = (m_KeyOn + MENU_NUM) % MENU_NUM;
@@ -140,6 +163,7 @@ void CMainMenuScene::SetUpGameMode()
 
 	if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE )
 	{
+		NNAudioSystem::GetInstance()->Play( m_OkSound );
 		// 현재 가리키고 있는 메뉴에 따라 다른 설정.
 		switch (m_KeyOn)
 		{
@@ -178,6 +202,20 @@ void CMainMenuScene::GetIPInput()
 	size_t len = strlen(m_serverIP);
 	char* buffer = new char[len+2];
 	strcpy_s(buffer, len+2, m_serverIP);
+
+	if (NNInputSystem::GetInstance()->GetKeyState(VK_OEM_PERIOD) == KEY_DOWN ||
+		NNInputSystem::GetInstance()->GetKeyState('0') == KEY_DOWN ||
+		NNInputSystem::GetInstance()->GetKeyState('1') == KEY_DOWN ||
+		NNInputSystem::GetInstance()->GetKeyState('2') == KEY_DOWN ||
+		NNInputSystem::GetInstance()->GetKeyState('3') == KEY_DOWN ||
+		NNInputSystem::GetInstance()->GetKeyState('4') == KEY_DOWN ||
+		NNInputSystem::GetInstance()->GetKeyState('5') == KEY_DOWN ||
+		NNInputSystem::GetInstance()->GetKeyState('6') == KEY_DOWN ||
+		NNInputSystem::GetInstance()->GetKeyState('7') == KEY_DOWN ||
+		NNInputSystem::GetInstance()->GetKeyState('8') == KEY_DOWN ||
+		NNInputSystem::GetInstance()->GetKeyState('9') == KEY_DOWN
+		)
+		NNAudioSystem::GetInstance()->Play( m_SelectSound );
 
 	if ( NNInputSystem::GetInstance()->GetKeyState(VK_OEM_PERIOD) == KEY_DOWN) {buffer[len] = '.'; buffer[len+1] = '\0';}
 	else if ( NNInputSystem::GetInstance()->GetKeyState('0') == KEY_DOWN) {buffer[len] = '0'; buffer[len+1] = '\0';}
