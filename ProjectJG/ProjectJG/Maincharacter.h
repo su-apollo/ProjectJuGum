@@ -64,6 +64,7 @@ public:
 
 	//네트워크 관련 함수
 	CPacketHandler* GetPacketHandler() { return m_PacketHandler; }
+	void			SendPacket();
 
 protected:
 	NNCircle*		m_Circle;

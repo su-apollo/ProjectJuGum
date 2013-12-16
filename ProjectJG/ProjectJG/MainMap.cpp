@@ -14,6 +14,8 @@
 #include "NNAnimation.h"
 #include "NNInputSystem.h"		// for 운석 테스트
 #include "NNApplication.h"
+#include "NNNetworkSystem.h"
+#include "PacketHandler.h"
 
 
 CMainMap::CMainMap(ENetworkMode GameMode)
@@ -208,16 +210,15 @@ void CMainMap::Update( float dTime, CFrame* frame )
 			{
 				m_GameResult = GAME_RESULT_DRAW;
 			}
-			if (m_Player1->IsHit())
+			else if (m_Player1->IsHit())
 			{
 				m_GameResult = GAME_RESULT_LOSE;
 			}
-			if (m_Player2->IsHit())
+			else if (m_Player2->IsHit())
 			{
 				m_GameResult = GAME_RESULT_WIN;
 			}
 		}
-		return;
 	}
 
 	// cost
@@ -228,8 +229,10 @@ void CMainMap::Update( float dTime, CFrame* frame )
 	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2, this);
 
 	//캐릭터 업데이트
-	m_Player1->Update(dTime, m_Player2, this, m_GameMode);
-	m_Player2->UpdateByPeer(dTime, m_Player1, this, m_GameMode);
+	if (!m_Player1->IsHit())
+		m_Player1->Update(dTime, m_Player2, this, m_GameMode);
+	if (!m_Player2->IsHit())
+		m_Player2->UpdateByPeer(dTime, m_Player1, this, m_GameMode);
 
 	//총알과 캐릭터의 충돌체크
 	if(CBulletManager::GetInstance()->CharacterHitCheck(m_Player1))
@@ -237,7 +240,10 @@ void CMainMap::Update( float dTime, CFrame* frame )
 		m_Player1->SetHit( true );
 		//맏으면 패킷에 맞았다고 알려줌
 		if (m_GameMode)
+		{
 			m_Player1->GetPacketHandler()->m_PacketKeyStatus.mHitCheck = true;
+			m_Player1->SendPacket();
+		}
 	}
 
 	//맵과 캐릭터의 충돌체크

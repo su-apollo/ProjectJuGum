@@ -423,4 +423,9 @@ bool CMaincharacter::UpdateDeadAnimation( float dTime )
 }
 
 
+void CMaincharacter::SendPacket()
+{
+	NNNetworkSystem::GetInstance()->Write( (const char*)&m_PacketHandler->m_PacketKeyStatus, m_PacketHandler->m_PacketKeyStatus.m_Size );
+}
+
 
