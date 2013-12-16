@@ -10,6 +10,7 @@ class CFairy;
 class NNAnimation;
 class CPacketHandler;
 class CSubChar;
+class NNSound;
 
 //메인케릭터 펙토리형태로 구성
 class CMaincharacter : public CGameMoveObj
@@ -44,6 +45,8 @@ public:
 
 	void			SetHit( bool bHit ) { m_bHit = bHit; }
 	bool			IsHit() { return m_bHit; }
+	NNSound*		GetDeadsound() const { return m_Deadsound; }
+	void			SetDeadsound(NNSound* val) { m_Deadsound = val; }
 
 	//요정관련스킬
 	void			FairySkill_1(float dTime);
@@ -71,6 +74,9 @@ protected:
 	CSubChar*		m_SubChar;
 	CFairy*			m_pFairyArray[MAX_FAIRY_NUM];
 	int				m_FairyIndex;
+
+	NNSound*		m_Deadsound;
+	NNSound*		m_Shotsound;
 
 	//동기화를 위한 시간
 	float			m_Syntime;

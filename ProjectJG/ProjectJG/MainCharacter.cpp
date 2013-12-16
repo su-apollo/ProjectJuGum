@@ -11,11 +11,21 @@
 #include "NNAnimation.h"
 #include "Bullet.h"
 #include "SubChar.h"
+#include "NNResourceManager.h"
+#include "NNAudioSystem.h"
+
 
 CMaincharacter::CMaincharacter(ECharcterType type_of_char) 
 	: m_bHit(false), m_FairyIndex(0), m_Syntime(0.f)
 {
 	SetHitRadius(CHAR_HIT_RADIUS);
+
+	//관련사운드 로드
+	m_Deadsound = NNResourceManager::GetInstance()->LoadSoundFromFile( EFFECT_SOUND_DEAD, false );
+	m_Shotsound = NNResourceManager::GetInstance()->LoadSoundFromFile( EFFECT_SOUND_CHAR_SHOT, false );
+
+	//이거 동작을 안함
+	/*NNAudioSystem::GetInstance()->SetVolume(m_Shotsound, 0.1f);*/
 	
 // 	m_Circle = NNCircle::Create(GetHitRadius());
 // 	m_Circle->SetPosition(0.f, 0.f);
@@ -196,6 +206,9 @@ void CMaincharacter::UpdateMotion(float dTime, EInputSetUp move_key)
 
 void CMaincharacter::SkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key)
 {
+	if (skill_key)
+		NNAudioSystem::GetInstance()->Play( m_Shotsound );
+
 	switch (GetType())
 	{
 	case RAYMU:

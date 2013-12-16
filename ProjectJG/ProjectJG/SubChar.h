@@ -4,6 +4,7 @@
 class CMaincharacter;
 class NNAnimation;
 class NNSpriteAtlas;
+class NNSound;
 
 class CSubChar :
 	public CGameMoveObj
@@ -25,6 +26,8 @@ protected:
 	ESubCharType	m_Type;
 	ESubCharState	m_State;
 	float			m_ShotTimeSum;
+
+	NNSound*		m_Shotsound;
 
 	NNAnimation*	m_FlyMotion;
 	NNSpriteAtlas*	m_BackgroundEffect;

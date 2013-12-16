@@ -7,6 +7,8 @@
 #include "BulletManager.h"
 #include "Maincharacter.h"
 #include "NNSpriteAtlas.h"
+#include "NNResourceManager.h"
+#include "NNAudioSystem.h"
 
 CFairy::CFairy(void) : m_ShotTimeSum(0.f)
 {
@@ -15,6 +17,8 @@ CFairy::CFairy(void) : m_ShotTimeSum(0.f)
 // 	m_Texture->SetImageWidth(70.f);
 // 	m_Texture->SetPosition(0.f, 0.f);
 // 	AddChild( m_Texture );
+
+	m_Shotsound = NNResourceManager::GetInstance()->LoadSoundFromFile( EFFECT_SOUND_SUBCHAR_SHOT, false );
 
 	m_FairyMotion = NNAnimation::Create( 8, 0.3f,	
 		L"Sprite/fairy1.png",
@@ -55,6 +59,8 @@ void CFairy::NormalAttack( float dTime )
 	m_ShotTimeSum += dTime;
 	if (m_ShotTimeSum >= 2.f)
 	{
+		//NNAudioSystem::GetInstance()->Play( m_Shotsound );
+
 		CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(FAIRY_NORMAL_BULLET, FAIRY_NORMAL_BULLET_SPEED, GetShotDirection());
 		pBullet->SetDirection(GetShotDirection());
 		pBullet->SetPosition(GetShotPoint());

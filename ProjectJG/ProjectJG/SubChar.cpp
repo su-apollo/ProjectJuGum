@@ -5,9 +5,13 @@
 #include "BulletManager.h"
 #include "Bullet.h"
 #include "NNSpriteAtlas.h"
+#include "NNResourceManager.h"
+#include "NNAudioSystem.h"
 
 CSubChar::CSubChar(ESubCharType type_of_char)
 {
+	m_Shotsound = NNResourceManager::GetInstance()->LoadSoundFromFile( EFFECT_SOUND_SUBCHAR_SHOT, false );
+
 	if ( type_of_char == YUKARI )
 	{
 		m_BackgroundEffect = NNSpriteAtlas::Create(L"Sprite/BackgroundEffect1.png");
@@ -80,6 +84,7 @@ void CSubChar::YukariNormalAttack( float dTime )
 		float degree = 30.f;
 		int n = 3;
 
+		//NNAudioSystem::GetInstance()->Play( m_Shotsound );
 		for (int i = 0; i < n; ++i)
 		{
 			float direction = GetShotDirection() - degree*0.5f + degree/(n-1)*i;
@@ -98,6 +103,8 @@ void CSubChar::AliceNormalAttack( float dTime )
 	m_ShotTimeSum += dTime;
 	if (m_ShotTimeSum >= 3.f)
 	{
+		//NNAudioSystem::GetInstance()->Play( m_Shotsound );
+
 		CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(MARISA_BIG_BULLET, 0, GetShotDirection());
 		pBullet->SetPosition(GetShotPoint());
 		pBullet->SetDirection(GetShotDirection());

@@ -4,6 +4,7 @@
 class NNSpriteAtlas;
 class NNAnimation;
 class CMaincharacter;
+class NNSound;
 
 class CFairy
 	: public CGameMoveObj
@@ -23,5 +24,6 @@ private:
 	NNAnimation*	m_FairyMotion;
 	float			m_ShotTimeSum;
 	
+	NNSound*		m_Shotsound;
 };
 

@@ -27,6 +27,11 @@
 #define EFFECT_SOUND_CANCEL					"Sound/se_cancel00.wav"
 #define EFFECT_SOUND_SELECT					"Sound/se_select00.wav"
 
+#define EFFECT_SOUND_DEAD					"Sound/se_pldead00.wav"
+#define EFFECT_SOUND_CHAR_SHOT				"Sound/se_plst00.wav"
+#define EFFECT_SOUND_SUBCHAR_SHOT			"Sound/se_graze.wav"
+#define EFFECT_SOUND_BIG_SKILL_SHOT			"Sound/se_enep00.wav"
+
 enum ECharcterType
 {
 	RAYMU,
