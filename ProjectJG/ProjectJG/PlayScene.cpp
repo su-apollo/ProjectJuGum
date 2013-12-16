@@ -92,13 +92,24 @@ void CPlayScene::Update( float dTime )
 
 	// 모든 게임 플레이 관련 처리는 메인 맵에서 한다.
 	m_MainMap->Update( dTime, m_Frame );
-	if ( m_MainMap->IsGameEnd(dTime) )
+
+	switch (m_MainMap->GetGameResult())
 	{
-		if (m_MainMap->GetPlayer1()->UpdateExplosionAnimation(dTime))
-		{
-			EndGame();
-		}
+	case GAME_RESULT_DRAW:
+		MessageBox(NULL, L"Draw!", L"Gameover", MB_OK) ;
+		break;
+	case GAME_RESULT_WIN:
+		MessageBox(NULL, L"You Win!", L"Gameover", MB_OK) ;
+		break;
+	case GAME_RESULT_LOSE:
+		MessageBox(NULL, L"You Lose!", L"Gameover", MB_OK) ;
+		break;
+	default:
+		break;
 	}
+	
+	if ( m_MainMap->GetGameResult() )
+		EndGame();
 }
 
 void CPlayScene::EndGame()

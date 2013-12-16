@@ -26,7 +26,7 @@ public:
 	void			UpdateByPeer(float dTime, CMaincharacter* enemy, CMainMap* map, ENetworkMode gamemode);
 
 	void			UpdateMotion(float dTime, EInputSetUp move_key);
-	bool			UpdateExplosionAnimation(float dTime);
+	bool			UpdateDeadAnimation(float dTime);
 
 	NNCircle *		GetMainCircle(){return m_Circle;}
 
@@ -59,6 +59,9 @@ public:
 
 	void			SetSubChar(CSubChar* setsubchar){ m_SubChar = setsubchar; }
 
+	NNSpriteAtlas*	GetDeadEffect() const { return m_DeadEffect; }
+	void			SetDeadEffect(NNSpriteAtlas* val) { m_DeadEffect = val; }
+
 	//네트워크 관련 함수
 	CPacketHandler* GetPacketHandler() { return m_PacketHandler; }
 
@@ -68,6 +71,7 @@ protected:
 	float			m_Cost;
 
 	NNAnimation*	m_FlyMotion;
+	NNSpriteAtlas*	m_DeadEffect;
 
 	bool			m_bHit;
 
@@ -77,6 +81,9 @@ protected:
 
 	NNSound*		m_Deadsound;
 	NNSound*		m_Shotsound;
+
+	float			m_DeadAnimationSumTime;
+	bool			m_DoDeadSoundEffect;
 
 	//동기화를 위한 시간
 	float			m_Syntime;

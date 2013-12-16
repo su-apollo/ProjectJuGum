@@ -28,20 +28,24 @@ public:
 	bool		IsGameEnd(float dTime);
 
 	void		SetGameMode(ENetworkMode mode) {m_GameMode = mode;}
+	void		SetPlayerMoveArea(CMaincharacter * Player, CFrame* frame);
+
+	EGameResult GetGameResult() const { return m_GameResult; }
+	void		SetGameResult(EGameResult val) { m_GameResult = val; }
 
 private:
-	NNAnimation* m_BackGround;
+	NNAnimation*	m_BackGround;
 
-	float		m_CostPerSecond;
-	float		m_TimeToHitCheckWait;
+	float			m_CostPerSecond;
+	float			m_TimeToHitCheckWait;
 
-	CMaincharacter * m_Player1;	
-	CMaincharacter * m_Player2;
+	CMaincharacter* m_Player1;	
+	CMaincharacter* m_Player2;
 
-	void SetPlayerMoveArea(CMaincharacter * Player, CFrame* frame);
+	ENetworkMode	m_GameMode;
 
-	ENetworkMode m_GameMode;
+	CCamera*		m_Camera;
 
-	CCamera*	m_Camera;
+	EGameResult		m_GameResult;
 };
 

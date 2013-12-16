@@ -140,3 +140,11 @@ enum ENetworkMode
 	SERVER_MODE,
 	MODE_NONE,
 };
+
+enum EGameResult
+{
+	GAME_NOT_END,
+	GAME_RESULT_DRAW,
+	GAME_RESULT_WIN,
+	GAME_RESULT_LOSE
+};

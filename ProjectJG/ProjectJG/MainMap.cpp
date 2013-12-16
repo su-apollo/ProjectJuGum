@@ -150,6 +150,7 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 	m_CostPerSecond = 5.f;
 
 	m_TimeToHitCheckWait = 0.f;
+	m_GameResult = GAME_NOT_END;
 }
 
 
@@ -186,6 +187,39 @@ void CMainMap::Update( float dTime, CFrame* frame )
 {
 	m_BackGround->Update(dTime);
 
+	//상대가 맞았다고 패킷이오면 맞았다고 표시
+	if (m_GameMode && m_Player2->GetPacketHandler()->m_PacketKeyStatus.mHitCheck == true)
+	{
+		m_Player2->SetHit(true);
+	}
+
+	if (m_Player1->IsHit() || m_Player2->IsHit())
+	{
+		m_TimeToHitCheckWait += dTime;
+
+		if (m_Player1->IsHit())
+			m_Player1->UpdateDeadAnimation(dTime);
+		if (m_Player2->IsHit())
+			m_Player2->UpdateDeadAnimation(dTime);
+
+		if (m_TimeToHitCheckWait > 2.0f)
+		{
+			if (m_Player1->IsHit() && m_Player2->IsHit())
+			{
+				m_GameResult = GAME_RESULT_DRAW;
+			}
+			if (m_Player1->IsHit())
+			{
+				m_GameResult = GAME_RESULT_LOSE;
+			}
+			if (m_Player2->IsHit())
+			{
+				m_GameResult = GAME_RESULT_WIN;
+			}
+		}
+		return;
+	}
+
 	// cost
 	GetPlayer1()->SetCost( GetPlayer1()->GetCost() + m_CostPerSecond*dTime );
 	GetPlayer2()->SetCost( GetPlayer2()->GetCost() + m_CostPerSecond*dTime );
@@ -214,11 +248,6 @@ void CMainMap::Update( float dTime, CFrame* frame )
 	if(NNInputSystem::GetInstance()->GetKeyState('P') == KEY_DOWN)
 	{
 		CBulletManager::GetInstance()->ShotAsteroid(this);
-	}
-
-	if (m_GameMode && m_Player2->GetPacketHandler()->m_PacketKeyStatus.mHitCheck == true)
-	{
-		m_Player2->SetHit(true);
 	}
 }
 

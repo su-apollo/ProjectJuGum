@@ -15,8 +15,9 @@
 #include "NNAudioSystem.h"
 
 
-CMaincharacter::CMaincharacter(ECharcterType type_of_char) 
-	: m_bHit(false), m_FairyIndex(0), m_Syntime(0.f)
+CMaincharacter::CMaincharacter(ECharcterType type_of_char) : 
+	m_bHit(false), m_FairyIndex(0), m_Syntime(0.f),
+	m_DeadAnimationSumTime(0.f), m_DoDeadSoundEffect(false)
 {
 	SetHitRadius(CHAR_HIT_RADIUS);
 
@@ -59,6 +60,11 @@ CMaincharacter::CMaincharacter(ECharcterType type_of_char)
 	
 	m_FlyMotion->SetScale(1.5f, 1.5f);
 	AddChild( m_FlyMotion );
+
+	//Á×À»¶§ ÀÌÆåÆ® ·Îµå
+	m_DeadEffect = NNSpriteAtlas::Create(L"Sprite/DeadEffect.png");
+	m_DeadEffect->SetVisible(false);
+	AddChild(m_DeadEffect);
 	
 	m_Type = type_of_char;
 	m_Cost = BASIC_COST;
@@ -393,9 +399,26 @@ void CMaincharacter::DestroyFairy()
 //**************************************************************
 //                         Animation
 //**************************************************************
-bool CMaincharacter::UpdateExplosionAnimation( float dTime )
+bool CMaincharacter::UpdateDeadAnimation( float dTime )
 {
-	//Á×´Â¸ð¼Ç(Ãß°¡¿¹Á¤)
+	m_DeadAnimationSumTime += dTime;
+
+	if (!m_DoDeadSoundEffect)
+	{
+		NNAudioSystem::GetInstance()->Play( m_Deadsound );
+		m_DoDeadSoundEffect = true;
+	}
+	if (m_DeadAnimationSumTime < 1.0f)
+	{
+		m_DeadEffect->SetVisible(true);
+		m_DeadEffect->SetRotation(m_DeadAnimationSumTime*100.f);
+		m_DeadEffect->SetScale(1.0f - m_DeadAnimationSumTime, 1.0f - m_DeadAnimationSumTime);
+	}
+	else
+	{
+		m_FlyMotion->SetVisible(false);
+	}
+
 	return true;
 }
 
