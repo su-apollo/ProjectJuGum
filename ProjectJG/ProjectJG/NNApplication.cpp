@@ -87,7 +87,6 @@ bool NNApplication::Release()
 	NNResourceManager::ReleaseInstance();
 	NNInputSystem::ReleaseInstance();
 	NNAudioSystem::ReleaseInstance();
-	NNNetworkSystem::ReleaseInstance();
 
 	//∞‘¿”∞¸∑√ ΩÃ±€≈Ê
 	UImanager::ReleaseInstance();

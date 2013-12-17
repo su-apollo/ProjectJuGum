@@ -64,6 +64,8 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : m_netsetup(fal
 CPlayScene::~CPlayScene(void)
 {
 	NNAudioSystem::GetInstance()->Stop( m_BackgroundSound );
+	//사용했던 네트워크를 해채
+	NNNetworkSystem::ReleaseInstance();
 }
 
 void CPlayScene::Render()
