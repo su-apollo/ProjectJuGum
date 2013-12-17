@@ -80,7 +80,7 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 	// 플레이어 생성 및 서브캐릭터 생성
 	CSubChar* subchar_1;
 	CSubChar* subchar_2;
-	if (GameMode == SERVER_MODE || GameMode == TEST_MODE)
+	if (GameMode == SERVER_MODE /*|| GameMode == TEST_MODE*/)
 	{
 		subchar_1 = new CSubChar(YUKARI);
 		m_Player1 = new CMaincharacter(RAYMU);
@@ -251,10 +251,10 @@ void CMainMap::Update( float dTime, CFrame* frame )
 	SetPlayerMoveArea(m_Player2, frame);
 
 	//운석 테스트용 코드
-	if(NNInputSystem::GetInstance()->GetKeyState('P') == KEY_DOWN)
-	{
-		CBulletManager::GetInstance()->ShotAsteroid(this);
-	}
+// 	if(NNInputSystem::GetInstance()->GetKeyState('P') == KEY_DOWN)
+// 	{
+// 		CBulletManager::GetInstance()->ShotAsteroid(this);
+// 	}
 }
 
 void CMainMap::SetPlayerMoveArea( CMaincharacter * Player, CFrame* frame )

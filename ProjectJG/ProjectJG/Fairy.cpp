@@ -46,7 +46,7 @@ void CFairy::Render()
 void CFairy::Update( float dTime, CMaincharacter* Enemy)
 {
 	UpdateShotDirection(Enemy);
-	UpdateShotPoint();
+	UpdateShotPoint(SHOT_POINT);
 
 	NormalAttack(dTime);
 

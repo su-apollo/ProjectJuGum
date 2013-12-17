@@ -32,7 +32,7 @@ public:
 	void	SetAngularAccel(float new_accel) {m_AngularAccel = new_accel;}
 	void	SetLifeTime(float val) { m_LifeTime = val; }
 
-	void	UpdateShotPoint();
+	void	UpdateShotPoint(float shot_point);
 
 protected:
 	float	m_ShotDirection;

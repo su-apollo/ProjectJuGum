@@ -12,9 +12,6 @@
 #define MAX_FAIRY_NUM					50
 #define MAX_ASTEROID_NUM					30
 
-#define SHOT_POINT						20.f
-#define BIG_SHOT_POINT					50.f
-
 #define BASIC_COST						50000
 
 #define MAIN_MENU_SCENE_BACKGROUND_IMAGE		L"Sprite/MainBackground.jpg"
@@ -82,6 +79,9 @@ enum EBulletType
 #define BULLET_BIG_HIT_RADIUS			50.f
 
 #define ASTEROID_HIT_RADIUS				50.f
+
+#define SHOT_POINT						20.f
+#define BIG_SHOT_POINT					70.f
 
 
 enum ESkill

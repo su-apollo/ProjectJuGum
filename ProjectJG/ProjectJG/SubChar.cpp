@@ -58,7 +58,7 @@ void CSubChar::Update( float dTime, CMaincharacter* enemy )
 	m_BackgroundEffect->SetRotation(100.f*GetLifeTime());
 
 	UpdateShotDirection(enemy);
-	UpdateShotPoint();
+	UpdateShotPoint(SHOT_POINT);
 
 	switch (m_Type)
 	{
@@ -106,6 +106,7 @@ void CSubChar::AliceNormalAttack( float dTime )
 		//NNAudioSystem::GetInstance()->Play( m_Shotsound );
 
 		CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(MARISA_BIG_BULLET, 0, GetShotDirection());
+		UpdateShotPoint(BIG_SHOT_POINT);
 		pBullet->SetPosition(GetShotPoint());
 		pBullet->SetDirection(GetShotDirection());
 

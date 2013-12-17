@@ -101,7 +101,7 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, E
 
 	//항상 적을 바라보도록 계산
 	UpdateShotDirection(enemy);
-	UpdateShotPoint();
+	UpdateShotPoint(SHOT_POINT);
 	UpdateFairy(dTime, enemy);
 
 	m_FlyMotion->Update(dTime);
@@ -145,7 +145,7 @@ void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap*
 	m_Syntime += dTime;
 
 	UpdateShotDirection(enemy);
-	UpdateShotPoint();
+	UpdateShotPoint(SHOT_POINT);
 	UpdateFairy(dTime, enemy);
 
 	m_FlyMotion->SetRotation(GetShotDirection() + 90.f);
