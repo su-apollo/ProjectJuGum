@@ -34,16 +34,6 @@ CMainMenuScene::CMainMenuScene(void)
 	m_BackGround->SetImageWidth(width);
 	AddChild(m_BackGround);
 
-	// 로고 ("JuGums")
-	m_Logo = NNSprite::Create( MAIN_MENU_SCENE_LOGO );
-	float image_ratio = (float)width * 0.5f / m_Logo->GetImageWidth();
-// 	m_Logo->SetImageWidth(m_Logo->GetImageWidth() * image_ratio);
-// 	m_Logo->SetImageHeight(m_Logo->GetImageHeight() * image_ratio);
-	m_Logo->SetScale(1.3f, 1.3f);
-	m_Logo->SetPosition( 170.f, 300.f );
-	AddChild( m_Logo );
-
-
 	// 메뉴 라벨 생성
 	m_MenuLabel[MENU_TEST] = NNLabel::Create( L"Test", GAME_FONT, LABEL_FONT_SIZE );
 	AddChild( m_MenuLabel[MENU_TEST] );
@@ -81,6 +71,14 @@ CMainMenuScene::CMainMenuScene(void)
 		m_NetMenuLabel[i]->SetVisible(false);
 		AddChild(m_NetMenuLabel[i]);
 	}
+
+	//로딩화면
+	m_Loading = NNSprite::Create( MAIN_MENU_LOADING_SCENE );
+	m_Loading->SetPosition( width*0.5f, height*0.5f );
+	m_Loading->SetImageHeight(height);
+	m_Loading->SetImageWidth(width);
+	m_Loading->SetVisible(false);
+	AddChild( m_Loading );
 
 	m_bChangeScene = false;
 	m_GameMode = MODE_NONE;
@@ -271,8 +269,9 @@ void CMainMenuScene::ChangeScene()
 		m_NetMenuLabel[i]->SetVisible(false);
 	}
 	// 로딩 중
-	swprintf(m_InstructionBuffer, _countof(m_InstructionBuffer), L"Loading...");
-	m_InstructionLabel->SetFontSize(LABEL_FONT_SIZE);
+	m_Loading->SetVisible(true);
+// 	swprintf(m_InstructionBuffer, _countof(m_InstructionBuffer), L"Loading...");
+// 	m_InstructionLabel->SetFontSize(LABEL_FONT_SIZE);
 
 	m_bChangeScene = true;
 }

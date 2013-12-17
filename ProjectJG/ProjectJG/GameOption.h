@@ -13,11 +13,12 @@
 #define MAX_ASTEROID_NUM					30
 
 #define SHOT_POINT						20.f
+#define BIG_SHOT_POINT					50.f
 
 #define BASIC_COST						50000
 
 #define MAIN_MENU_SCENE_BACKGROUND_IMAGE		L"Sprite/MainBackground.jpg"
-#define MAIN_MENU_SCENE_LOGO					L"Sprite/Logo.png"
+#define MAIN_MENU_LOADING_SCENE				L"Sprite/Loading.jpg"
 #define MAIN_MAP_BACKGROUND_IMAGE			L"Sprite/background/IMG00000.jpg"
 #define GAME_FONT							L"Font/¸ð¸®½º-9"
 

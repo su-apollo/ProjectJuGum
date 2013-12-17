@@ -30,7 +30,7 @@ public:
 
 private:
 	// 배경
-	NNSprite*		m_Logo;
+	NNSprite*		m_Loading;
 	NNSprite*		m_BackGround;
 	
 	// 씬 전환시 넘길 parameter
