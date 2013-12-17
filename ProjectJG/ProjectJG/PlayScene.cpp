@@ -85,7 +85,6 @@ void CPlayScene::Update( float dTime )
 // 		return;
 // 	}
 	
-	
 	// camera move. 플레이어가 프레임 경계까지 가면 카메라가 따라서 움직인다.
 	CameraMove( m_MainMap->GetPlayer1(), dTime );
 
