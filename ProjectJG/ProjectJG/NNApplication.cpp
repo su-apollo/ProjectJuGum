@@ -87,6 +87,7 @@ bool NNApplication::Release()
 	NNResourceManager::ReleaseInstance();
 	NNInputSystem::ReleaseInstance();
 	NNAudioSystem::ReleaseInstance();
+	NNNetworkSystem::ReleaseInstance();
 
 	//°ÔÀÓ°ü·Ã ½Ì±ÛÅæ
 	UImanager::ReleaseInstance();
@@ -330,7 +331,7 @@ LRESULT CALLBACK NNApplication::WndProc( HWND hWnd, UINT message, WPARAM wParam,
 				{
 					MessageBox(hWnd, L"Server closed connection", L"Connection closed!", MB_ICONINFORMATION|MB_OK);
 					closesocket(NNNetworkSystem::GetInstance()->m_Socket);
-					SendMessage(hWnd,WM_DESTROY,NULL,NULL);
+					//SendMessage(hWnd,WM_DESTROY,NULL,NULL);
 				}
 				break;
 			}

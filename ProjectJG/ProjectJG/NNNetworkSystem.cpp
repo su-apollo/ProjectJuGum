@@ -42,6 +42,9 @@ bool NNNetworkSystem::Init()
 
 void NNNetworkSystem::Destroy()
 {
+	//소캣을 클로우즈 해야함
+	closesocket(m_Socket);
+
 	for (auto& iter=m_PacketHandler.begin(); iter!=m_PacketHandler.end(); iter++ )
 	{
 		SafeDelete( iter->second );

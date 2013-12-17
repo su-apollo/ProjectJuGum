@@ -29,17 +29,19 @@ public:
 
 private:
 
-	CMainMap*	m_MainMap;
-	CFrame*		m_Frame;
+	CMainMap*		m_MainMap;
+	CFrame*			m_Frame;
 	
-	bool		m_netsetup;
+	bool			m_netsetup;
 
-	NNLabel* m_CountNumLabel_3;
-	NNLabel* m_CountNumLabel_2;
-	NNLabel* m_CountNumLabel_1;
-	float m_CountNum;
-	bool m_DoCount;
+	NNLabel*		m_CountNumLabel_3;
+	NNLabel*		m_CountNumLabel_2;
+	NNLabel*		m_CountNumLabel_1;
+	float			m_CountNum;
+	bool			m_DoCount;
 	
-	NNSound* m_BackgroundSound;
+	NNSound*		m_BackgroundSound;
+
+	ENetworkMode	m_GameMode;
 };
 

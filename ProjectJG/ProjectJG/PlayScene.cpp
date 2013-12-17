@@ -22,6 +22,8 @@
 
 CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : m_netsetup(false), m_DoCount(true), m_CountNum(0.f)
 {
+	m_GameMode = GameMode;
+
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 
@@ -64,8 +66,6 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : m_netsetup(fal
 CPlayScene::~CPlayScene(void)
 {
 	NNAudioSystem::GetInstance()->Stop( m_BackgroundSound );
-	//사용했던 네트워크를 해채
-	NNNetworkSystem::ReleaseInstance();
 }
 
 void CPlayScene::Render()
@@ -116,9 +116,15 @@ void CPlayScene::Update( float dTime )
 
 void CPlayScene::EndGame()
 {
-	//동기화를 위한 3초간의 슬립
-	Sleep(3000);
-	NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
+	if (m_GameMode == TEST_MODE)
+	{
+		NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
+	}
+	else
+	{
+		PostQuitMessage(0);
+		//SendMessage(NNApplication::GetInstance()->GetHWND(),WM_DESTROY,NULL,NULL);
+	}
 	return;
 }
 
