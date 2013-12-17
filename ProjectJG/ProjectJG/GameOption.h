@@ -17,7 +17,8 @@
 #define MAIN_MENU_SCENE_BACKGROUND_IMAGE		L"Sprite/MainBackground.jpg"
 #define MAIN_MENU_LOADING_SCENE				L"Sprite/Loading.jpg"
 #define MAIN_MAP_BACKGROUND_IMAGE			L"Sprite/background/IMG00000.jpg"
-#define GAME_FONT							L"Font/¸ð¸®½º-9"
+#define VERTICAL_FONT						L"AEZ outline vertical"
+#define GAME_FONT							L"Bleeding Cowboys"
 
 #define MAIN_MENU_SCENE_BACKGROUND_SOUND		"Sound/Eternal Dream.mp3"
 #define GAME_BACKGROUND_SOUND				"Sound/the Mooned Incects.mp3"

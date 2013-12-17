@@ -35,32 +35,48 @@ CMainMenuScene::CMainMenuScene(void)
 	AddChild(m_BackGround);
 
 	// 메뉴 라벨 생성
-	m_MenuLabel[MENU_TEST] = NNLabel::Create( L"Test", GAME_FONT, LABEL_FONT_SIZE );
+	m_MenuLabel[MENU_TEST] = NNLabel::Create( L"Test", VERTICAL_FONT, LABEL_FONT_SIZE );
 	AddChild( m_MenuLabel[MENU_TEST] );
 
-	m_MenuLabel[MENU_SERVER] = NNLabel::Create( L"Server", GAME_FONT, LABEL_FONT_SIZE );
+	m_MenuLabel[MENU_SERVER] = NNLabel::Create( L"Server", VERTICAL_FONT, LABEL_FONT_SIZE );
 	AddChild( m_MenuLabel[MENU_SERVER] );
 
-	m_MenuLabel[MENU_CLIENT] = NNLabel::Create( L"Client", GAME_FONT, LABEL_FONT_SIZE );
+	m_MenuLabel[MENU_CLIENT] = NNLabel::Create( L"Client", VERTICAL_FONT, LABEL_FONT_SIZE );
 	AddChild( m_MenuLabel[MENU_CLIENT] );
 
-	m_MenuLabel[MENU_QUIT] = NNLabel::Create( L"Quit", GAME_FONT, LABEL_FONT_SIZE );
+	m_MenuLabel[MENU_QUIT] = NNLabel::Create( L"Quit", VERTICAL_FONT, LABEL_FONT_SIZE );
 	AddChild( m_MenuLabel[MENU_QUIT] );
 
 	// 메뉴 라벨 초기 배치
-	m_MenuLabel[0]->SetPosition( width*0.5f + 60.f, height*0.5f - 60.f );
+	m_MenuLabel[0]->SetPosition( width*0.35f, height*0.6f );
 	for (int i = 1; i < MENU_NUM; i++)
 	{
-		m_MenuLabel[i]->SetPosition( m_MenuLabel[i-1]->GetPosition() + NNPoint(0.f, LABEL_HEIGHT) );
+		m_MenuLabel[i]->SetPosition( m_MenuLabel[i-1]->GetPosition() + NNPoint(LABEL_HORIZONTAL_SPACE, 0.f) );
+	}
+	// 세로 폰트니까 돌려서.
+	for (int i = 0; i < MENU_NUM; i++)
+	{
+		m_MenuLabel[i]->SetRotation(90.f);
 	}
 
+	printf_s("%.3f, %.3f\n", m_MenuLabel[0]->GetPositionX(), m_MenuLabel[0]->GetPositionY());
 
-	m_KeyOn = 0;			// 현재 가리키고 있는 메뉴 위치
 
-	// 설명 라벨
-	swprintf(m_InstructionBuffer, _countof(m_InstructionBuffer), L"%s\n%s", L"Press", L"Z to select");
-	m_InstructionLabel = NNLabel::Create(m_InstructionBuffer, GAME_FONT, LABEL_FONT_SIZE * 0.5f);
-	m_InstructionLabel->SetPosition( width*0.5f - 150.f, height*0.5f );
+	m_KeyOn = 0;				// 현재 가리키고 있는 메뉴 위치
+	m_bMenuSelected = false;	// "메뉴가 아직 선택되지 않았다"
+
+
+	// 설명 라벨 내용 초기화
+	swprintf(m_InstructionBuffer[MENU_NUM], _countof(m_InstructionBuffer[MENU_NUM]), L"Press Z to select Menu.");		// 메뉴 선택되지 않았을 때 설명
+	swprintf(m_InstructionBuffer[MENU_TEST], _countof(m_InstructionBuffer[MENU_TEST]), L"Press Z to Start, or Press X to cancel.");
+	swprintf(m_InstructionBuffer[MENU_CLIENT], _countof(m_InstructionBuffer[MENU_CLIENT]), L"Input Server IP and Press Z to Start,\nor Press X to cancel.");
+	swprintf(m_InstructionBuffer[MENU_SERVER], _countof(m_InstructionBuffer[MENU_SERVER]), L"This is your IP address.\nPress Z to Start, or Press X to cancel.");
+	swprintf(m_InstructionBuffer[MENU_QUIT], _countof(m_InstructionBuffer[MENU_QUIT]), L"Do you really want to QUIT game?\nPress Z to quit, X to cancel.");
+
+	m_InstructionLabel = NNLabel::Create(m_InstructionBuffer[MENU_NUM], GAME_FONT, LABEL_FONT_SIZE * 0.5f);
+	m_InstructionLabel->SetPosition( width*0.3f, height*0.33f );
+	m_InstructionLabel->SetColor(0.f, 0.f, 0.f);
+	
 	AddChild(m_InstructionLabel);
 
 	// 네트워크 메뉴 라벨 초기화
@@ -104,44 +120,56 @@ void CMainMenuScene::Update( float dTime )
 		return;
 	}
 
-	// 현재 선택된 게임 모드에 따라 업데이트를 달리 함.
-	switch (m_GameMode)
+	// 현재 선택된 게임 모드(키보드가 위치한 메뉴)에 따라 업데이트를 달리 함.
+	if (!m_bMenuSelected)			// 아직 게임 모드가 설정되지 않았을 경우, 키보드(화살표) 입력에 따른 메뉴라벨 처리.
 	{
-	case TEST_MODE:
-		break;
-	case SERVER_MODE:
-		if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE ) 
-		{
-			NNAudioSystem::GetInstance()->Play( m_OkSound );
-			ChangeScene();
-		}
-		if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_TWO ) 
-		{
-			NNAudioSystem::GetInstance()->Play( m_CancelSound );
-			CancelModeSelection();
-		}
-		break;
-	case CLIENT_MODE:
-		if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE ) 
-		{
-			NNAudioSystem::GetInstance()->Play( m_OkSound );
-			ChangeScene();
-		}
-		if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_TWO ) 
-		{
-			NNAudioSystem::GetInstance()->Play( m_CancelSound );
-			CancelModeSelection();
-		}
-		GetIPInput();
-		break;
-	case MODE_NONE:
-		// 아직 게임 모드가 설정되지 않았을 경우, 키보드(화살표) 입력에 따른 메뉴라벨 처리.
 		SetUpGameMode();
-		break;
-	default:
-		break;
 	}
-
+	else {							// 게임 모드가 선택됐을 경우, // 현재 선택된 게임 모드(키보드가 위치한 메뉴)에 따라 업데이트를 달리 함.
+		switch (m_KeyOn)
+		{
+		case MENU_TEST:				// Z를 누르면 게임 시작, X를 누르면 메뉴선택 취소.
+		case MENU_SERVER:
+			if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE ) 
+			{
+				NNAudioSystem::GetInstance()->Play( m_OkSound );
+				ChangeScene();
+			}
+			if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_TWO ) 
+			{
+				NNAudioSystem::GetInstance()->Play( m_CancelSound );
+				CancelModeSelection();
+			}
+			break;
+		case MENU_CLIENT:			// Z를 누르면 게임 시작, X를 누르면 메뉴선택 취소, IP입력 처리.
+			if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE ) 
+			{
+				NNAudioSystem::GetInstance()->Play( m_OkSound );
+				ChangeScene();
+			}
+			if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_TWO ) 
+			{
+				NNAudioSystem::GetInstance()->Play( m_CancelSound );
+				CancelModeSelection();
+			}
+			GetIPInput();
+			break;
+		case MENU_QUIT:				// Z를 누르면 게임 종료, X를 누르면 메뉴선택 취소.
+			if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE ) 
+			{
+				NNAudioSystem::GetInstance()->Play( m_OkSound );
+				PostMessage( NNApplication::GetInstance()->GetHWND(), WM_DESTROY, 0, 0 );
+			}
+			if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_TWO ) 
+			{
+				NNAudioSystem::GetInstance()->Play( m_CancelSound );
+				CancelModeSelection();
+			}
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void CMainMenuScene::SetUpGameMode()
@@ -164,25 +192,28 @@ void CMainMenuScene::SetUpGameMode()
 
 	if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE )
 	{
+		m_bMenuSelected = true;		// 메뉴가 선택됐다고 표시
 		NNAudioSystem::GetInstance()->Play( m_OkSound );
-		// 현재 가리키고 있는 메뉴에 따라 다른 설정.
+		// 현재 가리키고 있는 메뉴에 따라 다른 설정 : 게임모드 설정, 메뉴에 따른 명령 표시
 		switch (m_KeyOn)
 		{
 		case MENU_TEST:
 			m_GameMode = TEST_MODE;
-			ChangeScene();				// 테스트 모드일 경우 별 다른 설정 없이 씬 변경.
+			m_InstructionLabel->SetString(m_InstructionBuffer[m_KeyOn]);
 			break;
 		case MENU_CLIENT:
 			m_GameMode = CLIENT_MODE;
-			ShowCommand(MENU_CLIENT, L"Input Server IP : ", L"Input Server IP\n  and\npress Z to start\n\n  or\npress X to cancel.");
+			m_InstructionLabel->SetString(m_InstructionBuffer[m_KeyOn]);
+			ShowCommand(m_KeyOn, L"Input Server IP : ");
 			break;
 		case MENU_SERVER:
 			m_GameMode = SERVER_MODE;
-			ShowCommand(MENU_SERVER, L"Your IP : ", L"Press\nZ to start,\nX to cancel");
-			GetCurrentIP();
+			m_InstructionLabel->SetString(m_InstructionBuffer[m_KeyOn]);
+			ShowCommand(m_KeyOn, L"Your IP : ");
+			GetCurrentIP();			// 서버모드에서는 IP주소를 바로 보여줌.
 			break;
-		case MENU_QUIT:
-			PostMessage( NNApplication::GetInstance()->GetHWND(), WM_DESTROY, 0, 0 );
+		case MENU_QUIT:				// 종료 메뉴는 업데이트에서 처리. (한번 더 물어보고 Z키로 확인.)
+			m_InstructionLabel->SetString(m_InstructionBuffer[m_KeyOn]);
 			break;
 		default:
 			break;
@@ -192,14 +223,12 @@ void CMainMenuScene::SetUpGameMode()
 
 void CMainMenuScene::GetCurrentIP()
 {
-	// 일단은 코드 안에 박아둠, 나중에 현찬이가 알아내는 함수 알려주면 바꿀 코드.
 	strcpy_s(m_serverIP, _countof(m_serverIP), NNNetworkSystem::GetInstance()->GetIpAddress());
 	swprintf(m_NetMenuBuffer[NET_MENU_IP_ADDR], _countof(m_NetMenuBuffer[NET_MENU_IP_ADDR]), L"%hs", m_serverIP);
 }
 
 void CMainMenuScene::GetIPInput()
 {
-	// for appending string. 더 나은 방법 있나 ? ㅜㅜ
 	size_t len = strlen(m_serverIP);
 	char* buffer = new char[len+2];
 	strcpy_s(buffer, len+2, m_serverIP);
@@ -236,24 +265,21 @@ void CMainMenuScene::GetIPInput()
 	swprintf(m_NetMenuBuffer[NET_MENU_IP_ADDR], _countof(m_NetMenuBuffer[NET_MENU_IP_ADDR]), L"%hs", m_serverIP);
 }
 
-void CMainMenuScene::ShowCommand( int MenuIndex, wchar_t* command, wchar_t* instruction )
+void CMainMenuScene::ShowCommand( int MenuIndex, wchar_t* command )
 {
-	// 메뉴 선택 설명
-	swprintf(m_InstructionBuffer, _countof(m_InstructionBuffer), instruction);
-
-	// 이미 나와있던 메뉴 라벨을 한 칸씩 내리고,
+	// 이미 나와있던 메뉴 라벨을 한 칸 옆으로 민다.
 	for (int i = MenuIndex+1; i < MENU_NUM; i++)
 	{
-		m_MenuLabel[i]->SetPosition( m_MenuLabel[i]->GetPosition() + NNPoint(0, LABEL_HEIGHT) );
+		m_MenuLabel[i]->SetPosition( m_MenuLabel[i]->GetPosition() + NNPoint(LABEL_HORIZONTAL_SPACE, 0.f) );
 	}
 
-	// IP를 보여줌 : 버퍼 내용 바꾸고, 라벨 위치 변경하고, 라벨 다시 보이게 하고.
+	// IP를 보여준다 : 버퍼 내용 바꾸고, 라벨 위치 변경하고, 라벨 다시 보이게 하고.
 	swprintf(m_NetMenuBuffer[NET_MENU_COMMAND], _countof(m_NetMenuBuffer[NET_MENU_COMMAND]), command);
-	m_NetMenuLabel[NET_MENU_COMMAND]->SetPosition( m_MenuLabel[MenuIndex]->GetPosition() + NNPoint(0.f, LABEL_HEIGHT) );
+	m_NetMenuLabel[NET_MENU_COMMAND]->SetPosition( m_MenuLabel[MenuIndex]->GetPosition() + NNPoint(LABEL_HORIZONTAL_SPACE*0.2f, 0.f) );
 	m_NetMenuLabel[NET_MENU_COMMAND]->SetVisible(true);
 
 	swprintf(m_NetMenuBuffer[NET_MENU_IP_ADDR], _countof(m_NetMenuBuffer[NET_MENU_IP_ADDR]), L"%hs", m_serverIP);
-	m_NetMenuLabel[NET_MENU_IP_ADDR]->SetPosition( m_NetMenuLabel[NET_MENU_COMMAND]->GetPosition() + NNPoint(200.f, 0.f) );
+	m_NetMenuLabel[NET_MENU_IP_ADDR]->SetPosition( m_NetMenuLabel[NET_MENU_COMMAND]->GetPosition() + NNPoint(0.f, LABEL_VERTICAL_SPACE) );
 	m_NetMenuLabel[NET_MENU_IP_ADDR]->SetVisible(true);
 }
 
@@ -279,12 +305,13 @@ void CMainMenuScene::ChangeScene()
 void CMainMenuScene::CancelModeSelection()
 {
 	m_GameMode = MODE_NONE;
+	m_bMenuSelected = false;
 
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 
 	// 설명 라벨 초기화
-	swprintf(m_InstructionBuffer, _countof(m_InstructionBuffer), L"%s\n%s", L"Press", L"Z to select");
+	m_InstructionLabel->SetString(m_InstructionBuffer[MENU_NUM]);
 
 	// 네트워크 관련 라벨 모두 숨기고,
 	for (int i = 0; i < NET_MENU_NUM; i++)
@@ -296,9 +323,9 @@ void CMainMenuScene::CancelModeSelection()
 	strcpy_s(m_serverIP, _countof(m_serverIP), "");
 
 	// 메뉴 라벨 초기 배치
-	m_MenuLabel[0]->SetPosition( width*0.5f + 60.f, height*0.5f - 60.f );
+	m_MenuLabel[0]->SetPosition( width*0.35f, height*0.6f );
 	for (int i = 1; i < MENU_NUM; i++)
 	{
-		m_MenuLabel[i]->SetPosition( m_MenuLabel[i-1]->GetPosition() + NNPoint(0.f, LABEL_HEIGHT) );
+		m_MenuLabel[i]->SetPosition( m_MenuLabel[i-1]->GetPosition() + NNPoint(LABEL_HORIZONTAL_SPACE, 0.f) );
 	}
 }

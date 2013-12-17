@@ -2,8 +2,9 @@
 #include "NNScene.h"
 #include "GameOption.h"
 
-#define LABEL_HEIGHT 80.f
-#define LABEL_FONT_SIZE 40.f
+#define LABEL_VERTICAL_SPACE	80.f
+#define LABEL_HORIZONTAL_SPACE	200.f
+#define LABEL_FONT_SIZE			60.f
 
 class NNSprite;
 class NNLabel;
@@ -24,7 +25,7 @@ public:
 	void ChangeScene();
 	void CancelModeSelection();
 
-	void ShowCommand(int MenuIndex, wchar_t* command, wchar_t* instruction);
+	void ShowCommand(int MenuIndex, wchar_t* command);
 	void GetIPInput();
 	void GetCurrentIP();
 
@@ -42,10 +43,11 @@ private:
 	NNLabel*		m_LoadingLabel;
 
 	NNLabel*		m_InstructionLabel;
-	wchar_t			m_InstructionBuffer[100];
+	wchar_t			m_InstructionBuffer[MENU_NUM+1][200];
 
 	NNLabel*		m_MenuLabel[MENU_NUM];
 	unsigned int	m_KeyOn;
+	bool			m_bMenuSelected;
 
 	NNLabel*		m_NetMenuLabel[NET_MENU_NUM];
 	wchar_t			m_NetMenuBuffer[NET_MENU_NUM][30];

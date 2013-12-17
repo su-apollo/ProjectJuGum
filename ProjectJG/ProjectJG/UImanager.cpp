@@ -33,18 +33,18 @@ UImanager::UImanager(void)
 
 	// FPS
 	swprintf_s( m_FPSBuffer, _countof(m_FPSBuffer), L"FPS : " );
-	m_FPSLabel = NNLabel::Create( m_FPSBuffer, L"¸¼Àº °íµñ", 20.f );
+	m_FPSLabel = NNLabel::Create( m_FPSBuffer, GAME_FONT, 20.f );
 	m_FPSLabel->SetPosition( 0.f, 0.f );
 	m_UIList[m_UINum++] = m_FPSLabel;
 
 	// cost
 	swprintf_s( m_Player1CostBuffer, _countof(m_Player1CostBuffer), L"Player1's Cost : " );
-	m_Player1CostLabel = NNLabel::Create( m_Player1CostBuffer, L"¸¼Àº °íµñ", 20.f );
+	m_Player1CostLabel = NNLabel::Create( m_Player1CostBuffer, GAME_FONT, 20.f );
 	m_Player1CostLabel->SetPosition( 0.f, 700.f );
 	m_UIList[m_UINum++] = m_Player1CostLabel;
 
 	swprintf_s( m_Player2CostBuffer, _countof(m_Player2CostBuffer), L"Player2's Cost : " );
-	m_Player2CostLabel = NNLabel::Create( m_Player2CostBuffer, L"¸¼Àº °íµñ", 20.f );
+	m_Player2CostLabel = NNLabel::Create( m_Player2CostBuffer, GAME_FONT, 20.f );
 	m_Player2CostLabel->SetPosition( 0.f, 100.f );
 	m_UIList[m_UINum++] = m_Player2CostLabel;
 }
