@@ -20,7 +20,7 @@
 #include "NNAudioSystem.h"
 #include "NNResourceManager.h"
 
-CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : m_netsetup(false), m_DoCount(true), m_CountNum(0.f)
+CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : m_netsetup(false)
 {
 	m_GameMode = GameMode;
 
@@ -29,7 +29,7 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : m_netsetup(fal
 
 	// 게임 메인 맵
 	m_MainMap = new CMainMap(GameMode);
-	m_MainMap->SetPosition( NNPoint(width *0.5f, height *0.5f) );
+	m_MainMap->SetPosition( width *0.5f, height *0.5f );
 	AddChild(m_MainMap);
 
 	// 카메라 프레임
@@ -38,24 +38,39 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : m_netsetup(fal
 	m_Frame->SetSize( FRAME_WIDTH, FRAME_HEIGHT );
 	AddChild( m_Frame );
 
-	//카운트다운을 위한 라벨
-	m_CountNumLabel_3 = NNLabel::Create(L"3", L"궁서체", 40.f);
-	m_CountNumLabel_3->SetColor(255.0f, 0.0f, 0.0f);
-	m_CountNumLabel_3->SetPosition( NNPoint(width *0.5f, height *0.5f) );
-	m_CountNumLabel_3->SetVisible(false);
-	AddChild( m_CountNumLabel_3 );
+	//게임결과표시와 함께 나오는 메뉴
+	m_ReplayLabel = NNLabel::Create(L"Replay", L"궁서체", 40.f);
+	m_ReplayLabel->SetColor(255.f, 255.f, 255.f);
+	m_ReplayLabel->SetPosition(width*0.5f, height*0.5f);
+	m_ReplayLabel->SetVisible(false);
+	AddChild(m_ReplayLabel);
 
-	m_CountNumLabel_2 = NNLabel::Create(L"2", L"궁서체", 40.f);
-	m_CountNumLabel_2->SetColor(255.0f, 0.0f, 0.0f);
-	m_CountNumLabel_2->SetPosition( NNPoint(width *0.5f, height *0.5f) );
-	m_CountNumLabel_2->SetVisible(false);
-	AddChild( m_CountNumLabel_2 );
+	m_ExitLabel = NNLabel::Create(L"Exit", L"궁서체", 40.f);
+	m_ExitLabel->SetColor(255.f, 255.f, 255.f);
+	m_ExitLabel->SetPosition(width*0.5f, height*0.5f);
+	m_ExitLabel->SetVisible(false);
+	AddChild(m_ExitLabel);
 
-	m_CountNumLabel_1 = NNLabel::Create(L"1", L"궁서체", 40.f);
-	m_CountNumLabel_1->SetColor(255.0f, 0.0f, 0.0f);
-	m_CountNumLabel_1->SetPosition( NNPoint(width *0.5f, height *0.5f) );
-	m_CountNumLabel_1->SetVisible(false);
-	AddChild( m_CountNumLabel_1 );
+	//게임결과표시를 위한 스프라이트 로드
+	m_SpriteRaymuWin = NNSprite::Create( L"Sprite/charR_win.png" );
+	m_SpriteRaymuLose = NNSprite::Create( L"Sprite/charR_lose.png" );
+	m_SpriteMarisaWin = NNSprite::Create( L"Sprite/charB_win.png" );
+	m_SpriteMarisaLose = NNSprite::Create( L"Sprite/charB_lose.png" );
+
+	m_SpriteRaymuWin->SetPosition( width *0.25f, height *0.5f );
+	m_SpriteRaymuLose->SetPosition( width *0.25f, height *0.5f );
+	m_SpriteMarisaWin->SetPosition( width *0.75f, height *0.5f );
+	m_SpriteMarisaLose->SetPosition( width *0.75f, height *0.5f );
+
+	m_SpriteMarisaLose->SetVisible(false);
+	m_SpriteMarisaWin->SetVisible(false);
+	m_SpriteRaymuLose->SetVisible(false);
+	m_SpriteRaymuWin->SetVisible(false);
+
+	AddChild(m_SpriteRaymuLose);
+	AddChild(m_SpriteRaymuWin);
+	AddChild(m_SpriteMarisaLose);
+	AddChild(m_SpriteMarisaWin);
 
 	NetworkSetMenu(GameMode, serverIP);
 
@@ -97,20 +112,42 @@ void CPlayScene::Update( float dTime )
 	switch (m_MainMap->GetGameResult())
 	{
 	case GAME_RESULT_DRAW:
-		MessageBox(NULL, L"Draw!", L"Gameover", MB_OK) ;
+		m_SpriteMarisaLose->SetVisible(true);
+		m_SpriteRaymuLose->SetVisible(true);
+		if (NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE)
+			EndGame();
 		break;
 	case GAME_RESULT_WIN:
-		MessageBox(NULL, L"You Win!", L"Gameover", MB_OK) ;
+		if (m_GameMode == CLIENT_MODE)
+		{
+			m_SpriteRaymuLose->SetVisible(true);
+			m_SpriteMarisaWin->SetVisible(true);
+		}
+		else
+		{
+			m_SpriteRaymuWin->SetVisible(true);
+			m_SpriteMarisaLose->SetVisible(true);
+		}
+		if (NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE)
+			EndGame();
 		break;
 	case GAME_RESULT_LOSE:
-		MessageBox(NULL, L"You Lose!", L"Gameover", MB_OK) ;
+		if (m_GameMode == CLIENT_MODE)
+		{
+			m_SpriteRaymuWin->SetVisible(true);
+			m_SpriteMarisaLose->SetVisible(true);
+		}
+		else
+		{
+			m_SpriteRaymuLose->SetVisible(true);
+			m_SpriteMarisaWin->SetVisible(true);
+		}
+		if (NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE)
+			EndGame();
 		break;
 	default:
 		break;
 	}
-	
-	if ( m_MainMap->GetGameResult() )
-		EndGame();
 }
 
 void CPlayScene::EndGame()
@@ -125,34 +162,6 @@ void CPlayScene::EndGame()
 		//SendMessage(NNApplication::GetInstance()->GetHWND(),WM_DESTROY,NULL,NULL);
 	}
 	return;
-}
-
-void CPlayScene::CountDown(float dTime)
-{
-	m_CountNum += dTime;
-
-	if (m_CountNum <= 1.f)
-	{
-		m_CountNumLabel_3->SetVisible(true);
-	}
-	
-	if (1.f < m_CountNum && m_CountNum <= 2.f)
-	{
-		m_CountNumLabel_3->SetVisible(false);
-		m_CountNumLabel_2->SetVisible(true);
-	}
-
-	if (2.f < m_CountNum && m_CountNum <= 3.f)
-	{
-		m_CountNumLabel_2->SetVisible(false);
-		m_CountNumLabel_1->SetVisible(true);
-	}
-
-	if( m_CountNum > 3.f )
-	{
-		m_CountNumLabel_1->SetVisible(false);
-		m_DoCount = false;
-	}
 }
 
 void CPlayScene::NetworkSetMenu( ENetworkMode GameMode, char* serverIP )

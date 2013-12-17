@@ -21,7 +21,6 @@ public:
 	void Update( float dTime );
 
 	void NetworkSetMenu( ENetworkMode GameMode, char* serverIP );
-	void CountDown(float dTime);
 
 	void EndGame();
 
@@ -34,13 +33,15 @@ private:
 	
 	bool			m_netsetup;
 
-	NNLabel*		m_CountNumLabel_3;
-	NNLabel*		m_CountNumLabel_2;
-	NNLabel*		m_CountNumLabel_1;
-	float			m_CountNum;
-	bool			m_DoCount;
+	NNLabel*		m_ReplayLabel;
+	NNLabel*		m_ExitLabel;
 	
 	NNSound*		m_BackgroundSound;
+
+	NNSprite*		m_SpriteRaymuWin;
+	NNSprite*		m_SpriteRaymuLose;
+	NNSprite*		m_SpriteMarisaWin;
+	NNSprite*		m_SpriteMarisaLose;
 
 	ENetworkMode	m_GameMode;
 };
