@@ -151,8 +151,6 @@ void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap*
 	m_FlyMotion->SetRotation(GetShotDirection() + 90.f);
 	m_FlyMotion->Update(dTime);
 
-	printf_s("recv : %d\n", m_direct_key_input);
-
 	//받은 패킷에 변화가 있다면 상태변화 및 스킬시전
 	if (m_PacketHandler->m_IsPacketrecv == true)
 	{

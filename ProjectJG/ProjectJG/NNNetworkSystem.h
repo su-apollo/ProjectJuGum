@@ -25,6 +25,8 @@ public:
 	void Write( const char* data, size_t size );
 	void Read();
 
+	char* GetIpAddress();
+
 private:
 	void ProcessPacket();
 

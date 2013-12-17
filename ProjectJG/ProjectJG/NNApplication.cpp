@@ -250,8 +250,6 @@ LRESULT CALLBACK NNApplication::WndProc( HWND hWnd, UINT message, WPARAM wParam,
 			{
 			case FD_ACCEPT:
 				{
-					printf_s("FD_ACCEPT\n");
-
 					int opt = 1 ;
 					::setsockopt(NNNetworkSystem::GetInstance()->m_Socket, IPPROTO_TCP, TCP_NODELAY, (const char*)&opt, sizeof(int)) ;
 

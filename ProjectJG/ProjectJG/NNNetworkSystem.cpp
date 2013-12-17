@@ -177,4 +177,27 @@ void NNNetworkSystem::ReleaseInstance()
 	}
 }
 
+char* NNNetworkSystem::GetIpAddress()
+{
+	char myaddr[256];
+	PHOSTENT pHostInfo;
+	in_addr in;
+
+	//로컬pc의 호스트이름을 표준양식으로받아옴(MSDN)
+	gethostname(myaddr, sizeof(myaddr));   
+
+	printf_s("%s\n", myaddr);
+
+	//호스트이름에 대응되는Databas를 PHOSTENT구조체로 리턴
+	pHostInfo = gethostbyname(myaddr);           
+
+	if( pHostInfo != NULL )     
+	{ 
+		in.s_addr = ( ( LPIN_ADDR ) pHostInfo->h_addr )->s_addr; 
+		m_ServerIP = inet_ntoa( in );
+	}
+
+	return m_ServerIP;
+}
+
 

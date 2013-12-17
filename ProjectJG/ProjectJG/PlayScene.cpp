@@ -171,7 +171,6 @@ void CPlayScene::NetworkSetMenu( ENetworkMode GameMode, char* serverIP )
 
 		m_MainMap->SetGameMode(CLIENT_MODE);
 
-		NNNetworkSystem::GetInstance()->Init();
 		NNNetworkSystem::GetInstance()->Connect(serverIpAddr, SERVER_PORT_NUM);
 		NNNetworkSystem::GetInstance()->SetPacketHandler(PKT_STATUS, m_MainMap->GetPlayer1()->GetPacketHandler());
 		NNNetworkSystem::GetInstance()->SetPacketHandler(PKT_STATUS, m_MainMap->GetPlayer2()->GetPacketHandler());
@@ -187,7 +186,6 @@ void CPlayScene::NetworkSetMenu( ENetworkMode GameMode, char* serverIP )
 
 		m_MainMap->SetGameMode(SERVER_MODE);
 
-		NNNetworkSystem::GetInstance()->Init();
 		NNNetworkSystem::GetInstance()->Listen(SERVER_PORT_NUM);
 		NNNetworkSystem::GetInstance()->SetPacketHandler(PKT_STATUS, m_MainMap->GetPlayer1()->GetPacketHandler());
 		NNNetworkSystem::GetInstance()->SetPacketHandler(PKT_STATUS, m_MainMap->GetPlayer2()->GetPacketHandler());

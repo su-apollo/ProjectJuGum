@@ -9,10 +9,12 @@
 #include "PlayScene.h"
 #include "NNSprite.h"
 #include "NNAudioSystem.h"
-
+#include "NNNetworkSystem.h"
 
 CMainMenuScene::CMainMenuScene(void)
 {
+	NNNetworkSystem::GetInstance()->Init();
+
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 
@@ -193,7 +195,7 @@ void CMainMenuScene::SetUpGameMode()
 void CMainMenuScene::GetCurrentIP()
 {
 	// 일단은 코드 안에 박아둠, 나중에 현찬이가 알아내는 함수 알려주면 바꿀 코드.
-	strcpy_s(m_serverIP, _countof(m_serverIP), "127.0.0.1");
+	strcpy_s(m_serverIP, _countof(m_serverIP), NNNetworkSystem::GetInstance()->GetIpAddress());
 	swprintf(m_NetMenuBuffer[NET_MENU_IP_ADDR], _countof(m_NetMenuBuffer[NET_MENU_IP_ADDR]), L"%hs", m_serverIP);
 }
 
