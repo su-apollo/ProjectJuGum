@@ -37,8 +37,8 @@ CMainMenuScene::CMainMenuScene(void)
 	float image_ratio = (float)width * 0.5f / m_Logo->GetImageWidth();
 // 	m_Logo->SetImageWidth(m_Logo->GetImageWidth() * image_ratio);
 // 	m_Logo->SetImageHeight(m_Logo->GetImageHeight() * image_ratio);
-	m_Logo->SetScale(1.2f, 1.2f);
-	m_Logo->SetPosition( 150.f, 250.f );
+	m_Logo->SetScale(1.3f, 1.3f);
+	m_Logo->SetPosition( 170.f, 300.f );
 	AddChild( m_Logo );
 
 
