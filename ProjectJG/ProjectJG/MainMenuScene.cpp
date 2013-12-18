@@ -65,10 +65,10 @@ CMainMenuScene::CMainMenuScene(void)
 
 	// 설명 라벨 내용 초기화
 	swprintf(m_InstructionBuffer[MENU_NUM], _countof(m_InstructionBuffer[MENU_NUM]), L"Press Z to select Menu.");		// 메뉴 선택되지 않았을 때 설명
-	swprintf(m_InstructionBuffer[MENU_TEST], _countof(m_InstructionBuffer[MENU_TEST]), L"Press Z to Start, or Press X to cancel.");
+	swprintf(m_InstructionBuffer[MENU_TEST], _countof(m_InstructionBuffer[MENU_TEST]), L"");
 	swprintf(m_InstructionBuffer[MENU_CLIENT], _countof(m_InstructionBuffer[MENU_CLIENT]), L"Input Server IP and Press Z to Start,\nor Press X to cancel.");
 	swprintf(m_InstructionBuffer[MENU_SERVER], _countof(m_InstructionBuffer[MENU_SERVER]), L"This is your IP address.\nPress Z to Start, or Press X to cancel.");
-	swprintf(m_InstructionBuffer[MENU_QUIT], _countof(m_InstructionBuffer[MENU_QUIT]), L"Do you really want to QUIT game?\nPress Z to quit, X to cancel.");
+	swprintf(m_InstructionBuffer[MENU_QUIT], _countof(m_InstructionBuffer[MENU_QUIT]), L"");
 
 	m_InstructionLabel = NNLabel::Create(m_InstructionBuffer[MENU_NUM], GAME_FONT, MAIN_MENU_LABEL_FONT_SIZE * 0.5f);
 	m_InstructionLabel->SetPosition( width*0.3f, height*0.33f );
@@ -125,8 +125,9 @@ void CMainMenuScene::Update( float dTime )
 	else {							// 게임 모드가 선택됐을 경우, // 현재 선택된 게임 모드(키보드가 위치한 메뉴)에 따라 업데이트를 달리 함.
 		switch (m_KeyOn)
 		{
-		case MENU_TEST:				// Z를 누르면 게임 시작, X를 누르면 메뉴선택 취소.
-		case MENU_SERVER:
+		case MENU_TEST:				// 별 다른 처리 없이 게임 시작.
+			ChangeScene();
+		case MENU_SERVER:			// Z를 누르면 게임 시작, X를 누르면 메뉴선택 취소.
 			if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE ) 
 			{
 				NNAudioSystem::GetInstance()->Play( m_OkSound );
@@ -151,17 +152,8 @@ void CMainMenuScene::Update( float dTime )
 			}
 			GetIPInput();
 			break;
-		case MENU_QUIT:				// Z를 누르면 게임 종료, X를 누르면 메뉴선택 취소.
-			if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE ) 
-			{
-				NNAudioSystem::GetInstance()->Play( m_OkSound );
-				PostMessage( NNApplication::GetInstance()->GetHWND(), WM_DESTROY, 0, 0 );
-			}
-			if ( NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_TWO ) 
-			{
-				NNAudioSystem::GetInstance()->Play( m_CancelSound );
-				CancelModeSelection();
-			}
+		case MENU_QUIT:
+			PostMessage( NNApplication::GetInstance()->GetHWND(), WM_DESTROY, 0, 0 );
 			break;
 		default:
 			break;
