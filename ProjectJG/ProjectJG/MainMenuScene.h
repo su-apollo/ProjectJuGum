@@ -2,10 +2,6 @@
 #include "NNScene.h"
 #include "GameOption.h"
 
-#define LABEL_VERTICAL_SPACE	80.f
-#define LABEL_HORIZONTAL_SPACE	200.f
-#define LABEL_FONT_SIZE			60.f
-
 class NNSprite;
 class NNLabel;
 class NNSound;

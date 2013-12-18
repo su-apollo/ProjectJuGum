@@ -104,7 +104,9 @@ void CPlayScene::Update( float dTime )
 	CameraMove( m_MainMap->GetPlayer1(), dTime );
 
 	// UI update
-	UImanager::GetInstance()->Update( dTime, m_MainMap->GetPlayer1(), m_MainMap->GetPlayer2() );
+	if (m_MainMap->GetGameResult() == GAME_NOT_END) {
+		UImanager::GetInstance()->Update( dTime, m_MainMap->GetPlayer1(), m_MainMap->GetPlayer2() );
+	}
 
 	// 모든 게임 플레이 관련 처리는 메인 맵에서 한다.
 	m_MainMap->Update( dTime, m_Frame );

@@ -1,35 +1,50 @@
 #pragma once
 
-#define WINDOW_WIDTH						1280
+#define WINDOW_WIDTH					1280
 #define WINDOW_HEIGHT					800
 
 #define MAIN_MAP_WIDTH					2000.f
 #define MAIN_MAP_HEIGHT					1200.f
 #define FRAME_WIDTH						750.f
-#define FRAME_HEIGHT						750.f
+#define FRAME_HEIGHT					750.f
 
 #define MAX_BULLET_NUM					2000
 #define MAX_FAIRY_NUM					50
-#define MAX_ASTEROID_NUM					30
+#define MAX_ASTEROID_NUM				30
 
 #define BASIC_COST						50000
 
+#define MAIN_MENU_LABEL_VERTICAL_SPACE		80.f
+#define MAIN_MENU_LABEL_HORIZONTAL_SPACE	200.f
+#define MAIN_MENU_LABEL_FONT_SIZE			60.f
+
+#define UI_LABEL_FONT_SIZE					40.f
+
+// MainMenuScene Resources
 #define MAIN_MENU_SCENE_BACKGROUND_IMAGE		L"Sprite/MainBackground.jpg"
-#define MAIN_MENU_LOADING_SCENE				L"Sprite/Loading.jpg"
-#define MAIN_MAP_BACKGROUND_IMAGE			L"Sprite/background/IMG00000.jpg"
-#define VERTICAL_FONT						L"AEZ outline vertical"
-#define GAME_FONT							L"Bleeding Cowboys"
-
+#define MAIN_MENU_LOADING_SCENE					L"Sprite/Loading.jpg"
 #define MAIN_MENU_SCENE_BACKGROUND_SOUND		"Sound/Eternal Dream.mp3"
-#define GAME_BACKGROUND_SOUND				"Sound/the Mooned Incects.mp3"
-#define EFFECT_SOUND_OK						"Sound/se_ok00.wav"
-#define EFFECT_SOUND_CANCEL					"Sound/se_cancel00.wav"
-#define EFFECT_SOUND_SELECT					"Sound/se_select00.wav"
+#define EFFECT_SOUND_OK							"Sound/se_ok00.wav"
+#define EFFECT_SOUND_CANCEL						"Sound/se_cancel00.wav"
+#define EFFECT_SOUND_SELECT						"Sound/se_select00.wav"
 
-#define EFFECT_SOUND_DEAD					"Sound/se_pldead00.wav"
-#define EFFECT_SOUND_CHAR_SHOT				"Sound/se_plst00.wav"
-#define EFFECT_SOUND_SUBCHAR_SHOT			"Sound/se_graze.wav"
-#define EFFECT_SOUND_BIG_SKILL_SHOT			"Sound/se_enep00.wav"
+// MainMap Resources
+#define MAIN_MAP_BACKGROUND_IMAGE				L"Sprite/background/IMG00000.jpg"
+
+// UImanager Resources
+#define VERTICAL_FONT							L"AEZ outline vertical"
+#define GAME_FONT								L"Bleeding Cowboys"
+#define RAYMU_PORTRAIT							L"Sprite/Raymu Portraits.png"
+#define MARISA_PORTRAIT							L"Sprite/Marisa Portraits.png"
+
+// PlayScene Resources
+#define GAME_BACKGROUND_SOUND					"Sound/the Mooned Incects.mp3"
+
+// Character Resources
+#define EFFECT_SOUND_DEAD						"Sound/se_pldead00.wav"
+#define EFFECT_SOUND_CHAR_SHOT					"Sound/se_plst00.wav"
+#define EFFECT_SOUND_SUBCHAR_SHOT				"Sound/se_graze.wav"
+#define EFFECT_SOUND_BIG_SKILL_SHOT				"Sound/se_enep00.wav"
 
 enum ECharcterType
 {

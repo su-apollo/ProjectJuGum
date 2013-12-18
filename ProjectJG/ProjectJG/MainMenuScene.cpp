@@ -35,23 +35,23 @@ CMainMenuScene::CMainMenuScene(void)
 	AddChild(m_BackGround);
 
 	// 메뉴 라벨 생성
-	m_MenuLabel[MENU_TEST] = NNLabel::Create( L"Test", VERTICAL_FONT, LABEL_FONT_SIZE );
+	m_MenuLabel[MENU_TEST] = NNLabel::Create( L"Test", VERTICAL_FONT, MAIN_MENU_LABEL_FONT_SIZE );
 	AddChild( m_MenuLabel[MENU_TEST] );
 
-	m_MenuLabel[MENU_SERVER] = NNLabel::Create( L"Server", VERTICAL_FONT, LABEL_FONT_SIZE );
+	m_MenuLabel[MENU_SERVER] = NNLabel::Create( L"Server", VERTICAL_FONT, MAIN_MENU_LABEL_FONT_SIZE );
 	AddChild( m_MenuLabel[MENU_SERVER] );
 
-	m_MenuLabel[MENU_CLIENT] = NNLabel::Create( L"Client", VERTICAL_FONT, LABEL_FONT_SIZE );
+	m_MenuLabel[MENU_CLIENT] = NNLabel::Create( L"Client", VERTICAL_FONT, MAIN_MENU_LABEL_FONT_SIZE );
 	AddChild( m_MenuLabel[MENU_CLIENT] );
 
-	m_MenuLabel[MENU_QUIT] = NNLabel::Create( L"Quit", VERTICAL_FONT, LABEL_FONT_SIZE );
+	m_MenuLabel[MENU_QUIT] = NNLabel::Create( L"Quit", VERTICAL_FONT, MAIN_MENU_LABEL_FONT_SIZE );
 	AddChild( m_MenuLabel[MENU_QUIT] );
 
 	// 메뉴 라벨 초기 배치
 	m_MenuLabel[0]->SetPosition( width*0.35f, height*0.6f );
 	for (int i = 1; i < MENU_NUM; i++)
 	{
-		m_MenuLabel[i]->SetPosition( m_MenuLabel[i-1]->GetPosition() + NNPoint(LABEL_HORIZONTAL_SPACE, 0.f) );
+		m_MenuLabel[i]->SetPosition( m_MenuLabel[i-1]->GetPosition() + NNPoint(MAIN_MENU_LABEL_HORIZONTAL_SPACE, 0.f) );
 	}
 	// 세로 폰트니까 돌려서.
 	for (int i = 0; i < MENU_NUM; i++)
@@ -70,7 +70,7 @@ CMainMenuScene::CMainMenuScene(void)
 	swprintf(m_InstructionBuffer[MENU_SERVER], _countof(m_InstructionBuffer[MENU_SERVER]), L"This is your IP address.\nPress Z to Start, or Press X to cancel.");
 	swprintf(m_InstructionBuffer[MENU_QUIT], _countof(m_InstructionBuffer[MENU_QUIT]), L"Do you really want to QUIT game?\nPress Z to quit, X to cancel.");
 
-	m_InstructionLabel = NNLabel::Create(m_InstructionBuffer[MENU_NUM], GAME_FONT, LABEL_FONT_SIZE * 0.5f);
+	m_InstructionLabel = NNLabel::Create(m_InstructionBuffer[MENU_NUM], GAME_FONT, MAIN_MENU_LABEL_FONT_SIZE * 0.5f);
 	m_InstructionLabel->SetPosition( width*0.3f, height*0.33f );
 	m_InstructionLabel->SetColor(0.f, 0.f, 0.f);
 	
@@ -80,7 +80,7 @@ CMainMenuScene::CMainMenuScene(void)
 	for (int i = 0; i < NET_MENU_NUM; i++)
 	{
 		swprintf(m_NetMenuBuffer[i], _countof(m_NetMenuBuffer[i]), L"");
-		m_NetMenuLabel[i] = NNLabel::Create(m_NetMenuBuffer[i], GAME_FONT, LABEL_FONT_SIZE * 0.5f);
+		m_NetMenuLabel[i] = NNLabel::Create(m_NetMenuBuffer[i], GAME_FONT, MAIN_MENU_LABEL_FONT_SIZE * 0.5f);
 		m_NetMenuLabel[i]->SetVisible(false);
 		AddChild(m_NetMenuLabel[i]);
 	}
@@ -267,16 +267,16 @@ void CMainMenuScene::ShowCommand( int MenuIndex, wchar_t* command )
 	// 이미 나와있던 메뉴 라벨을 한 칸 옆으로 민다.
 	for (int i = MenuIndex+1; i < MENU_NUM; i++)
 	{
-		m_MenuLabel[i]->SetPosition( m_MenuLabel[i]->GetPosition() + NNPoint(LABEL_HORIZONTAL_SPACE, 0.f) );
+		m_MenuLabel[i]->SetPosition( m_MenuLabel[i]->GetPosition() + NNPoint(MAIN_MENU_LABEL_HORIZONTAL_SPACE, 0.f) );
 	}
 
 	// IP를 보여준다 : 버퍼 내용 바꾸고, 라벨 위치 변경하고, 라벨 다시 보이게 하고.
 	swprintf(m_NetMenuBuffer[NET_MENU_COMMAND], _countof(m_NetMenuBuffer[NET_MENU_COMMAND]), command);
-	m_NetMenuLabel[NET_MENU_COMMAND]->SetPosition( m_MenuLabel[MenuIndex]->GetPosition() + NNPoint(LABEL_HORIZONTAL_SPACE*0.2f, 0.f) );
+	m_NetMenuLabel[NET_MENU_COMMAND]->SetPosition( m_MenuLabel[MenuIndex]->GetPosition() + NNPoint(MAIN_MENU_LABEL_HORIZONTAL_SPACE*0.2f, 0.f) );
 	m_NetMenuLabel[NET_MENU_COMMAND]->SetVisible(true);
 
 	swprintf(m_NetMenuBuffer[NET_MENU_IP_ADDR], _countof(m_NetMenuBuffer[NET_MENU_IP_ADDR]), L"%hs", m_serverIP);
-	m_NetMenuLabel[NET_MENU_IP_ADDR]->SetPosition( m_NetMenuLabel[NET_MENU_COMMAND]->GetPosition() + NNPoint(0.f, LABEL_VERTICAL_SPACE) );
+	m_NetMenuLabel[NET_MENU_IP_ADDR]->SetPosition( m_NetMenuLabel[NET_MENU_COMMAND]->GetPosition() + NNPoint(0.f, MAIN_MENU_LABEL_VERTICAL_SPACE) );
 	m_NetMenuLabel[NET_MENU_IP_ADDR]->SetVisible(true);
 }
 
@@ -323,6 +323,6 @@ void CMainMenuScene::CancelModeSelection()
 	m_MenuLabel[0]->SetPosition( width*0.35f, height*0.6f );
 	for (int i = 1; i < MENU_NUM; i++)
 	{
-		m_MenuLabel[i]->SetPosition( m_MenuLabel[i-1]->GetPosition() + NNPoint(LABEL_HORIZONTAL_SPACE, 0.f) );
+		m_MenuLabel[i]->SetPosition( m_MenuLabel[i-1]->GetPosition() + NNPoint(MAIN_MENU_LABEL_HORIZONTAL_SPACE, 0.f) );
 	}
 }
