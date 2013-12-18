@@ -5,7 +5,7 @@
 
 class NNCircle;
 class CMainMap;
-class NNSpriteAtlas;
+class NNSprite;
 class CFairy;
 class NNAnimation;
 class CPacketHandler;
@@ -59,8 +59,8 @@ public:
 
 	void			SetSubChar(CSubChar* setsubchar){ m_SubChar = setsubchar; }
 
-	NNSpriteAtlas*	GetDeadEffect() const { return m_DeadEffect; }
-	void			SetDeadEffect(NNSpriteAtlas* val) { m_DeadEffect = val; }
+	NNSprite*	GetDeadEffect() const { return m_DeadEffect; }
+	void			SetDeadEffect(NNSprite* val) { m_DeadEffect = val; }
 
 	//네트워크 관련 함수
 	CPacketHandler* GetPacketHandler() { return m_PacketHandler; }
@@ -72,7 +72,7 @@ protected:
 	float			m_Cost;
 
 	NNAnimation*	m_FlyMotion;
-	NNSpriteAtlas*	m_DeadEffect;
+	NNSprite*	m_DeadEffect;
 
 	bool			m_bHit;
 

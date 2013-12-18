@@ -3,7 +3,7 @@
 
 class CMaincharacter;
 class NNAnimation;
-class NNSpriteAtlas;
+class NNSprite;
 class NNSound;
 
 class CSubChar :
@@ -30,6 +30,6 @@ protected:
 	NNSound*		m_Shotsound;
 
 	NNAnimation*	m_FlyMotion;
-	NNSpriteAtlas*	m_BackgroundEffect;
+	NNSprite*	m_BackgroundEffect;
 };
 

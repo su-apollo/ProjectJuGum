@@ -195,6 +195,7 @@ void CMainMap::Update( float dTime, CFrame* frame )
 		m_Player2->SetHit(true);
 	}
 
+	//게임 결과를 정함
 	if (m_Player1->IsHit() || m_Player2->IsHit())
 	{
 		m_TimeToHitCheckWait += dTime;

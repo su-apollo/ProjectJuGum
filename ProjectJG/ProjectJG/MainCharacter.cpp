@@ -5,7 +5,7 @@
 #include "BulletManager.h"
 #include "NNInputSystem.h"
 #include "NNCircle.h"
-#include "NNSpriteAtlas.h"
+#include "NNSprite.h"
 #include "Fairy.h"
 #include "PacketHandler.h"
 #include "NNAnimation.h"
@@ -62,7 +62,7 @@ CMaincharacter::CMaincharacter(ECharcterType type_of_char) :
 	AddChild( m_FlyMotion );
 
 	//Á×À»¶§ ÀÌÆåÆ® ·Îµå
-	m_DeadEffect = NNSpriteAtlas::Create(L"Sprite/DeadEffect.png");
+	m_DeadEffect = NNSprite::Create(L"Sprite/DeadEffect.png");
 	m_DeadEffect->SetVisible(false);
 	AddChild(m_DeadEffect);
 	

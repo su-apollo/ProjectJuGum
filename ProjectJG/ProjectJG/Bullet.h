@@ -4,7 +4,7 @@
 
 class CMaincharacter;
 class NNCircle;
-class NNSpriteAtlas;
+class NNSprite;
 
 class CBullet : public CGameMoveObj
 {
@@ -17,12 +17,12 @@ public:
 	void Update( float dTime );
 
 	EBulletType		GetBulletType() {return m_Type;}
-	NNSpriteAtlas*	GetTexture(EBulletType type) { return m_Texture[type]; }
+	NNSprite*	GetTexture(EBulletType type) { return m_Texture[type]; }
 
 	void			SetBulletType(EBulletType new_type) {m_Type = new_type;}
 
 private:
-	NNSpriteAtlas*	m_Texture[BULLET_TYPE_NUM];
+	NNSprite*	m_Texture[BULLET_TYPE_NUM];
 	EBulletType		m_Type;
 	bool			m_IsSpin;
 };

@@ -1,7 +1,7 @@
 #pragma once
 #include "GameMoveObj.h"
 
-class NNSpriteAtlas;
+class NNSprite;
 
 class CAsteroid 
 	: public CGameMoveObj
@@ -20,7 +20,7 @@ public:
 
 private:
 	int				m_HP;
-	NNSpriteAtlas*	m_Texture;
+	NNSprite*	m_Texture;
 
 };
 

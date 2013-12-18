@@ -4,7 +4,7 @@
 #include "Maincharacter.h"
 #include "BulletManager.h"
 #include "Bullet.h"
-#include "NNSpriteAtlas.h"
+#include "NNSprite.h"
 #include "NNResourceManager.h"
 #include "NNAudioSystem.h"
 
@@ -14,7 +14,7 @@ CSubChar::CSubChar(ESubCharType type_of_char)
 
 	if ( type_of_char == YUKARI )
 	{
-		m_BackgroundEffect = NNSpriteAtlas::Create(L"Sprite/BackgroundEffect1.png");
+		m_BackgroundEffect = NNSprite::Create(L"Sprite/BackgroundEffect1.png");
 		m_FlyMotion = NNAnimation::Create( 4, 0.2f,	
 			L"Sprite/SubCharR1.png",
 			L"Sprite/SubCharR2.png",
@@ -23,7 +23,7 @@ CSubChar::CSubChar(ESubCharType type_of_char)
 	}
 	else if ( type_of_char == ALICE )
 	{
-		m_BackgroundEffect = NNSpriteAtlas::Create(L"Sprite/BackgroundEffect2.png");
+		m_BackgroundEffect = NNSprite::Create(L"Sprite/BackgroundEffect2.png");
 		m_FlyMotion = NNAnimation::Create( 4, 0.2f,	
 			L"Sprite/SubCharB1.png",
 			L"Sprite/SubCharB2.png",

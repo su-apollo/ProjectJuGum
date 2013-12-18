@@ -59,6 +59,9 @@ private:
 	int				m_BulletIndex;
 	int				m_AsteroidIndex;
 
-	
+#ifdef _DEBUG
+	int				m_BulletNum;
+	float			m_TimeToCheckBulletNum;
+#endif
 
 };

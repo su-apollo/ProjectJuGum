@@ -27,7 +27,8 @@ public:
 	virtual void Update( float dTime );
 
 	NNObject* GetParent() { return m_pParent; }
-	std::list<NNObject*> GetChildList() { return m_ChildList; }
+	//std::list<NNObject*> GetChildList() { return m_ChildList; }
+	std::vector<NNObject*> GetChildList() { return m_ChildList; }
 
 	void SetParent( NNObject* object ) { m_pParent = object; }
 
@@ -66,7 +67,8 @@ public:
 
 protected:
 	NNObject* m_pParent;
-	std::list<NNObject*> m_ChildList;
+	//std::list<NNObject*> m_ChildList;
+	std::vector<NNObject*> m_ChildList;
 
 protected:
 	D2D1::Matrix3x2F m_Matrix;

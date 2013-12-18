@@ -1,5 +1,6 @@
 #include "NNConfig.h"
 #include "NNSpriteAtlas.h"
+#include "NNSprite.h"
 
 #include "BulletManager.h"
 #include "MainMap.h"
@@ -11,6 +12,9 @@
 CBulletManager* CBulletManager::m_pInstance = nullptr;
 
 CBulletManager::CBulletManager(void) : m_BulletIndex(0), m_AsteroidIndex(0)
+#ifdef _DEBUG
+	,m_TimeToCheckBulletNum(0.f), m_BulletNum(0)
+#endif 	
 {
 }
 
@@ -168,16 +172,29 @@ void CBulletManager::UpdateObj(float dTime, CMaincharacter* Enemy, CMainMap* Map
 
 void CBulletManager::UpdateBullet(float dTime, CMainMap* Map)
 {
+	m_TimeToCheckBulletNum += dTime;
+
 	for (int i = 0; i < MAX_BULLET_NUM; ++i)
 	{
 		if (m_pBulletArray[i]->IsVisible())
 		{
+#ifdef _DEBUG
+			if (m_TimeToCheckBulletNum >= 5.0f)
+				++m_BulletNum;
+#endif
 			m_pBulletArray[i]->Update(dTime);
+
 			if(CheckLifeTime(Map, m_pBulletArray[i]))
-			{
 				DestroyBullet(m_pBulletArray[i]);
-			}
 		}
+	}
+
+	
+	if (m_TimeToCheckBulletNum >= 5.0f)
+	{
+		printf_s("bullet num : %d\n", m_BulletNum);
+		m_TimeToCheckBulletNum = 0.f;
+		m_BulletNum = 0;
 	}
 }
 

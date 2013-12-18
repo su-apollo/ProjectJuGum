@@ -8,7 +8,7 @@
 #define FRAME_WIDTH						750.f
 #define FRAME_HEIGHT						750.f
 
-#define MAX_BULLET_NUM					1000
+#define MAX_BULLET_NUM					2000
 #define MAX_FAIRY_NUM					50
 #define MAX_ASTEROID_NUM					30
 

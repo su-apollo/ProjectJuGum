@@ -48,9 +48,9 @@ void NNObject::Update( float dTime )
 }
 void NNObject::SortingChildByZindex()
 {
-	m_ChildList.sort([](const NNObject* object1, const NNObject* object2) -> bool {
-		return object1->GetZindex() < object2->GetZindex();
-	});
+// 	m_ChildList.sort([](const NNObject* object1, const NNObject* object2) -> bool {
+// 		return object1->GetZindex() < object2->GetZindex();
+// 	});
 }
 void NNObject::AddChild( NNObject* object )
 {
@@ -64,7 +64,7 @@ void NNObject::AddChild( NNObject* object, int zindex )
 	object->SetParent( this );
 	object->SetZindex( zindex );
 	m_ChildList.push_back( object );
-	SortingChildByZindex();
+	//SortingChildByZindex();
 }
 void NNObject::RemoveChild( NNObject* object, bool memoryDel )
 {
