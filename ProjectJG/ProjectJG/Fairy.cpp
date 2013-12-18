@@ -20,17 +20,13 @@ CFairy::CFairy(void) : m_ShotTimeSum(0.f)
 
 	m_Shotsound = NNResourceManager::GetInstance()->LoadSoundFromFile( EFFECT_SOUND_SUBCHAR_SHOT, false );
 
-	m_FairyMotion = NNAnimation::Create( 8, 0.3f,	
+	m_FairyMotion = NNAnimation::Create( 5, 0.3f,	
 		L"Sprite/fairy1.png",
 		L"Sprite/fairy2.png",
 		L"Sprite/fairy3.png",
 		L"Sprite/fairy4.png",
-		L"Sprite/fairy5.png",
-		L"Sprite/fairy6.png",
-		L"Sprite/fairy7.png",
-		L"Sprite/fairy8.png");
+		L"Sprite/fairy5.png");
 
-	m_FairyMotion->SetScale(1.5f, 1.5f);
 	AddChild( m_FairyMotion );
 }
 

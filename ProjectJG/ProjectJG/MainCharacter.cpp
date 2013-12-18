@@ -35,7 +35,7 @@ CMaincharacter::CMaincharacter(ECharcterType type_of_char) :
 
 	if ( type_of_char == RAYMU )
 	{
-		m_FlyMotion = NNAnimation::Create( 8, 0.2f,	
+		m_FlyMotion = NNAnimation::Create( 8, 0.1f,	
 			L"Sprite/CharR1.png",
 			L"Sprite/CharR2.png",
 			L"Sprite/CharR3.png",
@@ -47,7 +47,7 @@ CMaincharacter::CMaincharacter(ECharcterType type_of_char) :
 	}
 	else if ( type_of_char == MARISA )
 	{
-		m_FlyMotion = NNAnimation::Create( 8, 0.2f,	
+		m_FlyMotion = NNAnimation::Create( 8, 0.1f,	
 			L"Sprite/CharB1.png",
 			L"Sprite/CharB2.png",
 			L"Sprite/CharB3.png",

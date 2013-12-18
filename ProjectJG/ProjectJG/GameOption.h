@@ -48,7 +48,7 @@ enum ESubCharState
 	SKILL_STATE
 };
 #define CHAR_SPEED						300.f
-#define CHAR_SLOW_SPEED					200.f
+#define CHAR_SLOW_SPEED					150.f
 #define CHAR_HIT_RADIUS					5.f
 
 

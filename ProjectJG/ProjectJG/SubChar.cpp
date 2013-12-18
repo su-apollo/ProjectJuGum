@@ -15,7 +15,7 @@ CSubChar::CSubChar(ESubCharType type_of_char)
 	if ( type_of_char == YUKARI )
 	{
 		m_BackgroundEffect = NNSprite::Create(L"Sprite/BackgroundEffect1.png");
-		m_FlyMotion = NNAnimation::Create( 4, 0.2f,	
+		m_FlyMotion = NNAnimation::Create( 4, 0.1f,	
 			L"Sprite/SubCharR1.png",
 			L"Sprite/SubCharR2.png",
 			L"Sprite/SubCharR3.png",
@@ -24,7 +24,7 @@ CSubChar::CSubChar(ESubCharType type_of_char)
 	else if ( type_of_char == ALICE )
 	{
 		m_BackgroundEffect = NNSprite::Create(L"Sprite/BackgroundEffect2.png");
-		m_FlyMotion = NNAnimation::Create( 4, 0.2f,	
+		m_FlyMotion = NNAnimation::Create( 4, 0.1f,	
 			L"Sprite/SubCharB1.png",
 			L"Sprite/SubCharB2.png",
 			L"Sprite/SubCharB3.png",

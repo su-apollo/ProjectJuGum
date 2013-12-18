@@ -57,7 +57,7 @@ CBullet::CBullet()
 
 	//요정 일반탄환
 	m_Texture[FAIRY_NORMAL_BULLET] = NNSprite::Create(L"Sprite/fairybullet.png");
-	m_Texture[FAIRY_NORMAL_BULLET]->SetImageHeight(2*BULLET_HIT_RADIUS*1.5f);
+	m_Texture[FAIRY_NORMAL_BULLET]->SetImageHeight(2*BULLET_HIT_RADIUS*1.6f);
 	m_Texture[FAIRY_NORMAL_BULLET]->SetImageWidth(2*BULLET_HIT_RADIUS);
 	m_Texture[FAIRY_NORMAL_BULLET]->SetPosition(0.f, 0.f);
 	m_Texture[FAIRY_NORMAL_BULLET]->SetVisible(false);

@@ -31,7 +31,7 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 
 	// 맵 배경 이미지
 	// 문자열 배열로 만들어서 관리해야함
-	m_BackGround = NNAnimation::Create( 40,	0.3f,	
+	m_BackGround = NNAnimation::Create( 40,	0.2f,	
 		L"Sprite/background/IMG00000.jpg",
 		L"Sprite/background/IMG00001.jpg",
 		L"Sprite/background/IMG00002.jpg",
@@ -80,7 +80,7 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 	// 플레이어 생성 및 서브캐릭터 생성
 	CSubChar* subchar_1;
 	CSubChar* subchar_2;
-	if (GameMode == SERVER_MODE /*|| GameMode == TEST_MODE*/)
+	if (GameMode == SERVER_MODE || GameMode == TEST_MODE)
 	{
 		subchar_1 = new CSubChar(YUKARI);
 		m_Player1 = new CMaincharacter(RAYMU);
