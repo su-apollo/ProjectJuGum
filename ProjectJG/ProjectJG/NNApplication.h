@@ -72,10 +72,10 @@ public:
 	inline int GetScreenHeight() const { return m_ScreenHeight; }
 	inline RendererStatus GetRendererStatus() const { return m_RendererStatus; }
 
-	inline float GetTopLine() { return -GetScreenHeight()*0.5f; }
-	inline float GetBotLine() { return GetScreenHeight()*0.5f; }
-	inline float GetRightLine() { return GetScreenWidth()*0.5f; }
-	inline float GetLeftLine() { return -GetScreenWidth()*0.5f; }
+	inline float GetTopLine() { return (float)0; }
+	inline float GetBotLine() { return (float)GetScreenHeight(); }
+	inline float GetRightLine() { return (float)GetScreenWidth(); }
+	inline float GetLeftLine() { return (float)0; }
 
 	inline float GetFPS() const { return m_Fps; }
 	inline float GetElapsedTime() const { return m_ElapsedTime; }

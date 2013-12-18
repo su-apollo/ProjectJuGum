@@ -260,11 +260,11 @@ void CMainMap::Update( float dTime, CFrame* frame )
 void CMainMap::SetPlayerMoveArea( CMaincharacter * Player, CFrame* frame )
 {
 	// 캐릭터가 움직일 수 있는 범위. 프레임이 화면 끝까지 가지 않도록 한다.
-	float leftline = GetLeftLine() - NNApplication::GetInstance()->GetLeftLine() + frame->GetLeftLine();
-	float rightline = GetRightLine() - NNApplication::GetInstance()->GetRightLine() + frame->GetRightLine();
-	float botline = GetBotLine() - NNApplication::GetInstance()->GetBotLine() + frame->GetBotLine();
-	float topline = GetTopLine() - NNApplication::GetInstance()->GetTopLine() + frame->GetTopLine();
-	
+	float leftline	= this->GetLeftLine()	+ frame->GetPositionX()	+ frame->GetLeftLine()	+ NNApplication::GetInstance()->GetLeftLine();
+	float rightline	= this->GetRightLine()	+ frame->GetPositionX()	+ frame->GetRightLine()	- NNApplication::GetInstance()->GetRightLine();
+	float topline	= this->GetTopLine()	+ frame->GetPositionY()	+ frame->GetTopLine()	+ NNApplication::GetInstance()->GetTopLine();
+	float botline	= this->GetBotLine()	+ frame->GetPositionY()	+ frame->GetBotLine()	- NNApplication::GetInstance()->GetBotLine();
+
 	if (Player->GetPositionX() < leftline)
 	{
 		Player->SetPosition(NNPoint(leftline, Player->GetPositionY()));

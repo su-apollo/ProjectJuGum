@@ -59,9 +59,6 @@ CMainMenuScene::CMainMenuScene(void)
 		m_MenuLabel[i]->SetRotation(90.f);
 	}
 
-	printf_s("%.3f, %.3f\n", m_MenuLabel[0]->GetPositionX(), m_MenuLabel[0]->GetPositionY());
-
-
 	m_KeyOn = 0;				// 현재 가리키고 있는 메뉴 위치
 	m_bMenuSelected = false;	// "메뉴가 아직 선택되지 않았다"
 

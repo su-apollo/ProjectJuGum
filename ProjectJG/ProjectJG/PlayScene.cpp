@@ -34,7 +34,7 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : m_netsetup(fal
 
 	// 카메라 프레임
 	m_Frame = new CFrame();
-	m_Frame->SetPosition( width*0.5f, height*0.5f );
+	m_Frame->SetPosition( m_MainMap->GetPosition() );
 	m_Frame->SetSize( FRAME_WIDTH, FRAME_HEIGHT );
 	AddChild( m_Frame );
 
