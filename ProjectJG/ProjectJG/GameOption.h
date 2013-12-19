@@ -1,29 +1,28 @@
 #pragma once
 
-#define WINDOW_WIDTH					1280
-#define WINDOW_HEIGHT					800
+#define WINDOW_WIDTH							1280
+#define WINDOW_HEIGHT						800
 
-#define MAIN_MAP_WIDTH					2000.f
-#define MAIN_MAP_HEIGHT					1200.f
-#define FRAME_WIDTH						750.f
-#define FRAME_HEIGHT					750.f
+#define MAIN_MAP_WIDTH						2000.f
+#define MAIN_MAP_HEIGHT						1200.f
+#define FRAME_WIDTH							750.f
+#define FRAME_HEIGHT							750.f
 
-#define MAX_BULLET_NUM					2000
-#define MAX_FAIRY_NUM					50
-#define MAX_ASTEROID_NUM				30
+#define MAX_BULLET_NUM						2000
+#define MAX_FAIRY_NUM						50
 
-#define BASIC_COST						50000
+#define BASIC_COST							50000
 
 #define MAIN_MENU_LABEL_VERTICAL_SPACE		80.f
-#define MAIN_MENU_LABEL_HORIZONTAL_SPACE	200.f
+#define MAIN_MENU_LABEL_HORIZONTAL_SPACE		200.f
 #define MAIN_MENU_LABEL_FONT_SIZE			60.f
 
 #define UI_LABEL_FONT_SIZE					40.f
 
 // MainMenuScene Resources
-#define MAIN_MENU_SCENE_BACKGROUND_IMAGE		L"Sprite/MainBackground.jpg"
+#define MAIN_MENU_SCENE_BACKGROUND_IMAGE			L"Sprite/MainBackground.jpg"
 #define MAIN_MENU_LOADING_SCENE					L"Sprite/Loading.jpg"
-#define MAIN_MENU_SCENE_BACKGROUND_SOUND		"Sound/Eternal Dream.mp3"
+#define MAIN_MENU_SCENE_BACKGROUND_SOUND			"Sound/Eternal Dream.mp3"
 #define EFFECT_SOUND_OK							"Sound/se_ok00.wav"
 #define EFFECT_SOUND_CANCEL						"Sound/se_cancel00.wav"
 #define EFFECT_SOUND_SELECT						"Sound/se_select00.wav"
@@ -93,8 +92,6 @@ enum EBulletType
 
 #define BULLET_HIT_RADIUS				7.f
 #define BULLET_BIG_HIT_RADIUS			50.f
-
-#define ASTEROID_HIT_RADIUS				50.f
 
 #define SHOT_POINT						20.f
 #define BIG_SHOT_POINT					70.f

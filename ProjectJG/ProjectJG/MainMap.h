@@ -47,5 +47,7 @@ private:
 	CCamera*		m_Camera;
 
 	EGameResult		m_GameResult;
+
+	float			m_PlayTimeSum;
 };
 

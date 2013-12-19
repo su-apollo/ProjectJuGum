@@ -69,9 +69,6 @@
       <Filter>GameObjects\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="PrintLog.cpp" />
-    <ClCompile Include="Asteroid.cpp">
-      <Filter>GameObjects\etcObject</Filter>
-    </ClCompile>
     <ClCompile Include="GameMoveObj.cpp">
       <Filter>GameObjects\etcObject</Filter>
     </ClCompile>
@@ -113,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="SubChar.cpp">
       <Filter>GameObjects\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBox.cpp">
+      <Filter>GameObjects\etcObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -314,9 +314,6 @@
       <Filter>GameObjects\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="PrintLog.h" />
-    <ClInclude Include="Asteroid.h">
-      <Filter>GameObjects\etcObject</Filter>
-    </ClInclude>
     <ClInclude Include="GameMoveObj.h">
       <Filter>GameObjects\etcObject</Filter>
     </ClInclude>
@@ -367,6 +364,9 @@
     </ClInclude>
     <ClInclude Include="SubChar.h">
       <Filter>GameObjects\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBox.h">
+      <Filter>GameObjects\etcObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

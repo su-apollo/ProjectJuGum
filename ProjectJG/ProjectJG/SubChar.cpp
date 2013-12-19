@@ -61,65 +61,40 @@ void CSubChar::Update( float dTime, CMaincharacter* enemy )
 	UpdateShotDirection(enemy);
 	UpdateShotPoint(SHOT_POINT);
 
-	switch (m_Type)
-	{
-	case YUKARI:
-		YukariNormalAttack(dTime);
-		break;
-	case ALICE:
-		AliceNormalAttack(dTime);
-		break;
-	default:
-		break;
-	}
-
 	m_FlyMotion->SetRotation(GetShotDirection() + 90.f);
 	m_FlyMotion->Update(dTime);
 }
 
 void CSubChar::YukariNormalAttack( float dTime )
 {
-	m_ShotTimeSum += dTime;
-	if (m_ShotTimeSum >= 2.f)
+	float degree = 30.f;
+	int n = 3;
+
+	for (int i = 0; i < n; ++i)
 	{
-		float degree = 30.f;
-		int n = 3;
+		float direction = GetShotDirection() - degree*0.5f + degree/(n-1)*i;
 
-		//적당한 사운드를 찾으면 주석풀기
-		//NNAudioSystem::GetInstance()->Play( m_Shotsound );
-		for (int i = 0; i < n; ++i)
-		{
-			float direction = GetShotDirection() - degree*0.5f + degree/(n-1)*i;
-
-			CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(RAYMU_ACCEL_BULLET, 0, GetShotDirection());
-			pBullet->SetPosition(GetShotPoint());
-			pBullet->GetTexture(RAYMU_ACCEL_BULLET)->SetRotation(direction);
-			pBullet->SetDirection(direction);
-		}
-		m_ShotTimeSum = 0.f;
+		CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(RAYMU_ACCEL_BULLET, 0, GetShotDirection());
+		pBullet->SetPosition(GetShotPoint());
+		pBullet->GetTexture(RAYMU_ACCEL_BULLET)->SetRotation(direction);
+		pBullet->SetDirection(direction);
 	}
+
 }
 
 void CSubChar::AliceNormalAttack( float dTime )
 {
-	m_ShotTimeSum += dTime;
-	if (m_ShotTimeSum >= 3.f)
-	{
-		//NNAudioSystem::GetInstance()->Play( m_Shotsound );
+	CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(MARISA_BIG_BULLET, 0, GetShotDirection());
+	UpdateShotPoint(BIG_SHOT_POINT);
+	pBullet->SetPosition(GetShotPoint());
+	pBullet->SetDirection(GetShotDirection());
 
-		CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(MARISA_BIG_BULLET, 0, GetShotDirection());
-		UpdateShotPoint(BIG_SHOT_POINT);
-		pBullet->SetPosition(GetShotPoint());
-		pBullet->SetDirection(GetShotDirection());
-
-		m_ShotTimeSum = 0.f;
-	}
 }
 
 void CSubChar::YukariFanAttack( float dTime )
 {
-	float degree = 30.f;
-	int n = 10;
+	float degree = 120.f;
+	int n = 18;
 
 	for (int i = 0; i < n; ++i)
 	{

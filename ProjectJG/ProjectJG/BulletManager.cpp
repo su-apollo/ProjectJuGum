@@ -7,11 +7,11 @@
 #include "Bullet.h"
 #include "MainMenuScene.h"
 #include "Maincharacter.h"
-#include "Asteroid.h"
+#include "ItemBox.h"
 
 CBulletManager* CBulletManager::m_pInstance = nullptr;
 
-CBulletManager::CBulletManager(void) : m_BulletIndex(0), m_AsteroidIndex(0)
+CBulletManager::CBulletManager(void) : m_BulletIndex(0)
 #ifdef _DEBUG
 	,m_TimeToCheckBulletNum(0.f), m_BulletNum(0)
 #endif 	
@@ -96,18 +96,6 @@ CBullet * CBulletManager::GetBullet( EBulletType bullet_type, float speed, float
 	return nullptr;
 }
 
-CAsteroid* CBulletManager::GetAsteroid()
-{
-	++m_AsteroidIndex;
-	m_AsteroidIndex %= MAX_ASTEROID_NUM;
-	m_pAsteroidArray[m_AsteroidIndex]->SetVisible(true);
-
-	m_pAsteroidArray[m_AsteroidIndex]->SetRandomSpeed();
-	m_pAsteroidArray[m_AsteroidIndex]->SetDirection(135.f);
-
-	return m_pAsteroidArray[m_AsteroidIndex];
-}
-
 //**************************************************************
 //                         Skills
 //**************************************************************
@@ -166,7 +154,6 @@ CAsteroid* CBulletManager::GetAsteroid()
 //**************************************************************
 void CBulletManager::UpdateObj(float dTime, CMaincharacter* Enemy, CMainMap* Map)
 {
-	UpdateAsteroid(dTime, Map);
 	UpdateBullet(dTime, Map);
 }
 
@@ -195,21 +182,6 @@ void CBulletManager::UpdateBullet(float dTime, CMainMap* Map)
 		printf_s("bullet num : %d\n", m_BulletNum);
 		m_TimeToCheckBulletNum = 0.f;
 		m_BulletNum = 0;
-	}
-}
-
-void CBulletManager::UpdateAsteroid(float dTime, CMainMap* Map )
-{
-	for (int i = 0; i < MAX_ASTEROID_NUM; ++i)
-	{
-		if (m_pAsteroidArray[i]->IsVisible())
-		{
-			m_pAsteroidArray[i]->Update(dTime);
-			if(CheckLifeTime(Map, m_pAsteroidArray[i]))
-			{
-				DestroyObj(m_pAsteroidArray[i]);
-			}
-		}
 	}
 }
 
@@ -286,25 +258,4 @@ void CBulletManager::ReleaseInstance()
 	}
 }
 
-void CBulletManager::ShotAsteroid(CMainMap* Map)
-{
-	CAsteroid* asteroid;
-	int	temp;
-
-	for (int i = 0; i < MAX_ASTEROID_NUM; ++i)
-	{
-		asteroid = GetAsteroid();
-
-		if(rand()%2)
-		{
-			temp = rand() % (int)Map->GetHeight();
-			asteroid->SetPosition(Map->GetLeftLine() + (float)temp, Map->GetTopLine());
-		}
-		else
-		{
-			temp = rand() % (int)Map->GetWidth();
-			asteroid->SetPosition(Map->GetRightLine(), Map->GetTopLine() + (float)temp);
-		}
-	}
-}
 

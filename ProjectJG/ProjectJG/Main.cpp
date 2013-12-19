@@ -19,7 +19,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdP
 
 	NNApplication* Application = NNApplication::GetInstance();
 
-	Application->Init( L"JuGums", WINDOW_WIDTH, WINDOW_HEIGHT, D2D, false);
+	Application->Init( L"JuGums", WINDOW_WIDTH, WINDOW_HEIGHT, D2D, true);
 	
 	NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
 

@@ -6,7 +6,7 @@
 #include "BulletManager.h"
 #include "Bullet.h"
 #include "Fairy.h"
-#include "Asteroid.h"
+#include "ItemBox.h"
 #include "Camera.h"
 #include "SubChar.h"
 #include "PacketHandler.h"
@@ -130,14 +130,6 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 	m_Player1->SetPosition( 0.f, GetBotLine() *0.5f );
 	m_Player2->SetPosition( 0.f, GetTopLine() *0.5f );
 
-	// 운석 로딩
-	for (int i = 0 ; i < MAX_ASTEROID_NUM ; ++i)
-	{
-		CBulletManager::GetInstance()->GetAsteroidArray()[i] = new CAsteroid;
-		AddChild( CBulletManager::GetInstance()->GetAsteroidArray()[i] );
-		CBulletManager::GetInstance()->GetAsteroidArray()[i]->SetVisible(false);
-	}
-
 	// 총알 장전
 	for (int i = 0 ; i < MAX_BULLET_NUM ; ++i)
 	{
@@ -153,6 +145,8 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 
 	m_TimeToHitCheckWait = 0.f;
 	m_GameResult = GAME_NOT_END;
+	m_PlayTimeSum = 0.f;
+
 }
 
 
@@ -187,6 +181,8 @@ void CMainMap::Render()
 
 void CMainMap::Update( float dTime, CFrame* frame )
 {
+	m_PlayTimeSum += dTime;
+
 	m_BackGround->Update(dTime);
 
 	//상대가 맞았다고 패킷이오면 맞았다고 표시
@@ -226,7 +222,7 @@ void CMainMap::Update( float dTime, CFrame* frame )
 	GetPlayer1()->SetCost( GetPlayer1()->GetCost() + m_CostPerSecond*dTime );
 	GetPlayer2()->SetCost( GetPlayer2()->GetCost() + m_CostPerSecond*dTime );
 
-	//총알 및 오브젝트의 업데이트와 라이프타임 체크
+	//총알의 업데이트와 라이프타임 체크
 	CBulletManager::GetInstance()->UpdateObj(dTime, m_Player2, this);
 
 	//캐릭터 업데이트
@@ -251,11 +247,6 @@ void CMainMap::Update( float dTime, CFrame* frame )
 	SetPlayerMoveArea(m_Player1, frame);
 	SetPlayerMoveArea(m_Player2, frame);
 
-	//운석 테스트용 코드
-// 	if(NNInputSystem::GetInstance()->GetKeyState('P') == KEY_DOWN)
-// 	{
-// 		CBulletManager::GetInstance()->ShotAsteroid(this);
-// 	}
 }
 
 void CMainMap::SetPlayerMoveArea( CMaincharacter * Player, CFrame* frame )
