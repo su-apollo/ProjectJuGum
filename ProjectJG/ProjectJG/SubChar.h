@@ -20,16 +20,18 @@ public:
 	void			SetState(ESubCharState val) { m_State = val; }
 
 	void			YukariNormalAttack( float dTime );
+	void			YukariFanAttack( float dTime );
 	void			AliceNormalAttack( float dTime );
 
 protected:
 	ESubCharType	m_Type;
 	ESubCharState	m_State;
 	float			m_ShotTimeSum;
+	float			m_FanAttackBulletTime;
 
 	NNSound*		m_Shotsound;
 
 	NNAnimation*	m_FlyMotion;
-	NNSprite*	m_BackgroundEffect;
+	NNSprite*		m_BackgroundEffect;
 };
 

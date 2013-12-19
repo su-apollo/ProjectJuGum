@@ -97,7 +97,7 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, E
 	m_speed_key_input = NNInputSystem::GetInstance()->GetChangeSpeedKeyInput();
 
 	//스피드키 입력에 따른 스피드 조정과 서브캐릭터 소환
-	SummonSubChar(dTime, enemy, m_speed_key_input);
+	SummonSubChar(dTime, enemy);
 
 	//항상 적을 바라보도록 계산
 	UpdateShotDirection(enemy);
@@ -108,8 +108,8 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, E
 	m_FlyMotion->SetRotation(GetShotDirection() + 90.f);
 	
 	//이동과 스킬시전
-	UpdateMotion(dTime, m_direct_key_input);
-	SkillCasting(dTime, enemy, map, m_skill_key_input);
+	UpdateMotion(dTime);
+	SkillCasting(dTime, enemy, map);
 
 	switch (gamemode)
 	{
@@ -154,26 +154,26 @@ void CMaincharacter::UpdateByPeer( float dTime, CMaincharacter* enemy, CMainMap*
 	//받은 패킷에 변화가 있다면 상태변화 및 스킬시전
 	if (m_PacketHandler->m_IsPacketrecv == true)
 	{
-		m_StateOfDirectionKey = (EInputSetUp)m_PacketHandler->m_PacketKeyStatus.mDirectionStatus;
-		m_StateOfSkillKey = (EInputSetUp)m_PacketHandler->m_PacketKeyStatus.mSkillStatus;
-		m_StateOfSpeedKey = (EInputSetUp)m_PacketHandler->m_PacketKeyStatus.mSpeedStatus;
+		m_direct_key_input = (EInputSetUp)m_PacketHandler->m_PacketKeyStatus.mDirectionStatus;
+		m_skill_key_input = (EInputSetUp)m_PacketHandler->m_PacketKeyStatus.mSkillStatus;
+		m_speed_key_input = (EInputSetUp)m_PacketHandler->m_PacketKeyStatus.mSpeedStatus;
 
-		SkillCasting(dTime, enemy, map, m_StateOfSkillKey);
+		SkillCasting(dTime, enemy, map);
 
 		//패킷을 꺼내읽었다고 표시
 		m_PacketHandler->m_IsPacketrecv = false;
 	}
 
 	//스피드키 입력에 따른 스피드 조정과 서브캐릭터 소환
-	SummonSubChar(dTime, enemy, m_StateOfSpeedKey);
+	SummonSubChar(dTime, enemy);
 
-	UpdateMotion(dTime, m_StateOfDirectionKey);
+	UpdateMotion(dTime);
 }
 
-void CMaincharacter::UpdateMotion(float dTime, EInputSetUp move_key)
+void CMaincharacter::UpdateMotion(float dTime)
 {
 	//입력에 따른 캐릭터의 이동
-	switch (move_key)
+	switch (m_direct_key_input)
 	{
 	case UP:
 		SetPosition( GetPosition() + NNPoint(GetSpeed()*NNDegreeToX(270), GetSpeed()*NNDegreeToY(270)) * dTime );
@@ -208,19 +208,19 @@ void CMaincharacter::UpdateMotion(float dTime, EInputSetUp move_key)
 //								 skillcasting									 //
 ///////////////////////////////////////////////////////////////////////////////////
 
-void CMaincharacter::SkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key)
+void CMaincharacter::SkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map)
 {
-	if (skill_key)
+	if (m_skill_key_input)
 		NNAudioSystem::GetInstance()->Play( m_Shotsound );
 
 	switch (GetType())
 	{
 	case RAYMU:
-		RaymuSkillCasting(dTime, enemy, map, skill_key);
+		RaymuSkillCasting(dTime, enemy, map);
 		break;
 
 	case MARISA:
-		MarisaSkillCasting(dTime, enemy, map, skill_key);
+		MarisaSkillCasting(dTime, enemy, map);
 		break;
 	default:
 		
@@ -229,9 +229,9 @@ void CMaincharacter::SkillCasting(float dTime, CMaincharacter* enemy, CMainMap* 
 }
 
 //스킬을 사용할 수 있는지 코스트를 확인 사용후 코스트를 소모
-void CMaincharacter::RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key)
+void CMaincharacter::RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map)
 {
-	switch (skill_key)
+	switch (m_skill_key_input)
 	{
 	case SKILL_KEY_ONE:
 		if ( GetCost() >= RAYMU_NORMAL_ATTACK_COST )
@@ -254,19 +254,30 @@ void CMaincharacter::RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMain
 			SetCost( GetCost() - FAIRY_SKILL_1_COST  );
 		}
 		break;
-	case SKILL_KEY_FOUR:
+	default:
 		break;
-	case SKILL_KEY_FIVE:
-		break;
-	case SKILL_KEY_SIX:
-		break;
+	}
+	if (m_speed_key_input == CHANGE_SPEED)
+	{
+		switch (m_skill_key_input)
+		{
+		case SKILL_KEY_FOUR:
+			RaymuFirstSkill(dTime);
+			break;
+		case SKILL_KEY_FIVE:
+			break;
+		case SKILL_KEY_SIX:
+			break;
+		default:
+			break;
+		}
 	}
 }
 
 
-void CMaincharacter::MarisaSkillCasting( float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key )
+void CMaincharacter::MarisaSkillCasting( float dTime, CMaincharacter* enemy, CMainMap* map)
 {
-	switch (skill_key)
+	switch (m_skill_key_input)
 	{
 	case SKILL_KEY_ONE:
 		if ( GetCost() >= MARISA_NORMAL_ATTACK_COST )
@@ -289,18 +300,28 @@ void CMaincharacter::MarisaSkillCasting( float dTime, CMaincharacter* enemy, CMa
 			SetCost( GetCost() - FAIRY_SKILL_1_COST  );
 		}
 		break;
-	case SKILL_KEY_FOUR:
+	default:
 		break;
-	case SKILL_KEY_FIVE:
-		break;
-	case SKILL_KEY_SIX:
-		break;
+	}
+	if (m_speed_key_input == CHANGE_SPEED)
+	{
+		switch (m_skill_key_input)
+		{
+		case SKILL_KEY_FOUR:
+			break;
+		case SKILL_KEY_FIVE:
+			break;
+		case SKILL_KEY_SIX:
+			break;
+		default:
+			break;
+		}
 	}
 }
 
-void CMaincharacter::SummonSubChar( float dTime, CMaincharacter* enemy, EInputSetUp speed_key)
+void CMaincharacter::SummonSubChar( float dTime, CMaincharacter* enemy)
 {
-	if (speed_key == CHANGE_SPEED)
+	if (m_speed_key_input == CHANGE_SPEED)
 	{
 		SetSpeed(CHAR_SLOW_SPEED);
 		
@@ -328,7 +349,7 @@ void CMaincharacter::SummonSubChar( float dTime, CMaincharacter* enemy, EInputSe
 
 void CMaincharacter::RaymuNormalShot()
 {
-	CBullet * pBullet = CBulletManager::GetInstance()->GetBullet(RAYMU_NORMAL_BULLET, GetSpeed(), GetShotDirection());
+	CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(RAYMU_NORMAL_BULLET, GetSpeed(), GetShotDirection());
 	pBullet->SetDirection(GetShotDirection());
 	pBullet->SetPosition(GetShotPoint());
 }
@@ -336,9 +357,15 @@ void CMaincharacter::RaymuNormalShot()
 
 void CMaincharacter::MarisaNormalShot()
 {
-	CBullet * pBullet = CBulletManager::GetInstance()->GetBullet(MARISA_NORMAL_BULLET, GetSpeed(), GetShotDirection());
+	CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(MARISA_NORMAL_BULLET, GetSpeed(), GetShotDirection());
 	pBullet->SetDirection(GetShotDirection());
 	pBullet->SetPosition(GetShotPoint());
+}
+
+
+void CMaincharacter::RaymuFirstSkill(float dTime)
+{
+	m_SubChar->YukariFanAttack(dTime);
 }
 
 void CMaincharacter::FairySkill_1(float dTime)

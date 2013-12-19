@@ -12,15 +12,9 @@
 
 CFairy::CFairy(void) : m_ShotTimeSum(0.f)
 {
-// 	m_Texture =  NNSpriteAtlas::Create(L"Sprite/warrior1_0.png");
-// 	m_Texture->SetImageHeight(70.f);
-// 	m_Texture->SetImageWidth(70.f);
-// 	m_Texture->SetPosition(0.f, 0.f);
-// 	AddChild( m_Texture );
-
 	m_Shotsound = NNResourceManager::GetInstance()->LoadSoundFromFile( EFFECT_SOUND_SUBCHAR_SHOT, false );
 
-	m_FairyMotion = NNAnimation::Create( 5, 0.3f,	
+	m_FairyMotion = NNAnimation::Create( 5, 0.2f,	
 		L"Sprite/fairy1.png",
 		L"Sprite/fairy2.png",
 		L"Sprite/fairy3.png",

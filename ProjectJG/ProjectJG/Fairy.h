@@ -20,7 +20,6 @@ public:
 	void		SectorAttack( float dTime );
 
 private:
-	NNSpriteAtlas*	m_FairyTexture;
 	NNAnimation*	m_FairyMotion;
 	float			m_ShotTimeSum;
 	

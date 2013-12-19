@@ -25,7 +25,7 @@ public:
 	void			Update(float dTime, CMaincharacter* enemy, CMainMap* map, ENetworkMode gamemode);
 	void			UpdateByPeer(float dTime, CMaincharacter* enemy, CMainMap* map, ENetworkMode gamemode);
 
-	void			UpdateMotion(float dTime, EInputSetUp move_key);
+	void			UpdateMotion(float dTime);
 	bool			UpdateDeadAnimation(float dTime);
 
 	NNCircle *		GetMainCircle(){return m_Circle;}
@@ -36,11 +36,12 @@ public:
 	ECharcterType	GetType() {return m_Type;}
 
 	//스킬시전
-	void			SkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key);
-	void			SummonSubChar(float dTime, CMaincharacter* enemy, EInputSetUp speed_key);
-	void			RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key);
-	void			MarisaSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map, EInputSetUp skill_key);
+	void			SkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map);
+	void			SummonSubChar(float dTime, CMaincharacter* enemy);
+	void			RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map);
+	void			MarisaSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map);
 	void			RaymuNormalShot();
+	void			RaymuFirstSkill(float dTime);
 	void			MarisaNormalShot();
 
 	void			SetHit( bool bHit ) { m_bHit = bHit; }
@@ -59,7 +60,7 @@ public:
 
 	void			SetSubChar(CSubChar* setsubchar){ m_SubChar = setsubchar; }
 
-	NNSprite*	GetDeadEffect() const { return m_DeadEffect; }
+	NNSprite*		GetDeadEffect() const { return m_DeadEffect; }
 	void			SetDeadEffect(NNSprite* val) { m_DeadEffect = val; }
 
 	//네트워크 관련 함수

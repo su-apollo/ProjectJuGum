@@ -39,6 +39,7 @@ CSubChar::CSubChar(ESubCharType type_of_char)
 	m_Type = type_of_char;
 	m_State = NONE_STATE;
 	m_ShotTimeSum = 0.f;
+	m_FanAttackBulletTime = 0.f;
 }
 
 
@@ -84,6 +85,7 @@ void CSubChar::YukariNormalAttack( float dTime )
 		float degree = 30.f;
 		int n = 3;
 
+		//적당한 사운드를 찾으면 주석풀기
 		//NNAudioSystem::GetInstance()->Play( m_Shotsound );
 		for (int i = 0; i < n; ++i)
 		{
@@ -111,5 +113,21 @@ void CSubChar::AliceNormalAttack( float dTime )
 		pBullet->SetDirection(GetShotDirection());
 
 		m_ShotTimeSum = 0.f;
+	}
+}
+
+void CSubChar::YukariFanAttack( float dTime )
+{
+	float degree = 30.f;
+	int n = 10;
+
+	for (int i = 0; i < n; ++i)
+	{
+		float direction = GetShotDirection() - degree*0.5f + degree/(n-1)*i;
+
+		CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(RAYMU_NORMAL_BULLET, 20.f, GetShotDirection());
+		pBullet->SetPosition(GetShotPoint());
+		pBullet->GetTexture(RAYMU_NORMAL_BULLET)->SetRotation(direction);
+		pBullet->SetDirection(direction);
 	}
 }

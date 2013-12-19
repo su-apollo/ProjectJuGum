@@ -20,7 +20,7 @@ public:
 
 private:
 	int				m_HP;
-	NNSprite*	m_Texture;
+	NNSprite*		m_Texture;
 
 };
 

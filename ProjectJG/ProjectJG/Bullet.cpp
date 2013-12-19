@@ -41,7 +41,7 @@ CBullet::CBullet()
 
 	//°¨¼ÓÅºÈ¯
 	m_Texture[MARISA_RETAR_BULLET] = NNSprite::Create(L"Sprite/BulletB2.png");
-	m_Texture[MARISA_RETAR_BULLET]->SetImageHeight(2*BULLET_HIT_RADIUS);
+	m_Texture[MARISA_RETAR_BULLET]->SetImageHeight(2*BULLET_HIT_RADIUS*1.6f);
 	m_Texture[MARISA_RETAR_BULLET]->SetImageWidth(2*BULLET_HIT_RADIUS);
 	m_Texture[MARISA_RETAR_BULLET]->SetPosition(0.f, 0.f);
 	m_Texture[MARISA_RETAR_BULLET]->SetVisible(false);
