@@ -41,7 +41,6 @@ public:
 	void			RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map);
 	void			MarisaSkillCasting(float dTime, CMaincharacter* enemy, CMainMap* map);
 	void			RaymuNormalShot();
-	void			RaymuFirstSkill(float dTime);
 	void			MarisaNormalShot();
 
 	void			SetHit( bool bHit ) { m_bHit = bHit; }

@@ -28,7 +28,7 @@ public:
 	}
 
 protected:
-	NNRect *	m_MainFrame;
+	NNRect*	m_MainFrame;
 	float		m_Width;
 	float		m_Height;
 };

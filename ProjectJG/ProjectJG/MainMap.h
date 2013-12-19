@@ -33,6 +33,8 @@ public:
 	EGameResult GetGameResult() const { return m_GameResult; }
 	void		SetGameResult(EGameResult val) { m_GameResult = val; }
 
+	void		SummonItemBox();
+
 private:
 	NNAnimation*	m_BackGround;
 

@@ -65,32 +65,6 @@ void CSubChar::Update( float dTime, CMaincharacter* enemy )
 	m_FlyMotion->Update(dTime);
 }
 
-void CSubChar::YukariNormalAttack( float dTime )
-{
-	float degree = 30.f;
-	int n = 3;
-
-	for (int i = 0; i < n; ++i)
-	{
-		float direction = GetShotDirection() - degree*0.5f + degree/(n-1)*i;
-
-		CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(RAYMU_ACCEL_BULLET, 0, GetShotDirection());
-		pBullet->SetPosition(GetShotPoint());
-		pBullet->GetTexture(RAYMU_ACCEL_BULLET)->SetRotation(direction);
-		pBullet->SetDirection(direction);
-	}
-
-}
-
-void CSubChar::AliceNormalAttack( float dTime )
-{
-	CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(MARISA_BIG_BULLET, 0, GetShotDirection());
-	UpdateShotPoint(BIG_SHOT_POINT);
-	pBullet->SetPosition(GetShotPoint());
-	pBullet->SetDirection(GetShotDirection());
-
-}
-
 void CSubChar::YukariFanAttack( float dTime )
 {
 	float degree = 120.f;
@@ -106,3 +80,93 @@ void CSubChar::YukariFanAttack( float dTime )
 		pBullet->SetDirection(direction);
 	}
 }
+
+void CSubChar::YukariAccelAttack( float dTime )
+{
+	float degree = 15.f;
+	int n = 5;
+
+	for (int i = 0; i < n; ++i)
+	{
+		float direction = GetShotDirection() - degree*0.5f + degree/(n-1)*i;
+
+		CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(RAYMU_ACCEL_BULLET, 0, GetShotDirection());
+		pBullet->SetPosition(GetShotPoint());
+		pBullet->GetTexture(RAYMU_ACCEL_BULLET)->SetRotation(direction);
+		pBullet->SetDirection(direction);
+	}
+}
+
+void CSubChar::YukariCurveAttack( float dTime )
+{
+	float degree = 60.f;
+	float shot_degree = -30.f;
+	int n = 3;
+
+	for (int i = 0; i < n; ++i)
+	{
+		float direction = GetShotDirection() + shot_degree - degree*0.5f + degree/(n-1)*i;
+
+		CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(RAYMU_CURVE_BULLET, 0, GetShotDirection());
+		UpdateShotPoint(CURVE_SHOT_POINT);
+		pBullet->SetPosition(GetShotPoint());
+		pBullet->GetTexture(RAYMU_CURVE_BULLET)->SetRotation(direction);
+		pBullet->SetDirection(direction);
+	}
+}
+
+void CSubChar::AliceNormalAttack( float dTime )
+{
+	CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(MARISA_BIG_BULLET, 0, GetShotDirection());
+	UpdateShotPoint(BIG_SHOT_POINT);
+	pBullet->SetPosition(GetShotPoint());
+	pBullet->SetDirection(GetShotDirection());
+
+}
+
+void CSubChar::AliceStarAttack( float dTime )
+{
+	float degree = 60.f;
+	int n = 5;
+
+	for (int i = 0; i < n; ++i)
+	{
+		float direction = GetShotDirection() - degree*0.5f + degree/(n-1)*i;
+
+		CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(MARISA_NORMAL_BULLET, 30.f, GetShotDirection());
+		pBullet->SetPosition(GetShotPoint());
+		pBullet->GetTexture(MARISA_NORMAL_BULLET)->SetRotation(direction);
+		pBullet->SetDirection(direction);
+	}
+
+	degree = 60.f;
+	n = 6;
+
+	for (int i = 0; i < n; ++i)
+	{
+		float direction = GetShotDirection() - degree*0.5f + degree/(n-1)*i;
+
+		CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(MARISA_NORMAL_BULLET, 50.f, GetShotDirection());
+		pBullet->SetPosition(GetShotPoint());
+		pBullet->GetTexture(MARISA_NORMAL_BULLET)->SetRotation(direction);
+		pBullet->SetDirection(direction);
+	}
+}
+
+void CSubChar::AliceBoomerangAttack( float dTime )
+{
+	float degree = 120.f;
+	int n = 7;
+
+	for (int i = 0; i < n; ++i)
+	{
+		float direction = GetShotDirection() - degree*0.5f + degree/(n-1)*i;
+
+		CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(MARISA_RETAR_BULLET, 0.f, GetShotDirection());
+		pBullet->SetPosition(GetShotPoint());
+		pBullet->GetTexture(MARISA_RETAR_BULLET)->SetRotation(direction + 90.f);
+		pBullet->SetDirection(direction);
+	}
+}
+
+

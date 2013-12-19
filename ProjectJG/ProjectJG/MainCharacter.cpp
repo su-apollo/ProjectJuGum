@@ -262,11 +262,13 @@ void CMaincharacter::RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMain
 		switch (m_skill_key_input)
 		{
 		case SKILL_KEY_FOUR:
-			RaymuFirstSkill(dTime);
+			m_SubChar->YukariFanAttack(dTime);
 			break;
 		case SKILL_KEY_FIVE:
+			m_SubChar->YukariAccelAttack(dTime);
 			break;
 		case SKILL_KEY_SIX:
+			m_SubChar->YukariCurveAttack(dTime);
 			break;
 		default:
 			break;
@@ -308,10 +310,13 @@ void CMaincharacter::MarisaSkillCasting( float dTime, CMaincharacter* enemy, CMa
 		switch (m_skill_key_input)
 		{
 		case SKILL_KEY_FOUR:
+			m_SubChar->AliceNormalAttack(dTime);
 			break;
 		case SKILL_KEY_FIVE:
+			m_SubChar->AliceStarAttack(dTime);
 			break;
 		case SKILL_KEY_SIX:
+			m_SubChar->AliceBoomerangAttack(dTime);
 			break;
 		default:
 			break;
@@ -360,12 +365,6 @@ void CMaincharacter::MarisaNormalShot()
 	CBullet* pBullet = CBulletManager::GetInstance()->GetBullet(MARISA_NORMAL_BULLET, GetSpeed(), GetShotDirection());
 	pBullet->SetDirection(GetShotDirection());
 	pBullet->SetPosition(GetShotPoint());
-}
-
-
-void CMaincharacter::RaymuFirstSkill(float dTime)
-{
-	m_SubChar->YukariFanAttack(dTime);
 }
 
 void CMaincharacter::FairySkill_1(float dTime)

@@ -27,4 +27,9 @@ void CItemBox::Render()
 void CItemBox::Update( float dTime )
 {
 	m_FlyMotion->Update(dTime);
+
+	float x = GetSpeed() * NNDegreeToX(GetDirection());
+	float y = GetSpeed() * NNDegreeToY(GetDirection());
+
+	SetPosition(GetPositionX()+x*dTime, GetPositionY()+y*dTime);
 }

@@ -24,9 +24,9 @@ CBullet::CBullet()
 	AddChild(m_Texture[RAYMU_ACCEL_BULLET]);
 
 	//Ä¿ºêÅºÈ¯
-	m_Texture[RAYMU_CURVE_BULLET] = NNSprite::Create(L"Sprite/BulletR1.png");
-	m_Texture[RAYMU_CURVE_BULLET]->SetImageHeight(2*BULLET_HIT_RADIUS);
-	m_Texture[RAYMU_CURVE_BULLET]->SetImageWidth(2*BULLET_HIT_RADIUS);
+	m_Texture[RAYMU_CURVE_BULLET] = NNSprite::Create(L"Sprite/BulletR3.png");
+	m_Texture[RAYMU_CURVE_BULLET]->SetImageHeight(2*BULLET_CURVE_HIT_RADIUS);
+	m_Texture[RAYMU_CURVE_BULLET]->SetImageWidth(2*BULLET_CURVE_HIT_RADIUS);
 	m_Texture[RAYMU_CURVE_BULLET]->SetPosition(0.f, 0.f);
 	m_Texture[RAYMU_CURVE_BULLET]->SetVisible(false);
 	AddChild(m_Texture[RAYMU_CURVE_BULLET]);
@@ -79,7 +79,7 @@ void CBullet::Update( float dTime )
 {
 	SetLifeTime(dTime + GetLifeTime());
 
-	if (m_Type == MARISA_NORMAL_BULLET)
+	if (m_Type == MARISA_NORMAL_BULLET || m_Type == RAYMU_CURVE_BULLET)
 		m_Texture[m_Type]->SetRotation(100.f*GetLifeTime());
 
 	if (GetAngularAccel())

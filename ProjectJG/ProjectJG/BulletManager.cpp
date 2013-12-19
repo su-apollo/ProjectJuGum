@@ -79,8 +79,9 @@ CBullet * CBulletManager::GetBullet( EBulletType bullet_type, float speed, float
 		new_bullet->SetBulletType(MARISA_RETAR_BULLET);
 		new_bullet->SetHitRadius(BULLET_HIT_RADIUS);
 		new_bullet->SetSpeed(MARISA_RETAR_BULLET_SPEED);
-		new_bullet->SetSpeed(MARISA_RETAR_BULLET_ACCEL);
+		new_bullet->SetAccel(MARISA_RETAR_BULLET_ACCEL);
 		new_bullet->GetTexture(MARISA_RETAR_BULLET)->SetVisible(true);
+		new_bullet->GetTexture(MARISA_RETAR_BULLET)->SetRotation(direction + 90.f);
 		return new_bullet;
 
 	case FAIRY_NORMAL_BULLET:
@@ -95,59 +96,6 @@ CBullet * CBulletManager::GetBullet( EBulletType bullet_type, float speed, float
 	}
 	return nullptr;
 }
-
-//**************************************************************
-//                         Skills
-//**************************************************************
-
-// void CBulletManager::ShotBullet(CGameMoveObj * Player, EBulletType bullet_type)
-// {
-// 	CBullet * pBullet = GetBullet(bullet_type, Player);
-// 	pBullet->SetDirection(Player->GetShotDirection());
-// 	pBullet->SetPosition( Player->GetShotPoint());
-// }
-// 
-// void CBulletManager::ShotSectorBullets(CGameMoveObj* Player, EBulletType bullet_type, float degree , int n)
-// {
-// 	float direction = Player->GetShotDirection();
-// 
-// 	for ( int i = 0; i < n; ++i )
-// 	{
-// 		CBullet* pBullet = GetBullet(bullet_type);
-// 		pBullet->SetPosition( Player->GetShotPoint());
-// 		pBullet->SetDirection( direction - degree*0.5f + degree/(n-1)*i );
-// 	}
-// }
-// 
-// void CBulletManager::ShotSectorMixBullets(CGameMoveObj* Player, EBulletType bullet_type_1, EBulletType bullet_type_2,float degree, int n )
-// {
-// 	float direction = Player->GetShotDirection();
-// 
-// 	for ( int i = 0; i < n; ++i )
-// 	{
-// 		CBullet * pBullet = ( i%2 == 0 ) ? GetBullet(bullet_type_1) : GetBullet(bullet_type_2);
-// 		pBullet->SetPosition( Player->GetShotPoint());
-// 		pBullet->SetDirection( direction - degree*0.5f + degree/(n-1)*i );
-// 	}
-// }
-// 
-// void CBulletManager::ShotTornadoBullets(CGameMoveObj* Player, int n )
-// {
-// 	NNPoint point = Player->GetPosition();
-// 	float direction = 0.f;
-// 
-// 	for ( int i = 0; i < n; ++i )
-// 	{
-// 		direction += 360/n;
-// 		CBullet* pBullet = GetBullet(CURVE_BULLET);
-// 
-// 		point.SetX( Player->GetPositionX() + NNDegreeToX(direction)*SHOT_POINT );
-// 		point.SetY( Player->GetPositionY() + NNDegreeToY(direction)*SHOT_POINT );
-// 		pBullet->SetPosition( point );
-// 
-// 		pBullet->SetDirection( direction );
-// 	}
-// }
 
 //**************************************************************
 //                          Update
@@ -204,7 +152,7 @@ bool CBulletManager::CharacterHitCheck(CMaincharacter * Player)
 //                         LifeTime
 //**************************************************************
 
-bool CBulletManager::CheckLifeTime(CMainMap * Map, CGameMoveObj * Obj)
+bool CBulletManager::CheckLifeTime(CMainMap* Map, CBullet* Obj)
 {
 	float leftline = Map->GetLeftLine() - Obj->GetHitRadius();
 	float rightline = Map->GetRightLine() + Obj->GetHitRadius();

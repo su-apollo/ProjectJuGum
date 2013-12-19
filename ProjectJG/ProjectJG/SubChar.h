@@ -19,9 +19,12 @@ public:
 	ESubCharState	GetState() const { return m_State; }
 	void			SetState(ESubCharState val) { m_State = val; }
 
-	void			YukariNormalAttack( float dTime );
+	void			YukariAccelAttack( float dTime );
 	void			YukariFanAttack( float dTime );
+	void			YukariCurveAttack( float dTime );
 	void			AliceNormalAttack( float dTime );
+	void			AliceStarAttack( float dTime );
+	void			AliceBoomerangAttack( float dTime );
 
 protected:
 	ESubCharType	m_Type;
