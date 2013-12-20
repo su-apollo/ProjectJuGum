@@ -66,6 +66,9 @@ public:
 	CPacketHandler* GetPacketHandler() { return m_PacketHandler; }
 	void			SendPacket();
 
+	bool			SummonSubCharAnimation(float dTime);
+	bool			RepatriationSubCharAnimation(float dTime);
+
 protected:
 	NNCircle*		m_Circle;
 	ECharcterType   m_Type;
@@ -83,8 +86,11 @@ protected:
 	NNSound*		m_Deadsound;
 	NNSound*		m_Shotsound;
 
-	float			m_DeadAnimationSumTime;
+	float			m_TimeForDeadAnimation;
 	bool			m_DoDeadSoundEffect;
+
+	float			m_TimeForSummonEffect;
+	float			m_TimeForRepatriationEffect;
 
 	//동기화를 위한 시간
 	float			m_Syntime;

@@ -3,7 +3,7 @@
 
 NNAnimation::NNAnimation()
 	: m_FrameCount(0), m_Frame(0), m_Time(0.f), m_Loop(true), m_AnimationEnd(false),
-	m_ImageHeight(0.f), m_ImageWidth(0.f)
+	m_ImageHeight(0.f), m_ImageWidth(0.f), m_Opacity(1.f)
 {
 }
 
@@ -61,6 +61,8 @@ void NNAnimation::Render()
 
 	m_SpriteList[m_Frame]->SetImageHeight(m_ImageHeight);
 	m_SpriteList[m_Frame]->SetImageWidth(m_ImageWidth);
+
+	m_SpriteList[m_Frame]->SetOpacity(m_Opacity);
 
 	NNObject::Render();
 

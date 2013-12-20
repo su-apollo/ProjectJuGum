@@ -9,7 +9,7 @@ class CMaincharacter;
 class CAccelBullet;
 class CCurveBullet;
 class CCamera;
-
+class CItemBox;
 
 class CMainMap : public CFrame
 {
@@ -33,7 +33,7 @@ public:
 	EGameResult GetGameResult() const { return m_GameResult; }
 	void		SetGameResult(EGameResult val) { m_GameResult = val; }
 
-	void		SummonItemBox();
+	void		SummonItemBox(float dTime);
 
 private:
 	NNAnimation*	m_BackGround;
@@ -44,6 +44,8 @@ private:
 	CMaincharacter* m_Player1;	
 	CMaincharacter* m_Player2;
 
+	CItemBox*		m_ItemBox;
+
 	ENetworkMode	m_GameMode;
 
 	CCamera*		m_Camera;
@@ -51,5 +53,6 @@ private:
 	EGameResult		m_GameResult;
 
 	float			m_PlayTimeSum;
+	float			m_TimeForSummonItemBox;
 };
 

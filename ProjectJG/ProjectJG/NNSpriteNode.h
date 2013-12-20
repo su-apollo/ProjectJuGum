@@ -13,6 +13,8 @@ public:
 	void SetImageWidth( float width ) { m_ImageWidth = width; }
 	void SetImageHeight( float height ) { m_ImageHeight = height; }
 
+	void SetOpacity( float opacity ) { m_Opacity = opacity; }
+
 	//NNCREATE_FUNC(NNSpriteNode);
 
 	static NNSpriteNode* Create( wchar_t* path );
@@ -29,4 +31,6 @@ private:
 
 	float m_ImageWidth;
 	float m_ImageHeight;
+
+	float m_Opacity;
 };

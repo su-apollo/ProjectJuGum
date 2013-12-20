@@ -4,7 +4,7 @@
 
 CItemBox::CItemBox(void)
 {
-	m_FlyMotion = NNAnimation::Create( 8, 0.2f,	
+	m_FlyMotion = NNAnimation::Create( 8, 0.1f,	
 		L"Sprite/ib1.png",
 		L"Sprite/ib2.png",
 		L"Sprite/ib3.png",
@@ -13,6 +13,9 @@ CItemBox::CItemBox(void)
 		L"Sprite/ib6.png",
 		L"Sprite/ib7.png",
 		L"Sprite/ib8.png");
+	AddChild(m_FlyMotion);
+
+	SetSpeed(0.f);
 }
 
 CItemBox::~CItemBox(void)

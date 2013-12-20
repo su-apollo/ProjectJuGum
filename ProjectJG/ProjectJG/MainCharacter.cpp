@@ -17,7 +17,8 @@
 
 CMaincharacter::CMaincharacter(ECharcterType type_of_char) : 
 	m_bHit(false), m_FairyIndex(0), m_Syntime(0.f),
-	m_DeadAnimationSumTime(0.f), m_DoDeadSoundEffect(false)
+	m_TimeForDeadAnimation(0.f), m_DoDeadSoundEffect(false),
+	m_TimeForSummonEffect(0.f), m_TimeForRepatriationEffect(0.f)
 {
 	SetHitRadius(CHAR_HIT_RADIUS);
 
@@ -330,21 +331,22 @@ void CMaincharacter::SummonSubChar( float dTime, CMaincharacter* enemy)
 	{
 		SetSpeed(CHAR_SLOW_SPEED);
 		
-		if (m_SubChar->GetState() == NONE_STATE)
+		if (m_SubChar->GetState() == NONE_STATE && SummonSubCharAnimation(dTime))
 		{
-			m_SubChar->SetPosition(GetPosition());
 			m_SubChar->SetState(SUMMON_STATE);
 		}
 
-		m_SubChar->SetVisible(true);
 		m_SubChar->Update(dTime, enemy);
 	}
 	else
 	{
 		SetSpeed(CHAR_SPEED);
-
-		m_SubChar->SetVisible(false);
 		m_SubChar->SetState(NONE_STATE);
+		
+		if ((m_TimeForSummonEffect != 0.f) && RepatriationSubCharAnimation(dTime))
+		{
+			m_TimeForSummonEffect = 0.f;
+		}
 	}
 }
 
@@ -425,18 +427,18 @@ void CMaincharacter::DestroyFairy()
 //**************************************************************
 bool CMaincharacter::UpdateDeadAnimation( float dTime )
 {
-	m_DeadAnimationSumTime += dTime;
+	m_TimeForDeadAnimation += dTime;
 
 	if (!m_DoDeadSoundEffect)
 	{
 		NNAudioSystem::GetInstance()->Play( m_Deadsound );
 		m_DoDeadSoundEffect = true;
 	}
-	if (m_DeadAnimationSumTime < 1.0f)
+	if (m_TimeForDeadAnimation < 1.0f)
 	{
 		m_DeadEffect->SetVisible(true);
-		m_DeadEffect->SetRotation(m_DeadAnimationSumTime*100.f);
-		m_DeadEffect->SetScale(1.0f - m_DeadAnimationSumTime, 1.0f - m_DeadAnimationSumTime);
+		m_DeadEffect->SetRotation(m_TimeForDeadAnimation*100.f);
+		m_DeadEffect->SetScale(1.0f - m_TimeForDeadAnimation, 1.0f - m_TimeForDeadAnimation);
 	}
 	else
 	{
@@ -446,7 +448,64 @@ bool CMaincharacter::UpdateDeadAnimation( float dTime )
 	return true;
 }
 
+bool CMaincharacter::SummonSubCharAnimation( float dTime )
+{
+	if (m_TimeForSummonEffect == 0.f)
+	{
+		m_SubChar->SetPosition(GetPosition());
+	}
 
+	m_TimeForSummonEffect += dTime;
+
+	//애니메이션을 완료했다면 true아니면 false
+	if (m_TimeForSummonEffect < 0.2)
+	{
+		m_SubChar->GetFlyMotion()->SetOpacity(m_TimeForSummonEffect*5.f);
+		m_SubChar->GetFlyMotion()->SetScaleX(1.5f + (1.5f - 7.5f*m_TimeForSummonEffect));
+
+		m_SubChar->GetBackgroundEffect()->SetOpacity(m_TimeForSummonEffect*5.f);
+		m_SubChar->GetBackgroundEffect()->SetScaleX(1.5f + (1.5f - 7.5f*m_TimeForSummonEffect));
+
+		m_SubChar->SetVisible(true);
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
+bool CMaincharacter::RepatriationSubCharAnimation( float dTime )
+{
+	m_TimeForRepatriationEffect += dTime;
+
+	if (m_TimeForRepatriationEffect < 0.2f)
+	{
+		m_SubChar->GetFlyMotion()->SetOpacity(1.f - m_TimeForRepatriationEffect*5.f);
+ 		m_SubChar->GetFlyMotion()->SetScaleY(1.5f + (7.5f*m_TimeForRepatriationEffect));
+ 
+ 		m_SubChar->GetBackgroundEffect()->SetOpacity(1.f - m_TimeForRepatriationEffect*5.f);
+ 		m_SubChar->GetBackgroundEffect()->SetScaleY(1.5f + (7.5f*m_TimeForRepatriationEffect));
+
+		m_SubChar->SetLifeTime(dTime + m_SubChar->GetLifeTime());
+		m_SubChar->GetBackgroundEffect()->SetRotation(100.f*m_SubChar->GetLifeTime());
+		m_SubChar->GetFlyMotion()->SetRotation(m_SubChar->GetShotDirection() + 90.f);
+		m_SubChar->GetFlyMotion()->Update(dTime);
+
+		return false;
+	}
+	
+	m_SubChar->SetVisible(false);
+	m_SubChar->GetFlyMotion()->SetScaleY(1.5f);
+	m_SubChar->GetBackgroundEffect()->SetScaleY(1.5f);
+
+	m_TimeForRepatriationEffect = 0.f;
+
+	return true;
+}
+
+
+//네트워크 관련
 void CMaincharacter::SendPacket()
 {
 	NNNetworkSystem::GetInstance()->Write( (const char*)&m_PacketHandler->m_PacketKeyStatus, m_PacketHandler->m_PacketKeyStatus.m_Size );

@@ -25,6 +25,8 @@ public:
 
 	bool IsAnimationEnd() const { return m_AnimationEnd; }
 
+	void SetOpacity( float opacity ) { m_Opacity = opacity; }
+
 private:
 	std::vector<NNSpriteNode*> m_SpriteList;
 
@@ -35,4 +37,6 @@ private:
 	bool m_AnimationEnd;
 	float m_ImageWidth;
 	float m_ImageHeight;
+
+	float m_Opacity;
 };

@@ -3,7 +3,8 @@
 
 NNSpriteNode::NNSpriteNode()
 	: m_Sprite(nullptr), m_FrameTime(0.f),
-	m_ImageHeight(0.f), m_ImageWidth(0.f)
+	m_ImageHeight(0.f), m_ImageWidth(0.f),
+	m_Opacity(1.f)
 {
 }
 NNSpriteNode::~NNSpriteNode()
@@ -25,6 +26,7 @@ void NNSpriteNode::Render()
 {
 	m_Sprite->SetImageHeight(m_ImageHeight);
 	m_Sprite->SetImageWidth(m_ImageWidth);
+	m_Sprite->SetOpacity(m_Opacity);
 
 	NNObject::Render();
 }

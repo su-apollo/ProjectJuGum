@@ -26,6 +26,11 @@ public:
 	void			AliceStarAttack( float dTime );
 	void			AliceBoomerangAttack( float dTime );
 
+	NNAnimation*	GetFlyMotion() const { return m_FlyMotion; }
+	void			SetFlyMotion(NNAnimation* val) { m_FlyMotion = val; }
+	NNSprite*		GetBackgroundEffect() const { return m_BackgroundEffect; }
+	void			SetBackgroundEffect(NNSprite* val) { m_BackgroundEffect = val; }
+
 protected:
 	ESubCharType	m_Type;
 	ESubCharState	m_State;
@@ -35,6 +40,8 @@ protected:
 	NNSound*		m_Shotsound;
 
 	NNAnimation*	m_FlyMotion;
+
 	NNSprite*		m_BackgroundEffect;
+	
 };
 

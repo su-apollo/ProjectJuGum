@@ -41,14 +41,12 @@ UImanager::UImanager(void)
 	m_Player1Portrait = NNSprite::Create(RAYMU_PORTRAIT);
 	m_Player1Portrait->SetImageWidth(m_Player1Portrait->GetImageWidth()*0.4f);
 	m_Player1Portrait->SetImageHeight(m_Player1Portrait->GetImageHeight()*0.4f);
-	m_Player1Portrait->SetOpacity(0.65f);
 	m_Player1Portrait->SetPosition( NNApplication::GetInstance()->GetLeftLine() + m_Player1Portrait->GetImageWidth()*0.5f, NNApplication::GetInstance()->GetBotLine() - m_Player1Portrait->GetImageHeight()*0.5f );
 	m_UIList[m_UINum++] = m_Player1Portrait;
 
 	m_Player2Portrait = NNSprite::Create(MARISA_PORTRAIT);
 	m_Player2Portrait->SetImageWidth(m_Player2Portrait->GetImageWidth()*0.4f);
 	m_Player2Portrait->SetImageHeight(m_Player2Portrait->GetImageHeight()*0.4f);
-	m_Player2Portrait->SetOpacity(0.65f);
 	m_Player2Portrait->SetPosition( NNApplication::GetInstance()->GetRightLine() - m_Player2Portrait->GetImageWidth()*0.5f, NNApplication::GetInstance()->GetBotLine() - m_Player2Portrait->GetImageHeight()*0.5f );
 	m_UIList[m_UINum++] = m_Player2Portrait;
 

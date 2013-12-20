@@ -138,6 +138,10 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 		CBulletManager::GetInstance()->GetBulletArray()[i]->SetVisible(false);
 	}
 
+	m_ItemBox = new CItemBox;
+	m_ItemBox->SetVisible(false);
+	AddChild(m_ItemBox);
+
 	m_Camera = new CCamera();
 
 	// cost
@@ -146,7 +150,7 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 	m_TimeToHitCheckWait = 0.f;
 	m_GameResult = GAME_NOT_END;
 	m_PlayTimeSum = 0.f;
-
+	m_TimeForSummonItemBox = 0.f;
 }
 
 
@@ -247,6 +251,7 @@ void CMainMap::Update( float dTime, CFrame* frame )
 	SetPlayerMoveArea(m_Player1, frame);
 	SetPlayerMoveArea(m_Player2, frame);
 
+	SummonItemBox(dTime);
 }
 
 void CMainMap::SetPlayerMoveArea( CMaincharacter * Player, CFrame* frame )
@@ -305,7 +310,25 @@ bool CMainMap::IsGameEnd(float dTime)
 	return false;
 }
 
-void CMainMap::SummonItemBox()
+void CMainMap::SummonItemBox(float dTime)
 {
+// 	m_TimeForSummonItemBox += dTime;
+// 
+// 	float leftline = GetLeftLine();
+// 	float rightline = GetRightLine();
+// 	float botline = GetBotLine();
+// 	float topline = GetTopLine();
+// 
+// 	if (m_TimeForSummonItemBox > 1.0f)
+// 	{
+// 
+// 
+// 
+// 		m_TimeForSummonItemBox = 0.f;
+// 	}
 
+	m_ItemBox->SetPosition(0.f, 0.f);
+	m_ItemBox->SetVisible(true);
+	m_ItemBox->Update(dTime);
+	
 }
