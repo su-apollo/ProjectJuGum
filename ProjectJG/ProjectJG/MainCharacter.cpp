@@ -458,13 +458,13 @@ bool CMaincharacter::SummonSubCharAnimation( float dTime )
 	m_TimeForSummonEffect += dTime;
 
 	//애니메이션을 완료했다면 true아니면 false
-	if (m_TimeForSummonEffect < 0.2)
+	if (m_TimeForSummonEffect < 0.1)
 	{
-		m_SubChar->GetFlyMotion()->SetOpacity(m_TimeForSummonEffect*5.f);
-		m_SubChar->GetFlyMotion()->SetScaleX(1.5f + (1.5f - 7.5f*m_TimeForSummonEffect));
+		m_SubChar->GetFlyMotion()->SetOpacity(m_TimeForSummonEffect*10.f);
+		m_SubChar->GetFlyMotion()->SetScaleX(1.5f + (1.5f - 15.f*m_TimeForSummonEffect));
 
-		m_SubChar->GetBackgroundEffect()->SetOpacity(m_TimeForSummonEffect*5.f);
-		m_SubChar->GetBackgroundEffect()->SetScaleX(1.5f + (1.5f - 7.5f*m_TimeForSummonEffect));
+		m_SubChar->GetBackgroundEffect()->SetOpacity(m_TimeForSummonEffect*10.f);
+		m_SubChar->GetBackgroundEffect()->SetScaleX(1.5f + (1.5f - 15.f*m_TimeForSummonEffect));
 
 		m_SubChar->SetVisible(true);
 		return false;
@@ -481,11 +481,11 @@ bool CMaincharacter::RepatriationSubCharAnimation( float dTime )
 
 	if (m_TimeForRepatriationEffect < 0.2f)
 	{
-		m_SubChar->GetFlyMotion()->SetOpacity(1.f - m_TimeForRepatriationEffect*5.f);
- 		m_SubChar->GetFlyMotion()->SetScaleY(1.5f + (7.5f*m_TimeForRepatriationEffect));
+		m_SubChar->GetFlyMotion()->SetOpacity(1.f - m_TimeForRepatriationEffect*10.f);
+ 		m_SubChar->GetFlyMotion()->SetScaleY(1.5f + (15.f*m_TimeForRepatriationEffect));
  
- 		m_SubChar->GetBackgroundEffect()->SetOpacity(1.f - m_TimeForRepatriationEffect*5.f);
- 		m_SubChar->GetBackgroundEffect()->SetScaleY(1.5f + (7.5f*m_TimeForRepatriationEffect));
+ 		m_SubChar->GetBackgroundEffect()->SetOpacity(1.f - m_TimeForRepatriationEffect*10.f);
+ 		m_SubChar->GetBackgroundEffect()->SetScaleY(1.5f + (15.f*m_TimeForRepatriationEffect));
 
 		m_SubChar->SetLifeTime(dTime + m_SubChar->GetLifeTime());
 		m_SubChar->GetBackgroundEffect()->SetRotation(100.f*m_SubChar->GetLifeTime());
