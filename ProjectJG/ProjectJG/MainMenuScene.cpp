@@ -15,9 +15,6 @@ CMainMenuScene::CMainMenuScene(void)
 {
 	NNNetworkSystem::GetInstance()->Init();
 
-	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
-	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
-
 	// BGM
 	m_BackgroundSound = NNResourceManager::GetInstance()->LoadSoundFromFile( MAIN_MENU_SCENE_BACKGROUND_SOUND, true );
 	NNAudioSystem::GetInstance()->Play( m_BackgroundSound );
@@ -26,6 +23,9 @@ CMainMenuScene::CMainMenuScene(void)
 	m_OkSound = NNResourceManager::GetInstance()->LoadSoundFromFile( EFFECT_SOUND_OK, false );
 	m_CancelSound = NNResourceManager::GetInstance()->LoadSoundFromFile( EFFECT_SOUND_CANCEL, false );
 	m_SelectSound = NNResourceManager::GetInstance()->LoadSoundFromFile( EFFECT_SOUND_SELECT, false );
+
+	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
+	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 
 	// 배경 이미지
 	m_BackGround = NNSprite::Create( MAIN_MENU_SCENE_BACKGROUND_IMAGE );
@@ -43,7 +43,7 @@ CMainMenuScene::CMainMenuScene(void)
 	AddChild( m_MenuLabel[MENU_CLIENT] );
 	m_MenuLabel[MENU_QUIT] = NNSprite::Create(MAIN_MENU_LABEL_QUIT);
 	AddChild( m_MenuLabel[MENU_QUIT] );
-
+	// 강조 라벨 생성
 	m_HighlightLabel[MENU_TEST] = NNSprite::Create(MAIN_MENU_HIGHLIGHT_TEST);
 	AddChild(m_HighlightLabel[MENU_TEST], 1);
 	m_HighlightLabel[MENU_SERVER] = NNSprite::Create(MAIN_MENU_HIGHLIGHT_SERVER);
@@ -53,36 +53,25 @@ CMainMenuScene::CMainMenuScene(void)
 	m_HighlightLabel[MENU_QUIT] = NNSprite::Create(MAIN_MENU_HIGHLIGHT_QUIT);
 	AddChild(m_HighlightLabel[MENU_QUIT], 1);
 
-	// 메뉴 라벨 초기 배치
-	m_MenuLabel[0]->SetPosition( width*0.31f, height*0.75f );
-	for (int i = 1; i < MENU_NUM; i++)
-	{
-		m_MenuLabel[i]->SetPosition( m_MenuLabel[i-1]->GetPosition() + NNPoint(MAIN_MENU_LABEL_HORIZONTAL_SPACE, 0.f) );
-	}
-
-	for (int i = 0; i < MENU_NUM; i++)
-	{
-		m_HighlightLabel[i]->SetPosition(m_MenuLabel[i]->GetPosition());
-		m_HighlightLabel[i]->SetVisible(false);
-	}
+	InitMenuLabel();
 
 	m_KeyOn = 0;				// 현재 가리키고 있는 메뉴 위치
 	m_bMenuSelected = false;	// "메뉴가 아직 선택되지 않았다"
 
 
 	m_InstructionLabel = NNSprite::Create(MAIN_MENU_INSTRUCTION);
-	m_InstructionLabel->SetPosition( width*0.3f, height*0.33f );
+	m_InstructionLabel->SetPosition( width*0.5f, height*0.3f );
 	AddChild(m_InstructionLabel);
 
-	// 네트워크 메뉴 라벨 초기화
+	// 네트워크 메뉴 라벨 생성
 	for (int i = 0; i < NET_MENU_NUM; i++)
 	{
-		swprintf(m_NetMenuBuffer[i], _countof(m_NetMenuBuffer[i]), L"");
 		m_NetMenuLabel[i] = NNLabel::Create(m_NetMenuBuffer[i], GAME_FONT, MAIN_MENU_LABEL_FONT_SIZE * 0.5f);
-		m_NetMenuLabel[i]->SetVisible(false);
 		AddChild(m_NetMenuLabel[i]);
 	}
 
+	InitNetworkLabel();
+	
 	//로딩화면
 	m_Loading = NNSprite::Create( MAIN_MENU_LOADING_SCENE );
 	m_Loading->SetPosition( width*0.5f, height*0.5f );
@@ -93,7 +82,7 @@ CMainMenuScene::CMainMenuScene(void)
 
 	m_bChangeScene = false;
 	m_GameMode = MODE_NONE;
-	strcpy_s(m_serverIP, _countof(m_serverIP), "");
+	
 }
 
 
@@ -269,16 +258,6 @@ void CMainMenuScene::ShowCommand( int MenuIndex, wchar_t* command )
 
 void CMainMenuScene::ChangeScene()
 {
-	// 다른 라벨들 다 숨기고,
-	for (int i = 0; i < MENU_NUM; i++)
-	{
-		m_MenuLabel[i]->SetVisible(false);
-		m_HighlightLabel[i]->SetVisible(false);
-	}
-	for (int i = 0; i < NET_MENU_NUM; i++)
-	{
-		m_NetMenuLabel[i]->SetVisible(false);
-	}
 	// 로딩 중
 	m_Loading->SetVisible(true);
 	m_bChangeScene = true;
@@ -289,26 +268,33 @@ void CMainMenuScene::CancelModeSelection()
 	m_GameMode = MODE_NONE;
 	m_bMenuSelected = false;
 
+	InitMenuLabel();
+	InitNetworkLabel();
+}
+
+void CMainMenuScene::InitMenuLabel()
+{
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 
-	// 네트워크 관련 라벨 모두 숨기고,
-	for (int i = 0; i < NET_MENU_NUM; i++)
-	{
-		m_NetMenuLabel[i]->SetVisible(false);
-	}
-	// IP 주소 관련 buffer 초기화
-	swprintf(m_NetMenuBuffer[NET_MENU_IP_ADDR], _countof(m_NetMenuBuffer[NET_MENU_IP_ADDR]), L"");
-	strcpy_s(m_serverIP, _countof(m_serverIP), "");
-
-	// 메뉴 라벨 초기 배치
-	m_MenuLabel[0]->SetPosition( width*0.31f, height*0.75f );
+	m_MenuLabel[0]->SetPosition( width*0.31f, height*0.7f );
 	for (int i = 1; i < MENU_NUM; i++)
 	{
 		m_MenuLabel[i]->SetPosition( m_MenuLabel[i-1]->GetPosition() + NNPoint(MAIN_MENU_LABEL_HORIZONTAL_SPACE, 0.f) );
 	}
+
 	for (int i = 0; i < MENU_NUM; i++)
 	{
-		m_HighlightLabel[i]->SetPosition( m_MenuLabel[i]->GetPosition() );
+		m_HighlightLabel[i]->SetPosition(m_MenuLabel[i]->GetPosition());
+		m_HighlightLabel[i]->SetVisible(false);
 	}
+}
+
+void CMainMenuScene::InitNetworkLabel()
+{
+	for (int i = 0; i < NET_MENU_NUM; i++)
+	{
+		m_NetMenuLabel[i]->SetVisible(false);
+	}
+	strcpy_s(m_serverIP, _countof(m_serverIP), "");
 }

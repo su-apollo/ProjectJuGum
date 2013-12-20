@@ -25,6 +25,9 @@ public:
 	void GetIPInput();
 	void GetCurrentIP();
 
+	void InitMenuLabel();
+	void InitNetworkLabel();
+
 private:
 	// ¹è°æ
 	NNSprite*		m_Loading;
