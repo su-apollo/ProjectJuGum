@@ -36,12 +36,9 @@ private:
 	char			m_serverIP[20];
 
 	// ¶óº§µé
-	NNLabel*		m_LoadingLabel;
-
-	NNLabel*		m_InstructionLabel;
-	wchar_t			m_InstructionBuffer[MENU_NUM+1][200];
-
-	NNLabel*		m_MenuLabel[MENU_NUM];
+	NNSprite*		m_InstructionLabel;
+	NNSprite*		m_MenuLabel[MENU_NUM];
+	NNSprite*		m_HighlightLabel[MENU_NUM];
 	unsigned int	m_KeyOn;
 	bool			m_bMenuSelected;
 
