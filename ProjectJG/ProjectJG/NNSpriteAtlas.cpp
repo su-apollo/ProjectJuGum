@@ -58,7 +58,7 @@ void NND2DSpriteAtlas::Render()
 {
 // 	m_ImageHeight = m_CutBottomY - m_CutTopY;
 // 	m_ImageWidth =  m_CutRightX - m_CutLeftX;
-
+	if ( m_Visible == false ) return;
 	NNObject::Render();
 
 	m_pD2DRenderer->GetHwndRenderTarget()->SetTransform( m_Matrix );
