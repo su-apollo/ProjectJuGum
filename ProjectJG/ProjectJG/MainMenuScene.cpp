@@ -322,7 +322,7 @@ void CMainMenuScene::InitNetworkLabel()
 		}
 	}
 	strcpy_s(m_serverIP, _countof(m_serverIP), "");
-	
+	m_Cursor->SetVisible(false);
 }
 
 void CMainMenuScene::SetAtlasChar( NNSpriteAtlas* atlas, char number )
