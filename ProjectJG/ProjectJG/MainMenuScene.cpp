@@ -1,7 +1,6 @@
 #include "NNConfig.h"
 
 #include "MainMenuScene.h"
-#include "NNLabel.h"
 #include "NNInputSystem.h"
 #include "NNAudioSystem.h"
 #include "NNResourceManager.h"
@@ -10,6 +9,8 @@
 #include "NNSprite.h"
 #include "NNAudioSystem.h"
 #include "NNNetworkSystem.h"
+#include "NNSpriteAtlas.h"
+#include "NNAnimation.h"
 
 CMainMenuScene::CMainMenuScene(void)
 {
@@ -45,7 +46,7 @@ CMainMenuScene::CMainMenuScene(void)
 	AddChild( m_MenuLabel[MENU_QUIT] );
 	// 강조 라벨 생성
 	m_HighlightLabel[MENU_TEST] = NNSprite::Create(MAIN_MENU_HIGHLIGHT_TEST);
-	AddChild(m_HighlightLabel[MENU_TEST], 1);
+	AddChild(m_HighlightLabel[MENU_TEST], 1);	// 지금 자식들을 벡터구조로 바꾸면서 Zindex 정렬을 안 해서 의미없네?!
 	m_HighlightLabel[MENU_SERVER] = NNSprite::Create(MAIN_MENU_HIGHLIGHT_SERVER);
 	AddChild(m_HighlightLabel[MENU_SERVER], 1);
 	m_HighlightLabel[MENU_CLIENT] = NNSprite::Create(MAIN_MENU_HIGHLIGHT_CLIENT);
@@ -63,12 +64,35 @@ CMainMenuScene::CMainMenuScene(void)
 	m_InstructionLabel->SetPosition( width*0.5f, height*0.3f );
 	AddChild(m_InstructionLabel);
 
-	// 네트워크 메뉴 라벨 생성
+	// 네트워크 라벨 : command 생성,배치.
+	m_NetMenuLabel[NET_MENU_SERVER] = NNSprite::Create(MAIN_MENU_SERVER_COMMAND);
+	m_NetMenuLabel[NET_MENU_SERVER]->SetPosition(m_MenuLabel[MENU_SERVER]->GetPosition() + NNPoint(m_NetMenuLabel[NET_MENU_SERVER]->GetImageWidth()*0.5f + MAIN_MENU_LABEL_HORIZONTAL_SPACE*0.4f, -50.f));
+	AddChild(m_NetMenuLabel[NET_MENU_SERVER]);
+
+	m_NetMenuLabel[NET_MENU_CLIENT] = NNSprite::Create(MAIN_MENU_CLIENT_COMMAND);
+	m_NetMenuLabel[NET_MENU_CLIENT]->SetPosition(m_MenuLabel[MENU_CLIENT]->GetPosition() + NNPoint(m_NetMenuLabel[NET_MENU_CLIENT]->GetImageWidth()*0.5f + MAIN_MENU_LABEL_HORIZONTAL_SPACE*0.4f, -50.f));
+	AddChild(m_NetMenuLabel[NET_MENU_CLIENT]);
+
+	// ipAddr 생성, 배치.
 	for (int i = 0; i < NET_MENU_NUM; i++)
 	{
-		m_NetMenuLabel[i] = NNLabel::Create(m_NetMenuBuffer[i], GAME_FONT, MAIN_MENU_LABEL_FONT_SIZE * 0.5f);
-		AddChild(m_NetMenuLabel[i]);
+		for (int j = 0; j < MAIN_MENU_MAX_BUFFER_SIZE; j++)
+		{
+			m_AddrLabel[i][j] = NNSpriteAtlas::Create(MAIN_MENU_NUMBER_FONT);
+			m_AddrLabel[i][j]->SetImageWidth(MAIN_MENU_FONT_WIDTH);
+			AddChild(m_AddrLabel[i][j]);
+		}
+		m_AddrLabel[i][0]->SetPosition(m_NetMenuLabel[i]->GetPosition() + NNPoint(-m_NetMenuLabel[i]->GetImageWidth()*0.5f, MAIN_MENU_LABEL_VERTICAL_SPACE));
+		for (int j = 1; j < MAIN_MENU_MAX_BUFFER_SIZE; j++)
+		{
+			m_AddrLabel[i][j]->SetPosition(m_AddrLabel[i][j-1]->GetPosition() + NNPoint(MAIN_MENU_FONT_WIDTH, 0.f));
+		}
 	}
+
+	m_Cursor = NNAnimation::Create(2, 0.5f, L"Sprite/font/underbar00.png", L"Sprite/font/underbar01.png");
+	m_Cursor->SetPosition(m_AddrLabel[NET_MENU_CLIENT][0]->GetPosition());
+	m_Cursor->SetVisible(false);
+	AddChild(m_Cursor);
 
 	InitNetworkLabel();
 	
@@ -82,7 +106,6 @@ CMainMenuScene::CMainMenuScene(void)
 
 	m_bChangeScene = false;
 	m_GameMode = MODE_NONE;
-	
 }
 
 
@@ -137,7 +160,7 @@ void CMainMenuScene::Update( float dTime )
 				NNAudioSystem::GetInstance()->Play( m_CancelSound );
 				CancelModeSelection();
 			}
-			GetIPInput();
+			GetIPInput(dTime);
 			break;
 		case MENU_QUIT:
 			PostMessage( NNApplication::GetInstance()->GetHWND(), WM_DESTROY, 0, 0 );
@@ -176,14 +199,15 @@ void CMainMenuScene::SetUpGameMode()
 		case MENU_TEST:
 			m_GameMode = TEST_MODE;
 			break;
-		case MENU_CLIENT:
-			m_GameMode = CLIENT_MODE;
-			ShowCommand(m_KeyOn, L"Input Server IP : ");
-			break;
 		case MENU_SERVER:
 			m_GameMode = SERVER_MODE;
-			ShowCommand(m_KeyOn, L"Your IP : ");
 			GetCurrentIP();			// 서버모드에서는 IP주소를 바로 보여줌.
+			ShowCommand(m_KeyOn, NET_MENU_SERVER);
+			break;
+		case MENU_CLIENT:
+			m_GameMode = CLIENT_MODE;
+			m_Cursor->SetVisible(true);
+			ShowCommand(m_KeyOn, NET_MENU_CLIENT);
 			break;
 		case MENU_QUIT:
 			break;
@@ -193,51 +217,54 @@ void CMainMenuScene::SetUpGameMode()
 	}
 }
 
-void CMainMenuScene::GetCurrentIP()
+void CMainMenuScene::GetCurrentIP( int NetMenuIndex )
 {
 	strcpy_s(m_serverIP, _countof(m_serverIP), NNNetworkSystem::GetInstance()->GetIpAddress());
-	swprintf(m_NetMenuBuffer[NET_MENU_IP_ADDR], _countof(m_NetMenuBuffer[NET_MENU_IP_ADDR]), L"%hs", m_serverIP);
+	for (int i = 0; i < MAIN_MENU_MAX_BUFFER_SIZE; i++)
+	{
+		if (m_serverIP[i]) { SetAtlasChar(m_AddrLabel[NetMenuIndex][i], m_serverIP[i]); m_AddrLabel[NetMenuIndex][i]->SetVisible(true); }
+		else { SetAtlasChar(m_AddrLabel[NetMenuIndex][i], ' '); m_AddrLabel[NetMenuIndex][i]->SetVisible(false); }
+	}
 }
 
-void CMainMenuScene::GetIPInput()
+void CMainMenuScene::GetIPInput( float dTime, int NetMenuIndex )
 {
 	size_t len = strlen(m_serverIP);
 	char* buffer = new char[len+2];
 	strcpy_s(buffer, len+2, m_serverIP);
+	bool bAdded = false;
 
-	if (NNInputSystem::GetInstance()->GetKeyState(VK_OEM_PERIOD) == KEY_DOWN ||
-		NNInputSystem::GetInstance()->GetKeyState('0') == KEY_DOWN ||
-		NNInputSystem::GetInstance()->GetKeyState('1') == KEY_DOWN ||
-		NNInputSystem::GetInstance()->GetKeyState('2') == KEY_DOWN ||
-		NNInputSystem::GetInstance()->GetKeyState('3') == KEY_DOWN ||
-		NNInputSystem::GetInstance()->GetKeyState('4') == KEY_DOWN ||
-		NNInputSystem::GetInstance()->GetKeyState('5') == KEY_DOWN ||
-		NNInputSystem::GetInstance()->GetKeyState('6') == KEY_DOWN ||
-		NNInputSystem::GetInstance()->GetKeyState('7') == KEY_DOWN ||
-		NNInputSystem::GetInstance()->GetKeyState('8') == KEY_DOWN ||
-		NNInputSystem::GetInstance()->GetKeyState('9') == KEY_DOWN
-		)
+	if ( NNInputSystem::GetInstance()->GetKeyState(VK_OEM_PERIOD) == KEY_DOWN) {buffer[len] = '.'; buffer[len+1] = '\0'; SetAtlasChar(m_AddrLabel[NetMenuIndex][len], '.'); bAdded = true;}
+	else if ( NNInputSystem::GetInstance()->GetKeyState('0') == KEY_DOWN) {buffer[len] = '0'; buffer[len+1] = '\0'; SetAtlasChar(m_AddrLabel[NetMenuIndex][len], '0'); bAdded = true;}
+	else if ( NNInputSystem::GetInstance()->GetKeyState('1') == KEY_DOWN) {buffer[len] = '1'; buffer[len+1] = '\0'; SetAtlasChar(m_AddrLabel[NetMenuIndex][len], '1'); bAdded = true;}
+	else if ( NNInputSystem::GetInstance()->GetKeyState('2') == KEY_DOWN) {buffer[len] = '2'; buffer[len+1] = '\0'; SetAtlasChar(m_AddrLabel[NetMenuIndex][len], '2'); bAdded = true;}
+	else if ( NNInputSystem::GetInstance()->GetKeyState('3') == KEY_DOWN) {buffer[len] = '3'; buffer[len+1] = '\0'; SetAtlasChar(m_AddrLabel[NetMenuIndex][len], '3'); bAdded = true;}
+	else if ( NNInputSystem::GetInstance()->GetKeyState('4') == KEY_DOWN) {buffer[len] = '4'; buffer[len+1] = '\0'; SetAtlasChar(m_AddrLabel[NetMenuIndex][len], '4'); bAdded = true;}
+	else if ( NNInputSystem::GetInstance()->GetKeyState('5') == KEY_DOWN) {buffer[len] = '5'; buffer[len+1] = '\0'; SetAtlasChar(m_AddrLabel[NetMenuIndex][len], '5'); bAdded = true;}
+	else if ( NNInputSystem::GetInstance()->GetKeyState('6') == KEY_DOWN) {buffer[len] = '6'; buffer[len+1] = '\0'; SetAtlasChar(m_AddrLabel[NetMenuIndex][len], '6'); bAdded = true;}
+	else if ( NNInputSystem::GetInstance()->GetKeyState('7') == KEY_DOWN) {buffer[len] = '7'; buffer[len+1] = '\0'; SetAtlasChar(m_AddrLabel[NetMenuIndex][len], '7'); bAdded = true;}
+	else if ( NNInputSystem::GetInstance()->GetKeyState('8') == KEY_DOWN) {buffer[len] = '8'; buffer[len+1] = '\0'; SetAtlasChar(m_AddrLabel[NetMenuIndex][len], '8'); bAdded = true;}
+	else if ( NNInputSystem::GetInstance()->GetKeyState('9') == KEY_DOWN) {buffer[len] = '9'; buffer[len+1] = '\0'; SetAtlasChar(m_AddrLabel[NetMenuIndex][len], '9'); bAdded = true;}
+	else if ( NNInputSystem::GetInstance()->GetKeyState(VK_BACK) == KEY_DOWN) {
+		buffer[len-1] = '\0';
+		SetAtlasChar(m_AddrLabel[NetMenuIndex][len-1], ' ');
+		m_AddrLabel[NetMenuIndex][len-1]->SetVisible(false);
 		NNAudioSystem::GetInstance()->Play( m_SelectSound );
+		m_Cursor->SetPosition(m_AddrLabel[NET_MENU_CLIENT][len-1]->GetPosition());
+	}
 
-	if ( NNInputSystem::GetInstance()->GetKeyState(VK_OEM_PERIOD) == KEY_DOWN) {buffer[len] = '.'; buffer[len+1] = '\0';}
-	else if ( NNInputSystem::GetInstance()->GetKeyState('0') == KEY_DOWN) {buffer[len] = '0'; buffer[len+1] = '\0';}
-	else if ( NNInputSystem::GetInstance()->GetKeyState('1') == KEY_DOWN) {buffer[len] = '1'; buffer[len+1] = '\0';}
-	else if ( NNInputSystem::GetInstance()->GetKeyState('2') == KEY_DOWN) {buffer[len] = '2'; buffer[len+1] = '\0';}
-	else if ( NNInputSystem::GetInstance()->GetKeyState('3') == KEY_DOWN) {buffer[len] = '3'; buffer[len+1] = '\0';}
-	else if ( NNInputSystem::GetInstance()->GetKeyState('4') == KEY_DOWN) {buffer[len] = '4'; buffer[len+1] = '\0';}
-	else if ( NNInputSystem::GetInstance()->GetKeyState('5') == KEY_DOWN) {buffer[len] = '5'; buffer[len+1] = '\0';}
-	else if ( NNInputSystem::GetInstance()->GetKeyState('6') == KEY_DOWN) {buffer[len] = '6'; buffer[len+1] = '\0';}
-	else if ( NNInputSystem::GetInstance()->GetKeyState('7') == KEY_DOWN) {buffer[len] = '7'; buffer[len+1] = '\0';}
-	else if ( NNInputSystem::GetInstance()->GetKeyState('8') == KEY_DOWN) {buffer[len] = '8'; buffer[len+1] = '\0';}
-	else if ( NNInputSystem::GetInstance()->GetKeyState('9') == KEY_DOWN) {buffer[len] = '9'; buffer[len+1] = '\0';}
-	else if ( NNInputSystem::GetInstance()->GetKeyState(VK_BACK) == KEY_DOWN) {buffer[len-1] = '\0';}
-
+	if (bAdded)
+	{
+		NNAudioSystem::GetInstance()->Play( m_SelectSound );
+		m_AddrLabel[NetMenuIndex][len]->SetVisible(true);
+		m_Cursor->SetPosition(m_AddrLabel[NET_MENU_CLIENT][len+1]->GetPosition());
+	}
+	m_Cursor->Update(dTime);
 	strcpy_s(m_serverIP, _countof(m_serverIP), buffer);
 	SafeDelete(buffer);
-	swprintf(m_NetMenuBuffer[NET_MENU_IP_ADDR], _countof(m_NetMenuBuffer[NET_MENU_IP_ADDR]), L"%hs", m_serverIP);
 }
 
-void CMainMenuScene::ShowCommand( int MenuIndex, wchar_t* command )
+void CMainMenuScene::ShowCommand( int MenuIndex, int NetMenuIndex )
 {
 	// 이미 나와있던 메뉴 라벨을 한 칸 옆으로 민다.
 	for (int i = MenuIndex+1; i < MENU_NUM; i++)
@@ -247,18 +274,11 @@ void CMainMenuScene::ShowCommand( int MenuIndex, wchar_t* command )
 	}
 
 	// IP를 보여준다 : 버퍼 내용 바꾸고, 라벨 위치 변경하고, 라벨 다시 보이게 하고.
-	swprintf(m_NetMenuBuffer[NET_MENU_COMMAND], _countof(m_NetMenuBuffer[NET_MENU_COMMAND]), command);
-	m_NetMenuLabel[NET_MENU_COMMAND]->SetPosition( m_MenuLabel[MenuIndex]->GetPosition() + NNPoint(MAIN_MENU_LABEL_HORIZONTAL_SPACE*0.2f, 0.f) );
-	m_NetMenuLabel[NET_MENU_COMMAND]->SetVisible(true);
-
-	swprintf(m_NetMenuBuffer[NET_MENU_IP_ADDR], _countof(m_NetMenuBuffer[NET_MENU_IP_ADDR]), L"%hs", m_serverIP);
-	m_NetMenuLabel[NET_MENU_IP_ADDR]->SetPosition( m_NetMenuLabel[NET_MENU_COMMAND]->GetPosition() + NNPoint(0.f, MAIN_MENU_LABEL_VERTICAL_SPACE) );
-	m_NetMenuLabel[NET_MENU_IP_ADDR]->SetVisible(true);
+	m_NetMenuLabel[NetMenuIndex]->SetVisible(true);
 }
 
 void CMainMenuScene::ChangeScene()
 {
-	// 로딩 중
 	m_Loading->SetVisible(true);
 	m_bChangeScene = true;
 }
@@ -295,6 +315,27 @@ void CMainMenuScene::InitNetworkLabel()
 	for (int i = 0; i < NET_MENU_NUM; i++)
 	{
 		m_NetMenuLabel[i]->SetVisible(false);
+		for (int j = 0; j < MAIN_MENU_MAX_BUFFER_SIZE; j++)
+		{
+			//SetAtlasChar(m_AddrLabel[i][j], ' ');
+			m_AddrLabel[i][j]->SetVisible(false);
+		}
 	}
 	strcpy_s(m_serverIP, _countof(m_serverIP), "");
+	
+}
+
+void CMainMenuScene::SetAtlasChar( NNSpriteAtlas* atlas, char number )
+{
+	char NumberArray[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', ' '};
+	int length = sizeof(NumberArray)/sizeof(NumberArray[0]);
+	for (int i = 0; i < length; i++)
+	{
+		if (number == NumberArray[i])
+		{
+			atlas->SetCutSize(MAIN_MENU_FONT_WIDTH*i, 0, MAIN_MENU_FONT_WIDTH*(i+1), MAIN_MENU_FONT_WIDTH);
+			return;
+		}
+	}
+	atlas->SetCutSize(MAIN_MENU_FONT_WIDTH*length, 0, MAIN_MENU_FONT_WIDTH*(length+1), MAIN_MENU_FONT_WIDTH);
 }

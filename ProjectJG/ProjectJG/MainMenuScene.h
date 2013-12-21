@@ -3,8 +3,9 @@
 #include "GameOption.h"
 
 class NNSprite;
-class NNLabel;
+class NNSpriteAtlas;
 class NNSound;
+class NNAnimation;
 
 // 게임을 실행하면 처음에 보이는 씬.
 
@@ -21,9 +22,9 @@ public:
 	void ChangeScene();
 	void CancelModeSelection();
 
-	void ShowCommand(int MenuIndex, wchar_t* command);
-	void GetIPInput();
-	void GetCurrentIP();
+	void ShowCommand(int MenuIndex, int NetMenuIndex);
+	void GetIPInput(float dTime, int NetMenuIndex = NET_MENU_CLIENT);
+	void GetCurrentIP(int NetMenuIndex = NET_MENU_SERVER);
 
 	void InitMenuLabel();
 	void InitNetworkLabel();
@@ -36,7 +37,7 @@ private:
 	// 씬 전환시 넘길 parameter
 	bool			m_bChangeScene;
 	ENetworkMode	m_GameMode;
-	char			m_serverIP[20];
+	char			m_serverIP[MAIN_MENU_MAX_BUFFER_SIZE];
 
 	// 라벨들
 	NNSprite*		m_InstructionLabel;
@@ -45,13 +46,16 @@ private:
 	unsigned int	m_KeyOn;
 	bool			m_bMenuSelected;
 
-	NNLabel*		m_NetMenuLabel[NET_MENU_NUM];
-	wchar_t			m_NetMenuBuffer[NET_MENU_NUM][30];
+	NNSprite*		m_NetMenuLabel[NET_MENU_NUM];
+	NNSpriteAtlas*	m_AddrLabel[NET_MENU_NUM][MAIN_MENU_MAX_BUFFER_SIZE];
+	NNAnimation*	m_Cursor;
 
+	// 사운드
 	NNSound*		m_BackgroundSound;
 	NNSound*		m_OkSound;
 	NNSound*		m_CancelSound;
 	NNSound*		m_SelectSound;
 	
+	void	SetAtlasChar(NNSpriteAtlas* atlas, char number);	// 흐흐흐 겨우 돌아가는 함수 하드코딩이랑 다를 게 뭐야 ㅜㅜ
 };
 

@@ -13,9 +13,10 @@
 
 #define BASIC_COST							50000
 
-#define MAIN_MENU_LABEL_VERTICAL_SPACE		80.f
-#define MAIN_MENU_LABEL_HORIZONTAL_SPACE		200.f
-#define MAIN_MENU_LABEL_FONT_SIZE			60.f
+#define MAIN_MENU_LABEL_VERTICAL_SPACE		50.f
+#define MAIN_MENU_LABEL_HORIZONTAL_SPACE	200.f
+#define MAIN_MENU_FONT_WIDTH				16.f
+#define MAIN_MENU_MAX_BUFFER_SIZE			30
 
 #define UI_LABEL_FONT_SIZE					40.f
 
@@ -32,6 +33,9 @@
 #define MAIN_MENU_HIGHLIGHT_SERVER				L"Sprite/font/SERVER_ON.png"
 #define MAIN_MENU_HIGHLIGHT_CLIENT				L"Sprite/font/CLIENT_ON.png"
 #define MAIN_MENU_HIGHLIGHT_QUIT				L"Sprite/font/QUIT_ON.png"
+#define MAIN_MENU_SERVER_COMMAND				L"Sprite/font/SERVER_COMMAND.png"
+#define MAIN_MENU_CLIENT_COMMAND				L"Sprite/font/CLIENT_COMMAND.png"
+#define MAIN_MENU_NUMBER_FONT					L"Sprite/font/NUMBERS.png"
 #define EFFECT_SOUND_OK							"Sound/se_ok00.wav"
 #define EFFECT_SOUND_CANCEL						"Sound/se_cancel00.wav"
 #define EFFECT_SOUND_SELECT						"Sound/se_select00.wav"
@@ -155,8 +159,8 @@ enum EMenuList
 
 enum ENetMenuList
 {
-	NET_MENU_COMMAND,
-	NET_MENU_IP_ADDR,
+	NET_MENU_SERVER,
+	NET_MENU_CLIENT,
 	NET_MENU_NUM,
 };
 
