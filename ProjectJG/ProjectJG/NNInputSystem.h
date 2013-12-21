@@ -39,6 +39,7 @@ public:
 	EInputSetUp GetSkillKeyInput(void);
 	EInputSetUp GetGameMenuKeyInput(void);
 	EInputSetUp GetChangeSpeedKeyInput(void);
+	EInputNum	GetNumInput(void);
 
 private:
 	static NNInputSystem* m_pInstance;

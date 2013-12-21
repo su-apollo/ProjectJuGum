@@ -211,3 +211,19 @@ EInputSetUp NNInputSystem::GetChangeSpeedKeyInput( void )
 		return NONE;
 }
 
+EInputNum NNInputSystem::GetNumInput( void )
+{
+	if ( NNInputSystem::GetInstance()->GetKeyState(VK_OEM_PERIOD) == KEY_DOWN) return NUM_INPUT_PERIOD;
+	else if ( NNInputSystem::GetInstance()->GetKeyState('0') == KEY_DOWN) return NUM_INPUT_ZERO;
+	else if ( NNInputSystem::GetInstance()->GetKeyState('1') == KEY_DOWN) return NUM_INPUT_ONE;
+	else if ( NNInputSystem::GetInstance()->GetKeyState('2') == KEY_DOWN) return NUM_INPUT_TWO;
+	else if ( NNInputSystem::GetInstance()->GetKeyState('3') == KEY_DOWN) return NUM_INPUT_THREE;
+	else if ( NNInputSystem::GetInstance()->GetKeyState('4') == KEY_DOWN) return NUM_INPUT_FOUR;
+	else if ( NNInputSystem::GetInstance()->GetKeyState('5') == KEY_DOWN) return NUM_INPUT_FIVE;
+	else if ( NNInputSystem::GetInstance()->GetKeyState('6') == KEY_DOWN) return NUM_INPUT_SIX;
+	else if ( NNInputSystem::GetInstance()->GetKeyState('7') == KEY_DOWN) return NUM_INPUT_SEVEN;
+	else if ( NNInputSystem::GetInstance()->GetKeyState('8') == KEY_DOWN) return NUM_INPUT_EIGHT;
+	else if ( NNInputSystem::GetInstance()->GetKeyState('9') == KEY_DOWN) return NUM_INPUT_NINE;
+	else if ( NNInputSystem::GetInstance()->GetKeyState(VK_BACK) == KEY_DOWN) return NUM_INPUT_BACK;
+}
+
