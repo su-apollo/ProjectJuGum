@@ -49,6 +49,9 @@
 #define GAME_FONT								L"Bleeding Cowboys"
 #define RAYMU_PORTRAIT							L"Sprite/Raymu Portraits.png"
 #define MARISA_PORTRAIT							L"Sprite/Marisa Portraits.png"
+#define BACKGROUND_FLOWER						L"Sprite/flower.png"
+#define BACKGROUND_PATTERN						L"Sprite/pattern.png"
+#define BACKGROUND_TIME							L"Sprite/time.png"
 
 // PlayScene Resources
 #define GAME_BACKGROUND_SOUND					"Sound/the Mooned Incects.mp3"

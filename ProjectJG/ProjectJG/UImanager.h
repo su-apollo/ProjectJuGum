@@ -47,6 +47,9 @@ private:
 	wchar_t		m_Player2CostBuffer[100];
 
 	
-	
+	// Àå½Ä
+	NNSprite*	m_pattern;
+	NNSprite*	m_time;
+	NNSprite*	m_flower;
 };
 

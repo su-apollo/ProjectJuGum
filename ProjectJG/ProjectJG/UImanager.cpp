@@ -29,26 +29,54 @@ void UImanager::ReleaseInstance()
 
 UImanager::UImanager(void)
 {
+	float LeftLine = NNApplication::GetInstance()->GetLeftLine();
+	float RightLine = NNApplication::GetInstance()->GetRightLine();
+	float TopLine = NNApplication::GetInstance()->GetTopLine();
+	float BotLine = NNApplication::GetInstance()->GetBotLine();
+	float ScreenWidth = RightLine - LeftLine;
+	float ScreenHeight = BotLine - TopLine;
+
 	m_UINum = 0;		// UI 개수 카운트
+
+	// 장식
+
+	// 꽃 무늬
+	m_flower = NNSprite::Create(BACKGROUND_FLOWER);
+	m_flower->SetPosition( ScreenWidth*0.5f, TopLine + m_flower->GetImageHeight()*0.5f );
+	m_UIList[m_UINum++] = m_flower;
+
+	// 캐릭터 그림 배경 패턴
+	m_pattern = NNSprite::Create(BACKGROUND_PATTERN);
+	m_pattern->SetPosition( ScreenWidth*0.5f, BotLine - m_pattern->GetImageHeight()*0.5f );
+	m_UIList[m_UINum++] = m_pattern;
+
+	// 시간 배경
+	m_time = NNSprite::Create(BACKGROUND_TIME);
+	m_time->SetImageHeight(m_time->GetImageHeight() * 2.f);
+	m_time->SetImageWidth(m_time->GetImageWidth() * 2.f);
+	m_time->SetPosition( ScreenWidth*0.5f, BotLine - m_time->GetImageHeight()*0.5f );
+	m_UIList[m_UINum++] = m_time;
+
+	// 캐릭터 그림
+	m_Player1Portrait = NNSprite::Create(RAYMU_PORTRAIT);
+	m_Player1Portrait->SetImageWidth(m_Player1Portrait->GetImageWidth()*0.4f);
+	m_Player1Portrait->SetImageHeight(m_Player1Portrait->GetImageHeight()*0.4f);
+	m_Player1Portrait->SetPosition( LeftLine + m_Player1Portrait->GetImageWidth()*0.5f, BotLine - m_Player1Portrait->GetImageHeight()*0.5f );
+	m_UIList[m_UINum++] = m_Player1Portrait;
+
+	m_Player2Portrait = NNSprite::Create(MARISA_PORTRAIT);
+	m_Player2Portrait->SetImageWidth(m_Player2Portrait->GetImageWidth()*0.4f);
+	m_Player2Portrait->SetImageHeight(m_Player2Portrait->GetImageHeight()*0.4f);
+	m_Player2Portrait->SetPosition( RightLine - m_Player2Portrait->GetImageWidth()*0.5f, BotLine - m_Player2Portrait->GetImageHeight()*0.5f );
+	m_UIList[m_UINum++] = m_Player2Portrait;
+
+	// 라벨
 
 	// FPS
 	swprintf_s( m_FPSBuffer, _countof(m_FPSBuffer), L"FPS : " );
 	m_FPSLabel = NNLabel::Create( m_FPSBuffer, GAME_FONT, UI_LABEL_FONT_SIZE );
 	m_FPSLabel->SetPosition( 0.f, 0.f );
 	m_UIList[m_UINum++] = m_FPSLabel;
-
-	// 캐릭터 그림
-	m_Player1Portrait = NNSprite::Create(RAYMU_PORTRAIT);
-	m_Player1Portrait->SetImageWidth(m_Player1Portrait->GetImageWidth()*0.4f);
-	m_Player1Portrait->SetImageHeight(m_Player1Portrait->GetImageHeight()*0.4f);
-	m_Player1Portrait->SetPosition( NNApplication::GetInstance()->GetLeftLine() + m_Player1Portrait->GetImageWidth()*0.5f, NNApplication::GetInstance()->GetBotLine() - m_Player1Portrait->GetImageHeight()*0.5f );
-	m_UIList[m_UINum++] = m_Player1Portrait;
-
-	m_Player2Portrait = NNSprite::Create(MARISA_PORTRAIT);
-	m_Player2Portrait->SetImageWidth(m_Player2Portrait->GetImageWidth()*0.4f);
-	m_Player2Portrait->SetImageHeight(m_Player2Portrait->GetImageHeight()*0.4f);
-	m_Player2Portrait->SetPosition( NNApplication::GetInstance()->GetRightLine() - m_Player2Portrait->GetImageWidth()*0.5f, NNApplication::GetInstance()->GetBotLine() - m_Player2Portrait->GetImageHeight()*0.5f );
-	m_UIList[m_UINum++] = m_Player2Portrait;
 
 	// cost
 	swprintf_s( m_Player1CostBuffer, _countof(m_Player1CostBuffer), L"" );
@@ -60,6 +88,7 @@ UImanager::UImanager(void)
 	m_Player2CostLabel = NNLabel::Create( m_Player2CostBuffer, GAME_FONT, UI_LABEL_FONT_SIZE );
 	m_Player2CostLabel->SetPosition( m_Player2Portrait->GetPosition() + NNPoint( -m_Player2Portrait->GetImageWidth() *0.5f - 120.f, -20.f ) );
 	m_UIList[m_UINum++] = m_Player2CostLabel;
+
 }
 
 
