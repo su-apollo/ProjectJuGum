@@ -23,12 +23,6 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 	m_Width = MAIN_MAP_WIDTH;
 	m_Height = MAIN_MAP_HEIGHT;
 
-	// 사각형 틀 생성
-	m_MainFrame = NNRect::Create(m_Width, m_Height);
-	m_MainFrame->SetPosition(0.f,0.f);
-	m_MainFrame->SetColor(255.f, 255.f, 255.f);
-	AddChild(m_MainFrame);
-
 	// 맵 배경 이미지
 	// 문자열 배열로 만들어서 관리해야함
 	m_BackGround = NNAnimation::Create( 40,	0.2f,	

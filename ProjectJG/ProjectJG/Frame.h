@@ -12,23 +12,20 @@ public:
 	virtual void Render() { NNObject::Render(); }
 	virtual void Update( float dTime ) {}
 
-	inline float GetTopLine()	{ return -GetHeight()*0.5f; }
-	inline float GetBotLine()	{ return GetHeight()*0.5f; }
-	inline float GetRightLine()	{ return GetWidth()*0.5f; }
-	inline float GetLeftLine()	{ return -GetWidth()*0.5f; }
+	inline float GetTopLine()	{ return -m_Height*0.5f; }
+	inline float GetBotLine()	{ return m_Height*0.5f; }
+	inline float GetRightLine()	{ return m_Width*0.5f; }
+	inline float GetLeftLine()	{ return -m_Width*0.5f; }
 
-	NNRect *	GetMainFrame() { return m_MainFrame; }
 	float		GetWidth()	{ return m_Width; }
 	float		GetHeight()	{ return m_Height; }
 
 	virtual void SetSize( float width, float height )
 	{ 
 		m_Width = width; m_Height = height;
-		m_MainFrame->SetWidth(width); m_MainFrame->SetHeight(height);
 	}
 
 protected:
-	NNRect*		m_MainFrame;
 	float		m_Width;
 	float		m_Height;
 };

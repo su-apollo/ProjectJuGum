@@ -225,5 +225,6 @@ EInputNum NNInputSystem::GetNumInput( void )
 	else if ( NNInputSystem::GetInstance()->GetKeyState('8') == KEY_DOWN) return NUM_INPUT_EIGHT;
 	else if ( NNInputSystem::GetInstance()->GetKeyState('9') == KEY_DOWN) return NUM_INPUT_NINE;
 	else if ( NNInputSystem::GetInstance()->GetKeyState(VK_BACK) == KEY_DOWN) return NUM_INPUT_BACK;
+	else return NUM_INPUT_NONE;
 }
 

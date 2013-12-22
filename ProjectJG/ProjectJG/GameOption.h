@@ -5,8 +5,8 @@
 
 #define MAIN_MAP_WIDTH						2000.f
 #define MAIN_MAP_HEIGHT						1200.f
-#define FRAME_WIDTH							750.f
-#define FRAME_HEIGHT							750.f
+#define FRAME_WIDTH							800.f
+#define FRAME_HEIGHT						580.f
 
 #define MAX_BULLET_NUM						2000
 #define MAX_FAIRY_NUM						50
