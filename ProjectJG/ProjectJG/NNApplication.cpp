@@ -1,12 +1,8 @@
 #include "NNConfig.h"
 #include "NNApplication.h"
 #include "BulletManager.h"
-#ifdef _DEBUG
-#include "PrintLog.h"
-#endif
+
 #include "UImanager.h"
-
-
 #include "NNApplication.h"
 #include "NNInputSystem.h"
 #include "NNAudioSystem.h"
@@ -14,6 +10,10 @@
 #include "NNNetworkSystem.h"
 
 #include "NND2DRenderer.h"
+
+#ifdef _DEBUG
+#include "PrintLog.h"
+#endif
 
 NNApplication* NNApplication::m_pInstance = nullptr;
 

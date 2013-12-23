@@ -121,7 +121,8 @@ void NNNetworkSystem::ProcessPacket()
 			break;
 		}
 
-		if ( header.m_Size > m_RecvBuffer.GetCurrentSize() ) /// warning
+		//임시방편적으로 워닝을 잡기위한 형변환
+		if ( (unsigned short)header.m_Size > m_RecvBuffer.GetCurrentSize() )
 		{
 			break;
 		}

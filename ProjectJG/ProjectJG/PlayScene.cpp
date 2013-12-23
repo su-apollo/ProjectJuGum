@@ -52,6 +52,23 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : m_netsetup(fal
 	AddChild(m_ExitLabel);
 
 	//게임결과표시를 위한 스프라이트 로드
+	m_LeftDoor = NNSprite::Create( L"Sprite/leftdoor.png" );
+	m_RightDoor = NNSprite::Create( L"Sprite/rightdoor.png" );
+
+	m_LeftDoor->SetImageHeight(height);
+	m_LeftDoor->SetImageWidth(width*0.5f);
+	m_RightDoor->SetImageHeight(height);
+	m_RightDoor->SetImageWidth(width*0.5f);
+
+	m_LeftDoor->SetPosition(width*0.25f, height*0.5f);
+	m_RightDoor->SetPosition(width*0.75f, height*0.5f);
+
+	m_LeftDoor->SetVisible(false);
+	m_RightDoor->SetVisible(false);
+
+	AddChild(m_LeftDoor);
+	AddChild(m_RightDoor);
+
 	m_SpriteRaymuWin = NNSprite::Create( L"Sprite/charR_win.png" );
 	m_SpriteRaymuLose = NNSprite::Create( L"Sprite/charR_lose.png" );
 	m_SpriteMarisaWin = NNSprite::Create( L"Sprite/charB_win.png" );
@@ -90,16 +107,7 @@ void CPlayScene::Render()
 }
 
 void CPlayScene::Update( float dTime )
-{
-
-	//3초의 카운트다운 후 게임 시작
-// 	if (m_DoCount)
-// 	{
-// 		//3초의 카운트 다운
-// 		CountDown(dTime);
-// 		return;
-// 	}
-	
+{	
 	// camera move. 플레이어가 프레임 경계까지 가면 카메라가 따라서 움직인다.
 	CameraMove( m_MainMap->GetPlayer1(), dTime );
 

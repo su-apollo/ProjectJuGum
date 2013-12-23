@@ -43,6 +43,9 @@ private:
 	NNSprite*		m_SpriteMarisaWin;
 	NNSprite*		m_SpriteMarisaLose;
 
+	NNSprite*		m_LeftDoor;
+	NNSprite*		m_RightDoor;
+
 	ENetworkMode	m_GameMode;
 };
 
