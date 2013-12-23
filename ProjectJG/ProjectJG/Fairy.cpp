@@ -10,7 +10,7 @@
 #include "NNResourceManager.h"
 #include "NNAudioSystem.h"
 
-CFairy::CFairy(void) : m_ShotTimeSum(0.f)
+CFairy::CFairy(void) : m_ShotTimeSum(0.f), m_TimeForSummonEffect(0.f), m_DoSummonEffect(true)
 {
 	m_Shotsound = NNResourceManager::GetInstance()->LoadSoundFromFile( EFFECT_SOUND_SUBCHAR_SHOT, false );
 
@@ -35,6 +35,9 @@ void CFairy::Render()
 
 void CFairy::Update( float dTime, CMaincharacter* Enemy)
 {
+	if (m_DoSummonEffect)
+		SummonFairyEffect(dTime);
+
 	UpdateShotDirection(Enemy);
 	UpdateShotPoint(SHOT_POINT);
 
@@ -73,6 +76,19 @@ void CFairy::SectorAttack( float dTime )
 		pBullet->GetTexture(FAIRY_NORMAL_BULLET)->SetRotation(direction + 90.f);
 	}
 	m_ShotTimeSum = 0.f;
+}
+
+void CFairy::SummonFairyEffect( float dTime )
+{
+	m_TimeForSummonEffect += dTime;
+
+	if (m_TimeForSummonEffect < 0.1)
+	{
+		m_FairyMotion->SetOpacity(m_TimeForSummonEffect*10.f);
+		m_FairyMotion->SetScaleX(3.0f - 20.f*m_TimeForSummonEffect);
+	}
+	else
+		m_DoSummonEffect = false;
 }
 
 

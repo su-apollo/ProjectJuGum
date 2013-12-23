@@ -387,6 +387,7 @@ void CMaincharacter::SummonFairy()
 {
 	CFairy* pFairy = GetFairy();
 	pFairy->SetPosition(GetPosition());
+	pFairy->SetDoSummonEffect(true);
 }
 
 void CMaincharacter::UpdateFairy(float dTime , CMaincharacter* Enemy)
