@@ -48,9 +48,7 @@ private:
 	CBullet*		m_pBulletArray[MAX_BULLET_NUM];
 	int				m_BulletIndex;
 
-#ifdef _DEBUG
 	int				m_BulletNum;
 	float			m_TimeToCheckBulletNum;
-#endif
 
 };

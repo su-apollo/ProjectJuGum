@@ -11,10 +11,7 @@
 
 CBulletManager* CBulletManager::m_pInstance = nullptr;
 
-CBulletManager::CBulletManager(void) : m_BulletIndex(0)
-#ifdef _DEBUG
-	,m_TimeToCheckBulletNum(0.f), m_BulletNum(0)
-#endif 	
+CBulletManager::CBulletManager(void) : m_BulletIndex(0), m_TimeToCheckBulletNum(0.f), m_BulletNum(0)
 {
 }
 
@@ -113,10 +110,8 @@ void CBulletManager::UpdateBullet(float dTime, CMainMap* Map)
 	{
 		if (m_pBulletArray[i]->IsVisible())
 		{
-#ifdef _DEBUG
 			if (m_TimeToCheckBulletNum >= 5.0f)
 				++m_BulletNum;
-#endif
 			m_pBulletArray[i]->Update(dTime);
 
 			if(CheckLifeTime(Map, m_pBulletArray[i]))
