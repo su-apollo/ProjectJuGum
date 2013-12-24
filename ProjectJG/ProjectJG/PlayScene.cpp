@@ -20,7 +20,8 @@
 #include "NNAudioSystem.h"
 #include "NNResourceManager.h"
 
-CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : m_netsetup(false)
+CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : 
+	m_netsetup(false), m_TimeForResultAnimation(0.f) 
 {
 	m_GameMode = GameMode;
 
@@ -118,6 +119,32 @@ void CPlayScene::Update( float dTime )
 
 	// 모든 게임 플레이 관련 처리는 메인 맵에서 한다.
 	m_MainMap->Update( dTime, m_Frame );
+
+	GameResultScene(dTime);
+}
+
+void CPlayScene::GameResultScene( float dTime )
+{
+	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
+	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
+
+	if (m_MainMap->GetGameResult() != GAME_NOT_END)
+	{
+		m_TimeForResultAnimation += dTime;
+
+		UImanager::GetInstance()->SetAllVisible(false);
+
+		if(m_TimeForResultAnimation < 1.f)
+		{
+			m_LeftDoor->SetPosition(width*0.25f - 500.f + m_TimeForResultAnimation*500.f, height*0.5f);
+			m_RightDoor->SetPosition(width*0.75f + 500.f - m_TimeForResultAnimation*500.f, height*0.5f);
+
+			m_LeftDoor->SetVisible(true);
+			m_RightDoor->SetVisible(true);
+
+			return;
+		}
+	}
 
 	switch (m_MainMap->GetGameResult())
 	{

@@ -26,6 +26,8 @@ public:
 
 	void CameraMove( CMaincharacter* Player, float dTime );
 
+	void GameResultScene( float dTime );
+
 private:
 
 	CMainMap*		m_MainMap;
@@ -47,5 +49,7 @@ private:
 	NNSprite*		m_RightDoor;
 
 	ENetworkMode	m_GameMode;
+
+	float			m_TimeForResultAnimation;
 };
 
