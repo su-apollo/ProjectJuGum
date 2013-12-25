@@ -5,6 +5,7 @@
 #include "UImanager.h"
 
 #include "Maincharacter.h"
+#include "NNSpriteAtlas.h"
 
 UImanager* UImanager::m_pInstance = nullptr;
 
@@ -58,37 +59,57 @@ UImanager::UImanager(void)
 	m_UIList[m_UINum++] = m_time;
 
 	// 캐릭터 그림
-	m_Player1Portrait = NNSprite::Create(RAYMU_PORTRAIT);
-	m_Player1Portrait->SetImageWidth(m_Player1Portrait->GetImageWidth()*0.4f);
-	m_Player1Portrait->SetImageHeight(m_Player1Portrait->GetImageHeight()*0.4f);
-	m_Player1Portrait->SetPosition( LeftLine + m_Player1Portrait->GetImageWidth()*0.5f, BotLine - m_Player1Portrait->GetImageHeight()*0.5f );
-	m_UIList[m_UINum++] = m_Player1Portrait;
+	m_PlayerPortrait[RAYMU] = NNSprite::Create(RAYMU_PORTRAIT);
+	m_PlayerPortrait[RAYMU]->SetImageWidth(m_PlayerPortrait[RAYMU]->GetImageWidth()*0.4f);
+	m_PlayerPortrait[RAYMU]->SetImageHeight(m_PlayerPortrait[RAYMU]->GetImageHeight()*0.4f);
+	m_PlayerPortrait[RAYMU]->SetPosition( LeftLine + m_PlayerPortrait[RAYMU]->GetImageWidth()*0.5f, BotLine - m_PlayerPortrait[RAYMU]->GetImageHeight()*0.5f );
+	m_UIList[m_UINum++] = m_PlayerPortrait[RAYMU];
 
-	m_Player2Portrait = NNSprite::Create(MARISA_PORTRAIT);
-	m_Player2Portrait->SetImageWidth(m_Player2Portrait->GetImageWidth()*0.4f);
-	m_Player2Portrait->SetImageHeight(m_Player2Portrait->GetImageHeight()*0.4f);
-	m_Player2Portrait->SetPosition( RightLine - m_Player2Portrait->GetImageWidth()*0.5f, BotLine - m_Player2Portrait->GetImageHeight()*0.5f );
-	m_UIList[m_UINum++] = m_Player2Portrait;
+	m_PlayerPortrait[MARISA] = NNSprite::Create(MARISA_PORTRAIT);
+	m_PlayerPortrait[MARISA]->SetImageWidth(m_PlayerPortrait[MARISA]->GetImageWidth()*0.4f);
+	m_PlayerPortrait[MARISA]->SetImageHeight(m_PlayerPortrait[MARISA]->GetImageHeight()*0.4f);
+	m_PlayerPortrait[MARISA]->SetPosition( RightLine - m_PlayerPortrait[MARISA]->GetImageWidth()*0.5f, BotLine - m_PlayerPortrait[MARISA]->GetImageHeight()*0.5f );
+	m_UIList[m_UINum++] = m_PlayerPortrait[MARISA];
 
-	// 라벨
+	// 라벨 (NNSpriteAtlas : Create, SetImageWidth, SetPosition(0번을 기준으로 FONT WIDTH만큼 옆으로)
 
 	// FPS
-	swprintf_s( m_FPSBuffer, _countof(m_FPSBuffer), L"FPS : " );
-	m_FPSLabel = NNLabel::Create( m_FPSBuffer, GAME_FONT, UI_LABEL_FONT_SIZE );
-	m_FPSLabel->SetPosition( 0.f, 0.f );
-	m_UIList[m_UINum++] = m_FPSLabel;
+	m_FPSSprite = NNSprite::Create(LABEL_FPS);
+	m_FPSSprite->SetPosition(m_FPSSprite->GetImageWidth()*0.5f, m_FPSSprite->GetImageHeight()*0.5f);
+	m_UIList[m_UINum++] = m_FPSSprite;
+
+	for (int i = 0; i < 20; i++)
+	{
+		m_FPSLabel[i] = NNSpriteAtlas::Create(MAIN_MENU_NUMBER_FONT);
+		m_FPSLabel[i]->SetImageWidth(UI_FPS_FONT_WIDTH);
+		m_FPSLabel[i]->SetImageHeight(UI_FPS_FONT_HEIGHT);
+	}
+	m_FPSLabel[0]->SetPosition( m_FPSSprite->GetPosition() + NNPoint(m_FPSSprite->GetImageWidth()*0.5f + 10.f, 0.f) );
+	for (int i = 1; i < 20; i++)
+	{
+		m_FPSLabel[i]->SetPosition(m_FPSLabel[i-1]->GetPosition() + NNPoint(UI_FPS_FONT_WIDTH, 0.f));
+	}
 
 	// cost
-	swprintf_s( m_Player1CostBuffer, _countof(m_Player1CostBuffer), L"" );
-	m_Player1CostLabel = NNLabel::Create( m_Player1CostBuffer, GAME_FONT, UI_LABEL_FONT_SIZE );
-	m_Player1CostLabel->SetPosition( m_Player1Portrait->GetPosition() + NNPoint( m_Player1Portrait->GetImageWidth() *0.5f + 30.f, -20.f ) );
-	m_UIList[m_UINum++] = m_Player1CostLabel;
+	for (int i = 0; i < CHAR_NUM; i++)
+	{
+		for (int j = 0; j < 100; j++)
+		{
+			m_PlayerCostLabel[i][j] = NNSpriteAtlas::Create(MAIN_MENU_NUMBER_FONT);
+			m_PlayerCostLabel[i][j]->SetImageWidth(UI_COST_FONT_WIDTH);
+			m_PlayerCostLabel[i][j]->SetImageHeight(UI_COST_FONT_HEIGHT);
+		}
+	}
 
-	swprintf_s( m_Player2CostBuffer, _countof(m_Player2CostBuffer), L"" );
-	m_Player2CostLabel = NNLabel::Create( m_Player2CostBuffer, GAME_FONT, UI_LABEL_FONT_SIZE );
-	m_Player2CostLabel->SetPosition( m_Player2Portrait->GetPosition() + NNPoint( -m_Player2Portrait->GetImageWidth() *0.5f - 120.f, -20.f ) );
-	m_UIList[m_UINum++] = m_Player2CostLabel;
-
+	m_PlayerCostLabel[RAYMU][0]->SetPosition( m_PlayerPortrait[RAYMU]->GetPosition() + NNPoint( m_PlayerPortrait[RAYMU]->GetImageWidth()*0.5f + 20.f, 0.f ) );
+	m_PlayerCostLabel[MARISA][0]->SetPosition( m_PlayerPortrait[MARISA]->GetPosition() + NNPoint( -m_PlayerPortrait[MARISA]->GetImageWidth()*0.5f - 20.f - UI_COST_FONT_WIDTH*8.f, 0.f ) );
+	for (int i = 0; i < CHAR_NUM; i++)
+	{
+		for (int j = 1; j < 100; j++)
+		{
+			m_PlayerCostLabel[i][j]->SetPosition(m_PlayerCostLabel[i][j-1]->GetPosition() + NNPoint(UI_COST_FONT_WIDTH, 0.f));
+		}
+	}
 }
 
 
@@ -98,16 +119,39 @@ UImanager::~UImanager(void)
 	{
 		SafeDelete(m_UIList[i]);
 	}
+	for (int i = 0; i < CHAR_NUM; i++)
+	{
+		for (int j = 0; j < 100; j++)
+		{
+			SafeDelete(m_PlayerCostLabel[i][j]);
+		}
+	}
+	for (int i = 0; i < 20; i++)
+	{
+		SafeDelete(m_FPSLabel[i]);
+	}
 }
 
 void UImanager::Update( float dTime, CMaincharacter* Player1, CMaincharacter* Player2 )
 {
 	// FPS
-	swprintf_s( m_FPSBuffer, _countof(m_FPSBuffer), L"FPS : %0.3f", NNApplication::GetInstance()->GetFPS() );
+	sprintf_s( m_FPSBuffer, _countof(m_FPSBuffer), "%0.3f", NNApplication::GetInstance()->GetFPS() );
+	for (int i = 0; i < 20; i++)
+	{
+		SetAtlasChar(m_FPSLabel[i], m_FPSBuffer[i]);
+	}
 
 	// cost
-	swprintf_s( m_Player1CostBuffer, _countof(m_Player1CostBuffer), L"%-8d", (int)(Player1->GetCost()) );
-	swprintf_s( m_Player2CostBuffer, _countof(m_Player2CostBuffer), L"%8d", (int)(Player2->GetCost()) );
+	sprintf_s( m_PlayerCostBuffer[0], _countof(m_PlayerCostBuffer[0]), "%-8d", (int)(Player1->GetCost()) );
+	sprintf_s( m_PlayerCostBuffer[1], _countof(m_PlayerCostBuffer[1]), "%8d", (int)(Player2->GetCost()) );
+	for (int i = 0; i < CHAR_NUM; i++)
+	{
+		
+		for (int j = 0; j < 100; j++)
+		{
+			SetAtlasChar(m_PlayerCostLabel[i][j], m_PlayerCostBuffer[i][j]);
+		}
+	}
 }
 
 void UImanager::SetAllVisible( bool visible )
@@ -115,6 +159,17 @@ void UImanager::SetAllVisible( bool visible )
 	for (int i = 0; i < m_UINum; ++i)
 	{
 		m_UIList[i]->SetVisible( visible );
+	}
+	for (int i = 0; i < 20; i++)
+	{
+		m_FPSLabel[i]->SetVisible(visible);
+	}
+	for (int i = 0; i < CHAR_NUM; i++)
+	{
+		for (int j = 0; j < 100; j++)
+		{
+			m_PlayerCostLabel[i][j]->SetVisible(visible);
+		}
 	}
 }
 
@@ -124,4 +179,31 @@ void UImanager::Render()
 	{
 		m_UIList[i]->Render();
 	}
+	for (int i = 0; i < 20; i++)
+	{
+		m_FPSLabel[i]->Render();
+	}
+	for (int i = 0; i < CHAR_NUM; i++)
+	{
+		for (int j = 0; j < 100; j++)
+		{
+			m_PlayerCostLabel[i][j]->Render();
+		}
+	}
+}
+
+void UImanager::SetAtlasChar( NNSpriteAtlas* atlas, char number )
+{
+	char NumberArray[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', ':', ' '};
+	int length = sizeof(NumberArray)/sizeof(NumberArray[0]);
+	for (int i = 0; i < length; i++)
+	{
+		if (number == NumberArray[i])
+		{
+			atlas->SetCutSize(FONT_DEFAULT_WIDTH*i, 0, FONT_DEFAULT_WIDTH*(i+1), FONT_DEFAULT_HEIGHT);
+			return;
+		}
+	}
+	SetAtlasChar(atlas, ' ');
+	//atlas->SetCutSize(MAIN_MENU_FONT_WIDTH*(length-1), 0, MAIN_MENU_FONT_WIDTH*length, MAIN_MENU_FONT_HEIGHT);
 }

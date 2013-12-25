@@ -11,6 +11,7 @@
 #include "NNNetworkSystem.h"
 #include "NNSpriteAtlas.h"
 #include "NNAnimation.h"
+#include "UImanager.h"
 
 CMainMenuScene::CMainMenuScene(void)
 {
@@ -79,13 +80,13 @@ CMainMenuScene::CMainMenuScene(void)
 		for (int j = 0; j < MAIN_MENU_MAX_BUFFER_SIZE; j++)
 		{
 			m_AddrLabel[i][j] = NNSpriteAtlas::Create(MAIN_MENU_NUMBER_FONT);
-			m_AddrLabel[i][j]->SetImageWidth(MAIN_MENU_FONT_WIDTH);
+			m_AddrLabel[i][j]->SetImageWidth(FONT_DEFAULT_WIDTH);
 			AddChild(m_AddrLabel[i][j]);
 		}
 		m_AddrLabel[i][0]->SetPosition(m_NetMenuLabel[i]->GetPosition() + NNPoint(-m_NetMenuLabel[i]->GetImageWidth()*0.5f, MAIN_MENU_LABEL_VERTICAL_SPACE));
 		for (int j = 1; j < MAIN_MENU_MAX_BUFFER_SIZE; j++)
 		{
-			m_AddrLabel[i][j]->SetPosition(m_AddrLabel[i][j-1]->GetPosition() + NNPoint(MAIN_MENU_FONT_WIDTH, 0.f));
+			m_AddrLabel[i][j]->SetPosition(m_AddrLabel[i][j-1]->GetPosition() + NNPoint(FONT_DEFAULT_WIDTH, 0.f));
 		}
 	}
 
@@ -220,8 +221,8 @@ void CMainMenuScene::GetCurrentIP( int NetMenuIndex )
 	strcpy_s(m_serverIP, _countof(m_serverIP), NNNetworkSystem::GetInstance()->GetIpAddress());
 	for (int i = 0; i < MAIN_MENU_MAX_BUFFER_SIZE; i++)
 	{
-		if (m_serverIP[i]) { SetAtlasChar(m_AddrLabel[NetMenuIndex][i], m_serverIP[i]); m_AddrLabel[NetMenuIndex][i]->SetVisible(true); }
-		else { SetAtlasChar(m_AddrLabel[NetMenuIndex][i], ' '); m_AddrLabel[NetMenuIndex][i]->SetVisible(false); }
+		if (m_serverIP[i]) { UImanager::GetInstance()->SetAtlasChar(m_AddrLabel[NetMenuIndex][i], m_serverIP[i]); m_AddrLabel[NetMenuIndex][i]->SetVisible(true); }
+		else { UImanager::GetInstance()->SetAtlasChar(m_AddrLabel[NetMenuIndex][i], ' '); m_AddrLabel[NetMenuIndex][i]->SetVisible(false); }
 	}
 }
 
@@ -250,7 +251,7 @@ void CMainMenuScene::GetIPInput( float dTime, int NetMenuIndex )
 		{
 			buffer[len] = (char)newChar;
 			buffer[len+1] = '\0';
-			SetAtlasChar(m_AddrLabel[NetMenuIndex][len], (char)newChar);
+			UImanager::GetInstance()->SetAtlasChar(m_AddrLabel[NetMenuIndex][len], (char)newChar);
 			NNAudioSystem::GetInstance()->Play( m_SelectSound );
 			m_AddrLabel[NetMenuIndex][len]->SetVisible(true);
 			m_Cursor->SetPosition(m_AddrLabel[NET_MENU_CLIENT][len+1]->GetPosition());
@@ -260,7 +261,7 @@ void CMainMenuScene::GetIPInput( float dTime, int NetMenuIndex )
 		if (len > 0)
 		{
 			buffer[len-1] = '\0';
-			SetAtlasChar(m_AddrLabel[NetMenuIndex][len-1], ' ');
+			UImanager::GetInstance()->SetAtlasChar(m_AddrLabel[NetMenuIndex][len-1], ' ');
 			m_AddrLabel[NetMenuIndex][len-1]->SetVisible(false);
 			NNAudioSystem::GetInstance()->Play( m_SelectSound );
 			m_Cursor->SetPosition(m_AddrLabel[NET_MENU_CLIENT][len-1]->GetPosition());
@@ -335,19 +336,4 @@ void CMainMenuScene::InitNetworkLabel()
 	strcpy_s(m_serverIP, _countof(m_serverIP), "");
 	m_Cursor->SetPosition(m_AddrLabel[NET_MENU_CLIENT][0]->GetPosition());
 	m_Cursor->SetVisible(false);
-}
-
-void CMainMenuScene::SetAtlasChar( NNSpriteAtlas* atlas, char number )
-{
-	char NumberArray[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', ':', ' '};
-	int length = sizeof(NumberArray)/sizeof(NumberArray[0]);
-	for (int i = 0; i < length; i++)
-	{
-		if (number == NumberArray[i])
-		{
-			atlas->SetCutSize(MAIN_MENU_FONT_WIDTH*i, 0, MAIN_MENU_FONT_WIDTH*(i+1), MAIN_MENU_FONT_HEIGHT);
-			return;
-		}
-	}
-	atlas->SetCutSize(MAIN_MENU_FONT_WIDTH*(length-1), 0, MAIN_MENU_FONT_WIDTH*length, MAIN_MENU_FONT_HEIGHT);
 }

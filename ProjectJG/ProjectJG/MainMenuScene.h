@@ -55,7 +55,5 @@ private:
 	NNSound*		m_OkSound;
 	NNSound*		m_CancelSound;
 	NNSound*		m_SelectSound;
-	
-	void	SetAtlasChar(NNSpriteAtlas* atlas, char number);	// 흐흐흐 겨우 돌아가는 함수 하드코딩이랑 다를 게 뭐야 ㅜㅜ
 };
 

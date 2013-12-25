@@ -15,11 +15,14 @@
 
 #define MAIN_MENU_LABEL_VERTICAL_SPACE		50.f
 #define MAIN_MENU_LABEL_HORIZONTAL_SPACE	200.f
-#define MAIN_MENU_FONT_WIDTH				24.f
-#define MAIN_MENU_FONT_HEIGHT				32.f
 #define MAIN_MENU_MAX_BUFFER_SIZE			30
 
-#define UI_LABEL_FONT_SIZE					40.f
+#define FONT_DEFAULT_WIDTH					24.f
+#define FONT_DEFAULT_HEIGHT					32.f
+#define UI_COST_FONT_WIDTH					36.f
+#define UI_COST_FONT_HEIGHT					48.f
+#define UI_FPS_FONT_WIDTH					24.f
+#define UI_FPS_FONT_HEIGHT					32.f
 
 // MainMenuScene Resources
 #define MAIN_MENU_SCENE_BACKGROUND_IMAGE			L"Sprite/MainBackground.jpg"
@@ -49,6 +52,7 @@
 #define GAME_FONT								L"Bleeding Cowboys"
 #define RAYMU_PORTRAIT							L"Sprite/Raymu Portraits.png"
 #define MARISA_PORTRAIT							L"Sprite/Marisa Portraits.png"
+#define LABEL_FPS								L"Sprite/font/FPS.png"
 #define BACKGROUND_FLOWER						L"Sprite/flower.png"
 #define BACKGROUND_PATTERN						L"Sprite/pattern.png"
 #define BACKGROUND_TIME							L"Sprite/time.png"
@@ -65,7 +69,8 @@
 enum ECharcterType
 {
 	RAYMU,
-	MARISA
+	MARISA,
+	CHAR_NUM,
 };
 enum ESubCharType
 {
