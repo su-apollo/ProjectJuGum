@@ -23,6 +23,8 @@
 #define UI_COST_FONT_HEIGHT					48.f
 #define UI_FPS_FONT_WIDTH					24.f
 #define UI_FPS_FONT_HEIGHT					32.f
+#define UI_FPS_MAX_BUFFER_SIZE				20
+#define UI_COST_MAX_BUFFER_SIZE				100
 
 // MainMenuScene Resources
 #define MAIN_MENU_SCENE_BACKGROUND_IMAGE			L"Sprite/MainBackground.jpg"

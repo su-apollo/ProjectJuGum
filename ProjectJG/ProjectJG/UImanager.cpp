@@ -53,9 +53,9 @@ UImanager::UImanager(void)
 
 	// 시간 배경
 	m_time = NNSprite::Create(BACKGROUND_TIME);
-	m_time->SetImageHeight(m_time->GetImageHeight() * 2.f);
-	m_time->SetImageWidth(m_time->GetImageWidth() * 2.f);
-	m_time->SetPosition( ScreenWidth*0.5f, BotLine - m_time->GetImageHeight()*0.5f );
+	m_time->SetImageHeight(m_time->GetImageHeight() * 1.5f);
+	m_time->SetImageWidth(m_time->GetImageWidth() * 1.5f);
+	m_time->SetPosition( ScreenWidth*0.5f - 15.f, BotLine - m_time->GetImageHeight()*0.5f );
 	m_UIList[m_UINum++] = m_time;
 
 	// 캐릭터 그림
@@ -93,7 +93,7 @@ UImanager::UImanager(void)
 	// cost
 	for (int i = 0; i < CHAR_NUM; i++)
 	{
-		for (int j = 0; j < 100; j++)
+		for (int j = 0; j < UI_COST_MAX_BUFFER_SIZE; j++)
 		{
 			m_PlayerCostLabel[i][j] = NNSpriteAtlas::Create(MAIN_MENU_NUMBER_FONT);
 			m_PlayerCostLabel[i][j]->SetImageWidth(UI_COST_FONT_WIDTH);
@@ -105,7 +105,7 @@ UImanager::UImanager(void)
 	m_PlayerCostLabel[MARISA][0]->SetPosition( m_PlayerPortrait[MARISA]->GetPosition() + NNPoint( -m_PlayerPortrait[MARISA]->GetImageWidth()*0.5f - 20.f - UI_COST_FONT_WIDTH*8.f, 0.f ) );
 	for (int i = 0; i < CHAR_NUM; i++)
 	{
-		for (int j = 1; j < 100; j++)
+		for (int j = 1; j < UI_COST_MAX_BUFFER_SIZE; j++)
 		{
 			m_PlayerCostLabel[i][j]->SetPosition(m_PlayerCostLabel[i][j-1]->GetPosition() + NNPoint(UI_COST_FONT_WIDTH, 0.f));
 		}
@@ -121,7 +121,7 @@ UImanager::~UImanager(void)
 	}
 	for (int i = 0; i < CHAR_NUM; i++)
 	{
-		for (int j = 0; j < 100; j++)
+		for (int j = 0; j < UI_COST_MAX_BUFFER_SIZE; j++)
 		{
 			SafeDelete(m_PlayerCostLabel[i][j]);
 		}
@@ -147,7 +147,7 @@ void UImanager::Update( float dTime, CMaincharacter* Player1, CMaincharacter* Pl
 	for (int i = 0; i < CHAR_NUM; i++)
 	{
 		
-		for (int j = 0; j < 100; j++)
+		for (int j = 0; j < UI_COST_MAX_BUFFER_SIZE; j++)
 		{
 			SetAtlasChar(m_PlayerCostLabel[i][j], m_PlayerCostBuffer[i][j]);
 		}
@@ -166,7 +166,7 @@ void UImanager::SetAllVisible( bool visible )
 	}
 	for (int i = 0; i < CHAR_NUM; i++)
 	{
-		for (int j = 0; j < 100; j++)
+		for (int j = 0; j < UI_COST_MAX_BUFFER_SIZE; j++)
 		{
 			m_PlayerCostLabel[i][j]->SetVisible(visible);
 		}
@@ -185,7 +185,7 @@ void UImanager::Render()
 	}
 	for (int i = 0; i < CHAR_NUM; i++)
 	{
-		for (int j = 0; j < 100; j++)
+		for (int j = 0; j < UI_COST_MAX_BUFFER_SIZE; j++)
 		{
 			m_PlayerCostLabel[i][j]->Render();
 		}

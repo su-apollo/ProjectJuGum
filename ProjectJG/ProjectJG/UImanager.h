@@ -1,6 +1,7 @@
 #pragma once
-#include "NNLabel.h"
+
 #include "NNSprite.h"
+#include "NNSpriteAtlas.h"
 #include "GameOption.h"
 
 class CMaincharacter;
@@ -15,11 +16,11 @@ public:
 	static void ReleaseInstance();
 
 	void SetAllVisible( bool visible );
-	void SetFPSLabelVisible( bool visible );
-	void SetPlayer1CostLabelVisible( bool visible );
-	void SetPlayer2CostLabelVisible( bool visible );
-	void SetPlayer1PortraitVisible( bool visible )	{ m_PlayerPortrait[RAYMU]->SetVisible( visible ); }
-	void SetPlayer2PortraitVisible( bool visible )	{ m_PlayerPortrait[MARISA]->SetVisible( visible ); }
+	void SetFPSLabelVisible( bool visible ) { for(int i=0; i<20; ++i) m_FPSLabel[i]->SetVisible(visible); }
+	void SetPlayer1CostLabelVisible( bool visible ) { for(int i=0; i<100; ++i) m_PlayerCostLabel[0][i]->SetVisible(visible); }
+	void SetPlayer2CostLabelVisible( bool visible ) { for(int i=0; i<100; ++i) m_PlayerCostLabel[1][i]->SetVisible(visible); }
+	void SetPlayer1PortraitVisible( bool visible )	{ m_PlayerPortrait[0]->SetVisible( visible ); }
+	void SetPlayer2PortraitVisible( bool visible )	{ m_PlayerPortrait[1]->SetVisible( visible ); }
 
 	void Update( float dTime, CMaincharacter* Player1, CMaincharacter* Player2 );
 	void Render();
@@ -39,13 +40,13 @@ private:
 
 	// FPS
 	NNSprite*		m_FPSSprite;
-	NNSpriteAtlas*	m_FPSLabel[20];
-	char			m_FPSBuffer[20];
+	NNSpriteAtlas*	m_FPSLabel[UI_FPS_MAX_BUFFER_SIZE];
+	char			m_FPSBuffer[UI_FPS_MAX_BUFFER_SIZE];
 
 	// cost
 	NNSprite*		m_PlayerPortrait[CHAR_NUM];
-	NNSpriteAtlas*	m_PlayerCostLabel[CHAR_NUM][100];
-	char			m_PlayerCostBuffer[CHAR_NUM][100];
+	NNSpriteAtlas*	m_PlayerCostLabel[CHAR_NUM][UI_COST_MAX_BUFFER_SIZE];
+	char			m_PlayerCostBuffer[CHAR_NUM][UI_COST_MAX_BUFFER_SIZE];
 		
 	// Àå½Ä
 	NNSprite*	m_pattern;
