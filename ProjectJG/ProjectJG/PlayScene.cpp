@@ -30,7 +30,7 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) :
 
 	// 게임 메인 맵
 	m_MainMap = new CMainMap(GameMode);
-	m_MainMap->SetPosition( width *0.52f, height *0.4f );
+	m_MainMap->SetPosition( width *0.52f, height *0.45f );
 	AddChild(m_MainMap);
 
 	// 카메라 프레임
