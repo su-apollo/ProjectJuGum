@@ -69,7 +69,6 @@ CMaincharacter::CMaincharacter(ECharcterType type_of_char) :
 	
 	m_Type = type_of_char;
 	m_Cost = BASIC_COST;
-	m_bHit = false;
 	m_PacketHandler = new CPacketHandler;
 }
 
@@ -77,6 +76,23 @@ CMaincharacter::~CMaincharacter(void)
 {
 	//핸들러를 해제
 	//SafeDelete(m_PacketHandler);
+}
+
+void CMaincharacter::Init()
+{
+	m_bHit = false; 
+	m_FairyIndex = 0; 
+	m_Syntime = 0.f;
+	m_TimeForDeadAnimation = 0.f; 
+	m_DoDeadSoundEffect = false;
+	m_TimeForSummonEffect = 0.f; 
+	m_TimeForRepatriationEffect = 0.f;
+	m_Cost = BASIC_COST;
+
+	m_FlyMotion->SetVisible(true);
+	m_SubChar->Init();
+
+	InitMember();
 }
 
 void CMaincharacter::Render()

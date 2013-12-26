@@ -147,6 +147,16 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 	m_TimeForSummonItemBox = 0.f;
 }
 
+void CMainMap::Init()
+{
+	m_TimeToHitCheckWait = 0.f;
+	m_GameResult = GAME_NOT_END;
+	m_PlayTimeSum = 0.f;
+	m_TimeForSummonItemBox = 0.f;
+
+	m_Player1->Init();
+	m_Player2->Init();
+}
 
 CMainMap::~CMainMap(void)
 {
@@ -272,36 +282,6 @@ void CMainMap::SetPlayerMoveArea( CMaincharacter * Player, CFrame* frame )
 	{
 		Player->SetPosition(NNPoint(Player->GetPositionX(),topline));
 	}
-}
-
-bool CMainMap::IsGameEnd(float dTime)
-{
-	//둘중하나라도 히트되었다고 뜨면
-	if ((m_TimeToHitCheckWait < 0.5f)&&(m_Player1->IsHit() || m_Player2->IsHit()))
-	{
-		m_TimeToHitCheckWait += dTime;
-		return false;
-	}
-
-	if ( m_Player1->IsHit() && m_Player2->IsHit())
-	{
-		MessageBox(NULL, L"Draw!", L"Gameover", MB_OK) ;
-		return true;
-	}
-
-	if ( m_Player1->IsHit())
-	{
-		MessageBox(NULL, L"You Lose!", L"Gameover", MB_OK) ;
-		return true;
-	}
-
-	if (m_Player2->IsHit())
-	{
-		MessageBox(NULL, L"You Win!", L"Gameover", MB_OK) ;
-		return true;
-	}
-
-	return false;
 }
 
 void CMainMap::SummonItemBox(float dTime)

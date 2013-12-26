@@ -13,6 +13,8 @@ public:
 	CSubChar(ESubCharType type_of_char);
 	virtual ~CSubChar(void);
 
+	void			Init();
+
 	void			Render();
 	void			Update(float dTime, CMaincharacter* enemy);
 	

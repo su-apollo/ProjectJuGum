@@ -17,6 +17,8 @@ public:
 	CPlayScene( ENetworkMode GameMode, char* serverIP );
 	virtual ~CPlayScene(void);
 
+	void Init();
+
 	void Render();
 	void Update( float dTime );
 

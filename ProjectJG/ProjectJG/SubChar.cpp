@@ -42,6 +42,14 @@ CSubChar::CSubChar(ESubCharType type_of_char)
 	m_FanAttackBulletTime = 0.f;
 }
 
+void CSubChar::Init()
+{
+	m_State = NONE_STATE;
+	m_ShotTimeSum = 0.f;
+	m_FanAttackBulletTime = 0.f;
+
+	SetVisible(false);
+}
 
 CSubChar::~CSubChar(void)
 {

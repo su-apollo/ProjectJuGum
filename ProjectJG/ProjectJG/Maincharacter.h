@@ -20,6 +20,7 @@ public:
 	CMaincharacter(ECharcterType type_of_char);
 	virtual ~CMaincharacter(void);
 
+	void			Init();
 	void			Render();
 	
 	void			Update(float dTime, CMaincharacter* enemy, CMainMap* map, ENetworkMode gamemode);

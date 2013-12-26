@@ -96,6 +96,26 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) :
 	NNAudioSystem::GetInstance()->Play( m_BackgroundSound );
 }
 
+void CPlayScene::Init()
+{
+	m_ResultMenu[RESULT_MENU_EXIT]->SetVisible(false);
+	m_ResultMenu[RESULT_MENU_REGAME]->SetVisible(false);
+
+	m_SpriteMarisaLose->SetVisible(false);
+	m_SpriteMarisaWin->SetVisible(false);
+	m_SpriteRaymuLose->SetVisible(false);
+	m_SpriteRaymuWin->SetVisible(false);
+
+	m_LeftDoor->SetVisible(false);
+	m_RightDoor->SetVisible(false);
+
+	m_TimeForResultAnimation = 0.f;
+	m_ResultMenuCursor = 0;
+
+	m_MainMap->Init();
+	UImanager::GetInstance()->SetAllVisible(true);
+}
+
 CPlayScene::~CPlayScene(void)
 {
 	NNAudioSystem::GetInstance()->Stop( m_BackgroundSound );
@@ -201,6 +221,8 @@ void CPlayScene::GameResultScene( float dTime )
 	{
 		if (m_ResultMenuCursor == RESULT_MENU_EXIT)
 			EndGame();
+		else if (m_ResultMenuCursor == RESULT_MENU_REGAME)
+			Init();
 	}
 }
 

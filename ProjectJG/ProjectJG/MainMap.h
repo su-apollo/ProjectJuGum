@@ -17,6 +17,8 @@ public:
 	CMainMap(ENetworkMode GameMode);
 	virtual ~CMainMap(void);
 
+	void Init();
+
 	void Render();
 	void Update( float dTime, CFrame* frame );
 
@@ -24,8 +26,6 @@ public:
 	CMaincharacter* GetPlayer2() { return m_Player2; }
 
 	CCamera*	GetCamera() { return m_Camera; }
-
-	bool		IsGameEnd(float dTime);
 
 	void		SetGameMode(ENetworkMode mode) {m_GameMode = mode;}
 	void		SetPlayerMoveArea(CMaincharacter * Player, CFrame* frame);
