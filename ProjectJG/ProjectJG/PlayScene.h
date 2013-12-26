@@ -35,9 +35,9 @@ private:
 	
 	bool			m_netsetup;
 
-	NNLabel*		m_ReplayLabel;
-	NNLabel*		m_ExitLabel;
-	
+	NNLabel*		m_ResultMenu[RESULT_MENU_NUM];
+	int				m_ResultMenuCursor;
+
 	NNSound*		m_BackgroundSound;
 
 	NNSprite*		m_SpriteRaymuWin;

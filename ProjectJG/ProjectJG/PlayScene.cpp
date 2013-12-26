@@ -21,7 +21,7 @@
 #include "NNResourceManager.h"
 
 CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : 
-	m_netsetup(false), m_TimeForResultAnimation(0.f) 
+	m_netsetup(false), m_TimeForResultAnimation(0.f), m_ResultMenuCursor(0)
 {
 	m_GameMode = GameMode;
 
@@ -38,19 +38,6 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) :
 	m_Frame->SetPosition( m_MainMap->GetPosition() );
 	m_Frame->SetSize( FRAME_WIDTH, FRAME_HEIGHT );
 	AddChild( m_Frame );
-
-	//게임결과표시와 함께 나오는 메뉴
-	m_ReplayLabel = NNLabel::Create(L"Replay", L"궁서체", 40.f);
-	m_ReplayLabel->SetColor(255.f, 255.f, 255.f);
-	m_ReplayLabel->SetPosition(width*0.5f, height*0.5f);
-	m_ReplayLabel->SetVisible(false);
-	AddChild(m_ReplayLabel);
-
-	m_ExitLabel = NNLabel::Create(L"Exit", L"궁서체", 40.f);
-	m_ExitLabel->SetColor(255.f, 255.f, 255.f);
-	m_ExitLabel->SetPosition(width*0.5f, height*0.5f);
-	m_ExitLabel->SetVisible(false);
-	AddChild(m_ExitLabel);
 
 	//게임결과표시를 위한 스프라이트 로드
 	m_LeftDoor = NNSprite::Create( L"Sprite/leftdoor.png" );
@@ -90,6 +77,19 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) :
 	AddChild(m_SpriteMarisaLose);
 	AddChild(m_SpriteMarisaWin);
 
+	//게임결과표시와 함께 나오는 메뉴
+	m_ResultMenu[RESULT_MENU_REGAME] = NNLabel::Create(L"Replay", L"궁서체", 40.f);
+	m_ResultMenu[RESULT_MENU_REGAME]->SetColor(255.f, 255.f, 255.f);
+	m_ResultMenu[RESULT_MENU_REGAME]->SetPosition(width*0.5f, height*0.5f);
+	m_ResultMenu[RESULT_MENU_REGAME]->SetVisible(false);
+	AddChild(m_ResultMenu[RESULT_MENU_REGAME]);
+
+	m_ResultMenu[RESULT_MENU_EXIT] = NNLabel::Create(L"Exit", L"궁서체", 40.f);
+	m_ResultMenu[RESULT_MENU_EXIT]->SetColor(255.f, 255.f, 255.f);
+	m_ResultMenu[RESULT_MENU_EXIT]->SetPosition(width*0.5f, height*0.5f + 50.f);
+	m_ResultMenu[RESULT_MENU_EXIT]->SetVisible(false);
+	AddChild(m_ResultMenu[RESULT_MENU_EXIT]);
+
 	NetworkSetMenu(GameMode, serverIP);
 
 	m_BackgroundSound = NNResourceManager::GetInstance()->LoadSoundFromFile( GAME_BACKGROUND_SOUND, true );
@@ -119,8 +119,9 @@ void CPlayScene::Update( float dTime )
 
 	// 모든 게임 플레이 관련 처리는 메인 맵에서 한다.
 	m_MainMap->Update( dTime, m_Frame );
-
-	GameResultScene(dTime);
+	
+	if (m_MainMap->GetGameResult() != GAME_NOT_END)
+		GameResultScene(dTime);
 }
 
 void CPlayScene::GameResultScene( float dTime )
@@ -146,13 +147,14 @@ void CPlayScene::GameResultScene( float dTime )
 		}
 	}
 
+	m_ResultMenu[RESULT_MENU_EXIT]->SetVisible(true);
+	m_ResultMenu[RESULT_MENU_REGAME]->SetVisible(true);
+
 	switch (m_MainMap->GetGameResult())
 	{
 	case GAME_RESULT_DRAW:
 		m_SpriteMarisaLose->SetVisible(true);
 		m_SpriteRaymuLose->SetVisible(true);
-		if (NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE)
-			EndGame();
 		break;
 	case GAME_RESULT_WIN:
 		if (m_GameMode == CLIENT_MODE)
@@ -165,8 +167,6 @@ void CPlayScene::GameResultScene( float dTime )
 			m_SpriteRaymuWin->SetVisible(true);
 			m_SpriteMarisaLose->SetVisible(true);
 		}
-		if (NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE)
-			EndGame();
 		break;
 	case GAME_RESULT_LOSE:
 		if (m_GameMode == CLIENT_MODE)
@@ -179,26 +179,34 @@ void CPlayScene::GameResultScene( float dTime )
 			m_SpriteRaymuLose->SetVisible(true);
 			m_SpriteMarisaWin->SetVisible(true);
 		}
-		if (NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE)
-			EndGame();
 		break;
 	default:
 		break;
+	}
+
+	if (NNInputSystem::GetInstance()->GetMainMenuInput() == UP)
+		--m_ResultMenuCursor;
+	else if (NNInputSystem::GetInstance()->GetMainMenuInput() == DOWN)
+		++m_ResultMenuCursor;
+
+	m_ResultMenuCursor += RESULT_MENU_NUM;
+	m_ResultMenuCursor %= RESULT_MENU_NUM;
+
+	m_ResultMenu[RESULT_MENU_EXIT]->SetColor(255, 255, 255);
+	m_ResultMenu[RESULT_MENU_REGAME]->SetColor(255, 255, 255);
+
+	m_ResultMenu[m_ResultMenuCursor]->SetColor(255, 0, 0);
+	
+	if (NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE)
+	{
+		if (m_ResultMenuCursor == RESULT_MENU_EXIT)
+			EndGame();
 	}
 }
 
 void CPlayScene::EndGame()
 {
-	if (m_GameMode == TEST_MODE)
-	{
-		NNSceneDirector::GetInstance()->ChangeScene( new CMainMenuScene() );
-	}
-	else
-	{
-		PostQuitMessage(0);
-		//SendMessage(NNApplication::GetInstance()->GetHWND(),WM_DESTROY,NULL,NULL);
-	}
-	return;
+	PostQuitMessage(0);
 }
 
 void CPlayScene::NetworkSetMenu( ENetworkMode GameMode, char* serverIP )

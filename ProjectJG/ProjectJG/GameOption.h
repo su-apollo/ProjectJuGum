@@ -192,6 +192,13 @@ enum ENetMenuList
 	NET_MENU_NUM,
 };
 
+enum EResultMenuList
+{
+	RESULT_MENU_REGAME,
+	RESULT_MENU_EXIT,
+	RESULT_MENU_NUM,
+};
+
 enum ENetworkMode
 {
 	TEST_MODE,
