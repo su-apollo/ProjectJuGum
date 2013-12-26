@@ -17,7 +17,7 @@ public:
 	void Update( float dTime );
 
 	EBulletType		GetBulletType() {return m_Type;}
-	NNSprite*	GetTexture(EBulletType type) { return m_Texture[type]; }
+	NNSprite*		GetTexture(EBulletType type) { return m_Texture[type]; }
 
 	void			SetBulletType(EBulletType new_type) {m_Type = new_type;}
 

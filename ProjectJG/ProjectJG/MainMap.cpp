@@ -156,6 +156,10 @@ void CMainMap::Init()
 
 	m_Player1->Init();
 	m_Player2->Init();
+	m_Player1->SetPosition( 0.f, GetBotLine()*0.5f );
+	m_Player2->SetPosition( 0.f, GetTopLine()*0.5f );
+
+	CBulletManager::GetInstance()->InitAllBullet();
 }
 
 CMainMap::~CMainMap(void)

@@ -16,6 +16,8 @@ public:
 	static CBulletManager* GetInstance();
 	static void ReleaseInstance();
 
+	void			InitAllBullet();
+
 	//탄환이 맵밖으로 나갔는지 확인
 	bool			CheckLifeTime(CMainMap* Map, CBullet* Obj);
 

@@ -19,6 +19,15 @@ CBulletManager::~CBulletManager(void)
 {
 }
 
+void CBulletManager::InitAllBullet()
+{
+	for (int i = 0; i < MAX_BULLET_NUM; ++i)
+	{
+		if (m_pBulletArray[i]->IsVisible())
+			DestroyBullet(m_pBulletArray[i]);
+	}
+}
+
 //**************************************************************
 //                         GetObj
 //**************************************************************
