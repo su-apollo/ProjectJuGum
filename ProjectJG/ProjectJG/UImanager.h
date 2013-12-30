@@ -29,6 +29,17 @@ public:
 	void SetAtlasChar(NNSpriteAtlas* atlas, char number);	// ÈåÈåÈå °Ü¿ì µ¹¾Æ°¡´Â ÇÔ¼ö ÇÏµåÄÚµùÀÌ¶û ´Ù¸¦ °Ô ¹¹¾ß ¤Ì¤Ì
 
 	void SetTime(float dTime) { int minute = (int)(dTime/60); int second = (int)(dTime-minute); swprintf(m_TimeBuffer, 6, L"%02d:%02d", minute, second); }
+	void RotateCharPortrait() { 
+		printf_s("hello\n");
+		NNPoint temp = m_PlayerPortrait[0]->GetPosition();
+		for (int i = 0; i < CHAR_NUM; i++) { 
+			m_PlayerPortrait[i]->SetScaleX(-1);
+			
+			if(i+1 == CHAR_NUM) continue;
+			m_PlayerPortrait[i]->SetPosition(m_PlayerPortrait[i+1]->GetPosition());
+		}
+		m_PlayerPortrait[CHAR_NUM-1]->SetPosition(temp);
+	}
 
 private:
 	static UImanager* m_pInstance;

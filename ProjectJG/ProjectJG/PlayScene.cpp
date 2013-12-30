@@ -24,6 +24,11 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) :
 	m_netsetup(false), m_TimeForResultAnimation(0.f), m_ResultMenuCursor(0)
 {
 	m_GameMode = GameMode;
+	printf_s("hi");
+	if (m_GameMode == CLIENT_MODE)
+	{
+		UImanager::GetInstance()->RotateCharPortrait();
+	}
 
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
