@@ -139,7 +139,7 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 	m_Camera = new CCamera();
 
 	// cost
-	m_CostPerSecond = 5.f;
+	m_CostPerSecond = COST_INCREASE_SPEED;
 
 	m_TimeToHitCheckWait = 0.f;
 	m_GameResult = GAME_NOT_END;
@@ -259,7 +259,7 @@ void CMainMap::Update( float dTime, CFrame* frame )
 	SetPlayerMoveArea(m_Player1, frame);
 	SetPlayerMoveArea(m_Player2, frame);
 
-	SummonItemBox(dTime);
+	//SummonItemBox(dTime);
 }
 
 void CMainMap::SetPlayerMoveArea( CMaincharacter * Player, CFrame* frame )
