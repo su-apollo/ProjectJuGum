@@ -18,10 +18,10 @@
 #define MAIN_MENU_LABEL_HORIZONTAL_SPACE		200.f
 #define MAIN_MENU_MAX_BUFFER_SIZE			30
 
-#define FONT_DEFAULT_WIDTH					24.f
-#define FONT_DEFAULT_HEIGHT					32.f
-#define UI_COST_FONT_WIDTH					36.f
-#define UI_COST_FONT_HEIGHT					48.f
+#define FONT_DEFAULT_WIDTH					30.f
+#define FONT_DEFAULT_HEIGHT					38.f
+#define UI_COST_FONT_WIDTH					30.f
+#define UI_COST_FONT_HEIGHT					38.f
 #define UI_FPS_FONT_WIDTH					24.f
 #define UI_FPS_FONT_HEIGHT					32.f
 #define UI_FPS_MAX_BUFFER_SIZE				20

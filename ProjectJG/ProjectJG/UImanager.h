@@ -6,6 +6,7 @@
 
 class CMaincharacter;
 class NNSpriteAtlas;
+class NNLabel;
 
 // UI 관리는 모두 UI manager가 한다.
 // 모든 UI는 부모가 UImanager 이고 Update 및 Render 도 모두 UImanager에서 한다.
@@ -26,6 +27,8 @@ public:
 	void Render();
 
 	void SetAtlasChar(NNSpriteAtlas* atlas, char number);	// 흐흐흐 겨우 돌아가는 함수 하드코딩이랑 다를 게 뭐야 ㅜㅜ
+
+	void SetTime(float dTime) { int minute = (int)(dTime/60); int second = (int)(dTime-minute); swprintf(m_TimeBuffer, 6, L"%02d:%02d", minute, second); }
 
 private:
 	static UImanager* m_pInstance;
@@ -51,6 +54,8 @@ private:
 	// 장식
 	NNSprite*	m_pattern;
 	NNSprite*	m_time;
+	wchar_t		m_TimeBuffer[6];
+	NNLabel*	m_TimeLabel;
 	NNSprite*	m_flower;
 };
 

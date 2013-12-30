@@ -16,6 +16,7 @@
 #include "NNApplication.h"
 #include "NNNetworkSystem.h"
 #include "PacketHandler.h"
+#include "UImanager.h"
 
 
 CMainMap::CMainMap(ENetworkMode GameMode)
@@ -194,6 +195,8 @@ void CMainMap::Render()
 void CMainMap::Update( float dTime, CFrame* frame )
 {
 	m_PlayTimeSum += dTime;
+	UImanager::GetInstance()->SetTime(m_PlayTimeSum);
+	printf_s("%d\n", m_PlayTimeSum);
 
 	m_BackGround->Update(dTime);
 

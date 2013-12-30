@@ -1,4 +1,5 @@
 #include "NNConfig.h"
+#include "GameOption.h"
 #include "NNApplication.h"
 #include "NNLabel.h"
 
@@ -6,6 +7,8 @@
 
 #include "Maincharacter.h"
 #include "NNSpriteAtlas.h"
+#include "NNLabel.h"
+
 
 UImanager* UImanager::m_pInstance = nullptr;
 
@@ -57,6 +60,11 @@ UImanager::UImanager(void)
 	m_time->SetImageWidth(m_time->GetImageWidth() * 1.5f);
 	m_time->SetPosition( ScreenWidth*0.5f - 15.f, BotLine - m_time->GetImageHeight()*0.5f );
 	m_UIList[m_UINum++] = m_time;
+
+	swprintf(m_TimeBuffer, _countof(m_TimeBuffer), L"00:00"); 
+	m_TimeLabel = NNLabel::Create(m_TimeBuffer, L"¸¼Àº °íµñ", 20.f);
+	m_TimeLabel->SetPosition(m_time->GetPosition() - NNPoint(30.f, 10.f));
+	m_UIList[m_UINum++] = m_TimeLabel;
 
 	// Ä³¸¯ÅÍ ±×¸²
 	m_PlayerPortrait[RAYMU] = NNSprite::Create(RAYMU_PORTRAIT);
