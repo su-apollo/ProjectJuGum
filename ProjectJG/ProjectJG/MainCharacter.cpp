@@ -282,13 +282,26 @@ void CMaincharacter::RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMain
 		switch (m_skill_key_input)
 		{
 		case SKILL_KEY_FOUR:
-			m_SubChar->YukariFanAttack(dTime);
+			if ( GetCost() >= YUKARI_FAN_ATTACK_COST )
+			{
+				m_SubChar->YukariFanAttack(dTime);
+				SetCost( GetCost() - YUKARI_FAN_ATTACK_COST );
+			}
 			break;
 		case SKILL_KEY_FIVE:
-			m_SubChar->YukariAccelAttack(dTime);
+			if ( GetCost() >= YUKARI_ACCEL_ATTACK_COST )
+			{
+				m_SubChar->YukariAccelAttack(dTime);
+				SetCost( GetCost() - YUKARI_ACCEL_ATTACK_COST );
+			}
+			
 			break;
 		case SKILL_KEY_SIX:
-			m_SubChar->YukariCurveAttack(dTime);
+			if ( GetCost() >= YUKARI_CURVE_ATTACK_COST)
+			{
+				m_SubChar->YukariCurveAttack(dTime);
+				SetCost( GetCost() - YUKARI_CURVE_ATTACK_COST );
+			}
 			break;
 		default:
 			break;
@@ -330,13 +343,25 @@ void CMaincharacter::MarisaSkillCasting( float dTime, CMaincharacter* enemy, CMa
 		switch (m_skill_key_input)
 		{
 		case SKILL_KEY_FOUR:
-			m_SubChar->AliceNormalAttack(dTime);
+			if ( GetCost() >= ALICE_BIGSLOW_ATTACK_COST )
+			{
+				m_SubChar->AliceNormalAttack(dTime);
+				SetCost( GetCost() - ALICE_BIGSLOW_ATTACK_COST );
+			}
 			break;
 		case SKILL_KEY_FIVE:
-			m_SubChar->AliceStarAttack(dTime);
+			if ( GetCost() >= ALICE_TIMELAG_ATTACK_COST )
+			{
+				m_SubChar->AliceStarAttack(dTime);
+				SetCost( GetCost() - ALICE_TIMELAG_ATTACK_COST );
+			}
 			break;
 		case SKILL_KEY_SIX:
-			m_SubChar->AliceBoomerangAttack(dTime);
+			if ( GetCost() >= ALICE_BOOMERANG_ATTACK_COST)
+			{
+				m_SubChar->AliceBoomerangAttack(dTime);
+				SetCost( GetCost() - ALICE_BOOMERANG_ATTACK_COST );
+			}
 			break;
 		default:
 			break;

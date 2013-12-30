@@ -6,15 +6,15 @@
 #define MAIN_MAP_WIDTH						2000.f
 #define MAIN_MAP_HEIGHT						1200.f
 #define FRAME_WIDTH							800.f
-#define FRAME_HEIGHT						560.f
+#define FRAME_HEIGHT							560.f
 
 #define MAX_BULLET_NUM						2000
 #define MAX_FAIRY_NUM						50
 
-#define BASIC_COST							50000
+#define BASIC_COST							100
 
 #define MAIN_MENU_LABEL_VERTICAL_SPACE		50.f
-#define MAIN_MENU_LABEL_HORIZONTAL_SPACE	200.f
+#define MAIN_MENU_LABEL_HORIZONTAL_SPACE		200.f
 #define MAIN_MENU_MAX_BUFFER_SIZE			30
 
 #define FONT_DEFAULT_WIDTH					24.f
@@ -29,18 +29,18 @@
 // MainMenuScene Resources
 #define MAIN_MENU_SCENE_BACKGROUND_IMAGE			L"Sprite/MainBackground.jpg"
 #define MAIN_MENU_LOADING_SCENE					L"Sprite/Loading.jpg"
-#define MAIN_MENU_SCENE_BACKGROUND_SOUND		"Sound/Eternal Dream.mp3"
+#define MAIN_MENU_SCENE_BACKGROUND_SOUND			"Sound/Eternal Dream.mp3"
 #define MAIN_MENU_INSTRUCTION					L"Sprite/font/instruction.png"
-#define MAIN_MENU_LABEL_TEST					L"Sprite/font/TEST.png"
+#define MAIN_MENU_LABEL_TEST						L"Sprite/font/TEST.png"
 #define MAIN_MENU_LABEL_SERVER					L"Sprite/font/SERVER.png"
 #define MAIN_MENU_LABEL_CLIENT					L"Sprite/font/CLIENT.png"
-#define MAIN_MENU_LABEL_QUIT					L"Sprite/font/QUIT.png"
-#define MAIN_MENU_HIGHLIGHT_TEST				L"Sprite/font/TEST_ON.png"
+#define MAIN_MENU_LABEL_QUIT						L"Sprite/font/QUIT.png"
+#define MAIN_MENU_HIGHLIGHT_TEST					L"Sprite/font/TEST_ON.png"
 #define MAIN_MENU_HIGHLIGHT_SERVER				L"Sprite/font/SERVER_ON.png"
 #define MAIN_MENU_HIGHLIGHT_CLIENT				L"Sprite/font/CLIENT_ON.png"
-#define MAIN_MENU_HIGHLIGHT_QUIT				L"Sprite/font/QUIT_ON.png"
-#define MAIN_MENU_SERVER_COMMAND				L"Sprite/font/SERVER_COMMAND.png"
-#define MAIN_MENU_CLIENT_COMMAND				L"Sprite/font/CLIENT_COMMAND.png"
+#define MAIN_MENU_HIGHLIGHT_QUIT					L"Sprite/font/QUIT_ON.png"
+#define MAIN_MENU_SERVER_COMMAND					L"Sprite/font/SERVER_COMMAND.png"
+#define MAIN_MENU_CLIENT_COMMAND					L"Sprite/font/CLIENT_COMMAND.png"
 #define MAIN_MENU_NUMBER_FONT					L"Sprite/font/NUMBERS.png"
 #define EFFECT_SOUND_OK							"Sound/se_ok00.wav"
 #define EFFECT_SOUND_CANCEL						"Sound/se_cancel00.wav"
@@ -127,14 +127,24 @@ enum ESkill
 {
 	RAYMU_NORMAL_ATTACK,
 	YUKARI_FAN_ATTACK,
+	YUKARI_ACCEL_ATTACK,
+	YUKARI_CURVE_ATTACK,
 	MARISA_NORMAL_ATTACK,
+	ALICE_BIGSLOW_ATTACK,
+	ALICE_TIMELAG_ATTACK,
+	ALICE_BOOMERANG_ATTACK,
 	SUMMON_FAIRY,
 	FAIRY_SKILL_1
 };
 #define RAYMU_NORMAL_ATTACK_COST			1
 #define YUKARI_FAN_ATTACK_COST			10
+#define YUKARI_ACCEL_ATTACK_COST			10
+#define YUKARI_CURVE_ATTACK_COST			10
 #define MARISA_NORMAL_ATTACK_COST		1
-#define SUMMON_FAIRY_COST				10
+#define ALICE_BIGSLOW_ATTACK_COST		10
+#define ALICE_TIMELAG_ATTACK_COST		10
+#define ALICE_BOOMERANG_ATTACK_COST		10
+#define SUMMON_FAIRY_COST				20
 #define FAIRY_SKILL_1_COST				20
 
 enum EInputNum
