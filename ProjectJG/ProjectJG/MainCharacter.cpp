@@ -92,6 +92,9 @@ void CMaincharacter::Init()
 	m_FlyMotion->SetVisible(true);
 	m_SubChar->Init();
 
+	for (int i = 0; i < MAX_FAIRY_NUM; ++i)
+		m_pFairyArray[i]->SetVisible(false);
+
 	InitMember();
 }
 
