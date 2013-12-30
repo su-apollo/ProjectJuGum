@@ -210,6 +210,13 @@ enum EResultMenuList
 	RESULT_MENU_NUM,
 };
 
+enum EKeyState
+{
+	KEY_STATE_OFF,
+	KEY_STATE_ON,
+	KEY_STATE_NUM
+};
+
 enum ENetworkMode
 {
 	TEST_MODE,

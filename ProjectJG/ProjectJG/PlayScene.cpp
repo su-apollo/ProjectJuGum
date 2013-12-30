@@ -78,17 +78,23 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) :
 	AddChild(m_SpriteMarisaWin);
 
 	//게임결과표시와 함께 나오는 메뉴
-	m_ResultMenu[RESULT_MENU_REGAME] = NNLabel::Create(L"Replay", L"궁서체", 40.f);
-	m_ResultMenu[RESULT_MENU_REGAME]->SetColor(255.f, 255.f, 255.f);
-	m_ResultMenu[RESULT_MENU_REGAME]->SetPosition(width*0.5f, height*0.5f);
-	m_ResultMenu[RESULT_MENU_REGAME]->SetVisible(false);
-	AddChild(m_ResultMenu[RESULT_MENU_REGAME]);
+	m_ResultMenu[RESULT_MENU_REGAME][KEY_STATE_OFF] = NNSprite::Create(L"Sprite/font/replay.png");
+	m_ResultMenu[RESULT_MENU_REGAME][KEY_STATE_ON] = NNSprite::Create(L"Sprite/font/replay_on.png");
+	m_ResultMenu[RESULT_MENU_REGAME][KEY_STATE_OFF]->SetPosition(width*0.5f, height*0.5f);
+	m_ResultMenu[RESULT_MENU_REGAME][KEY_STATE_ON]->SetPosition(width*0.5f, height*0.5f);
+	m_ResultMenu[RESULT_MENU_REGAME][KEY_STATE_OFF]->SetVisible(false);
+	m_ResultMenu[RESULT_MENU_REGAME][KEY_STATE_ON]->SetVisible(false);
+	AddChild(m_ResultMenu[RESULT_MENU_REGAME][KEY_STATE_OFF]);
+	AddChild(m_ResultMenu[RESULT_MENU_REGAME][KEY_STATE_ON]);
 
-	m_ResultMenu[RESULT_MENU_EXIT] = NNLabel::Create(L"Exit", L"궁서체", 40.f);
-	m_ResultMenu[RESULT_MENU_EXIT]->SetColor(255.f, 255.f, 255.f);
-	m_ResultMenu[RESULT_MENU_EXIT]->SetPosition(width*0.5f, height*0.5f + 50.f);
-	m_ResultMenu[RESULT_MENU_EXIT]->SetVisible(false);
-	AddChild(m_ResultMenu[RESULT_MENU_EXIT]);
+	m_ResultMenu[RESULT_MENU_EXIT][KEY_STATE_OFF] = NNSprite::Create(L"Sprite/font/exit.png");
+	m_ResultMenu[RESULT_MENU_EXIT][KEY_STATE_ON] = NNSprite::Create(L"Sprite/font/exit_on.png");
+	m_ResultMenu[RESULT_MENU_EXIT][KEY_STATE_OFF]->SetPosition(width*0.5f, height*0.5f + 50.f);
+	m_ResultMenu[RESULT_MENU_EXIT][KEY_STATE_ON]->SetPosition(width*0.5f, height*0.5f + 50.f);
+	m_ResultMenu[RESULT_MENU_EXIT][KEY_STATE_OFF]->SetVisible(false);
+	m_ResultMenu[RESULT_MENU_EXIT][KEY_STATE_ON]->SetVisible(false);
+	AddChild(m_ResultMenu[RESULT_MENU_EXIT][KEY_STATE_OFF]);
+	AddChild(m_ResultMenu[RESULT_MENU_EXIT][KEY_STATE_ON]);
 
 	NetworkSetMenu(GameMode, serverIP);
 
@@ -98,8 +104,13 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) :
 
 void CPlayScene::Init()
 {
-	m_ResultMenu[RESULT_MENU_EXIT]->SetVisible(false);
-	m_ResultMenu[RESULT_MENU_REGAME]->SetVisible(false);
+	for (int i = 0; i < RESULT_MENU_NUM; i++)
+	{
+		for (int j = 0; j < KEY_STATE_NUM; j++)
+		{
+			m_ResultMenu[i][j]->SetVisible(false);
+		}
+	}
 
 	m_SpriteMarisaLose->SetVisible(false);
 	m_SpriteMarisaWin->SetVisible(false);
@@ -167,8 +178,11 @@ void CPlayScene::GameResultScene( float dTime )
 		}
 	}
 
-	m_ResultMenu[RESULT_MENU_EXIT]->SetVisible(true);
-	m_ResultMenu[RESULT_MENU_REGAME]->SetVisible(true);
+	for (int i = 0; i < RESULT_MENU_NUM; i++)
+	{
+		m_ResultMenu[i][KEY_STATE_OFF]->SetVisible(true);
+		m_ResultMenu[i][KEY_STATE_ON]->SetVisible(false);
+	}
 
 	switch (m_MainMap->GetGameResult())
 	{
@@ -212,10 +226,7 @@ void CPlayScene::GameResultScene( float dTime )
 	m_ResultMenuCursor += RESULT_MENU_NUM;
 	m_ResultMenuCursor %= RESULT_MENU_NUM;
 
-	m_ResultMenu[RESULT_MENU_EXIT]->SetColor(255, 255, 255);
-	m_ResultMenu[RESULT_MENU_REGAME]->SetColor(255, 255, 255);
-
-	m_ResultMenu[m_ResultMenuCursor]->SetColor(255, 0, 0);
+	m_ResultMenu[m_ResultMenuCursor][KEY_STATE_ON]->SetVisible(true);
 	
 	if (NNInputSystem::GetInstance()->GetSkillKeyInput() == SKILL_KEY_ONE)
 	{

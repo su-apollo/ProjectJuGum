@@ -37,7 +37,7 @@ private:
 	
 	bool			m_netsetup;
 
-	NNLabel*		m_ResultMenu[RESULT_MENU_NUM];
+	NNSprite*		m_ResultMenu[RESULT_MENU_NUM][KEY_STATE_NUM];
 	int				m_ResultMenuCursor;
 
 	NNSound*		m_BackgroundSound;
