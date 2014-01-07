@@ -22,6 +22,9 @@ public:
 	void SetFPSLabelVisible( bool visible ) { for(int i=0; i<20; ++i) m_FPSLabel[i]->SetVisible(visible); }
 #endif
 
+	NNSprite* GetRaymuSubChar() { return m_SubCharPortrait[RAYMU]; }
+	NNSprite* GetMarisaSubChar() { return m_SubCharPortrait[MARISA]; }
+
 	void SetPlayer1CostLabelVisible( bool visible ) { for(int i=0; i<100; ++i) m_PlayerCostLabel[0][i]->SetVisible(visible); }
 	void SetPlayer2CostLabelVisible( bool visible ) { for(int i=0; i<100; ++i) m_PlayerCostLabel[1][i]->SetVisible(visible); }
 	void SetPlayer1PortraitVisible( bool visible )	{ m_PlayerPortrait[0]->SetVisible( visible ); }
