@@ -314,7 +314,7 @@ void CMainMenuScene::InitMenuLabel()
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
 	float height = (float)NNApplication::GetInstance()->GetScreenHeight();
 
-	m_MenuLabel[0]->SetPosition( width*0.31f, height*0.7f );
+	m_MenuLabel[0]->SetPosition( width*0.31f, height*0.8f );
 	for (int i = 1; i < MENU_NUM; i++)
 	{
 		m_MenuLabel[i]->SetPosition( m_MenuLabel[i-1]->GetPosition() + NNPoint(MAIN_MENU_LABEL_HORIZONTAL_SPACE, 0.f) );

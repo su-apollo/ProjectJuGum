@@ -28,11 +28,6 @@ CMaincharacter::CMaincharacter(ECharcterType type_of_char) :
 
 	//이거 동작을 안함
 	/*NNAudioSystem::GetInstance()->SetVolume(m_Shotsound, 0.1f);*/
-	
-// 	m_Circle = NNCircle::Create(GetHitRadius());
-// 	m_Circle->SetPosition(0.f, 0.f);
-// 	m_Circle->SetColor(255.f, 0.f, 0.f);
-// 	AddChild( m_Circle );
 
 	if ( type_of_char == RAYMU )
 	{
@@ -67,6 +62,11 @@ CMaincharacter::CMaincharacter(ECharcterType type_of_char) :
 	m_DeadEffect->SetVisible(false);
 	AddChild(m_DeadEffect);
 	
+	m_Circle = NNCircle::Create(GetHitRadius());
+	m_Circle->SetPosition(0.f, 0.f);
+	m_Circle->SetColor(255.f, 0.f, 0.f);
+	AddChild( m_Circle );
+
 	m_Type = type_of_char;
 	m_Cost = BASIC_COST;
 	m_PacketHandler = new CPacketHandler;
