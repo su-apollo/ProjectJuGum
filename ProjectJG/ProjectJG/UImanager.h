@@ -66,7 +66,7 @@ private:
 
 	// cost
 	NNSpriteAtlas*	m_PlayerCostLabel[CHAR_NUM][UI_COST_MAX_BUFFER_SIZE];
-	char			m_PlayerCostBuffer[CHAR_NUM][UI_COST_MAX_BUFFER_SIZE];
+	char			m_PlayerCostBuffer[CHAR_NUM][UI_COST_MAX_BUFFER_SIZE+1];
 		
 	// Àå½Ä
 	NNSprite*	m_pattern;

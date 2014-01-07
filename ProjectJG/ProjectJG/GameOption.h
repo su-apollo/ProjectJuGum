@@ -25,11 +25,15 @@
 #define UI_FPS_FONT_WIDTH					24.f
 #define UI_FPS_FONT_HEIGHT					32.f
 #define UI_FPS_MAX_BUFFER_SIZE				20
+
 #ifdef _DEBUG
-#define UI_COST_MAX_BUFFER_SIZE				10
+#define UI_COST_MAX_BUFFER_SIZE				8
 #else
-#define UI_COST_MAX_BUFFER_SIZE				5
+#define UI_COST_MAX_BUFFER_SIZE				3
 #endif // _DEBUG
+
+#define COST_EFFECT_LABEL_NUM	3
+#define COST_EFFECT_TIME		0.5f
 
 // MainMenuScene Resources
 #define MAIN_MENU_TITLE							L"Sprite/tiltle.png"
@@ -67,9 +71,7 @@
 #define BACKGROUND_PATTERN						L"Sprite/pattern.png"
 #define BACKGROUND_TIME							L"Sprite/time.png"
 #define LABEL_SP								L"Sprite/font/sp.png"
-#define COST_1									L"Sprite/font/cost_1.png"
-#define COST_3									L"Sprite/font/cost_3.png"
-#define COST_6									L"Sprite/font/cost_6.png"
+#define COST_ATLAS								L"Sprite/font/CostAtlas.png"
 
 // PlayScene Resources
 #define GAME_BACKGROUND_SOUND					"Sound/the Mooned Incects.mp3"
