@@ -47,7 +47,7 @@ private:
 	UImanager(void);
 	virtual ~UImanager(void);
 
-	NNObject*	m_UIList[10];	// NNSpriteAtlas* 배열은 따로 관리.
+	NNObject*	m_UIList[50];	// NNSpriteAtlas* 배열은 따로 관리.
 
 	int			m_UINum;
 

@@ -133,8 +133,13 @@ UImanager::UImanager(void)
 			m_PlayerCostLabel[i][j]->SetImageHeight(UI_COST_FONT_HEIGHT);
 		}
 	}
+#ifdef _DEBUG
+	m_PlayerCostLabel[RAYMU][0]->SetPosition( m_PlayerPortrait[RAYMU]->GetPosition() + NNPoint( m_PlayerPortrait[RAYMU]->GetImageWidth()*0.5f + 50.f, 40.f ) );
+	m_PlayerCostLabel[MARISA][0]->SetPosition( m_PlayerPortrait[MARISA]->GetPosition() + NNPoint( -m_PlayerPortrait[MARISA]->GetImageWidth()*0.5f - 20.f - UI_COST_FONT_WIDTH*8.f, 40.f ) );
+#else
 	m_PlayerCostLabel[0][0]->SetPosition( m_SPLabel->GetPositionX() -m_SPLabel->GetImageWidth()*0.5f -25.f -UI_COST_FONT_WIDTH*0.5f -UI_COST_FONT_WIDTH*2.f,	m_SPLabel->GetPositionY() );
 	m_PlayerCostLabel[1][0]->SetPosition( m_SPLabel->GetPositionX() +m_SPLabel->GetImageWidth()*0.5f +25.f +UI_COST_FONT_WIDTH*0.5f,							m_SPLabel->GetPositionY() );
+#endif // _DEBUG
 	for (int i = 0; i < CHAR_NUM; i++)
 	{
 		for (int j = 1; j < UI_COST_MAX_BUFFER_SIZE; j++)
