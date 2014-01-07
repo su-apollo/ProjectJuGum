@@ -21,7 +21,8 @@
 #include "NNResourceManager.h"
 
 CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) : 
-	m_netsetup(false), m_TimeForResultAnimation(0.f), m_ResultMenuCursor(0)
+	m_netsetup(false), m_TimeForResultAnimation(0.f), m_ResultMenuCursor(0),
+	m_RePlay(false)
 {
 	m_GameMode = GameMode;
 	printf_s("hi");
@@ -130,6 +131,8 @@ void CPlayScene::Init()
 
 	m_MainMap->Init();
 	UImanager::GetInstance()->SetAllVisible(true);
+
+	m_RePlay = false;
 }
 
 CPlayScene::~CPlayScene(void)
@@ -151,10 +154,9 @@ void CPlayScene::Update( float dTime )
 	// UI update
 	if (m_MainMap->GetGameResult() == GAME_NOT_END) {
 		UImanager::GetInstance()->Update( dTime, m_MainMap->GetPlayer1(), m_MainMap->GetPlayer2() );
+		// 모든 게임 플레이 관련 처리는 메인 맵에서 한다.
+		m_MainMap->Update( dTime, m_Frame );
 	}
-
-	// 모든 게임 플레이 관련 처리는 메인 맵에서 한다.
-	m_MainMap->Update( dTime, m_Frame );
 	
 	if (m_MainMap->GetGameResult() != GAME_NOT_END)
 		GameResultScene(dTime);
@@ -237,9 +239,32 @@ void CPlayScene::GameResultScene( float dTime )
 	{
 		if (m_ResultMenuCursor == RESULT_MENU_EXIT)
 			EndGame();
-		else if (m_ResultMenuCursor == RESULT_MENU_REGAME)
+		else if (m_GameMode != TEST_MODE && m_ResultMenuCursor == RESULT_MENU_REGAME)
+			m_RePlay = true;
+		else if (m_GameMode == TEST_MODE && m_ResultMenuCursor == RESULT_MENU_REGAME)
 			Init();
 	}
+
+	if (m_RePlay)
+	{
+		m_MainMap->GetPlayer1()->GetPacketHandler()->m_PacketKeyStatus.mRePlay = true;
+		m_MainMap->GetPlayer1()->GetPacketHandler()->m_PacketKeyStatus.mHitCheck = false;
+		m_MainMap->GetPlayer1()->GetPacketHandler()->m_PacketKeyStatus.mDirectionStatus = 0;
+		m_MainMap->GetPlayer1()->GetPacketHandler()->m_PacketKeyStatus.mSkillStatus = 0;
+		m_MainMap->GetPlayer1()->GetPacketHandler()->m_PacketKeyStatus.mSpeedStatus = 0;
+		m_MainMap->GetPlayer1()->SendPacket();
+	}
+
+	if (m_GameMode != TEST_MODE && m_MainMap->GetPlayer2()->GetPacketHandler()->m_IsPacketrecv)
+	{
+		if (m_RePlay && m_MainMap->GetPlayer2()->GetPacketHandler()->m_PacketKeyStatus.mRePlay)
+		{
+			m_MainMap->GetPlayer2()->GetPacketHandler()->m_IsPacketrecv = false;
+			m_MainMap->GetPlayer1()->GetPacketHandler()->m_PacketKeyStatus.mRePlay = false;
+			Init();
+		}
+	}
+	
 }
 
 void CPlayScene::EndGame()

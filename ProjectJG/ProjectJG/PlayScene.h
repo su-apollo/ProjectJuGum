@@ -53,5 +53,7 @@ private:
 	ENetworkMode	m_GameMode;
 
 	float			m_TimeForResultAnimation;
+
+	bool			m_RePlay;
 };
 

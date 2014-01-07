@@ -35,13 +35,14 @@ struct PacketTest
 
 struct PacketKeyStatus : public NNPacketHeader
 {
-	PacketKeyStatus() : mHitCheck(false), 
-		mDirectionStatus(0), mSkillStatus(0)
+	PacketKeyStatus() : mHitCheck(false), mRePlay(false),
+		mDirectionStatus(0), mSkillStatus(0), mSpeedStatus(0)
 	{
 		m_Type = PKT_STATUS; 
 		m_Size = sizeof(PacketKeyStatus);
 	}
 
+	bool	mRePlay;
 	bool	mHitCheck ;
 	short	mDirectionStatus;
 	short	mSkillStatus;

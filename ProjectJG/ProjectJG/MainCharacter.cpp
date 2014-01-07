@@ -146,8 +146,6 @@ void CMaincharacter::Update(float dTime, CMaincharacter* enemy, CMainMap* map, E
 			m_PacketHandler->m_PacketKeyStatus.mSkillStatus = (short)m_skill_key_input;
 			m_PacketHandler->m_PacketKeyStatus.mDirectionStatus = (short)m_direct_key_input;
 			m_PacketHandler->m_PacketKeyStatus.mSpeedStatus = (short)m_speed_key_input;
-
-			printf_s("***********************send!************************\n");
 			
 			NNNetworkSystem::GetInstance()->Write( (const char*)&m_PacketHandler->m_PacketKeyStatus, m_PacketHandler->m_PacketKeyStatus.m_Size );
 
