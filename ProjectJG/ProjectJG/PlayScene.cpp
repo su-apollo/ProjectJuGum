@@ -25,7 +25,6 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) :
 	m_RePlay(false)
 {
 	m_GameMode = GameMode;
-	printf_s("hi");
 	if (m_GameMode == CLIENT_MODE)
 	{
 		UImanager::GetInstance()->RotateCharPortrait();

@@ -215,3 +215,21 @@ void UImanager::SetAtlasChar( NNSpriteAtlas* atlas, char number )
 	SetAtlasChar(atlas, ' ');
 	//atlas->SetCutSize(MAIN_MENU_FONT_WIDTH*(length-1), 0, MAIN_MENU_FONT_WIDTH*length, MAIN_MENU_FONT_HEIGHT);
 }
+
+void UImanager::RotateCharPortrait()
+{
+	printf_s("Rotated Character.\n");
+	NNPoint temp = m_PlayerPortrait[0]->GetPosition();
+	for (int i = 0; i < CHAR_NUM; i++) { 
+		m_PlayerPortrait[i]->SetScaleX(-1);
+
+		if(i+1 == CHAR_NUM) continue;
+		m_PlayerPortrait[i]->SetPosition(m_PlayerPortrait[i+1]->GetPosition());
+	}
+	m_PlayerPortrait[CHAR_NUM-1]->SetPosition(temp);
+}
+
+void UImanager::Init()
+{
+
+}
