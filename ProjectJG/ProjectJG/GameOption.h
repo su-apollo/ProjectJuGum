@@ -28,6 +28,7 @@
 #define UI_COST_MAX_BUFFER_SIZE				100
 
 // MainMenuScene Resources
+#define MAIN_MENU_TITLE							L"Sprite/tiltle.png"
 #define MAIN_MENU_SCENE_BACKGROUND_IMAGE			L"Sprite/MainBackground.jpg"
 #define MAIN_MENU_LOADING_SCENE					L"Sprite/Loading.jpg"
 #define MAIN_MENU_SCENE_BACKGROUND_SOUND			"Sound/Eternal Dream.mp3"

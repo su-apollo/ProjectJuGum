@@ -33,6 +33,7 @@ private:
 	// 배경
 	NNSprite*		m_Loading;
 	NNSprite*		m_BackGround;
+	NNSprite*		m_Title;
 	
 	// 씬 전환시 넘길 parameter
 	bool			m_bChangeScene;

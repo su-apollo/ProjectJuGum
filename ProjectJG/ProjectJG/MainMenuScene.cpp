@@ -60,10 +60,14 @@ CMainMenuScene::CMainMenuScene(void)
 	m_KeyOn = 0;				// 현재 가리키고 있는 메뉴 위치
 	m_bMenuSelected = false;	// "메뉴가 아직 선택되지 않았다"
 
+	m_Title = NNSprite::Create(MAIN_MENU_TITLE);
+	m_Title->SetPosition( width*0.3f, height*0.3f );
+	m_Title->SetOpacity(0.5f);
+	AddChild(m_Title);
 
-	m_InstructionLabel = NNSprite::Create(MAIN_MENU_INSTRUCTION);
-	m_InstructionLabel->SetPosition( width*0.5f, height*0.3f );
-	AddChild(m_InstructionLabel);
+// 	m_InstructionLabel = NNSprite::Create(MAIN_MENU_INSTRUCTION);
+// 	m_InstructionLabel->SetPosition( width*0.5f, height*0.3f );
+// 	AddChild(m_InstructionLabel);
 
 	// 네트워크 라벨 : command 생성,배치.
 	m_NetMenuLabel[NET_MENU_SERVER] = NNSprite::Create(MAIN_MENU_SERVER_COMMAND);
