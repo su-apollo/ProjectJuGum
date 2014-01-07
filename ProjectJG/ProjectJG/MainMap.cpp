@@ -197,8 +197,11 @@ void CMainMap::Render()
 void CMainMap::Update( float dTime, CFrame* frame )
 {
 	m_PlayTimeSum += dTime;
+
+#ifdef _DEBUG
 	UImanager::GetInstance()->SetTime(m_PlayTimeSum);
 	printf_s("%d\n", m_PlayTimeSum);
+#endif	
 
 	m_BackGround->Update(dTime);
 

@@ -27,7 +27,7 @@ CPlayScene::CPlayScene( ENetworkMode GameMode, char* serverIP ) :
 	m_GameMode = GameMode;
 	if (m_GameMode == CLIENT_MODE)
 	{
-		UImanager::GetInstance()->RotateCharPortrait();
+		UImanager::GetInstance()->SetMyCharType(MARISA);
 	}
 
 	float width = (float)NNApplication::GetInstance()->GetScreenWidth();
