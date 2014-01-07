@@ -161,6 +161,8 @@ void CMainMap::Init()
 	m_Player2->SetPosition( 0.f, GetTopLine()*0.5f );
 
 	CBulletManager::GetInstance()->InitAllBullet();
+
+	m_Camera->SetPosition(0.f, 0.f);
 }
 
 CMainMap::~CMainMap(void)
