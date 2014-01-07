@@ -187,7 +187,7 @@ char* NNNetworkSystem::GetIpAddress()
 	//로컬pc의 호스트이름을 표준양식으로받아옴(MSDN)
 	gethostname(myaddr, sizeof(myaddr));   
 
-	printf_s("%s\n", myaddr);
+	printf_s("myaddr : %s\n", myaddr);
 
 	//호스트이름에 대응되는Databas를 PHOSTENT구조체로 리턴
 	pHostInfo = gethostbyname(myaddr);           
