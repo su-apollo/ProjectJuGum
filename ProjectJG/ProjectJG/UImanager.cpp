@@ -148,6 +148,9 @@ UImanager::UImanager(void)
 		}
 	}
 
+
+	GetMarisaSubChar()->SetVisible(false);
+	GetRaymuSubChar()->SetVisible(false);
 }
 
 

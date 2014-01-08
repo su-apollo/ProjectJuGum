@@ -13,6 +13,7 @@
 #include "SubChar.h"
 #include "NNResourceManager.h"
 #include "NNAudioSystem.h"
+#include "UImanager.h"
 
 
 CMaincharacter::CMaincharacter(ECharcterType type_of_char) : 
@@ -503,13 +504,27 @@ bool CMaincharacter::SummonSubCharAnimation( float dTime )
 	//애니메이션을 완료했다면 true아니면 false
 	if (m_TimeForSummonEffect < 0.1)
 	{
+		m_SubChar->SetVisible(true);
+
+		if (m_Type == RAYMU)
+		{
+			UImanager::GetInstance()->GetRaymuSubChar()->SetOpacity(m_TimeForSummonEffect*10.f);
+			UImanager::GetInstance()->GetRaymuSubChar()->SetScaleX(1.0f + (1.0f - 10.f*m_TimeForSummonEffect));
+			UImanager::GetInstance()->GetRaymuSubChar()->SetVisible(true);
+		}
+		else
+		{
+			UImanager::GetInstance()->GetMarisaSubChar()->SetOpacity(m_TimeForSummonEffect*10.f);
+			UImanager::GetInstance()->GetMarisaSubChar()->SetScaleX(1.0f + (1.0f - 10.f*m_TimeForSummonEffect));
+			UImanager::GetInstance()->GetMarisaSubChar()->SetVisible(true);
+		}
+		
 		m_SubChar->GetFlyMotion()->SetOpacity(m_TimeForSummonEffect*10.f);
 		m_SubChar->GetFlyMotion()->SetScaleX(1.5f + (1.5f - 15.f*m_TimeForSummonEffect));
 
 		m_SubChar->GetBackgroundEffect()->SetOpacity(m_TimeForSummonEffect*10.f);
 		m_SubChar->GetBackgroundEffect()->SetScaleX(1.5f + (1.5f - 15.f*m_TimeForSummonEffect));
 
-		m_SubChar->SetVisible(true);
 		return false;
 	}
 	else
@@ -524,6 +539,17 @@ bool CMaincharacter::RepatriationSubCharAnimation( float dTime )
 
 	if (m_TimeForRepatriationEffect < 0.2f)
 	{
+		if (m_Type == RAYMU)
+		{
+			UImanager::GetInstance()->GetRaymuSubChar()->SetOpacity(1.f - m_TimeForRepatriationEffect*10.f);
+			UImanager::GetInstance()->GetRaymuSubChar()->SetScaleX(1.0f + (10.f*m_TimeForRepatriationEffect));
+		}
+		else
+		{
+			UImanager::GetInstance()->GetMarisaSubChar()->SetOpacity(1.f - m_TimeForRepatriationEffect*10.f);
+			UImanager::GetInstance()->GetMarisaSubChar()->SetScaleX(1.0f + (10.f*m_TimeForRepatriationEffect));
+		}
+
 		m_SubChar->GetFlyMotion()->SetOpacity(1.f - m_TimeForRepatriationEffect*10.f);
  		m_SubChar->GetFlyMotion()->SetScaleY(1.5f + (15.f*m_TimeForRepatriationEffect));
  
@@ -537,6 +563,11 @@ bool CMaincharacter::RepatriationSubCharAnimation( float dTime )
 
 		return false;
 	}
+
+	if (m_Type == RAYMU)
+		UImanager::GetInstance()->GetRaymuSubChar()->SetVisible(false);
+	else
+		UImanager::GetInstance()->GetMarisaSubChar()->SetVisible(false);
 	
 	m_SubChar->SetVisible(false);
 	m_SubChar->GetFlyMotion()->SetScaleY(1.5f);
