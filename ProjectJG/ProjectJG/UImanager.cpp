@@ -337,12 +337,7 @@ void UImanager::MinusCostAnimation( float dTime)
 		m_TimeForMinusAnimationM[i] += dTime;
 
 		if (m_TimeForMinusAnimationM[i] < 1.0f)
-		{
 			m_MinusCostLabelM[i]->SetVisible(true);
-
-			m_MinusCostLabelM[i]->SetPosition(m_MinusCostLabelM[i]->GetPositionX(), 
-				m_MinusCostLabelM[i]->GetPositionY());
-		}
  		else
  			m_MinusCostLabelM[i]->SetVisible(false);
 	}
@@ -352,12 +347,7 @@ void UImanager::MinusCostAnimation( float dTime)
 		m_TimeForMinusAnimationR[i] += dTime;
 
 		if (m_TimeForMinusAnimationR[i] < 1.0f)
-		{
 			m_MinusCostLabelR[i]->SetVisible(true);
-
-			m_MinusCostLabelR[i]->SetPosition(m_MinusCostLabelR[i]->GetPositionX(), 
-				m_MinusCostLabelR[i]->GetPositionY());
-		}
 		else
 			m_MinusCostLabelR[i]->SetVisible(false);
 	}
