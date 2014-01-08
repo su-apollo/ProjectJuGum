@@ -257,6 +257,7 @@ void CMaincharacter::RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMain
 		{
 			RaymuNormalShot();
 			SetCost( GetCost() - RAYMU_NORMAL_ATTACK_COST );
+			UImanager::GetInstance()->SetTimeForMinusAnimationR(0.f, MINUS_ONE);
 		}
 		break;
 	case SKILL_KEY_TWO:
@@ -264,6 +265,7 @@ void CMaincharacter::RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMain
 		{
 			SummonFairy();
 			SetCost( GetCost() - SUMMON_FAIRY_COST );
+			UImanager::GetInstance()->SetTimeForMinusAnimationR(0.f, MINUS_THREE);
 		}
 		break;
 	case SKILL_KEY_THREE:
@@ -271,6 +273,7 @@ void CMaincharacter::RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMain
 		{
 			FairySkill_1(dTime);
 			SetCost( GetCost() - FAIRY_SKILL_1_COST  );
+			UImanager::GetInstance()->SetTimeForMinusAnimationR(0.f, MINUS_SIX);
 		}
 		break;
 	default:
@@ -285,6 +288,7 @@ void CMaincharacter::RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMain
 			{
 				m_SubChar->YukariFanAttack(dTime);
 				SetCost( GetCost() - YUKARI_FAN_ATTACK_COST );
+				UImanager::GetInstance()->SetTimeForMinusAnimationR(0.f, MINUS_THREE);
 			}
 			break;
 		case SKILL_KEY_FIVE:
@@ -292,6 +296,7 @@ void CMaincharacter::RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMain
 			{
 				m_SubChar->YukariAccelAttack(dTime);
 				SetCost( GetCost() - YUKARI_ACCEL_ATTACK_COST );
+				UImanager::GetInstance()->SetTimeForMinusAnimationR(0.f, MINUS_THREE);
 			}
 			
 			break;
@@ -300,6 +305,7 @@ void CMaincharacter::RaymuSkillCasting(float dTime, CMaincharacter* enemy, CMain
 			{
 				m_SubChar->YukariCurveAttack(dTime);
 				SetCost( GetCost() - YUKARI_CURVE_ATTACK_COST );
+				UImanager::GetInstance()->SetTimeForMinusAnimationR(0.f, MINUS_THREE);
 			}
 			break;
 		default:
@@ -318,6 +324,7 @@ void CMaincharacter::MarisaSkillCasting( float dTime, CMaincharacter* enemy, CMa
 		{
 			MarisaNormalShot();
 			SetCost( GetCost() - MARISA_NORMAL_ATTACK_COST );
+			UImanager::GetInstance()->SetTimeForMinusAnimationM(0.f, MINUS_ONE);
 		}
 		break;
 	case SKILL_KEY_TWO:
@@ -325,6 +332,7 @@ void CMaincharacter::MarisaSkillCasting( float dTime, CMaincharacter* enemy, CMa
 		{
 			SummonFairy();
 			SetCost( GetCost() - SUMMON_FAIRY_COST );
+			UImanager::GetInstance()->SetTimeForMinusAnimationM(0.f, MINUS_THREE);
 		}
 		break;
 	case SKILL_KEY_THREE:
@@ -332,6 +340,7 @@ void CMaincharacter::MarisaSkillCasting( float dTime, CMaincharacter* enemy, CMa
 		{
 			FairySkill_1(dTime);
 			SetCost( GetCost() - FAIRY_SKILL_1_COST  );
+			UImanager::GetInstance()->SetTimeForMinusAnimationM(0.f, MINUS_SIX);
 		}
 		break;
 	default:
@@ -346,6 +355,7 @@ void CMaincharacter::MarisaSkillCasting( float dTime, CMaincharacter* enemy, CMa
 			{
 				m_SubChar->AliceNormalAttack(dTime);
 				SetCost( GetCost() - ALICE_BIGSLOW_ATTACK_COST );
+				UImanager::GetInstance()->SetTimeForMinusAnimationM(0.f, MINUS_THREE);
 			}
 			break;
 		case SKILL_KEY_FIVE:
@@ -353,6 +363,7 @@ void CMaincharacter::MarisaSkillCasting( float dTime, CMaincharacter* enemy, CMa
 			{
 				m_SubChar->AliceStarAttack(dTime);
 				SetCost( GetCost() - ALICE_TIMELAG_ATTACK_COST );
+				UImanager::GetInstance()->SetTimeForMinusAnimationM(0.f, MINUS_THREE);
 			}
 			break;
 		case SKILL_KEY_SIX:
@@ -360,6 +371,7 @@ void CMaincharacter::MarisaSkillCasting( float dTime, CMaincharacter* enemy, CMa
 			{
 				m_SubChar->AliceBoomerangAttack(dTime);
 				SetCost( GetCost() - ALICE_BOOMERANG_ATTACK_COST );
+				UImanager::GetInstance()->SetTimeForMinusAnimationM(0.f, MINUS_THREE);
 			}
 			break;
 		default:

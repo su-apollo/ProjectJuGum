@@ -245,3 +245,11 @@ enum EGameResult
 	GAME_RESULT_WIN,
 	GAME_RESULT_LOSE
 };
+
+enum EMinusCostType
+{
+	MINUS_ONE,
+	MINUS_THREE,
+	MINUS_SIX,
+	MINUS_COST_NUM,
+};

@@ -84,6 +84,8 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 		subchar_2 = new CSubChar(ALICE);
 		m_Player2 = new CMaincharacter(MARISA);
 		m_Player2->SetSubChar(subchar_2);
+
+		UImanager::GetInstance()->SetMinusPos(true);
 	}
 	else
 	{
@@ -94,6 +96,8 @@ CMainMap::CMainMap(ENetworkMode GameMode)
 		subchar_2 = new CSubChar(YUKARI);
 		m_Player2 = new CMaincharacter(RAYMU);
 		m_Player2->SetSubChar(subchar_2);
+
+		UImanager::GetInstance()->SetMinusPos(false);
 	}
 
 	subchar_1->SetVisible(false);

@@ -40,6 +40,15 @@ public:
 #endif
 	
 	void SetMyCharType( ECharcterType CharType );
+	void MinusCostAnimation( float dTime);
+
+	float GetTimeForMinusAnimationM(EMinusCostType type) const { return m_TimeForMinusAnimationM[type]; }
+	void SetTimeForMinusAnimationM(float val, EMinusCostType type) { m_TimeForMinusAnimationM[type] = val; }
+
+	float GetTimeForMinusAnimationR(EMinusCostType type) const { return m_TimeForMinusAnimationR[type]; }
+	void SetTimeForMinusAnimationR(float val, EMinusCostType type) { m_TimeForMinusAnimationR[type] = val; }
+
+	void SetMinusPos(bool temp);
 
 private:
 	static UImanager* m_pInstance;
@@ -67,7 +76,13 @@ private:
 	// cost
 	NNSpriteAtlas*	m_PlayerCostLabel[CHAR_NUM][UI_COST_MAX_BUFFER_SIZE];
 	char			m_PlayerCostBuffer[CHAR_NUM][UI_COST_MAX_BUFFER_SIZE+1];
-		
+
+	NNSprite*		m_MinusCostLabelM[MINUS_COST_NUM];
+	float			m_TimeForMinusAnimationM[MINUS_COST_NUM];
+
+	NNSprite*		m_MinusCostLabelR[MINUS_COST_NUM];
+	float			m_TimeForMinusAnimationR[MINUS_COST_NUM];
+
 	// Àå½Ä
 	NNSprite*	m_pattern;
 

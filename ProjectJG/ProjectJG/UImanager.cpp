@@ -149,6 +149,33 @@ UImanager::UImanager(void)
 	}
 
 
+	//밑에서부터는 급하게 짠 코드 나중에 다듬어 주세요.
+	m_MinusCostLabelM[MINUS_ONE] = NNSprite::Create(L"Sprite/font/cost_1.png");
+	m_MinusCostLabelM[MINUS_THREE] = NNSprite::Create(L"Sprite/font/cost_3.png");
+	m_MinusCostLabelM[MINUS_SIX] = NNSprite::Create(L"Sprite/font/cost_6.png");
+
+	for (int i = 0; i < MINUS_COST_NUM; ++i)
+		m_MinusCostLabelM[i]->SetPosition(m_SPLabel->GetPositionX() - 100.f, m_SPLabel->GetPositionY() - 50.f);
+
+	m_MinusCostLabelR[MINUS_ONE] = NNSprite::Create(L"Sprite/font/cost_1.png");
+	m_MinusCostLabelR[MINUS_THREE] = NNSprite::Create(L"Sprite/font/cost_3.png");
+	m_MinusCostLabelR[MINUS_SIX] = NNSprite::Create(L"Sprite/font/cost_6.png");
+
+	for (int i = 0; i < MINUS_COST_NUM; ++i)
+		m_MinusCostLabelR[i]->SetPosition(m_SPLabel->GetPositionX() - 100.f, m_SPLabel->GetPositionY() - 50.f);
+
+ 	for (int i = 0; i < MINUS_COST_NUM; ++i)
+		m_MinusCostLabelM[i]->SetVisible(false);
+
+	for (int i = 0; i < MINUS_COST_NUM; ++i)
+		m_MinusCostLabelR[i]->SetVisible(false);
+
+	for (int i = 0; i < MINUS_COST_NUM; ++i)
+		m_TimeForMinusAnimationM[i] = 0.f;
+
+	for (int i = 0; i < MINUS_COST_NUM; ++i)
+		m_TimeForMinusAnimationR[i] = 0.f;
+
 	GetMarisaSubChar()->SetVisible(false);
 	GetRaymuSubChar()->SetVisible(false);
 }
@@ -202,6 +229,8 @@ void UImanager::Update( float dTime, CMaincharacter* Player1, CMaincharacter* Pl
 			SetAtlasChar(m_PlayerCostLabel[i][j], m_PlayerCostBuffer[i][j]);
 		}
 	}
+
+	MinusCostAnimation(dTime);
 }
 
 void UImanager::SetAllVisible( bool visible )
@@ -243,6 +272,12 @@ void UImanager::Render()
 		{
 			m_PlayerCostLabel[i][j]->Render();
 		}
+	}
+
+	for (int i = 0; i < MINUS_COST_NUM; ++i)
+	{
+		m_MinusCostLabelM[i]->Render();
+		m_MinusCostLabelR[i]->Render();
 	}
 }
 
@@ -292,5 +327,56 @@ void UImanager::SetMyCharType(ECharcterType CharType)
 			m_PlayerPortrait[i]->SetScaleX(1);
 			m_SubCharPortrait[i]->SetScaleX(1);
 		}
+	}
+}
+
+void UImanager::MinusCostAnimation( float dTime)
+{
+	for (int i = 0; i < MINUS_COST_NUM; ++i)
+	{
+		m_TimeForMinusAnimationM[i] += dTime;
+
+		if (m_TimeForMinusAnimationM[i] < 1.0f)
+		{
+			m_MinusCostLabelM[i]->SetVisible(true);
+
+			m_MinusCostLabelM[i]->SetPosition(m_MinusCostLabelM[i]->GetPositionX(), 
+				m_MinusCostLabelM[i]->GetPositionY());
+		}
+ 		else
+ 			m_MinusCostLabelM[i]->SetVisible(false);
+	}
+
+	for (int i = 0; i < MINUS_COST_NUM; ++i)
+	{
+		m_TimeForMinusAnimationR[i] += dTime;
+
+		if (m_TimeForMinusAnimationR[i] < 1.0f)
+		{
+			m_MinusCostLabelR[i]->SetVisible(true);
+
+			m_MinusCostLabelR[i]->SetPosition(m_MinusCostLabelR[i]->GetPositionX(), 
+				m_MinusCostLabelR[i]->GetPositionY());
+		}
+		else
+			m_MinusCostLabelR[i]->SetVisible(false);
+	}
+}
+
+void UImanager::SetMinusPos( bool temp )
+{
+	if (temp)
+	{
+		for (int i = 0; i < MINUS_COST_NUM; ++i)
+			m_MinusCostLabelR[i]->SetPosition(m_SPLabel->GetPositionX() - 100.f, m_SPLabel->GetPositionY() - 50.f);
+		for (int i = 0; i < MINUS_COST_NUM; ++i)
+			m_MinusCostLabelM[i]->SetPosition(m_SPLabel->GetPositionX() + 100.f, m_SPLabel->GetPositionY() - 50.f);
+	}
+	else
+	{
+		for (int i = 0; i < MINUS_COST_NUM; ++i)
+			m_MinusCostLabelR[i]->SetPosition(m_SPLabel->GetPositionX() + 100.f, m_SPLabel->GetPositionY() - 50.f);
+		for (int i = 0; i < MINUS_COST_NUM; ++i)
+			m_MinusCostLabelM[i]->SetPosition(m_SPLabel->GetPositionX() - 100.f, m_SPLabel->GetPositionY() - 50.f);
 	}
 }
